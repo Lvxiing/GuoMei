@@ -4,20 +4,19 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Coupon">
-        <id column="coupon_id" property="coupon_id" />
-        <result column="category_id" property="category_id" />
-        <result column="coupon_name" property="coupon_name" />
-        <result column="start_time" property="start_time" />
-        <result column="end_time" property="end_time" />
-        <result column="coupon_money" property="coupon_money" />
-        <result column="coupon_status" property="coupon_status" />
-        <result column="coupon_remarks" property="coupon_remarks" />
-        <result column="full_money" property="full_money" />
-        <result column="coupon_count" property="coupon_count" />
-        <result column="coupon_scope" property="coupon_scope" />
-        <result column="coupon_limit" property="coupon_limit" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="coupon_id" property="id" />
+        <result column="category_id" property="categoryId" />
+        <result column="coupon_type" property="type" />
+        <result column="coupon_name" property="couponName" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+        <result column="coupon_money" property="couponMoney" />
+        <result column="coupon_status" property="status" />
+        <result column="coupon_remarks" property="remarks" />
+        <result column="full_money" property="fullMoney" />
+        <result column="coupon_count" property="couponCount" />
+        <result column="coupon_scope" property="couponScope" />
+        <result column="coupon_limit" property="couponLimit" />
     </resultMap>
 
 </mapper>

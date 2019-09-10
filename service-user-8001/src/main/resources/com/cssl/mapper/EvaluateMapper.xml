@@ -4,15 +4,13 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Evaluate">
-        <id column="evaluate_id" property="evaluate_id" />
-        <result column="goods_id" property="goods_id" />
-        <result column="user_id" property="user_id" />
-        <result column="evaluate_content" property="evaluate_content" />
-        <result column="evaluate_star" property="evaluate_star" />
-        <result column="evaluate_imgs" property="evaluate_imgs" />
-        <result column="evaluate_time" property="evaluate_time" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="evaluate_id" property="id" />
+        <result column="goods_id" property="goodsId" />
+        <result column="user_id" property="userId" />
+        <result column="evaluate_content" property="content" />
+        <result column="evaluate_star" property="star" />
+        <result column="evaluate_imgs" property="imgs" />
+        <result column="evaluate_time" property="time" />
     </resultMap>
 
 </mapper>

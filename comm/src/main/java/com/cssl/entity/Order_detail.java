@@ -1,48 +1,45 @@
 package com.cssl.entity;
 
-    import java.math.BigDecimal;
-    import com.baomidou.mybatisplus.annotation.IdType;
-    import com.baomidou.mybatisplus.extension.activerecord.Model;
-    import com.baomidou.mybatisplus.annotation.TableId;
-    import java.io.Serializable;
-    import lombok.Data;
-    import lombok.EqualsAndHashCode;
-    import lombok.experimental.Accessors;
+import java.math.BigDecimal;
 
-/**
-* <p>
-    * 
-    * </p>
-*
-* @author lx
-* @since 2019-09-10
-*/
-    @Data
-        @EqualsAndHashCode(callSuper = false)
-    @Accessors(chain = true)
-    public class Order_detail extends Model<Order_detail> {
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableId;
+
+import java.io.Serializable;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+//订单明细表
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+public class Order_detail extends Model<Order_detail> {
 
     private static final long serialVersionUID = 1L;
 
-            @TableId(value = "detail_id", type = IdType.AUTO)
-    private Integer detail_id;
+    @TableId(value = "detail_id", type = IdType.AUTO)
+    private Integer id;            //订单明细表编号
 
-    private Integer order_id;
+    @TableField(value = "order_id")
+    private Integer orderId;             //订单编号
 
-    private Integer goods_id;
+    @TableField(value = "goods_id")
+    private Integer goodsId;             //商品编号
 
-    private BigDecimal detail_money;
+    @TableField(value = "detail_money")
+    private BigDecimal money;              //价格
 
-    private Integer detail_num;
-
-    private Integer standby1;
-
-    private String standby2;
+    @TableField(value = "detail_num")
+    private Integer num;              //数量
 
 
     @Override
     protected Serializable pkVal() {
-        return this.detail_id;
+        return this.id;
     }
 
 }

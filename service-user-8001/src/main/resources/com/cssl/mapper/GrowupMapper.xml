@@ -4,11 +4,9 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Growup">
-        <id column="growup_id" property="growup_id" />
-        <result column="user_id" property="user_id" />
-        <result column="growup_sum" property="growup_sum" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="growup_id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="growup_sum" property="growupSum" />
     </resultMap>
 
 </mapper>

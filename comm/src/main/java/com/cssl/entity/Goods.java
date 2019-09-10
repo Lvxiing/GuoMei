@@ -1,60 +1,61 @@
 package com.cssl.entity;
 
-    import java.math.BigDecimal;
-    import com.baomidou.mybatisplus.annotation.IdType;
-    import com.baomidou.mybatisplus.extension.activerecord.Model;
-    import com.baomidou.mybatisplus.annotation.TableId;
-    import java.io.Serializable;
-    import lombok.Data;
-    import lombok.EqualsAndHashCode;
-    import lombok.experimental.Accessors;
+import java.math.BigDecimal;
 
-/**
-* <p>
-    * 
-    * </p>
-*
-* @author lx
-* @since 2019-09-10
-*/
-    @Data
-        @EqualsAndHashCode(callSuper = false)
-    @Accessors(chain = true)
-    public class Goods extends Model<Goods> {
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableId;
+
+import java.io.Serializable;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+//商品表
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+public class Goods extends Model<Goods> {
 
     private static final long serialVersionUID = 1L;
 
-            @TableId(value = "goods_id", type = IdType.AUTO)
-    private Integer goods_id;
+    @TableId(value = "goods_id", type = IdType.AUTO)
+    private Integer id;       //商品编号
 
-    private Integer brand_id;
+    @TableField(value = "brand_id")
+    private Integer bid;            //品牌编号
 
-    private String goods_title;
+    @TableField(value = "goods_title")
+    private String title;         //商品名称
 
-    private String goods_sub_title;
+    @TableField(value = "goods_sub_title")
+    private String subTitle;          //副标题
 
-    private String goods_main_img;
+    @TableField(value = "goods_main_img")
+    private String mainImg;          //商品主图
 
-    private String goods_des_img;
+    @TableField(value = "goods_des_img")
+    private String desImg;          //详情图片
 
-    private String goods_des;
+    @TableField(value = "goods_des")
+    private String describe;            //商品描述
 
-    private BigDecimal goods_price;
+    @TableField(value = "goods_price")
+    private BigDecimal price;          //商品价格
 
-    private Integer goods_stock;
+    @TableField(value = "goods_stock")
+    private Integer stock;              //库存
 
-    private Integer goods_state;
+    @TableField(value = "goods_state")
+    private Integer state;          //状态
 
-    private Integer goods_seckill;
-
-    private Integer standby1;
-
-    private String standby2;
-
+    @TableField(value = "goods_seckill")
+    private Integer seckill;             //销量
 
     @Override
     protected Serializable pkVal() {
-        return this.goods_id;
+        return this.id;
     }
 
 }

@@ -4,13 +4,11 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Score_detail">
-        <id column="sdetail_id" property="sdetail_id" />
-        <result column="score_id" property="score_id" />
-        <result column="user_id" property="user_id" />
-        <result column="scoreType_id" property="scoreType_id" />
-        <result column="get_time" property="get_time" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="sdetail_id" property="id" />
+        <result column="score_id" property="scoreId" />
+        <result column="user_id" property="userId" />
+        <result column="scoreType_id" property="scoreTypeId" />
+        <result column="get_time" property="getTime" />
     </resultMap>
 
 </mapper>

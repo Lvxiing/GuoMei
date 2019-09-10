@@ -4,14 +4,12 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Cart">
-        <id column="cart_id" property="cart_id" />
-        <result column="user_id" property="user_id" />
-        <result column="goods_id" property="goods_id" />
-        <result column="cart_num" property="cart_num" />
-        <result column="cart_money" property="cart_money" />
-        <result column="cart_total" property="cart_total" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="cart_id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="goods_id" property="goodsId" />
+        <result column="cart_num" property="num" />
+        <result column="cart_money" property="price" />
+        <result column="cart_total" property="total" />
     </resultMap>
 
 </mapper>

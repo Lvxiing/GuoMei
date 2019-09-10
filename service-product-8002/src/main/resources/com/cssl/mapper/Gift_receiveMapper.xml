@@ -4,11 +4,9 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Gift_receive">
-        <id column="giftReceive_id" property="giftReceive_id" />
-        <result column="gift_id" property="gift_id" />
-        <result column="user_id" property="user_id" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="giftReceive_id" property="id" />
+        <result column="gift_id" property="giftId" />
+        <result column="user_id" property="userId" />
     </resultMap>
 
 </mapper>

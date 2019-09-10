@@ -4,11 +4,9 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Score">
-        <id column="score_id" property="score_id" />
-        <result column="user_id" property="user_id" />
-        <result column="score_sum" property="score_sum" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="score_id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="score_sum" property="scores" />
     </resultMap>
 
 </mapper>

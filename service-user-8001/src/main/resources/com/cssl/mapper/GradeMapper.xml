@@ -4,12 +4,11 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Grade">
-        <id column="grade_id" property="grade_id" />
-        <result column="grade_name" property="grade_name" />
+        <id column="grade_id" property="id" />
+        <result column="grade_name" property="gradeName" />
         <result column="low" property="low" />
         <result column="high" property="high" />
-        <result column="Discount _money" property="Discount _money" />
-        <result column="standby2" property="standby2" />
+        <result column="Discount _money" property="money" />
     </resultMap>
 
 </mapper>

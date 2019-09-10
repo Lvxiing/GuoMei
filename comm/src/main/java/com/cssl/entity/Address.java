@@ -1,59 +1,60 @@
 package com.cssl.entity;
 
-    import com.baomidou.mybatisplus.annotation.IdType;
-    import com.baomidou.mybatisplus.extension.activerecord.Model;
-    import com.baomidou.mybatisplus.annotation.TableId;
-    import java.io.Serializable;
-    import lombok.Data;
-    import lombok.EqualsAndHashCode;
-    import lombok.experimental.Accessors;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableId;
 
-/**
-* <p>
-    * 
-    * </p>
-*
-* @author lx
-* @since 2019-09-10
-*/
-    @Data
-        @EqualsAndHashCode(callSuper = false)
-    @Accessors(chain = true)
-    public class Address extends Model<Address> {
+import java.io.Serializable;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+//收货地址表
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+public class Address extends Model<Address> {
 
     private static final long serialVersionUID = 1L;
 
-            @TableId(value = "address_id", type = IdType.AUTO)
-    private Integer address_id;
+    @TableId(value = "address_id", type = IdType.AUTO)
+    private Integer id;     //收货地址编号
 
-    private Integer province_id;
+    @TableField(value = "province_id")
+    private Integer provinceId;   //省编号
 
-    private Integer city_id;
+    @TableField(value = "city_id")
+    private Integer cityId;      //市编号
 
-    private Integer district_id;
+    @TableField(value = "district_id")
+    private Integer districtId;   //区编号
 
-    private Integer street_id;
+    @TableField(value = "street_id")
+    private Integer streetId;   //街道编号
 
-    private Integer user_id;
+    @TableField(value = "user_id")
+    private Integer userId;     //用户编号
 
-    private String address_name;
+    @TableField(value = "address_name")
+    private String  userName;   //收货人姓名
 
-    private String address_detail;
+    @TableField(value = "address_detail")
+    private String address;    //详细地址
 
-    private String user_phone;
+    @TableField(value = "user_phone")
+    private String  phone;   //手机号码
 
-    private String user_email;
+    @TableField(value = "user_email")
+    private String  email;   //邮箱
 
-    private Integer address_isdefault;
-
-    private Integer standby1;
-
-    private String standby2;
-
+    @TableField(value = "address_isdefault")
+    private Integer isdefault;    //是否默认
 
     @Override
     protected Serializable pkVal() {
-        return this.address_id;
+        return this.id;
     }
 
 }

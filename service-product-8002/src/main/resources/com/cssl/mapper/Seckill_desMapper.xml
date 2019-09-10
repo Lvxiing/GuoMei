@@ -4,12 +4,10 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Seckill_des">
-        <id column="seckill_des_id" property="seckill_des_id" />
-        <result column="user_id" property="user_id" />
-        <result column="goods_id" property="goods_id" />
-        <result column="create_time" property="create_time" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="seckill_des_id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="goods_id" property="goodsId" />
+        <result column="create_time" property="time" />
     </resultMap>
 
 </mapper>
