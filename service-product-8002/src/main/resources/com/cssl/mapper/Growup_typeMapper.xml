@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.mapper.Growup_typeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cssl.entity.Growup_type">
+        <id column="type_id" property="type_id" />
+        <result column="type_name" property="type_name" />
+        <result column="type_value" property="type_value" />
+        <result column="standby1" property="standby1" />
+        <result column="standby2" property="standby2" />
+    </resultMap>
+
+</mapper>

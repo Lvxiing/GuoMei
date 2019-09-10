@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.mapper.GradeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cssl.entity.Grade">
+        <id column="grade_id" property="grade_id" />
+        <result column="grade_name" property="grade_name" />
+        <result column="low" property="low" />
+        <result column="high" property="high" />
+        <result column="Discount _money" property="Discount _money" />
+        <result column="standby2" property="standby2" />
+    </resultMap>
+
+</mapper>
