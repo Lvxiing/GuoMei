@@ -1,6 +1,7 @@
 package com.cssl.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.entity.Users;
 import com.cssl.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,9 @@ public class UsersController {
     @RequestMapping("findAll")
     @ResponseBody
     public List<Users> findAll(){
-        return usersService.list();
+        QueryWrapper<Users> query = new QueryWrapper<Users>();
+        query.eq("user_name", "admin");
+        return usersService.list(query);
     }
 
 }
