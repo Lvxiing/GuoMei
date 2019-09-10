@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8" addBOMForNewFiles="with NO BOM">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/comm" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/consumer" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eureka-6001" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eureka-6001" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/feign" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/feign" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/redis-7001" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service-product-8002" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service-user-8001" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>
