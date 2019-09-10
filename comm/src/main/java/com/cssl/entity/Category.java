@@ -1,6 +1,7 @@
 package com.cssl.entity;
 
     import com.baomidou.mybatisplus.annotation.IdType;
+    import com.baomidou.mybatisplus.annotation.TableField;
     import com.baomidou.mybatisplus.extension.activerecord.Model;
     import com.baomidou.mybatisplus.annotation.TableId;
     import java.io.Serializable;
@@ -23,23 +24,23 @@ package com.cssl.entity;
 
     private static final long serialVersionUID = 1L;
 
-            @TableId(value = "category_id", type = IdType.AUTO)
-    private Integer category_id;
 
-    private String category_name;
+    @TableId(value = "category_id", type = IdType.AUTO)
+    private Integer cid;    //分类编号
 
-    private Integer category_parent_id;
+    @TableField(value = "category_name")
+    private String  name;       //分类名称
 
-    private Integer category_level;
+    @TableField(value = "category_parent_id")
+    private Integer  parentId;     //分类父编号
 
-    private Integer standby1;
-
-    private String standby2;
+    @TableField(value = "category_level")
+    private Integer parentLevel;     //分类级层
 
 
     @Override
     protected Serializable pkVal() {
-        return this.category_id;
+        return this.cid;
     }
 
 }

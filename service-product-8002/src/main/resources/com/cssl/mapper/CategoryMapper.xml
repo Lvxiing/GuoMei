@@ -4,12 +4,10 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Category">
-        <id column="category_id" property="category_id" />
-        <result column="category_name" property="category_name" />
-        <result column="category_parent_id" property="category_parent_id" />
-        <result column="category_level" property="category_level" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="category_id" property="cid" />
+        <result column="category_name" property="name" />
+        <result column="category_parent_id" property="parentId" />
+        <result column="category_level" property="parentLevel" />
     </resultMap>
 
 </mapper>
