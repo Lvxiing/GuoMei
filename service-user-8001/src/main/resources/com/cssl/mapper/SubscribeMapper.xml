@@ -4,12 +4,10 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Subscribe">
-        <id column="subscribe_id" property="subscribe_id" />
-        <result column="goods_id" property="goods_id" />
-        <result column="low_money" property="low_money" />
-        <result column="subscribe_email" property="subscribe_email" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="subscribe_id" property="id" />
+        <result column="goods_id" property="goodsId" />
+        <result column="low_money" property="lowMoney" />
+        <result column="subscribe_email" property="email" />
     </resultMap>
 
 </mapper>

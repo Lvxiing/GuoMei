@@ -4,8 +4,8 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Province">
-        <id column="province_id" property="province_id" />
-        <result column="province_name" property="province_name" />
+        <id column="province_id" property="id" />
+        <result column="province_name" property="name" />
     </resultMap>
 
 </mapper>

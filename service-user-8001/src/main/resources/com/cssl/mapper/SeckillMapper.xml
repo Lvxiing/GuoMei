@@ -4,14 +4,12 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Seckill">
-        <id column="seckill_id" property="seckill_id" />
-        <result column="goods_id" property="goods_id" />
-        <result column="seckil_number" property="seckil_number" />
-        <result column="start_time" property="start_time" />
-        <result column="end_time" property="end_time" />
-        <result column="create_time" property="create_time" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="seckill_id" property="id" />
+        <result column="goods_id" property="goodsId" />
+        <result column="seckil_number" property="number" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+        <result column="create_time" property="time" />
     </resultMap>
 
 </mapper>

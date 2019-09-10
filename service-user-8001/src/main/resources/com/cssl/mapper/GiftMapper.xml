@@ -4,12 +4,10 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Gift">
-        <id column="gift_id" property="gift_id" />
-        <result column="gift_name" property="gift_name" />
-        <result column="create_time" property="create_time" />
-        <result column="end_time" property="end_time" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="gift_id" property="id" />
+        <result column="gift_name" property="giftName" />
+        <result column="create_time" property="time" />
+        <result column="end_time" property="endTime" />
     </resultMap>
 
 </mapper>

@@ -4,11 +4,9 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Growup_type">
-        <id column="type_id" property="type_id" />
-        <result column="type_name" property="type_name" />
-        <result column="type_value" property="type_value" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="type_id" property="id" />
+        <result column="type_name" property="name" />
+        <result column="type_value" property="value" />
     </resultMap>
 
 </mapper>

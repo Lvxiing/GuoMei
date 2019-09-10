@@ -4,11 +4,9 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Shop">
-        <id column="shop_id" property="shop_id" />
-        <result column="shop_name" property="shop_name" />
-        <result column="shop_img" property="shop_img" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="shop_id" property="id" />
+        <result column="shop_name" property="shopName" />
+        <result column="shop_img" property="shopImg" />
     </resultMap>
 
 </mapper>

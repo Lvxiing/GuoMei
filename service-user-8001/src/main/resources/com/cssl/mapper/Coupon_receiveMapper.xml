@@ -4,13 +4,11 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Coupon_receive">
-        <id column="receive_id" property="receive_id" />
-        <result column="coupon_id" property="coupon_id" />
-        <result column="user_id" property="user_id" />
-        <result column="create_time" property="create_time" />
+        <id column="receive_id" property="id" />
+        <result column="coupon_id" property="couponId" />
+        <result column="user_id" property="userId" />
+        <result column="create_time" property="time" />
         <result column="status" property="status" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
     </resultMap>
 
 </mapper>

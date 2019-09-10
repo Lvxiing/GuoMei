@@ -1,46 +1,42 @@
 package com.cssl.entity;
 
-    import com.baomidou.mybatisplus.annotation.IdType;
-    import com.baomidou.mybatisplus.extension.activerecord.Model;
-    import com.baomidou.mybatisplus.annotation.TableId;
-    import java.time.LocalDateTime;
-    import java.io.Serializable;
-    import lombok.Data;
-    import lombok.EqualsAndHashCode;
-    import lombok.experimental.Accessors;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableId;
 
-/**
-* <p>
-    * 
-    * </p>
-*
-* @author lx
-* @since 2019-09-10
-*/
-    @Data
-        @EqualsAndHashCode(callSuper = false)
-    @Accessors(chain = true)
-    public class Seckill_des extends Model<Seckill_des> {
+import java.time.LocalDateTime;
+import java.io.Serializable;
+import java.util.Date;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+//秒杀成功明细表
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+public class Seckill_des extends Model<Seckill_des> {
 
     private static final long serialVersionUID = 1L;
 
-            @TableId(value = "seckill_des_id", type = IdType.AUTO)
-    private Integer seckill_des_id;
+    @TableId(value = "seckill_des_id", type = IdType.AUTO)
+    private Integer id;     //秒杀成功明细编号
 
-    private Integer user_id;
+    @TableField(value = "user_id")
+    private Integer userId;               //用户编号
 
-    private Integer goods_id;
+    @TableField(value = "goods_id")
+    private Integer goodsId;                //商品编号
 
-    private LocalDateTime create_time;
-
-    private Integer standby1;
-
-    private String standby2;
+    @TableField(value = "create_time")
+    private Date time;             //创建时间(秒杀成功的时间)
 
 
     @Override
     protected Serializable pkVal() {
-        return this.seckill_des_id;
+        return this.id;
     }
 
 }

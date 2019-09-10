@@ -1,52 +1,51 @@
 package com.cssl.entity;
 
-    import com.baomidou.mybatisplus.annotation.IdType;
-    import com.baomidou.mybatisplus.extension.activerecord.Model;
-    import com.baomidou.mybatisplus.annotation.TableId;
-    import java.time.LocalDateTime;
-    import java.io.Serializable;
-    import lombok.Data;
-    import lombok.EqualsAndHashCode;
-    import lombok.experimental.Accessors;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableId;
 
-/**
-* <p>
-    * 
-    * </p>
-*
-* @author lx
-* @since 2019-09-10
-*/
-    @Data
-        @EqualsAndHashCode(callSuper = false)
-    @Accessors(chain = true)
-    public class Evaluate extends Model<Evaluate> {
+import java.time.LocalDateTime;
+import java.io.Serializable;
+import java.util.Date;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+////评价表
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+public class Evaluate extends Model<Evaluate> {
 
     private static final long serialVersionUID = 1L;
 
-            @TableId(value = "evaluate_id", type = IdType.AUTO)
-    private Integer evaluate_id;
+    @TableId(value = "evaluate_id", type = IdType.AUTO)
+    private Integer id;                 //评价编号
 
-    private Integer goods_id;
+    @TableField(value = "goods_id")
+    private Integer goodsId;           //商品编号
 
-    private Integer user_id;
+    @TableField(value = "user_id")
+    private Integer userId;              //用户编号
 
-    private String evaluate_content;
+    @TableField(value = "evaluate_content")
+    private String content;           //评价内容
 
-    private Integer evaluate_star;
+    @TableField(value = "evaluate_star")
+    private Integer star;             //星级
 
-    private String evaluate_imgs;
+    @TableField(value = "evaluate_imgs")
+    private String imgs;             //图片
 
-    private LocalDateTime evaluate_time;
-
-    private Integer standby1;
-
-    private String standby2;
+    @TableField(value = "evaluate_time")
+    private Date time;             //评价时间
 
 
     @Override
     protected Serializable pkVal() {
-        return this.evaluate_id;
+        return this.id;
     }
 
 }

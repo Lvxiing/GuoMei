@@ -4,19 +4,17 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Users">
-        <id column="user_id" property="user_id" />
-        <result column="user_name" property="user_name" />
-        <result column="user_pwd" property="user_pwd" />
-        <result column="user_sex" property="user_sex" />
-        <result column="user_birthday" property="user_birthday" />
-        <result column="user_phone" property="user_phone" />
-        <result column="user_email" property="user_email" />
-        <result column="user_address" property="user_address" />
-        <result column="user_headimg" property="user_headimg" />
-        <result column="user_time" property="user_time" />
-        <result column="user_role" property="user_role" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="user_id" property="id" />
+        <result column="user_name" property="userName" />
+        <result column="user_pwd" property="passWord" />
+        <result column="user_sex" property="sex" />
+        <result column="user_birthday" property="birthday" />
+        <result column="user_phone" property="phone" />
+        <result column="user_email" property="email" />
+        <result column="user_address" property="address" />
+        <result column="user_headimg" property="headImg" />
+        <result column="user_time" property="time" />
+        <result column="user_role" property="role" />
     </resultMap>
 
 </mapper>

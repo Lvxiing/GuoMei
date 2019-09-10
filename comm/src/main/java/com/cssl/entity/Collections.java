@@ -1,42 +1,42 @@
 package com.cssl.entity;
 
-    import com.baomidou.mybatisplus.annotation.IdType;
-    import com.baomidou.mybatisplus.extension.activerecord.Model;
-    import com.baomidou.mybatisplus.annotation.TableId;
-    import java.time.LocalDateTime;
-    import java.io.Serializable;
-    import lombok.Data;
-    import lombok.EqualsAndHashCode;
-    import lombok.experimental.Accessors;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableId;
 
-/**
-* <p>
-    * 
-    * </p>
-*
-* @author lx
-* @since 2019-09-10
-*/
-    @Data
-        @EqualsAndHashCode(callSuper = false)
-    @Accessors(chain = true)
-    public class Collections extends Model<Collections> {
+import java.time.LocalDateTime;
+import java.io.Serializable;
+import java.util.Date;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+//收藏表
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+public class Collections extends Model<Collections> {
 
     private static final long serialVersionUID = 1L;
 
-            @TableId(value = "collection_id", type = IdType.AUTO)
-    private Integer collection_id;
+    @TableId(value = "collection_id", type = IdType.AUTO)
+    private Integer id;     //收藏编号
 
-    private Integer user_id;
+    @TableField(value = "user_id")
+    private Integer uid;            //用户编号
 
-    private Integer goods_id;
+    @TableField(value = "goods_id")
+    private Integer goodsId;             //商品编号
 
-    private LocalDateTime collection_time;
+    @TableField(value = "collection_time")
+    private Date ctime;             //收藏时间
 
 
     @Override
     protected Serializable pkVal() {
-        return this.collection_id;
+        return this.id;
     }
 
 }

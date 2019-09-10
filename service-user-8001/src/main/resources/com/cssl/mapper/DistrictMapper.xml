@@ -4,9 +4,9 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.District">
-        <id column="district_id" property="district_id" />
-        <result column="city_id" property="city_id" />
-        <result column="district_name" property="district_name" />
+        <id column="district_id" property="id" />
+        <result column="city_id" property="cid" />
+        <result column="district_name" property="dname" />
     </resultMap>
 
 </mapper>

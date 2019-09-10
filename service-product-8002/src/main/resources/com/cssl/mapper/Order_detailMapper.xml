@@ -4,13 +4,11 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Order_detail">
-        <id column="detail_id" property="detail_id" />
-        <result column="order_id" property="order_id" />
-        <result column="goods_id" property="goods_id" />
-        <result column="detail_money" property="detail_money" />
-        <result column="detail_num" property="detail_num" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="detail_id" property="id" />
+        <result column="order_id" property="orderId" />
+        <result column="goods_id" property="goodsId" />
+        <result column="detail_money" property="money" />
+        <result column="detail_num" property="num" />
     </resultMap>
 
 </mapper>

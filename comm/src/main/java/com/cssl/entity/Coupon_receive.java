@@ -1,48 +1,47 @@
 package com.cssl.entity;
 
-    import com.baomidou.mybatisplus.annotation.IdType;
-    import com.baomidou.mybatisplus.extension.activerecord.Model;
-    import com.baomidou.mybatisplus.annotation.TableId;
-    import java.time.LocalDateTime;
-    import java.io.Serializable;
-    import lombok.Data;
-    import lombok.EqualsAndHashCode;
-    import lombok.experimental.Accessors;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableId;
 
-/**
-* <p>
-    * 
-    * </p>
-*
-* @author lx
-* @since 2019-09-10
-*/
-    @Data
-        @EqualsAndHashCode(callSuper = false)
-    @Accessors(chain = true)
-    public class Coupon_receive extends Model<Coupon_receive> {
+import java.time.LocalDateTime;
+import java.io.Serializable;
+import java.util.Date;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+//优惠券领取记录表
+
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+public class Coupon_receive extends Model<Coupon_receive> {
 
     private static final long serialVersionUID = 1L;
 
-            @TableId(value = "receive_id", type = IdType.AUTO)
-    private Integer receive_id;
 
-    private Integer coupon_id;
+    @TableId(value = "receive_id", type = IdType.AUTO)
+    private Integer id;                   //券领取编号
 
-    private Integer user_id;
+    @TableField(value = "coupon_id")
+    private Integer couponId;               //优惠券表编号
 
-    private LocalDateTime create_time;
+    @TableField(value = "user_id")
+    private Integer userId;                //用户编号
 
-    private Integer status;
+    @TableField(value = "create_time")
+    private Date time;                  //领取时间
 
-    private Integer standby1;
-
-    private String standby2;
+    @TableField(value = "status")
+    private Integer status;                   //状态
 
 
     @Override
     protected Serializable pkVal() {
-        return this.receive_id;
+        return this.id;
     }
 
 }

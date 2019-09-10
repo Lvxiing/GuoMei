@@ -4,12 +4,10 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Coupon_logs">
-        <id column="logs_id" property="logs_id" />
-        <result column="user_id" property="user_id" />
-        <result column="coupon_id" property="coupon_id" />
-        <result column="order_id" property="order_id" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="logs_id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="coupon_id" property="couponId" />
+        <result column="order_id" property="orderId" />
     </resultMap>
 
 </mapper>

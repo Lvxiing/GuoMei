@@ -4,19 +4,17 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Address">
-        <id column="address_id" property="address_id" />
-        <result column="province_id" property="province_id" />
-        <result column="city_id" property="city_id" />
-        <result column="district_id" property="district_id" />
-        <result column="street_id" property="street_id" />
-        <result column="user_id" property="user_id" />
-        <result column="address_name" property="address_name" />
-        <result column="address_detail" property="address_detail" />
-        <result column="user_phone" property="user_phone" />
-        <result column="user_email" property="user_email" />
-        <result column="address_isdefault" property="address_isdefault" />
-        <result column="standby1" property="standby1" />
-        <result column="standby2" property="standby2" />
+        <id column="address_id" property="id" />
+        <result column="province_id" property="provinceId" />
+        <result column="city_id" property="cityId" />
+        <result column="district_id" property="districtId" />
+        <result column="street_id" property="streetId" />
+        <result column="user_id" property="userId" />
+        <result column="address_name" property="userName" />
+        <result column="address_detail" property="address" />
+        <result column="user_phone" property="phone" />
+        <result column="user_email" property="email" />
+        <result column="address_isdefault" property="isdefault" />
     </resultMap>
 
 </mapper>

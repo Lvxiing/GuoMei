@@ -1,39 +1,37 @@
 package com.cssl.entity;
 
-    import com.baomidou.mybatisplus.annotation.IdType;
-    import com.baomidou.mybatisplus.extension.activerecord.Model;
-    import com.baomidou.mybatisplus.annotation.TableId;
-    import java.io.Serializable;
-    import lombok.Data;
-    import lombok.EqualsAndHashCode;
-    import lombok.experimental.Accessors;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableId;
 
-/**
-* <p>
-    * 
-    * </p>
-*
-* @author lx
-* @since 2019-09-10
-*/
-    @Data
-        @EqualsAndHashCode(callSuper = false)
-    @Accessors(chain = true)
-    public class Street extends Model<Street> {
+import java.io.Serializable;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+//街道表
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+public class Street extends Model<Street> {
 
     private static final long serialVersionUID = 1L;
 
-            @TableId(value = "street_id", type = IdType.AUTO)
-    private Integer street_id;
+    @TableId(value = "street_id", type = IdType.AUTO)
+    private Integer id;      //街道编号
 
-    private Integer district_id;
+    @TableField(value = "district_id")
+    private Integer did;      //区级编号
 
-    private String street_name;
+    @TableField(value = "street_name")
+    private String sname;       //街道名称
 
 
     @Override
     protected Serializable pkVal() {
-        return this.street_id;
+        return this.id;
     }
 
 }

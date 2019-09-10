@@ -4,10 +4,10 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Collections">
-        <id column="collection_id" property="collection_id" />
-        <result column="user_id" property="user_id" />
-        <result column="goods_id" property="goods_id" />
-        <result column="collection_time" property="collection_time" />
+        <id column="collection_id" property="id" />
+        <result column="user_id" property="uid" />
+        <result column="goods_id" property="goodsId" />
+        <result column="collection_time" property="ctime" />
     </resultMap>
 
 </mapper>
