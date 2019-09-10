@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.mapper.Vip_goodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cssl.entity.Vip_goods">
+        <id column="vip_goods_id" property="vip_goods_id" />
+        <result column="grade_id" property="grade_id" />
+        <result column="vip_time" property="vip_time" />
+        <result column="goods_id" property="goods_id" />
+    </resultMap>
+
+</mapper>

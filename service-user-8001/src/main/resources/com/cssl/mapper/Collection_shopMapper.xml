@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.mapper.Collection_shopMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cssl.entity.Collection_shop">
+        <id column="collect_shop_id" property="collect_shop_id" />
+        <result column="shop_id" property="shop_id" />
+        <result column="collect_shop_time" property="collect_shop_time" />
+        <result column="user_id" property="user_id" />
+        <result column="standby1" property="standby1" />
+        <result column="standby2" property="standby2" />
+    </resultMap>
+
+</mapper>

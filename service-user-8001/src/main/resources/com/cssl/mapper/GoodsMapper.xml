@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.mapper.GoodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cssl.entity.Goods">
+        <id column="goods_id" property="goods_id" />
+        <result column="brand_id" property="brand_id" />
+        <result column="goods_title" property="goods_title" />
+        <result column="goods_sub_title" property="goods_sub_title" />
+        <result column="goods_main_img" property="goods_main_img" />
+        <result column="goods_des_img" property="goods_des_img" />
+        <result column="goods_des" property="goods_des" />
+        <result column="goods_price" property="goods_price" />
+        <result column="goods_stock" property="goods_stock" />
+        <result column="goods_state" property="goods_state" />
+        <result column="goods_seckill" property="goods_seckill" />
+        <result column="standby1" property="standby1" />
+        <result column="standby2" property="standby2" />
+    </resultMap>
+
+</mapper>
