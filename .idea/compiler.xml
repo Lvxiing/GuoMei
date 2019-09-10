@@ -15,10 +15,19 @@
         <module name="service-user-8001" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="comm" target="1.8" />
+      <module name="consumer" target="1.8" />
+      <module name="eureka-6001" target="1.8" />
+      <module name="feign" target="1.8" />
+      <module name="GuoMei" target="1.8" />
+      <module name="redis-7001" target="1.8" />
+      <module name="service-product-8002" target="1.8" />
+      <module name="service-user-8001" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="GuoMei" options="-parameters" />
       <module name="comm" options="-parameters" />
       <module name="consumer" options="-parameters" />
       <module name="eureka-6001" options="-parameters" />

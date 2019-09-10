@@ -1,14 +1,27 @@
 package com.cssl.controller;
 
 
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.IAcsClient;
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
+import com.aliyuncs.profile.DefaultProfile;
+import com.aliyuncs.profile.IClientProfile;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cssl.api.RedisFeignInterface;
 import com.cssl.entity.Users;
 import com.cssl.service.UsersService;
+import com.cssl.util.AliAccessKey;
+import com.cssl.util.VerifyCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.aliyuncs.http.MethodType;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -20,19 +33,120 @@ import java.util.List;
  * @author lx
  * @since 2019-09-10
  */
-@Controller
+@RestController
 @RequestMapping("/users")
 public class UsersController {
 
     @Autowired
     private UsersService usersService;
 
-    @RequestMapping("findAll")
-    @ResponseBody
+    @Autowired
+    private RedisFeignInterface redisFeignInterface;
+
+    @RequestMapping("/findAll")
     public List<Users> findAll(){
         QueryWrapper<Users> query = new QueryWrapper<Users>();
         query.eq("user_name", "admin");
         return usersService.list(query);
     }
+
+
+    @RequestMapping("/ajaxNum")
+    public String sendMsg(@RequestParam("phoneNum") String phoneNum) throws Exception{
+        System.out.println("***phone:"+phoneNum);
+        //设置超时时间-可自行调整
+        System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
+        System.setProperty("sun.net.client.defaultReadTimeout", "10000");
+//初始化ascClient需要的几个参数
+        final String product = "Dysmsapi";//短信API产品名称（短信产品名固定，无需修改）
+        final String domain = "dysmsapi.aliyuncs.com";//短信API产品域名（接口地址固定，无需修改）
+//替换成你的AK
+        final String accessKeyId = AliAccessKey.accessKeyId;//你的accessKeyId,参考本文档步骤2
+        final String accessKeySecret = AliAccessKey.accessKeySecret;//你的accessKeySecret，参考本文档步骤2
+//初始化ascClient,暂时不支持多region（请勿修改）
+        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId,
+                accessKeySecret);
+        DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
+        IAcsClient acsClient = new DefaultAcsClient(profile);
+        //组装请求对象
+        SendSmsRequest request = new SendSmsRequest();
+        //使用post提交
+        request.setMethod(MethodType.POST);
+        //必填:待发送手机号。支持以逗号分隔的形式进行批量调用，批量上限为1000个手机号码,批量调用相对于单条调用及时性稍有延迟,验证码类型的短信推荐使用单条调用的方式；发送国际/港澳台消息时，接收号码格式为国际区号+号码，如“85200000000”
+        request.setPhoneNumbers(phoneNum);
+        //必填:短信签名-可在短信控制台中找到
+        request.setSignName("公子网站验证校验");
+        //必填:短信模板-可在短信控制台中找到，发送国际/港澳台消息时，请使用国际/港澳台短信模版
+        request.setTemplateCode("SMS_172885074");
+        //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
+        //友情提示:如果JSON中需要带换行符,请参照标准的JSON协议对换行符的要求,比如短信内容中包含\r\n的情况在JSON中需要表示成\\r\\n,否则会导致JSON在服务端解析失败
+        //生成6位的动态验证码
+        String numeric = VerifyCodeUtil.randNum();
+        request.setTemplateParam("{\"code\":\""+numeric+"\"}");
+        //可选-上行短信扩展码(扩展码字段控制在7位或以下，无特殊需求用户请忽略此字段)
+        //request.setSmsUpExtendCode("90997");
+        //可选:outId为提供给业务方扩展字段,最终在短信回执消息中将此值带回给调用者
+        request.setOutId("yourOutId");
+
+        //请求失败这里会抛ClientException异常
+        SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
+        if(sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
+            //请求成功
+            redisFeignInterface.set("sms_"+phoneNum,numeric,120);
+            return numeric;
+        }else {
+            System.out.println("失败状态"+sendSmsResponse.getCode());
+            System.out.println("失败原因"+sendSmsResponse.getMessage());
+            return "error";
+        }
+        //发送成功,存储到缓存
+    }
+
+
+    @RequestMapping("/verfiy")
+    public int login(@RequestParam("phoneNum") String phoneNum,@RequestParam("code") String code) {
+
+        //获取用户输入的手机号和验证码//客户端用户输入的手机号 //客户端用户输入的验证码
+
+        //获取redis中存放的验证码
+        String redisCode = redisFeignInterface.get("sms_" + phoneNum);
+int num=0;
+
+        if (code != null && !"".equals(code)) {
+            //如果用户输入的验证码和生成的验证码保持一致
+            if (code.equals(redisCode)) {
+                //删除redis中存放的验证码缓存
+                redisFeignInterface.del(new String[]{"sms_" + phoneNum});
+                //同时删除redis中存放的用户输入验证码的错误次数
+                redisFeignInterface.del(new String[]{"error_" + phoneNum});
+                num=1;
+                return  num;    //"index";
+            } else {
+                //如果验证失败  给该用户总共三次输入机会，大于三次重新获取验证码
+                //如果是第一次错误，则第一次给用户创建错误次数并存放于redis中，每次错误都会在原有的键上对其值+1
+                Long incr = redisFeignInterface.incr("error_" + phoneNum,1);
+                if (incr > 3) {  //如果用户错误的次数大于三次
+                    //清除旧的验证码
+                    redisFeignInterface.del(new String[]{"sms_" + phoneNum});
+                    //清除redis中存放的用户输入验证码的错误次数
+                    redisFeignInterface.del(new String[]{"error_" + phoneNum});
+                   // model.addAttribute("accp", "1001");//超过验证码错误次数，请重新获取验证码！
+                    num=2;
+                    return   num;//"login";
+                } else { //如果用户输入错误且错误小于3次 则刷新一次页面用户继续输入
+                    num=2;
+                    return  num; //"login";
+                }
+
+            }
+        } else {
+            System.out.println("没有取到验证码");
+            num=2;
+            return    num;//"login";
+        }
+
+    }
+
+
 
 }
