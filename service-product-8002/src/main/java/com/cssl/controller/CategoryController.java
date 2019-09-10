@@ -26,9 +26,4 @@ public class CategoryController {
     private CategoryService categoryService;
 
 
-    @RequestMapping("findAll")
-    @ResponseBody
-    public List<Category> findAll(){
-        return categoryService.list();
-    }
 }

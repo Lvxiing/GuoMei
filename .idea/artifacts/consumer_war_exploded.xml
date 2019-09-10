@@ -35,6 +35,13 @@
           <element id="library" level="project" name="Maven: org.freemarker:freemarker:2.3.28" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context-support:5.1.6.RELEASE" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.31" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-data-mongodb:2.1.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.mongodb:mongodb-driver:3.8.2" />
+          <element id="library" level="project" name="Maven: org.mongodb:bson:3.8.2" />
+          <element id="library" level="project" name="Maven: org.mongodb:mongodb-driver-core:3.8.2" />
+          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-mongodb:2.1.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.1.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-commons:2.1.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-web:2.1.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter:2.1.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:2.1.4.RELEASE" />
