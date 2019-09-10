@@ -5,6 +5,8 @@ package com.cssl.entity;
     import com.baomidou.mybatisplus.annotation.TableId;
     import java.time.LocalDateTime;
     import java.io.Serializable;
+    import java.util.Date;
+
     import lombok.Data;
     import lombok.EqualsAndHashCode;
     import lombok.experimental.Accessors;
@@ -33,7 +35,7 @@ package com.cssl.entity;
 
     private Integer user_sex;
 
-    private LocalDateTime user_birthday;
+    private Date user_birthday;
 
     private String user_phone;
 
@@ -43,7 +45,7 @@ package com.cssl.entity;
 
     private String user_headimg;
 
-    private LocalDateTime user_time;
+    private Date user_time;
 
     private Integer user_role;
 
