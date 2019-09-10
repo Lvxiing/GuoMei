@@ -1,7 +1,9 @@
 package com.cssl.service;
 
-import com.cssl.entity.Collection;
+import com.cssl.entity.Collections;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.Collection;
 
 /**
  * <p>
@@ -11,6 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author lx
  * @since 2019-09-10
  */
-public interface CollectionService extends IService<Collection> {
+public interface CollectionService extends IService<Collections> {
 
 }

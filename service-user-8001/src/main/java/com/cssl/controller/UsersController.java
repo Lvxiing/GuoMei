@@ -1,9 +1,15 @@
 package com.cssl.controller;
 
 
+import com.cssl.entity.Users;
+import com.cssl.service.UsersService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +22,14 @@ import org.springframework.stereotype.Controller;
 @Controller
 @RequestMapping("/users")
 public class UsersController {
+
+    @Autowired
+    private UsersService usersService;
+
+    @RequestMapping("findAll")
+    @ResponseBody
+    public List<Users> findAll(){
+        return usersService.list();
+    }
 
 }

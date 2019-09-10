@@ -33,7 +33,7 @@ package com.cssl.entity;
 
     private Integer high;
 
-    private BigDecimal Discount _money;
+    private BigDecimal Discount_money;
 
     private String standby2;
 
