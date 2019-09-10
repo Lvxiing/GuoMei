@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author lx
  * @since 2019-09-10
  */
-public interface CollectionService extends IService<Collections> {
+public interface CollectionsService extends IService<Collections> {
 
 }

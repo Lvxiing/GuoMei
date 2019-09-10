@@ -15,6 +15,6 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 @RequestMapping("/collection")
-public class CollectionController {
+public class CollectionsController {
 
 }
