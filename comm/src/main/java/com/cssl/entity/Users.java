@@ -26,37 +26,32 @@ package com.cssl.entity;
 
     private static final long serialVersionUID = 1L;
 
-            @TableId(value = "user_id", type = IdType.AUTO)
-    private Integer user_id;
+    @TableId(value = "user_id", type = IdType.AUTO)
+    private Integer id;           //用户编号
 
-    private String user_name;
+    private String userName;      //用户名
 
-    private String user_pwd;
+    private String passWord;    //用户密码
 
-    private Integer user_sex;
+    private Integer sex;          //性别
 
-    private Date user_birthday;
+    private Date  birthday;          //生日
 
-    private String user_phone;
+    private String phone;           //手机号码
 
-    private String user_email;
+    private String  email;             //邮箱
 
-    private String user_address;
+    private String   address;     //家庭住址
 
-    private String user_headimg;
+    private String  headImg;      //头像图片
 
-    private Date user_time;
+    private Date time;                //注册时间
 
-    private Integer user_role;
-
-    private Integer standby1;
-
-    private String standby2;
-
+    private Integer role;            //角色
 
     @Override
     protected Serializable pkVal() {
-        return this.user_id;
+        return this.id;
     }
 
 }
