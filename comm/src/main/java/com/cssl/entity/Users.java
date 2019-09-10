@@ -31,7 +31,7 @@ package com.cssl.entity;
 
     private String userName;      //用户名
 
-    private String passWord;    //用户密码
+    private String  passWord;    // 用户密码
 
     private Integer sex;          //性别
 
