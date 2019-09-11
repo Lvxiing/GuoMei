@@ -1,7 +1,5 @@
 package com.cssl.entity;
 
-import java.math.BigDecimal;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -13,29 +11,25 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-//订单明细表
+////优惠卷消费记录
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Order_detail extends Model<Order_detail> {
+public class CouponLogs extends Model<CouponLogs> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "detail_id", type = IdType.AUTO)
-    private Integer id;            //订单明细表编号
+    @TableId(value = "logs_id", type = IdType.AUTO)
+    private Integer id;                //券消费编号
+
+    @TableField(value = "user_id")
+    private Integer userId;               //用户编号
+
+    @TableField(value = "coupon_id")
+    private Integer couponId;               //优惠券表编号
 
     @TableField(value = "order_id")
-    private Integer orderId;             //订单编号
-
-    @TableField(value = "goods_id")
-    private Integer goodsId;             //商品编号
-
-    @TableField(value = "detail_money")
-    private BigDecimal money;              //价格
-
-    @TableField(value = "detail_num")
-    private Integer num;              //数量
-
+    private Integer orderId;               //订单编号
 
     @Override
     protected Serializable pkVal() {
