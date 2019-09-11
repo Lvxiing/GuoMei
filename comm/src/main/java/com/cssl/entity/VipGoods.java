@@ -6,28 +6,31 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-//美豆类型表
+//会员商品表
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Score_type extends Model<Score_type> {
+public class VipGoods extends Model<VipGoods> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "scoreType_id", type = IdType.AUTO)
-    private Integer id;     //美豆类型编号
+    @TableId(value = "vip_goods_id", type = IdType.AUTO)
+    private Integer id;        //会员商品编号
 
-    @TableField(value = "scoreType_name")
-    private String typeName;               //类型名称
+    @TableField(value = "grade_id")
+    private Integer gradeId;         //会员等级编号
 
-    @TableField(value = "scoreType_value")
-    private Integer value;          //  对应增减值
+    @TableField(value = "vip_time")
+    private Date vipTime;
 
+    @TableField(value = "goods_id")
+    private Integer goodsId;               //商品编号
 
     @Override
     protected Serializable pkVal() {

@@ -1,5 +1,7 @@
 package com.cssl.entity;
 
+import java.math.BigDecimal;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -11,22 +13,28 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-//成长值类型表
+//订单明细表
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Growup_type extends Model<Growup_type> {
+public class OrderDetail extends Model<OrderDetail> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "type_id", type = IdType.AUTO)
-    private Integer id;                  //类型编号
+    @TableId(value = "detail_id", type = IdType.AUTO)
+    private Integer id;            //订单明细表编号
 
-    @TableField(value = "type_name")
-    private String name;              //类型名称
+    @TableField(value = "order_id")
+    private Integer orderId;             //订单编号
 
-    @TableField(value = "type_value")
-    private Integer value;            //所获成长值
+    @TableField(value = "goods_id")
+    private Integer goodsId;             //商品编号
+
+    @TableField(value = "detail_money")
+    private BigDecimal money;              //价格
+
+    @TableField(value = "detail_num")
+    private Integer num;              //数量
 
 
     @Override
