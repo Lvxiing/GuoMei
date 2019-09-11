@@ -17,8 +17,11 @@ import java.util.Map;
 public interface GoodsService extends IService<Goods> {
 
     //查询所有商品
-    Page<Map<String,Object>> findGoods(Map<String,Object>map, int pageIndex, int pageSize);
+    Page<Map<String,Object>> findGoods(Map<String,Object>map,int pageIndex,int pageSize);
 
     //新增商品
-    int addGoods(Map<String,Object> map);
+    int addGoods(Goods goods);
+
+    //修改商品状态
+    int upStateGoods(Map<String,Object> map);
 }
