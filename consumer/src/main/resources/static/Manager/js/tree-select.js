@@ -87,7 +87,11 @@
                 "max-height": div_max_h,
                 "overflow-x": "auto",
                 "overflow-y": "auto",
-                "background-color": "#F7F7F7",
+                "border":"1px solid #d2d2d2",
+                "background-color":"#fff",
+                "border-radius":"2px",
+                "box-shadow":"0 2px 4px rgba(0,0,0,.12)",
+                "box-sizing":"border-box",
                 "z-index": 2147483647
             });
 

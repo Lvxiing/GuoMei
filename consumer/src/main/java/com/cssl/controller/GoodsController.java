@@ -7,6 +7,7 @@ import com.cssl.entity.News;
 import com.cssl.entity.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,7 +19,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Controller
-@RequestMapping("/goods")
+@RequestMapping("/Goods")
 public class GoodsController {
 
     @Autowired
@@ -27,7 +28,8 @@ public class GoodsController {
 
 
     //--------------------------后台模块-------------------------------
-    @RequestMapping("Goods/findGoods")
+    @RequestMapping("findGoods")
+    @ResponseBody
     public Map<String, Object> findGoods(@RequestParam Map<String, Object> param) {
         Map<String, Object> map = new HashMap<>();
         PageInfo<Map<String, Object>> goods =productFeignInterface.findGoods(param) ;
@@ -38,7 +40,8 @@ public class GoodsController {
     }
 
     //上传商品图片
-    @RequestMapping("Goods/UploadPhoto")
+    @RequestMapping("UploadPhoto")
+    @ResponseBody
     public Map<String, Object> UploadPhoto(MultipartFile file, HttpServletRequest request) throws IOException {
         //图片存入路径
         String path = "D:/Nignx4FileServer/nginx-1.14.2/html/images";
@@ -66,18 +69,83 @@ public class GoodsController {
     }
 
     //新增商品
-    @RequestMapping("Goods/addGoods")
+    @RequestMapping("addGoods")
+    @ResponseBody
     public String addGoods(@RequestParam Map<String,Object> map){
 
         return productFeignInterface.addGoods(map);
     }
 
     //上架或下架商品
-    @RequestMapping("Goods/upStateGoods")
+    @RequestMapping("upStateGoods")
+    @ResponseBody
     public String upStateGoods(@RequestParam Map<String,Object> map){
 
         return productFeignInterface.upStateGoods(map);
     }
+
+    @RequestMapping("findCategory")
+    @ResponseBody
+    public String findCategory() {
+        String json = "{\"data\":" + productFeignInterface.findCategory() + "}";
+        return json;
+    }
+
+    @RequestMapping("updateCategoryInfo/{cid}/{parentId}")
+    @ResponseBody
+    public String updateCategoryInfo(@PathVariable("cid") Integer cid, @PathVariable("parentId") Integer parentId) {
+        return productFeignInterface.updateCategoryInfo(cid, parentId);
+    }
+
+    @RequestMapping("updateCategory")
+    @ResponseBody
+    public String updateCategory(@RequestParam Map<String, String> request) {
+        //用于封装数据
+        Category category = new Category();
+        category.setCid(Integer.valueOf(request.get("cid")));
+        category.setName(request.get("categoryName"));
+        category.setParentId(Integer.valueOf(request.get("categoryList")));
+        String json = "{\"res\":" + productFeignInterface.updateCategory(category) + "}";
+        return json;
+
+    }
+
+    @RequestMapping("deleteCategory/{cid}")
+    @ResponseBody
+    public String deleteCategory(@PathVariable("cid") Integer cid) {
+        String json = productFeignInterface.deleteCategory(cid);
+        return json;
+    }
+
+    @RequestMapping("brandExistGood/{cid}")
+    @ResponseBody
+    public String brandExistGood(@PathVariable("cid") Integer cid) {
+        String json = productFeignInterface.brandExistGood(cid);
+        return json;
+    }
+
+    @RequestMapping("findTreeCategory/{cLevel}")
+    @ResponseBody
+    public String findTreeCategory(@PathVariable("cLevel") Integer cLevel) {
+        return productFeignInterface.findTreeCategory(cLevel);
+    }
+
+    @RequestMapping("addCategory")
+    @ResponseBody
+    public String addCategory(@RequestParam Map<String, String> map) {
+        Category category = new Category();
+        category.setName(map.get("parentName") + ":" + map.get("categoryName"));
+        return productFeignInterface.addCategory(category);
+    }
+
+    @RequestMapping("categoryShow")
+    @ResponseBody
+    public List<Category> categoryShow(@RequestParam Map<String, String> param){
+        return productFeignInterface.categoryShow(param);
+    }
+
+
+
 
 
 

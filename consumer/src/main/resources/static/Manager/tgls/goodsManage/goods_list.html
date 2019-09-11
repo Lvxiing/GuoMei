@@ -87,7 +87,7 @@
 
         //页面第一次请求
         function dataLists(pageIndex, pageSize, cname, title) {
-            var url = '../../../Goods/findGoods?pageIndex=' + pageIndex + '&pageSize=' + pageSize + '&cname=' + cname + '&title=' + title + '';
+            var url = '../../../../Goods/findGoods?pageIndex=' + pageIndex + '&pageSize=' + pageSize + '&cname=' + cname + '&title=' + title + '';
             $.get(url, function (json) {
                 dataList(json.data);  // 数据传到 table组件
                 page(json.totalCount, cname, title);      // 数据传到 分页组件
@@ -120,7 +120,7 @@
         //新的一个请求
         function numpage(pageIndex, pageSize, cname, title) {
             var obj = panduan(cname, title);
-            var url = '../../../Goods/findGoods?pageIndex=' + pageIndex + '&pageSize=' + pageSize + '&cname=' + cname + '&title=' + title + '';
+            var url = '../../../../Goods/findGoods?pageIndex=' + pageIndex + '&pageSize=' + pageSize + '&cname=' + cname + '&title=' + title + '';
             $.get(url, function (json) {
                 dataList(json.data);  // 数据传到 table组件
             });
@@ -188,11 +188,9 @@
                         //调用示例
                         layer.photos({//点击图片弹出
                             photos: '.layer-photos-demo'
-                            , anim: 1 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+                            ,anim: 1//0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
                         });
-                        //如果是异步请求数据方式，res即为你接口返回的信息。
-                        //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
-                        console.log(res);
+
                     }
                 });
 
@@ -225,7 +223,7 @@
             var sta =state==1?0:1;
 
             layer.confirm(mess, function () {
-                $.getJSON("../../../Goods/upStateGoods?gid="+gid+"&state="+sta, function (json) {
+                $.getJSON("../../../../Goods/upStateGoods?gid="+gid+"&state="+sta, function (json) {
                     if (json.code == 'success') {
                         layer.closeAll('dialog');//关闭当前confirm窗口
                         layer.msg(msg, {time: 800}, function () {
@@ -267,7 +265,7 @@
     <script type="text/javascript">
         $(function () {
             $.ajax({
-                url: "../../../Goods/findTreeCategory/5",
+                url: "../../../../Goods/findTreeCategory/5",
                 type: "get",
                 dataType: "json",
                 success: function (data) {
