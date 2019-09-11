@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -40,8 +41,9 @@ public class GoodsController {
     @Autowired
     private Vip_goodsService vipGoodsService;
 
-
+    //--------------------------后台模块-------------------------------
     @RequestMapping("findGoods")
+    @ResponseBody
     public PageInfo<Map<String, Object>> findGoods(@RequestParam Map<String, Object> param) {
         Map<String, Object> map = new HashMap<>();
         map.put("cname", param.get("cname"));
@@ -62,6 +64,7 @@ public class GoodsController {
 
 
     @RequestMapping("addGoods")
+    @ResponseBody
     public String addGoods(@RequestParam Map<String,Object> map){
         Integer vip = new Integer(map.get("vip").toString());
         Integer ms = new Integer(map.get("ms").toString());
@@ -102,6 +105,7 @@ public class GoodsController {
     }
 
     @RequestMapping("upStateGoods")
+    @ResponseBody
     String upStateGoods(@RequestParam Map<String,Object> map){
         int result = goodsService.upStateGoods(map);
         if (result > 0) {

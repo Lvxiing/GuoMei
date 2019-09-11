@@ -82,12 +82,14 @@ public class CategoryController {
     //--------------------------后台模块-------------------------------
     //查询所有分类
     @RequestMapping("findCategory")
+    @ResponseBody
     public List<Map<String, Object>> findCategory() {
 
         return categoryService.findCategoryAndParentExist();
     }
 
     @RequestMapping("updateCategoryInfo/{cid}/{parentId}")
+    @ResponseBody
     public Map<String, Object> updateCategoryInfo(@PathVariable("cid") Integer cid, @PathVariable("parentId") Integer parentId) {
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> param = new HashMap<>();//调用dao的参数
@@ -110,6 +112,7 @@ public class CategoryController {
     }
 
     @PostMapping("updateCategory")
+    @ResponseBody
     public String updateCategory(@RequestBody Category category) {
         int result = categoryService.updateCategoryInfo(category);
         if (result > 0) {
@@ -121,6 +124,7 @@ public class CategoryController {
     }
 
     @RequestMapping("deleteCategory/{cid}")
+    @ResponseBody
     public String deleteCategory(@PathVariable("cid") Integer cid) {
         int result = categoryService.deleteCategory(cid);
         if (result > 0) {
@@ -131,6 +135,7 @@ public class CategoryController {
     }
 
     @RequestMapping("brandExistGood/{cid}")
+    @ResponseBody
     public String brandExistGood(@PathVariable("cid") Integer cid) {
         int result = categoryService.brandExistGood(cid);
         String json;
@@ -149,6 +154,7 @@ public class CategoryController {
     }
 
     @RequestMapping("findTreeCategory/{cLevel}")
+    @ResponseBody
     public List<Map<String, Object>> findTreeCategory(@PathVariable("cLevel") Integer cLevel) {
         List<Map<String, Object>> list = categoryService.findTreeCategory(cLevel);
         if(cLevel!=5){
@@ -162,6 +168,7 @@ public class CategoryController {
     }
 
     @RequestMapping("addCategory")
+    @ResponseBody
     public String addCategory(@RequestBody Category category){
         System.out.println("category = " + category);
         String [] name = category.getName().split(":");
@@ -193,6 +200,7 @@ public class CategoryController {
 
 
     @RequestMapping("categoryShow")
+    @ResponseBody
     public List<Category> categoryShow(@RequestParam Map<String, String> param){
         Map<String,Object> map = new HashMap<>();
 
