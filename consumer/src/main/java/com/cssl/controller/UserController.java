@@ -17,12 +17,14 @@ public class UserController {
     @Autowired
     private UserFeignInterface userFeignInterface;
 
+    //查询所有用户
     @RequestMapping("/findAll")
     @ResponseBody
     public List<Users> findAll(){
         return userFeignInterface.findAll();
     }
 
+    //给手机号码发验证码
     @RequestMapping("/ajaxNum")
     @ResponseBody
     public String sendMsg(@RequestParam("phoneNum") String phoneNum) throws Exception{
@@ -30,7 +32,7 @@ public class UserController {
         return userFeignInterface.sendMsg(phoneNum);
     }
 
-
+//验证手机验证码
     @RequestMapping("/verfiy")
     public String login(@RequestParam("phoneNum") String phoneNum,@RequestParam("code") String code){
         System.out.println("phoneNum:"+phoneNum+","+"code:"+code);
@@ -41,6 +43,13 @@ public class UserController {
         }else {
             return "redirect:/login.html";
         }
+    }
+
+//判断该手机号是否已被注册
+    @RequestMapping("/selectPhone")
+    @ResponseBody
+    public  int  selectPhone(@RequestParam("phoneNum") String phoneNum){
+        return  userFeignInterface.selectPhone(phoneNum);
     }
 
 }

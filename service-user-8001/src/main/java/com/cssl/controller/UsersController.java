@@ -7,6 +7,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.api.RedisFeignInterface;
 import com.cssl.entity.Users;
@@ -45,9 +46,7 @@ public class UsersController {
 
     @RequestMapping("/findAll")
     public List<Users> findAll(){
-        QueryWrapper<Users> query = new QueryWrapper<Users>();
-        query.eq("user_name", "admin");
-        return usersService.list(query);
+        return usersService.list();
     }
 
 
@@ -146,6 +145,15 @@ int num=0;
         }
 
     }
+
+@RequestMapping("/selectPhone")
+    public  int  selectPhone(@RequestParam("phoneNum") String phoneNum){
+       return  usersService.count(new QueryWrapper<Users>().eq("user_phone", phoneNum));
+    }
+
+
+
+
 
 
 
