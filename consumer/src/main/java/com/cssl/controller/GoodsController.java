@@ -27,7 +27,7 @@ public class GoodsController {
 
 
     //--------------------------后台模块-------------------------------
-    @RequestMapping("findGoods")
+    @RequestMapping("Goods/findGoods")
     public Map<String, Object> findGoods(@RequestParam Map<String, Object> param) {
         Map<String, Object> map = new HashMap<>();
         PageInfo<Map<String, Object>> goods =productFeignInterface.findGoods(param) ;
@@ -38,7 +38,7 @@ public class GoodsController {
     }
 
     //上传商品图片
-    @RequestMapping("UploadPhoto")
+    @RequestMapping("Goods/UploadPhoto")
     public Map<String, Object> UploadPhoto(MultipartFile file, HttpServletRequest request) throws IOException {
         //图片存入路径
         String path = "D:/Nignx4FileServer/nginx-1.14.2/html/images";
@@ -66,14 +66,14 @@ public class GoodsController {
     }
 
     //新增商品
-    @RequestMapping("addGoods")
+    @RequestMapping("Goods/addGoods")
     public String addGoods(@RequestParam Map<String,Object> map){
 
         return productFeignInterface.addGoods(map);
     }
 
     //上架或下架商品
-    @RequestMapping("upStateGoods")
+    @RequestMapping("Goods/upStateGoods")
     public String upStateGoods(@RequestParam Map<String,Object> map){
 
         return productFeignInterface.upStateGoods(map);
