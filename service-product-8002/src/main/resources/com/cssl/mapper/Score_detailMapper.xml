@@ -3,7 +3,7 @@
 <mapper namespace="com.cssl.mapper.Score_detailMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.cssl.entity.Score_detail">
+    <resultMap id="BaseResultMap" type="com.cssl.entity.ScoreDetail">
         <id column="sdetail_id" property="id" />
         <result column="score_id" property="scoreId" />
         <result column="user_id" property="userId" />

@@ -1,6 +1,6 @@
 package com.cssl.mapper;
 
-import com.cssl.entity.Vip_goods;
+import com.cssl.entity.VipGoods;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author lx
  * @since 2019-09-10
  */
-public interface Vip_goodsMapper extends BaseMapper<Vip_goods> {
+public interface Vip_goodsMapper extends BaseMapper<VipGoods> {
 
 }

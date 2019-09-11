@@ -1,6 +1,6 @@
 package com.cssl.mapper;
 
-import com.cssl.entity.Seckill_des;
+import com.cssl.entity.SeckillDes;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author lx
  * @since 2019-09-10
  */
-public interface Seckill_desMapper extends BaseMapper<Seckill_des> {
+public interface Seckill_desMapper extends BaseMapper<SeckillDes> {
 
 }

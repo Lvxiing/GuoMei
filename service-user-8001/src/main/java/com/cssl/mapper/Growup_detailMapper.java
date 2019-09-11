@@ -1,6 +1,6 @@
 package com.cssl.mapper;
 
-import com.cssl.entity.Growup_detail;
+import com.cssl.entity.GrowupDetail;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author lx
  * @since 2019-09-10
  */
-public interface Growup_detailMapper extends BaseMapper<Growup_detail> {
+public interface Growup_detailMapper extends BaseMapper<GrowupDetail> {
 
 }

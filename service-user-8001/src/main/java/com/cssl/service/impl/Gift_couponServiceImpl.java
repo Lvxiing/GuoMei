@@ -1,6 +1,6 @@
 package com.cssl.service.impl;
 
-import com.cssl.entity.Gift_coupon;
+import com.cssl.entity.GiftCoupon;
 import com.cssl.mapper.Gift_couponMapper;
 import com.cssl.service.Gift_couponService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2019-09-10
  */
 @Service
-public class Gift_couponServiceImpl extends ServiceImpl<Gift_couponMapper, Gift_coupon> implements Gift_couponService {
+public class Gift_couponServiceImpl extends ServiceImpl<Gift_couponMapper, GiftCoupon> implements Gift_couponService {
 
 }

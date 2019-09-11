@@ -3,7 +3,7 @@
 <mapper namespace="com.cssl.mapper.Seckill_desMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.cssl.entity.Seckill_des">
+    <resultMap id="BaseResultMap" type="com.cssl.entity.SeckillDes">
         <id column="seckill_des_id" property="id" />
         <result column="user_id" property="userId" />
         <result column="goods_id" property="goodsId" />

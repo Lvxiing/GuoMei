@@ -3,7 +3,7 @@
 <mapper namespace="com.cssl.mapper.Collection_shopMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.cssl.entity.Collection_shop">
+    <resultMap id="BaseResultMap" type="com.cssl.entity.CollectionShop">
         <id column="collect_shop_id" property="id" />
         <result column="shop_id" property="shopId" />
         <result column="collect_shop_time" property="time" />

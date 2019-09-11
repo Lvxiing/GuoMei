@@ -1,6 +1,6 @@
 package com.cssl.mapper;
 
-import com.cssl.entity.Coupon_logs;
+import com.cssl.entity.CouponLogs;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author lx
  * @since 2019-09-10
  */
-public interface Coupon_logsMapper extends BaseMapper<Coupon_logs> {
+public interface Coupon_logsMapper extends BaseMapper<CouponLogs> {
 
 }

@@ -1,6 +1,6 @@
 package com.cssl.service;
 
-import com.cssl.entity.Score_type;
+import com.cssl.entity.ScoreType;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author lx
  * @since 2019-09-10
  */
-public interface Score_typeService extends IService<Score_type> {
+public interface Score_typeService extends IService<ScoreType> {
 
 }

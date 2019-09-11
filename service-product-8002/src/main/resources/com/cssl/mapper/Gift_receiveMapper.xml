@@ -3,7 +3,7 @@
 <mapper namespace="com.cssl.mapper.Gift_receiveMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.cssl.entity.Gift_receive">
+    <resultMap id="BaseResultMap" type="com.cssl.entity.GiftReceive">
         <id column="giftReceive_id" property="id" />
         <result column="gift_id" property="giftId" />
         <result column="user_id" property="userId" />

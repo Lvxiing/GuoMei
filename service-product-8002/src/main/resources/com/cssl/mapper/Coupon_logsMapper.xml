@@ -3,7 +3,7 @@
 <mapper namespace="com.cssl.mapper.Coupon_logsMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.cssl.entity.Coupon_logs">
+    <resultMap id="BaseResultMap" type="com.cssl.entity.CouponLogs">
         <id column="logs_id" property="id" />
         <result column="user_id" property="userId" />
         <result column="coupon_id" property="couponId" />

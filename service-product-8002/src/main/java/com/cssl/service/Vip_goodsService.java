@@ -1,6 +1,6 @@
 package com.cssl.service;
 
-import com.cssl.entity.Vip_goods;
+import com.cssl.entity.VipGoods;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author lx
  * @since 2019-09-10
  */
-public interface Vip_goodsService extends IService<Vip_goods> {
+public interface Vip_goodsService extends IService<VipGoods> {
 
 }

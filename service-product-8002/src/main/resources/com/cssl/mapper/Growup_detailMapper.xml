@@ -3,7 +3,7 @@
 <mapper namespace="com.cssl.mapper.Growup_detailMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.cssl.entity.Growup_detail">
+    <resultMap id="BaseResultMap" type="com.cssl.entity.GrowupDetail">
         <id column="gdetail_id" property="id" />
         <result column="type_id" property="typeId" />
         <result column="growup_id" property="growupId" />

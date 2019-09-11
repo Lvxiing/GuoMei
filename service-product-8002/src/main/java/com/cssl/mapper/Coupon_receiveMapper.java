@@ -1,6 +1,6 @@
 package com.cssl.mapper;
 
-import com.cssl.entity.Coupon_receive;
+import com.cssl.entity.CouponReceive;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author lx
  * @since 2019-09-10
  */
-public interface Coupon_receiveMapper extends BaseMapper<Coupon_receive> {
+public interface Coupon_receiveMapper extends BaseMapper<CouponReceive> {
 
 }

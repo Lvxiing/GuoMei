@@ -7,7 +7,7 @@
         <id column="category_id" property="cid" />
         <result column="category_name" property="name" />
         <result column="category_parent_id" property="parentId" />
-        <result column="category_level" property="parentLevel" />
+        <result column="category_level" property="level" />
     </resultMap>
 
 </mapper>

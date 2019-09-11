@@ -1,6 +1,6 @@
 package com.cssl.mapper;
 
-import com.cssl.entity.Collection_shop;
+import com.cssl.entity.CollectionShop;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author lx
  * @since 2019-09-10
  */
-public interface Collection_shopMapper extends BaseMapper<Collection_shop> {
+public interface Collection_shopMapper extends BaseMapper<CollectionShop> {
 
 }
