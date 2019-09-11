@@ -71,15 +71,15 @@ public interface ProductFeignInterface {
 
     //商品模块
     //查询商品
-    @RequestMapping("category/findGoods")
+    @RequestMapping("goods/findGoods")
     PageInfo<Map<String, Object>> findGoods(@RequestParam Map<String,Object> param);
 
     //新增商品
-    @RequestMapping("category/addGoods")
+    @RequestMapping("goods/addGoods")
     String addGoods(@RequestParam Map<String,Object> map);
 
     //修改商品状态
-    @RequestMapping("category/upStateGoods")
+    @RequestMapping("goods/upStateGoods")
     String upStateGoods(@RequestParam Map<String,Object> map);
 
 }
