@@ -20,5 +20,8 @@ public interface GoodsMapper extends BaseMapper<Goods> {
     List<Map<String,Object>> findGoods(Map<String,Object> map);
 
     //新增商品
-    int addGoods(Map<String,Object> map);
+    int addGoods(Goods goods);
+
+    //修改商品状态
+    int upStateGoods(Map<String,Object> map);
 }

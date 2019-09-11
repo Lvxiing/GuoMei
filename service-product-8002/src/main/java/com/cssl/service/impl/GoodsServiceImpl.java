@@ -25,7 +25,6 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     @Autowired
     private GoodsMapper goodsMapper;
 
-
     @Override
     public Page<Map<String, Object>> findGoods(Map<String, Object> map, int pageIndex, int pageSize) {
         Page<Map<String, Object>> page = PageHelper.startPage(pageIndex, pageSize);
@@ -34,8 +33,13 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     }
 
     @Override
-    public int addGoods(Map<String, Object> map) {
-        return goodsMapper.addGoods(map);
+    public int addGoods(Goods goods) {
+        return goodsMapper.addGoods(goods);
+    }
+
+    @Override
+    public int upStateGoods(Map<String, Object> map) {
+        return goodsMapper.upStateGoods(map);
     }
 
 }
