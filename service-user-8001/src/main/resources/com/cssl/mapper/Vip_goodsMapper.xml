@@ -3,7 +3,7 @@
 <mapper namespace="com.cssl.mapper.Vip_goodsMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.cssl.entity.Vip_goods">
+    <resultMap id="BaseResultMap" type="com.cssl.entity.VipGoods">
         <id column="vip_goods_id" property="id" />
         <result column="grade_id" property="gradeId" />
         <result column="vip_time" property="vipTime" />

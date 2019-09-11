@@ -1,6 +1,6 @@
 package com.cssl.mapper;
 
-import com.cssl.entity.Gift_coupon;
+import com.cssl.entity.GiftCoupon;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author lx
  * @since 2019-09-10
  */
-public interface Gift_couponMapper extends BaseMapper<Gift_coupon> {
+public interface Gift_couponMapper extends BaseMapper<GiftCoupon> {
 
 }

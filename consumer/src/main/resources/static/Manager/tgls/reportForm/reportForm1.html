@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<<<<<<< Updated upstream
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <!-- Google Chrome Frame也可以让IE用上Chrome的引擎: -->
+    <meta name="renderer" content="webkit">
+    <!--国产浏览器高速模式-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="国美电器" />
+    <!-- 作者 -->
+    <meta name="revised" content="国美电器.v3, 2019/05/01" />
+    <!-- 定义页面的最新版本 -->
+    <meta name="description" content="网站简介" />
+    <!-- 网站简介 -->
+    <meta name="keywords" content="搜索关键字，以半角英文逗号隔开" />
+    <title>国美电器</title>
+=======
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+		<!-- Google Chrome Frame也可以让IE用上Chrome的引擎: -->
+		<meta name="renderer" content="webkit">
+		<!--国产浏览器高速模式-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="穷在闹市" />
+		<!-- 作者 -->
+		<meta name="revised" content="穷在闹市.v3, 2019/05/01" />
+		<!-- 定义页面的最新版本 -->
+		<meta name="description" content="网站简介" />
+		<!-- 网站简介 -->
+		<meta name="keywords" content="搜索关键字，以半角英文逗号隔开" />
+		<title>穷在闹市出品</title>
+>>>>>>> Stashed changes
+
+    <!-- 公共样式 开始 -->
+    <link rel="stylesheet" type="text/css" href="../../css/base.css">
+    <link rel="stylesheet" type="text/css" href="../../css/iconfont.css">
+    <script type="text/javascript" src="../../framework/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+    <script type="text/javascript" src="../../layui/layui.js"></script>
+    <!-- 滚动条插件 -->
+    <link rel="stylesheet" type="text/css" href="../../css/jquery.mCustomScrollbar.css">
+    <script src="../../framework/jquery-ui-1.10.4.min.js"></script>
+    <script src="../../framework/jquery.mousewheel.min.js"></script>
+    <script src="../../framework/jquery.mCustomScrollbar.min.js"></script>
+    <script src="../../framework/cframe.js"></script><!-- 仅供所有子页面使用 -->
+    <!-- 公共样式 结束 -->
+
+    <link rel="stylesheet" type="text/css" href="../../css/reportForm.css">
+
+</head>
+
+<body>
+<div class="cBody">
+    <div class="console">
+
+    </div>
+
+    <div class="reportForm_main">
+        <div class="collectData">
+            <div class="layui-row">
+                    <div class="layui-col-md2">
+                        <div class="title">订货单</div>
+                        <div class="nums"><font id="num">1</font><span>笔</span></div>
+                    </div>
+                    <div class="layui-col-md2">
+                        <div class="title">退货单</div>
+                        <div class="nums"><font id="returnNum">0</font><span>笔</span></div>
+                    </div>
+                    <div class="layui-col-md2">
+                        <div class="title">退货金额</div>
+                        <div class="nums"><font id="returnMoney">1</font>
+                        </div>
+
+                </div>
+                <div class="layui-col-md2">
+                    <div class="title">实际金额</div>
+                    <div class="nums"><font id="money">115.20</font></div>
+                </div>
+                <div class="layui-col-md2">
+                    <div class="title">未付金额</div>
+                    <div class="nums"><font id="unpaidAmount">0.00</font></div>
+                </div>
+                <div class="layui-col-md2">
+                    <div class="title">金额合计</div>
+                    <div class="nums"><font id="total">115.20</font></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reportType_tj">
+            <form class="layui-form" action="">
+                <div id="myReport" style="width: 100%; height: 400px;"></div>
+                <script src="../../framework/echarts.min.js"></script>
+                <script type="text/javascript">
+                    $(function () {
+                        $.getJSON("/Orders/inquiryAmount",function (json) {
+                            $("#num").text(json.nums);
+                            $("#returnNum").text(json.returnNum);
+                            $("#returnMoney").text(json.returnMoney);
+                            $("#money").text(json.money);
+                            $("#unpaidAmount").text(json.unpaidAmount);
+                            $("#total").text(json.total);
+                        })
+                    });
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init(document.getElementById('myReport'));
+
+                    // 指定图表的配置项和数据
+                    var option = {
+                        title: {
+                            text: '周销售数据'
+                        },
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data:[]
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        toolbox: {
+                            feature: {
+                                saveAsImage: {}
+                            }
+                        },
+                        xAxis: {
+                            type: 'category',
+                            boundaryGap: false,
+                            data: []
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: []
+                    };
+                    jQuery.ajax({
+                        url:"../../../Orders/weekInquiryAmount",
+                        type:'get',
+                        dataType:'json',
+                        success:function(jsons){
+                            var Item = function(){
+                                return {
+                                    name:'',
+                                    type:'line',
+                                    data:[]
+                                }
+                            };// series中的每一项为一个item,所有的属性均可以在此处定义
+                            var legends = [];// 准备存放图例数据
+                            var Series = []; // 准备存放图表数据
+                            var json = jsons.data;// 后台返回的json
+                            // alert(json.length);
+                            for(var i=0;i < json.length;i++){
+                                var it = new Item();
+                                it.name = json[i].name;// 先将每一项填充数据
+                                legends.push(json[i].name);// 将每一项的图例名称也放到图例的数组中
+                                it.data = json[i].data;
+                                Series.push(it);// 将item放在series中
+                            }
+
+                            option.xAxis.data = jsons.xcontent;// 这一步是设置X轴数据了，需要注意：option.xAxis.data = json.xcontent这样不行
+                            // 折线图可设置上下两个X轴，所以必须是option.xAxis[0].data = json.xcontent
+                            option.legend.data = legends;// 设置图例
+                            option.series = Series; // 设置图表
+                            myChart.setOption(option);// 重新加载图表
+                        },
+                        error:function(){
+                            alert("数据加载失败！请检查数据链接是否正确");
+                        }
+                    });
+                </script>
+            </form>
+
+        </div>
+
+        <table class="layui-table dataTable" id="followTable" lay-skin="line">
+
+        </table>
+    </div>
+    <script>
+        layui.use('table', function () {
+            var table=layui.table;
+            table.render({
+                elem: "#followTable",
+                url:"../../../Orders/weekOrder",
+                cols: [[
+                    {field: "times", title: "日期"},
+                    {field: "money", title: "订单金额"},
+                    {field: "returnMoney", title: "退货金额"},
+                    {field: "amountMoney", title: "实际金额"},
+                    {field: "unpaidAmount", title: "未付金额"}
+                ]]
+            });
+        });
+    </script>
+
+
+
+</div>
+</body>
+
+</html>

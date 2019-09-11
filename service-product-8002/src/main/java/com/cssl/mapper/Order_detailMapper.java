@@ -1,6 +1,6 @@
 package com.cssl.mapper;
 
-import com.cssl.entity.Order_detail;
+import com.cssl.entity.OrderDetail;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author lx
  * @since 2019-09-10
  */
-public interface Order_detailMapper extends BaseMapper<Order_detail> {
+public interface Order_detailMapper extends BaseMapper<OrderDetail> {
 
 }

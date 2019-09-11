@@ -24,4 +24,7 @@ public class IndexController {
         return productFeignInterface.mainImagesData();
     }
 
+
+
+
 }
