@@ -11,25 +11,23 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-////优惠卷消费记录
+//美豆类型表
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Coupon_logs extends Model<Coupon_logs> {
+public class ScoreType extends Model<ScoreType> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "logs_id", type = IdType.AUTO)
-    private Integer id;                //券消费编号
+    @TableId(value = "scoreType_id", type = IdType.AUTO)
+    private Integer id;     //美豆类型编号
 
-    @TableField(value = "user_id")
-    private Integer userId;               //用户编号
+    @TableField(value = "scoreType_name")
+    private String typeName;               //类型名称
 
-    @TableField(value = "coupon_id")
-    private Integer couponId;               //优惠券表编号
+    @TableField(value = "scoreType_value")
+    private Integer value;          //  对应增减值
 
-    @TableField(value = "order_id")
-    private Integer orderId;               //订单编号
 
     @Override
     protected Serializable pkVal() {

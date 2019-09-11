@@ -5,33 +5,29 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 
-import java.time.LocalDateTime;
 import java.io.Serializable;
-import java.util.Date;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-//会员商品表
+////礼包领取表
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Vip_goods extends Model<Vip_goods> {
+public class GiftReceive extends Model<GiftReceive> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "vip_goods_id", type = IdType.AUTO)
-    private Integer id;        //会员商品编号
+    @TableId(value = "giftReceive_id", type = IdType.AUTO)
+    private Integer id;        //礼包领取表编号
 
-    @TableField(value = "grade_id")
-    private Integer gradeId;         //会员等级编号
+    @TableField(value = "gift_id")
+    private Integer giftId;         //礼包编号
 
-    @TableField(value = "vip_time")
-    private Date vipTime;
+    @TableField(value = "user_id")
+    private Integer userId;       //用户编号
 
-    @TableField(value = "goods_id")
-    private Integer goodsId;               //商品编号
 
     @Override
     protected Serializable pkVal() {

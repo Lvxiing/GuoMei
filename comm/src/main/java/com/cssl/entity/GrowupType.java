@@ -11,22 +11,22 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-////礼包领取表
+//成长值类型表
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Gift_receive extends Model<Gift_receive> {
+public class GrowupType extends Model<GrowupType> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "giftReceive_id", type = IdType.AUTO)
-    private Integer id;        //礼包领取表编号
+    @TableId(value = "type_id", type = IdType.AUTO)
+    private Integer id;                  //类型编号
 
-    @TableField(value = "gift_id")
-    private Integer giftId;         //礼包编号
+    @TableField(value = "type_name")
+    private String name;              //类型名称
 
-    @TableField(value = "user_id")
-    private Integer userId;       //用户编号
+    @TableField(value = "type_value")
+    private Integer value;            //所获成长值
 
 
     @Override
