@@ -30,7 +30,7 @@ public class Category extends Model<Category> {
     private Integer parentId;     //分类父编号
 
     @TableField(value = "category_level")
-    private Integer level;     //分类级层
+    private Integer cLevel;     //分类级层
 
 
     @Override
