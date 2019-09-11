@@ -16,6 +16,9 @@ public class NewsController {
     @Autowired
     private ProductFeignInterface productFeignInterface;
 
+
+
+
     //商品新闻模块
     //查询所有新闻
     @RequestMapping("findAllNews")
@@ -23,6 +26,7 @@ public class NewsController {
     public List<News> findAllNews(){
         return productFeignInterface.findAllNews();
     }
+
 
 
 }
