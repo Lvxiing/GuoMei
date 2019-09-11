@@ -67,7 +67,7 @@ public class CategoryController {
                 treeCategory.setCid(category.getCid());
                 treeCategory.setName(category.getName());
                 treeCategory.setParentId(category.getParentId());
-                treeCategory.setLevel(category.getLevel());
+                treeCategory.setCLevel(category.getCLevel());
                 //判断  如果这条数据的parentId与传递过来的parentId相等则添加进childList中
                 if (category.getParentId() == parentId) {
                     //进行递归
