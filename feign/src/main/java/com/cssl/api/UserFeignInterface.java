@@ -20,4 +20,7 @@ public interface UserFeignInterface {
 
     @RequestMapping("/users/verfiy")
     public int login(@RequestParam("phoneNum") String phoneNum,@RequestParam("code") String code);
+
+    @RequestMapping("/users/selectPhone")
+    public  int  selectPhone(@RequestParam("phoneNum") String phoneNum);
 }
