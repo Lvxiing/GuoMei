@@ -92,7 +92,8 @@
                 "border-radius":"2px",
                 "box-shadow":"0 2px 4px rgba(0,0,0,.12)",
                 "box-sizing":"border-box",
-                "z-index": 2147483647
+                "z-index": 2147483647,
+                "margin-left":"2px"
             });
 
             ts.$selUl = $("#sel_ul_" + ts.key);
