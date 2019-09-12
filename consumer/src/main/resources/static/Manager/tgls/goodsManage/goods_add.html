@@ -260,8 +260,8 @@
                 })
             }
 
+
             var s = "";
-            var mainUrl = "";
             var desUrl = "";
             //拖拽上传
             var uploadInst = upload.render({
@@ -289,8 +289,7 @@
                     }
                     //上传成功
                     layer.msg("上传成功");
-                    mainUrl += res.url + ",";
-                    $("#imgUrls").val(mainUrl);
+                    $("#imgUrls").val(res.url);
 
                 }
                 , error: function () {

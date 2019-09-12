@@ -38,6 +38,9 @@
         .layui-input-block {
             margin-left: 130px;
         }
+        #demo3 img{
+            margin-left: 5px;
+        }
     </style>
 
 </head>
@@ -66,11 +69,14 @@
             <div class="layui-input-inline uploadHeadImage">
                 <div class="layui-upload-drag" id="headImg">
                     <i class="layui-icon"></i>
-                    <p>点击上传图片，或将图片拖拽到此处</p>
+                    <p>点击修改商品主图，或将图片拖拽到此处</p>
                 </div>
             </div>
-            预览图：
-            <div class="layui-upload-list" id="demo2"></div>
+            商品主图：
+            <div class="layui-upload-list" id="demo2">
+
+
+            </div>
             <input type="hidden" id="imgUrls" name="imgmain" class="layui-input">
         </div>
         <div class="layui-form-item">
@@ -78,10 +84,10 @@
             <div class="layui-input-inline uploadHeadImage">
                 <div class="layui-upload-drag" id="goodsPic">
                     <i class="layui-icon"></i>
-                    <p>点击上传图片，或将图片拖拽到此处</p>
+                    <p>点击修改商品详情图，或将图片拖拽到此处</p>
                 </div>
             </div>
-            预览图：
+            商品详情图：
             <div class="layui-upload-list" id="demo3"></div>
             <input type="hidden" id="imgUrls2" name="imginfo" class="layui-input">
         </div>
@@ -177,6 +183,18 @@
                 });
             });
 
+            $.getJSON("../../../Goods/findGrade", function (json) {
+                for (var i = 0; i < json.length; i++) {
+                    var id = json[i].id;
+                    var gradeName = json[i].gradeName;
+                    var option = "<option value=" + id + ">" + gradeName + "</option>";
+                    $("#grade").append(option);
+                }
+                //重新渲染select
+                form.render('select');
+            });
+
+
             form.on('select(category)', function (data) {
                 var id = data.value;
                 $.getJSON("../../../Goods/categoryShow", "parentId=" + id, function (json) {
@@ -256,6 +274,7 @@
                 form.render();
 
             }
+
             var s = "";
             var mainUrl = "";
             var desUrl = "";
@@ -270,11 +289,10 @@
                 , before: function (obj) {
                     //预读本地文件示例，不支持ie8
                     obj.preview(function (index, file, result) {
-                        // $('#demo1').attr('src', result); //图片链接（base64）
+                        $('#demo2 img[bs="zt"]').remove();
                         $('#demo2').append('<img src="' + result
                             + '" alt="' + file.name
-                            + '"height="100px" width="100px" class="layui-upload-img uploadImgPreView">')
-
+                            + '"height="100px" width="100px" bs="zt" class="layui-upload-img uploadImgPreView">')
 
                     });
                 }
@@ -373,15 +391,36 @@
                         $("input[name=state][value=" + data.goods.state + "]").prop("checked", "true");
                         $("input[name=ms][value=" + data.goods.seckill + "]").prop("checked", "true");
                         $("input[name=vip][value=" + data.vip + "]").prop("checked", "true");
+                        if (data.vip == 1) {
+                            $("#gradeDiv").css("display", "inline-block");
+                        }
+                        if (data.goods.mainImg != null) {
+                            $('#demo2').append('<img  bs="zt" src="' + data.goods.mainImg
+                                + '" alt="' + "商品主图"
+                                + '"height="100px" width="100px" class="layui-upload-img uploadImgPreView">')
+
+                        }
+                        if (data.goods.desImg != null) {
+                            var imgList = data.goods.desImg.split(",");
+                            for (var i = 0; i < imgList.length; i++) {
+                                if(imgList[i].length>1){
+                                    $('#demo3').append('<img  bs="xq" src="' + imgList[i]
+                                        + '" alt="' + "商品详情图片"
+                                        + '"height="100px" width="100px" class="layui-upload-img uploadImgPreView">')
+
+                                }
+                            }
+
+                        }
                         form.render();  //更新全部
                     }
                 });
 
             });
             var bid = GetRequest().bid;
-            if(bid!=null && bid!=''){
-                $.getJSON("../../../category/findBrandIsParentCategory?id="+bid,function(json){
-                    $("#brand").find("option[value="+json.cid+"]").prop("selected",true);
+            if (bid != null && bid != '') {
+                $.getJSON("../../../category/findBrandIsParentCategory?id=" + bid, function (json) {
+                    $("#brand").find("option[value=" + json.cid + "]").prop("selected", true);
                     categoryShow(json.pid);
                 });
 
