@@ -9,11 +9,14 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.cssl.api.RedisFeignInterface;
+import com.cssl.entity.PageInfo;
 import com.cssl.entity.Users;
 import com.cssl.service.UsersService;
 import com.cssl.util.AliAccessKey;
 import com.cssl.util.VerifyCodeUtil;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -153,7 +156,55 @@ int num=0;
         return  usersService.save(users);
     }
 
+    @RequestMapping("/selectUserName")
+    public  int  selectUserName(@RequestParam("userName") String userName){
+        return  usersService.count(new QueryWrapper<Users>().eq("user_name", userName));
+    }
 
+
+    //**************后台************
+
+
+    @RequestMapping("/adminLogin")
+    public Users adminLogin(@RequestBody Users users){
+        return  usersService.getOne(new QueryWrapper<Users>().eq("user_name",users.getUserName()).eq("user_pwd",users.getPassWord()).eq("user_role",1));
+    }
+
+    @RequestMapping("/findUsers/{userName}/{pageIndex}/{pageSize}")
+    public PageInfo<Users> UsersFenYe(@PathVariable("userName") String userName,@PathVariable("pageIndex") int pageIndex,@PathVariable("pageSize") int pageSize) {
+        Page<Users> usersPage = usersService.UsersFenYe(userName, pageIndex, pageSize);
+        PageInfo<Users> page=new PageInfo<>();
+        page.setList(usersPage.getResult());
+        page.setTotalCount((int)usersPage.getTotal());
+        return   page;
+    }
+
+
+    @RequestMapping("/delUser/{id}")
+    public boolean delUser(@PathVariable("id") Integer id) {
+        return usersService.removeById(id);
+    }
+
+
+    @RequestMapping("/findById/{id}")
+    public Users findById(@PathVariable("id") Integer id){
+        return usersService.getOne(new QueryWrapper<Users>().eq("user_id",id));
+    }
+
+    @RequestMapping("/updateUser")
+    public boolean updateUser(@RequestBody Users user){
+        return usersService.updateById(user);
+    }
+
+    @RequestMapping("/updatePwd")
+    public boolean  updatePwd(@RequestBody Users users){
+        return  usersService.updateById(users);
+    }
+
+    @RequestMapping("/selectPwd")
+    public Users selectPwd(@RequestBody  Users user) {
+        return usersService.getOne(new QueryWrapper<Users>().eq("user_id",user.getId()).eq("user_pwd",user.getPassWord()));
+    }
 
 
 

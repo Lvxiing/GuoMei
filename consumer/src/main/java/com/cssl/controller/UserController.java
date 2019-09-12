@@ -1,17 +1,29 @@
 package com.cssl.controller;
 
 import com.cssl.api.UserFeignInterface;
+import com.cssl.entity.Grade;
+import com.cssl.entity.PageInfo;
 import com.cssl.entity.Users;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -52,10 +64,174 @@ public class UserController {
         return  userFeignInterface.selectPhone(phoneNum);
     }
 
+    //判断该用户名是否已被注册
+    @RequestMapping("/selectUserName")
+    public  int  selectUserName(@RequestParam("userName") String userName){
+        return  userFeignInterface.selectUserName(userName);
+    }
+
+    //用户注册
     @RequestMapping("/userRegister")
     @ResponseBody
     public   boolean   userRegister(Users users){
         return  userFeignInterface.userRegister(users);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //**************后台*************
+
+    //管理员登录
+    @RequestMapping("/adminLogin")
+    public String adminLogin(Users users, Model model, HttpSession session) {
+        //解密
+        //String password = DigestUtils.md5DigestAsHex(users.getPassWord().getBytes());
+        // users.setPassWord(password);
+        Users u = userFeignInterface.adminLogin(users);
+        System.out.println("user:"+u);
+
+        if (u== null) {
+            model.addAttribute("errorMess", "用户名或密码错误");
+            return "redirect:/Manager/login.html";
+        } else {
+            session.setAttribute("user", u);
+            return "forward:/Manager/frame.html";
+        }
+    }
+
+    //查询用户
+    @RequestMapping("/findUsers/{userName}")
+    @ResponseBody
+    public Map<String, Object> findUsers(@PathVariable("userName") String userName, int page, int limit) {
+        PageInfo<Users> usersPageInfo = userFeignInterface.UsersFenYe(userName, page, limit);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("code", 0);
+        map.put("msg", "");
+        map.put("count", usersPageInfo.getTotalCount());  //总记录数
+        map.put("data",  usersPageInfo.getList());
+        return map;
+    }
+
+    //删除用户
+    @RequestMapping("/delUser/{id}")
+    @ResponseBody
+    public boolean delUser(@PathVariable("id") Integer id){
+        return  userFeignInterface.delUser(id);
+    }
+
+    //根据id查询
+    @RequestMapping("/findById/{id}")
+    @ResponseBody
+    public Users findById(@PathVariable("id") Integer id) {
+        return userFeignInterface.findById(id);
+    }
+
+    //修改用户
+    @RequestMapping("/updateUser")
+    @ResponseBody
+    public boolean updateUser(@RequestParam Map<String, String> map) {
+        Users user = new Users();
+        user.setId(Integer.valueOf(map.get("id")));
+        user.setUserName(map.get("userName"));
+        user.setSex(Integer.valueOf(map.get("sex")));
+        user.setBirthday(Date.valueOf(map.get("birthday")));
+        user.setPhone(map.get("phone"));
+        user.setEmail(map.get("email"));
+        user.setTime(Date.valueOf(map.get("time")));
+        user.setAddress(map.get("address"));
+        user.setHeadImg(map.get("headImg"));
+        return userFeignInterface.updateUser(user);
+    }
+
+    //上传用户头像
+    @RequestMapping(value = "/upload/img",method = RequestMethod.POST,consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @ResponseBody
+    public Map<String, Object> upload(MultipartFile file, HttpServletRequest request) throws IOException {
+
+        // "D:/Nignx4FileServer/nginx-1.14.2/html/images"
+        //"http://127.0.0.1:88/upload/"+图片名
+
+        //图片存入路径
+        String path = "D:/Nignx4FileServer/nginx-1.14.2/html/images/users";
+        Map<String, Object> res = new HashMap<>();
+        if (!file.isEmpty()) {    //传过来的文件不为空
+            String uuid = UUID.randomUUID().toString();   //保证每个的文件名不重复
+            //源文件名
+            String originalFilename = uuid + file.getOriginalFilename();
+            //文件的真实类型
+            String contentType = file.getContentType();
+            File f = new File(path, originalFilename);
+            if (!f.getParentFile().exists()) {
+                f.getParentFile().mkdir();
+            }
+            //上传：将上传文件流写入目标文件
+            FileUtils.copyInputStreamToFile(file.getInputStream(), f);
+            //返回图片url
+            res.put("url", "http://127.0.0.1:88/images/users/" + originalFilename);
+        }
+        return res;
+    }
+
+    //查询会员
+    @RequestMapping("/findVip/{userName}/{gradeName}")
+    @ResponseBody
+    public Map<String, Object> findVip(@PathVariable("userName") String userName, @PathVariable("gradeName") String gradeName,int page, int limit){
+        Map hm = new HashMap();
+        hm.put("userName", userName);
+        hm.put("gradeName", gradeName);
+        PageInfo<Map> userInfoPageInfo = userFeignInterface.UserInfoFenYe(hm,page,limit);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("code", 0);
+        map.put("msg", "");
+        map.put("count", userInfoPageInfo.getTotalCount());  //总记录数
+        map.put("data",  userInfoPageInfo.getList());
+        return map;
+    }
+
+    //显示所有会员等级
+    @RequestMapping("/allGrade")
+    @ResponseBody
+    public List<Grade> allGrade() {
+        return  userFeignInterface.allGrade();
+    }
+
+
+    //管理员修改密码
+    @RequestMapping("/updatePwd")
+    @ResponseBody
+    public  boolean  updatePwd(Users users){
+        System.out.println("***user:"+users);
+        return  userFeignInterface.updatePwd(users);
+    }
+
+    //查询管理员的原始密码是否正确
+    @RequestMapping("/selectPwd")
+    @ResponseBody
+    public Users selectPwd(Users user){
+        System.out.println("user:"+user);
+        return  userFeignInterface.selectPwd(user);
+    }
+
+    //管理员注销退出登录
+    @RequestMapping("/outUser")
+    public  String  outUser(HttpSession session){
+        session.removeAttribute("user");
+        return "redirect:/Manager/login.html";
+    }
+
 
 }

@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -34,6 +35,7 @@ public class Users extends Model<Users> {
     private Integer sex;          //性别
 
     @TableField("user_birthday")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthday;          //生日
 
     @TableField("user_phone")
@@ -49,6 +51,7 @@ public class Users extends Model<Users> {
     private String headImg;      //头像图片
 
     @TableField("user_time")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date time;                //注册时间
 
     @TableField("user_role")

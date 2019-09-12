@@ -146,7 +146,7 @@
         //页面一加载就显示信息
         $(function () {
             var re = GetRequest();
-            $.getJSON("/users/back/findById/"+re.id,
+            $.getJSON("/users/findById/"+re.id,
                 function(result) {
                     $("#popUpdateTest input[name=id]").val(result.id);
                     $("#popUpdateTest input[name=userName]").val(result.userName);
@@ -166,7 +166,7 @@
         //上传头像
         var uploadInst = upload.render({
             elem: '#test1' //绑定元素
-            ,url: '/users/back/upload/img' //上传接口
+            ,url: '/users/upload/img' //上传接口
             ,accept:"images"
             ,auto: true
             ,before: function(obj){
@@ -198,12 +198,12 @@
         form.on('submit(update)', function (data) {
             $.ajax({
                 type: 'POST',
-                url: "/users/back/updateUser",
+                url: "/users/updateUser",
                 dataType: 'json',
                 data: data.field,//往后台发送的是data.field，即一个{name：value}的数据结构
                 async: true,
                 success: function (result) {
-                    if (result> 0) {
+                    if (result==true) {
                         layer.msg('修改成功', {time:600}, function(){
                             layer.close(layer.index); //关闭当前窗口
                             window.parent.location.reload(); //刷新父窗口数据
