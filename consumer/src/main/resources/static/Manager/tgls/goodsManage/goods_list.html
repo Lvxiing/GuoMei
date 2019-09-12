@@ -198,7 +198,7 @@
             });
         }
 
-        function updateBut(cid, parentId) {
+        function updateBut(id) {
             layui.use('layer', function () {
                 //iframe层-父子操作
                 updateFrame = layer.open({
@@ -207,7 +207,7 @@
                     area: ['100%', '100%'],
                     scrollbar: false,	//默认：true,默认允许浏览器滚动，如果设定scrollbar: false，则屏蔽
                     maxmin: true,
-                    content: '../category_update.html?cid=' + cid + '&parentId=' + parentId
+                    content: 'goods_update.html?id='+id
                 });
             });
         }
@@ -258,7 +258,7 @@
         {{#  if(d.goods_state == 1){ }}
         <span style="color: #f20257;">上架</span>
         {{#  } else { }}
-        <span>下架</span>
+        <span style="color: #c8c2c0;">下架</span>
         {{#  } }}
     </script>
 
@@ -281,8 +281,8 @@
 
     <script type="text/html" id="imgtmp">
         <div class="layer-photos-demo" onclick="img_click()" style="cursor:pointer;">
-            <img layer-src="../../fileupload/60b9feef-7942-4831-a910-5c11df8b9db505.jpg"
-                 src="../../fileupload/60b9feef-7942-4831-a910-5c11df8b9db505.jpg" alt="头像图片">
+            <img layer-src="{{d.goods_main_img}}"
+                 src="{{d.goods_main_img}}" alt="商品主图">
         </div>
     </script>
 </div>
