@@ -35,8 +35,8 @@ public interface ProductFeignInterface {
 
 
 
-    //--------------------------后台模块-------------------------------
-    //商品分类模块
+    //--------------------------后台模块----------------------------------
+    //--------------------------商品分类模块-------------------------------
     //查询所有分类
     @RequestMapping("category/findCategory")
     String findCategory();
@@ -69,7 +69,8 @@ public interface ProductFeignInterface {
     @RequestMapping("category/categoryShow")
     List<Category> categoryShow(@RequestParam Map<String, String> param);
 
-    //商品模块
+
+    //--------------------------商品模块-------------------------------
     //查询商品
     @RequestMapping("goods/findGoods")
     PageInfo<Map<String, Object>> findGoods(@RequestParam Map<String,Object> param);
@@ -81,5 +82,8 @@ public interface ProductFeignInterface {
     //修改商品状态
     @RequestMapping("goods/upStateGoods")
     String upStateGoods(@RequestParam Map<String,Object> map);
+
+    @RequestMapping("grade/findAll")
+    List<Grade> findGrade();
 
 }
