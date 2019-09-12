@@ -52,4 +52,10 @@ public class UserController {
         return  userFeignInterface.selectPhone(phoneNum);
     }
 
+    @RequestMapping("/userRegister")
+    @ResponseBody
+    public   boolean   userRegister(Users users){
+        return  userFeignInterface.userRegister(users);
+    }
+
 }
