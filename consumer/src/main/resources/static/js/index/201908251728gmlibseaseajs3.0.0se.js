@@ -8147,7 +8147,7 @@ $(function () {
     function O(t) {
         t = t || $("#miniShoppingcartLoadId");
         t.attr("carttype", "up");
-        l().then(u(t))
+       // l().then(u(t))
     }
 
     function x(t, e) {

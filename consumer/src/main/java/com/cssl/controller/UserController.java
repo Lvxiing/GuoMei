@@ -4,6 +4,7 @@ import com.cssl.api.UserFeignInterface;
 import com.cssl.entity.Grade;
 import com.cssl.entity.PageInfo;
 import com.cssl.entity.Users;
+import com.cssl.util.NginxUtil;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -102,8 +103,6 @@ public class UserController {
         //String password = DigestUtils.md5DigestAsHex(users.getPassWord().getBytes());
         // users.setPassWord(password);
         Users u = userFeignInterface.adminLogin(users);
-        System.out.println("user:"+u);
-
         if (u== null) {
             model.addAttribute("errorMess", "用户名或密码错误");
             return "redirect:/Manager/login.html";
@@ -158,30 +157,28 @@ public class UserController {
     }
 
     //上传用户头像
-    @RequestMapping(value = "/upload/img",method = RequestMethod.POST,consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @RequestMapping("/upload/img")
     @ResponseBody
     public Map<String, Object> upload(MultipartFile file, HttpServletRequest request) throws IOException {
-
-        // "D:/Nignx4FileServer/nginx-1.14.2/html/images"
-        //"http://127.0.0.1:88/upload/"+图片名
-
-        //图片存入路径
-        String path = "D:/Nignx4FileServer/nginx-1.14.2/html/images/users";
         Map<String, Object> res = new HashMap<>();
-        if (!file.isEmpty()) {    //传过来的文件不为空
-            String uuid = UUID.randomUUID().toString();   //保证每个的文件名不重复
-            //源文件名
-            String originalFilename = uuid + file.getOriginalFilename();
-            //文件的真实类型
-            String contentType = file.getContentType();
-            File f = new File(path, originalFilename);
-            if (!f.getParentFile().exists()) {
-                f.getParentFile().mkdir();
-            }
-            //上传：将上传文件流写入目标文件
-            FileUtils.copyInputStreamToFile(file.getInputStream(), f);
-            //返回图片url
-            res.put("url", "http://127.0.0.1:88/images/users/" + originalFilename);
+        //服务器上存放图片的文件夹路径
+        String path = "/users";
+        try {
+            //类型转换
+            String fileName = file.getOriginalFilename();  //获取文件名
+            String prefix = fileName.substring(fileName.lastIndexOf("."));     // 获取文件后缀
+            File excelFile = File.createTempFile(fileName, prefix);
+            file.transferTo(excelFile);
+
+            //建立ftp连接
+            NginxUtil.connect(path);
+            //上传文件,返回随机生成的不唯一文件名
+            String uploadName = NginxUtil.upload(excelFile);
+            //返回服务器上存放图片的完整路径
+            String fileUrl = NginxUtil.getFileUrl(path, uploadName);
+            res.put("url", fileUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return res;
     }
@@ -209,12 +206,10 @@ public class UserController {
         return  userFeignInterface.allGrade();
     }
 
-
     //管理员修改密码
     @RequestMapping("/updatePwd")
     @ResponseBody
     public  boolean  updatePwd(Users users){
-        System.out.println("***user:"+users);
         return  userFeignInterface.updatePwd(users);
     }
 
@@ -222,7 +217,6 @@ public class UserController {
     @RequestMapping("/selectPwd")
     @ResponseBody
     public Users selectPwd(Users user){
-        System.out.println("user:"+user);
         return  userFeignInterface.selectPwd(user);
     }
 
