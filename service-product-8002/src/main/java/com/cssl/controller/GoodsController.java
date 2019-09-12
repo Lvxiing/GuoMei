@@ -89,9 +89,6 @@ public class GoodsController {
         goods.setBid(brandid);
         goods.setSeckill(ms);
         res = goodsService.addGoods(goods);
-        if (ms == 1) { //新增到秒杀商品中
-
-        }
         if (vip == 1) { //新增到会员商品中
             VipGoods vipGoods = new VipGoods();
             vipGoods.setGradeId(grade);
