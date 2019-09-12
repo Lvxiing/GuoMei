@@ -73,4 +73,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         return categoryMapper.selectBrandId(cid);
     }
 
+    @Override
+    public Map findBrandIsParentCategory(Integer id) {
+        return categoryMapper.findBrandIsParentCategory(id);
+    }
+
 }
