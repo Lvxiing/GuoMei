@@ -84,7 +84,7 @@ public class GoodsController {
         goods.setDesImg(map.get("imginfo").toString());
         goods.setPrice(BigDecimal.valueOf(price));
         goods.setStock(stock);
-        goods.setDescribe(map.get("desc").toString());
+        goods.setDes(map.get("desc").toString());
         goods.setState(state);
         goods.setBid(brandid);
         goods.setSeckill(ms);

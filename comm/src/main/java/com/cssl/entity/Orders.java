@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -33,6 +34,7 @@ public class Orders extends Model<Orders> {
     private Date payDate;              //支付时间
 
     @TableField(value = "order_time")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date orderTime;                //订单创建时间
 
     @TableField(value = "order_total")

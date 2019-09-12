@@ -131,8 +131,11 @@
                         $("input[name=total]").val(result[0].total);
                         $("input[name=title]").val(result[0].title);
                         $("input[name=address]").val(result[0].address);
-                        $(" input[name=orderTime]").val(result[0].orderTime);
                         $("select[name='provid']").val(result[0].status);
+                        //转换时间格式
+                        var dateee = new Date(result[0].orderTime).toJSON();
+                        var times= new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+                        $("input[name=orderTime]").val(times);
                         //修改状态只能修改后面的
                         var option=$("select>option");
                         for (var i = 0; i <result[0].status-1; i++) {
@@ -161,6 +164,7 @@
                 return false;
             });
         });
+
 
 
 
