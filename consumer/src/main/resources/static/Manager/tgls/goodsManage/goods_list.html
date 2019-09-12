@@ -175,9 +175,9 @@
                             field: 'isMenu', width: 150, align: 'center', templet: function (d) {
 
                                 if (d.goods_state == 1) {
-                                    return '<button class="layui-btn layui-btn-xs"  onclick="updateBut(' + d.goods_id + ') ">修改</button><a class="layui-btn layui-btn-xs"  onclick="upStateGoods(' + d.goods_id + ',' + d.goods_state + ')" >下架</a>';
+                                    return '<button class="layui-btn layui-btn-xs"  onclick="updateBut(' + d.goods_id + ','+d.brand_id+') ">修改</button><a class="layui-btn layui-btn-xs"  onclick="upStateGoods(' + d.goods_id + ',' + d.goods_state + ')" >下架</a>';
                                 } else {
-                                    return '<button class="layui-btn layui-btn-xs"  onclick="updateBut(' + d.goods_id + ')">修改</button><a class="layui-btn layui-btn-danger layui-btn-xs"  onclick="upStateGoods(' + d.goods_id + ',' + d.goods_state + ')" >上架</a>';
+                                    return '<button class="layui-btn layui-btn-xs"  onclick="updateBut(' + d.goods_id + ','+d.brand_id+')">修改</button><a class="layui-btn layui-btn-danger layui-btn-xs"  onclick="upStateGoods(' + d.goods_id + ',' + d.goods_state + ')" >上架</a>';
                                 }
                             }, title: '操作'
                         }
@@ -198,7 +198,7 @@
             });
         }
 
-        function updateBut(id) {
+        function updateBut(id,bid) {
             layui.use('layer', function () {
                 //iframe层-父子操作
                 updateFrame = layer.open({
@@ -207,7 +207,7 @@
                     area: ['100%', '100%'],
                     scrollbar: false,	//默认：true,默认允许浏览器滚动，如果设定scrollbar: false，则屏蔽
                     maxmin: true,
-                    content: 'goods_modify.html?id='+id
+                    content: 'goods_modify.html?id='+id+"&bid="+bid
                 });
             });
         }
