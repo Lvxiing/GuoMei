@@ -33,7 +33,7 @@ public class Grade extends Model<Grade> {
     @TableField(value = "high")
     private Integer high;            //最高成长值
 
-    @TableField(value = "Discount _money")
+    @TableField(value = "Discount_money")
     private BigDecimal money;
 
 

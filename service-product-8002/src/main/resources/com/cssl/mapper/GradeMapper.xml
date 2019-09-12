@@ -8,7 +8,7 @@
         <result column="grade_name" property="gradeName" />
         <result column="low" property="low" />
         <result column="high" property="high" />
-        <result column="Discount _money" property="money" />
+        <result column="Discount_money" property="money" />
     </resultMap>
 
 </mapper>

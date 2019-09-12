@@ -104,7 +104,7 @@
                     table.render({
                         elem: '#table'
                         ,height: 420
-                        ,url: '/users/back/findVip/null/null' //数据接口
+                        ,url: '/users/findVip/null/null' //数据接口
                         ,even: true //隔行背景
                         ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem）
                             layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip'] //自定义排版
@@ -135,7 +135,7 @@
 
                     //页面一加载就显示所有会员等级
                     $(function () {
-                        $.getJSON("/users/back/allGrade",
+                        $.getJSON("/users/allGrade",
                             function(json) {
                                 for (var i = 0; i < json.length; i++) {
                                     var id = json[i].id;
@@ -162,7 +162,7 @@
                         table.reload("table",{
                             page:{
                                 curr:1
-                            },url:"/users/back/findVip/"+userName+"/"+gradeName
+                            },url:"/users/findVip/"+userName+"/"+gradeName
                         })
                         return false;
                     });

@@ -1,13 +1,14 @@
 package com.cssl.api;
 
+import com.cssl.entity.Grade;
+import com.cssl.entity.PageInfo;
 import com.cssl.entity.Users;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @FeignClient("service-user")
 public interface UserFeignInterface {
@@ -19,8 +20,45 @@ public interface UserFeignInterface {
     public String sendMsg(@RequestParam("phoneNum") String phoneNum) throws Exception;
 
     @RequestMapping("/users/verfiy")
-    public int login(@RequestParam("phoneNum") String phoneNum,@RequestParam("code") String code);
+    public int login(@RequestParam("phoneNum") String phoneNum, @RequestParam("code") String code);
 
     @RequestMapping("/users/selectPhone")
     public  int  selectPhone(@RequestParam("phoneNum") String phoneNum);
+
+    @RequestMapping("/users/userRegister")
+    public   boolean   userRegister(Users users);
+
+    @RequestMapping("/users/selectUserName")
+    public  int  selectUserName(@RequestParam("userName") String userName);
+
+
+    //**********后台***********
+
+    @RequestMapping("/users/adminLogin")
+    public Users adminLogin(Users users);
+
+    @RequestMapping("/users/findUsers/{userName}/{pageIndex}/{pageSize}")
+    public PageInfo<Users> UsersFenYe(@PathVariable("userName") String userName, @PathVariable("pageIndex") int pageIndex, @PathVariable("pageSize") int pageSize);
+
+    @RequestMapping("/users/delUser/{id}")
+    public boolean delUser(@PathVariable("id") Integer id);
+
+    @RequestMapping("/users/findById/{id}")
+    public Users findById(@PathVariable("id") Integer id);
+
+    @RequestMapping("/users/updateUser")
+    public boolean updateUser(Users user);
+
+    @RequestMapping("/users/updatePwd")
+    public boolean  updatePwd(Users users);
+
+    @RequestMapping("/users/selectPwd")
+    public Users selectPwd(Users user);
+
+    @RequestMapping("/userinfo/findVip/{pageIndex}/{pageSize}")
+    public PageInfo<Map> UserInfoFenYe(@RequestBody Map map, @PathVariable("pageIndex") int pageIndex, @PathVariable("pageSize") int pageSize);
+
+    @RequestMapping("/grade/allGrade")
+    public List<Grade> allGrade();
+
 }

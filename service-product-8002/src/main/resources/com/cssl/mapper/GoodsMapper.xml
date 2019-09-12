@@ -31,10 +31,17 @@
                 AND g.`goods_title` LIKE concat('%',#{title},'%')
             </if>
         </where>
+        order by goods_state desc
     </select>
 
-    <insert id="addGoods" parameterType="map">
-        INSERT INTO goods(brand_id,goods_title,goods_sub_title,goods_main_img,goods_des_img,goods_des,goods_price,goods_stock,goods_state,goods_seckill) VALUES(#{brand},#{goodsName},#{subTitle},#{imgmain},#{imginfo},#{desc},#{price},#{stock},#{state},#{ms})
+    <insert id="addGoods" parameterType="map" useGeneratedKeys="true" keyProperty="id" keyColumn="goods_id">
+        INSERT INTO goods(brand_id,goods_title,goods_sub_title,goods_main_img,goods_des_img,goods_des,goods_price,goods_stock,goods_state,goods_seckill) VALUES(#{bid},#{title},#{subTitle},#{mainImg},#{desImg},#{describe},#{price},#{stock},#{state},#{seckill})
     </insert>
+
+
+    <update id="upStateGoods" parameterType="map">
+        UPDATE goods SET goods_state = #{state} WHERE goods_id = #{gid}
+    </update>
+
 
 </mapper>

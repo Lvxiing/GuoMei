@@ -7,12 +7,14 @@ spring:
     static-path-pattern: /**
   resources:
     static-locations: classpath:/templates/,classpath:/static/,classpath:/static/Manager/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/public/,classpath:/upload
-
+  data:
+    mongodb:
+      uri: mongodb://47.101.130.148:27017/news
   thymeleaf:
     encoding: UTF-8
     #开发时关闭缓存,不然没法看到实时页面
     cache: false
-    prefix: classpath:/templates/
+    prefix: classpath:/templates/,/templates/Manager
     suffix: .html
 
   #spring:

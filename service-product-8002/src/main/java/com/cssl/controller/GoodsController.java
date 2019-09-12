@@ -23,7 +23,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author lx
@@ -52,27 +52,29 @@ public class GoodsController {
         Integer pageSize = new Integer(param.get("pageSize").toString());
         Page<Map<String, Object>> goods = goodsService.findGoods(map, pageIndex, pageSize);
 
-        PageInfo<Map<String, Object>>page=new PageInfo<>();
+        PageInfo<Map<String, Object>> page = new PageInfo<>();
         List<Map<String, Object>> result = goods.getResult();
         //封装查询数据
         page.setList(result);
         //封装总记录数
-        page.setTotalCount((int)goods.getTotal());
+        page.setTotalCount((int) goods.getTotal());
         return page;
     }
 
 
-
     @RequestMapping("addGoods")
     @ResponseBody
-    public String addGoods(@RequestParam Map<String,Object> map){
+    public String addGoods(@RequestParam Map<String, Object> map) {
         Integer vip = new Integer(map.get("vip").toString());
         Integer ms = new Integer(map.get("ms").toString());
         Integer cid = new Integer(map.get("brand").toString());
         Integer stock = new Integer(map.get("stock").toString());
         Double price = new Double(map.get("price").toString());
         Integer state = new Integer(map.get("state").toString());
-        Integer grade = new Integer(map.get("grade").toString());
+        Integer grade = null;
+        if (map.get("grade").toString() != null) {
+            grade = new Integer(map.get("grade").toString());
+        }
         int brandid = categoryService.selectBrandId(cid);
         int res = 0;
         Goods goods = new Goods();
@@ -87,11 +89,8 @@ public class GoodsController {
         goods.setBid(brandid);
         goods.setSeckill(ms);
         res = goodsService.addGoods(goods);
-        if(ms==1){ //新增到秒杀商品中
-
-        }
-        if(vip==1){ //新增到会员商品中
-            VipGoods vipGoods =new VipGoods();
+        if (vip == 1) { //新增到会员商品中
+            VipGoods vipGoods = new VipGoods();
             vipGoods.setGradeId(grade);
             vipGoods.setVipTime(new Date());
             vipGoods.setGoodsId(goods.getId());
@@ -106,7 +105,7 @@ public class GoodsController {
 
     @RequestMapping("upStateGoods")
     @ResponseBody
-    String upStateGoods(@RequestParam Map<String,Object> map){
+    String upStateGoods(@RequestParam Map<String, Object> map) {
         int result = goodsService.upStateGoods(map);
         if (result > 0) {
             String json = "{\"code\":\"success\"}";

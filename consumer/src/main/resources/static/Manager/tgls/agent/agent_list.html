@@ -92,7 +92,7 @@
             //执行一个 table 实例
             table.render({
                 elem: '#table'
-                ,url:"/users/back/findUsers/null"
+                ,url:"/users/findUsers/null"
                 ,even: true //隔行背景
                 ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem）
                     layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip'] //自定义排版
@@ -138,7 +138,7 @@
                 table.reload("table",{
                     page:{
                         curr:1
-                    },url:'/users/back/findUsers/'+userName
+                    },url:'/users/findUsers/'+userName
                 })
                 return false;
             });
@@ -150,9 +150,9 @@
                 //删除
                 if(layEvent === 'del'){
                     layer.confirm('真的删除行么?', function(index){
-                        $.getJSON("/users/back/delUser/"+data.id,
+                        $.getJSON("/users/delUser/"+data.id,
                             function(result) {
-                                if(result>0){
+                                if(result==true){
                                     obj.del(); //删除对应行（tr）的DOM结构，并更新缓
                                     layer.close(index);
                                     layer.msg("删除成功!");
