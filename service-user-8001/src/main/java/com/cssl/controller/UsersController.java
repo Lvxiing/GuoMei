@@ -15,14 +15,11 @@ import com.cssl.service.UsersService;
 import com.cssl.util.AliAccessKey;
 import com.cssl.util.VerifyCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import com.aliyuncs.http.MethodType;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -149,6 +146,11 @@ int num=0;
 @RequestMapping("/selectPhone")
     public  int  selectPhone(@RequestParam("phoneNum") String phoneNum){
        return  usersService.count(new QueryWrapper<Users>().eq("user_phone", phoneNum));
+    }
+
+    @RequestMapping("/userRegister")
+    public   boolean   userRegister(@RequestBody  Users users){
+        return  usersService.save(users);
     }
 
 
