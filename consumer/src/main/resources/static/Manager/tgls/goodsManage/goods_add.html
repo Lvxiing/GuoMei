@@ -135,7 +135,7 @@
                 <input type="radio" name="vip" value="0" title="否" lay-filter="vip" checked>
             </div>
             <div class="layui-input-inline" id="gradeDiv" style="display: none">
-                <select name="grade"  id="grade" lay-filter="grade">
+                <select name="grade" id="grade" lay-filter="grade">
                     <option value="">请选择等级</option>
                 </select>
             </div>
@@ -152,8 +152,6 @@
                 </select>
             </div>
         </div>
-
-
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit lay-filter="submitBut">立即提交</button>
@@ -190,21 +188,26 @@
                     }
                 })
             });
-            form.on("radio(vip)",function(data){
-                if(data.value == '1'){
-                    $.getJSON("../../../users/back/allGrade",function(json){
+            form.on("radio(vip)", function (data) {
+                if (data.value == '1') {
+                    $.getJSON("../../../Goods/findGrade", function (json) {
                         for (var i = 0; i < json.length; i++) {
                             var id = json[i].id;
                             var gradeName = json[i].gradeName;
-                            var option = "<option value="+id+">" + gradeName + "</option>";
+                            var option = "<option value=" + id + ">" + gradeName + "</option>";
                             $("#grade").append(option);
                         }
                         //重新渲染select
                         form.render('select');
                     })
-                    $("#gradeDiv").css("display","inline-block");
-                }else{
-                    $("#gradeDiv").css("display","none");
+                    $("#gradeDiv").css("display", "inline-block");
+                } else {
+                    $("#gradeDiv").css("display", "none");
+                }
+            });
+            form.on("radio(ms)", function (data) {
+                if (data.value == '1') {
+
                 }
             })
             form.on('select(brand)', function (data) {
@@ -217,7 +220,7 @@
             });
 
             function brandShow(json) {
-                $("#brand OPTION:not(:first)").remove();
+                $("#brand OPTION").remove();
                 for (var i = 0; i < json.length; i++) {
                     var op = "<option value=" + json[i].cid + ">" + json[i].name + "</option>"
                     $("#brand").append(op);
@@ -235,7 +238,7 @@
                             if (pid == json[i].cid) {
                                 op += "<OPTION  value=" + json[i].cid + " selected >"
                                     + json[i].name + "</OPTION>";
-                            }else {
+                            } else {
                                 op += "<OPTION  value=" + json[i].cid + ">" + json[i].name
                                     + "</OPTION>";
                             }
@@ -246,6 +249,7 @@
                     }
                 })
             }
+
             var s = "";
             var mainUrl = "";
             var desUrl = "";
@@ -338,7 +342,7 @@
                             if (res.code = "success") {
                                 layer.msg('新增成功', {time: 600}, function () {
                                     layer.close(layer.index); //关闭当前窗口
-                                    location.href='goods_list.html';
+                                    location.href = 'goods_list.html';
                                 });
                             } else
                                 layer.msg(res.msg);//输出错误消息

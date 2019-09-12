@@ -61,14 +61,14 @@
                 </div>
                 <div class="layui-input-inline">
                     <div class="layui-input-block">
-                        <input id="ts_input" type="text" id="cname" style="width: 190px" name="parentName" required
+                        <input id="ts_input" type="text" style="width: 190px" name="parentName" required
                                lay-verify="required" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <button type="button" class="layui-btn" id="serch" onclick="query()" data-type="reload"
                         style="margin-bottom: 6px">检索
                 </button>
-                <a class="layui-btn" href="goods_add.html">导入商品</a>
+                <a class="layui-btn" style="margin-bottom: 6px;" href="goods_add.html">导入商品</a>
             </div>
         </form>
     </div>
@@ -240,7 +240,7 @@
         function query() {
             //模糊查询
             title = $("#title").val();
-            cname = $("#cname").val();
+            cname = $("#ts_input").val();
             //判读是否为空
             if (typeof (cname) == "undefined" || cname == "") {
                 cname = null;
