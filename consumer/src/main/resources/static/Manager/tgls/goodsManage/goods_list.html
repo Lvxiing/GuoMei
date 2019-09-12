@@ -61,14 +61,14 @@
                 </div>
                 <div class="layui-input-inline">
                     <div class="layui-input-block">
-                        <input id="ts_input" type="text" id="cname" style="width: 190px" name="parentName" required
+                        <input id="ts_input" type="text" style="width: 190px" name="parentName" required
                                lay-verify="required" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <button type="button" class="layui-btn" id="serch" onclick="query()" data-type="reload"
                         style="margin-bottom: 6px">检索
                 </button>
-                <a class="layui-btn" href="goods_add.html">导入商品</a>
+                <a class="layui-btn" style="margin-bottom: 6px;" href="goods_add.html">导入商品</a>
             </div>
         </form>
     </div>
@@ -198,7 +198,7 @@
             });
         }
 
-        function updateBut(cid, parentId) {
+        function updateBut(id) {
             layui.use('layer', function () {
                 //iframe层-父子操作
                 updateFrame = layer.open({
@@ -207,7 +207,7 @@
                     area: ['100%', '100%'],
                     scrollbar: false,	//默认：true,默认允许浏览器滚动，如果设定scrollbar: false，则屏蔽
                     maxmin: true,
-                    content: '../category_update.html?cid=' + cid + '&parentId=' + parentId
+                    content: 'goods_update.html?id='+id
                 });
             });
         }
@@ -240,7 +240,7 @@
         function query() {
             //模糊查询
             title = $("#title").val();
-            cname = $("#cname").val();
+            cname = $("#ts_input").val();
             //判读是否为空
             if (typeof (cname) == "undefined" || cname == "") {
                 cname = null;
@@ -258,7 +258,7 @@
         {{#  if(d.goods_state == 1){ }}
         <span style="color: #f20257;">上架</span>
         {{#  } else { }}
-        <span>下架</span>
+        <span style="color: #c8c2c0;">下架</span>
         {{#  } }}
     </script>
 
@@ -281,8 +281,8 @@
 
     <script type="text/html" id="imgtmp">
         <div class="layer-photos-demo" onclick="img_click()" style="cursor:pointer;">
-            <img layer-src="../../fileupload/60b9feef-7942-4831-a910-5c11df8b9db505.jpg"
-                 src="../../fileupload/60b9feef-7942-4831-a910-5c11df8b9db505.jpg" alt="头像图片">
+            <img layer-src="{{d.goods_main_img}}"
+                 src="{{d.goods_main_img}}" alt="商品主图">
         </div>
     </script>
 </div>

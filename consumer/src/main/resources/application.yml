@@ -14,7 +14,7 @@ spring:
     encoding: UTF-8
     #开发时关闭缓存,不然没法看到实时页面
     cache: false
-    prefix: classpath:/templates/
+    prefix: classpath:/templates/,/templates/Manager
     suffix: .html
 
   #spring:

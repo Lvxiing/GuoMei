@@ -1,10 +1,9 @@
 package com.cssl.controller;
 
 import com.cssl.api.ProductFeignInterface;
-import com.cssl.entity.Category;
-import com.cssl.entity.ImagesInfo;
-import com.cssl.entity.News;
-import com.cssl.entity.PageInfo;
+import com.cssl.entity.*;
+import com.cssl.util.NginxUtil;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,13 +25,12 @@ public class GoodsController {
     private ProductFeignInterface productFeignInterface;
 
 
-
     //--------------------------后台模块-------------------------------
     @RequestMapping("findGoods")
     @ResponseBody
     public Map<String, Object> findGoods(@RequestParam Map<String, Object> param) {
         Map<String, Object> map = new HashMap<>();
-        PageInfo<Map<String, Object>> goods =productFeignInterface.findGoods(param) ;
+        PageInfo<Map<String, Object>> goods = productFeignInterface.findGoods(param);
         map.put("code", 0);
         map.put("data", goods.getList());
         map.put("totalCount", goods.getTotalCount());
@@ -42,36 +40,40 @@ public class GoodsController {
     //上传商品图片
     @RequestMapping("UploadPhoto")
     @ResponseBody
-    public Map<String, Object> UploadPhoto(MultipartFile file, HttpServletRequest request) throws IOException {
-        //图片存入路径
-        String path = "D:/Nignx4FileServer/nginx-1.14.2/html/images";
+    public Map<String, Object> UploadPhoto(MultipartFile file, HttpServletRequest request) {
         Map<String, Object> res = new HashMap<>();
-        List<String> fileTyps = Arrays.asList("image/jpeg", "image/png", "image/gif");
-        if (!file.isEmpty()) {    //传过来的文件不为空
-            String uuid = UUID.randomUUID().toString();   //保证每个的文件名不重复
-            //源文件名
-            String originalFilename = uuid + file.getOriginalFilename();
-            //文件的真实类型
-            String contentType = file.getContentType();
-            if (fileTyps.contains(contentType)) {
-                File f = new File(path, originalFilename);
-                if (!f.getParentFile().exists()) {
-                    f.getParentFile().mkdir();
-                }
-                //写入指定盘符
-                file.transferTo(f);
-            }
+        //服务器上存放图片的文件夹路径
+        String path = "product/goods";
+        try {
+            //类型转换
+            String fileName = file.getOriginalFilename();  //获取文件名
+            String prefix = fileName.substring(fileName.lastIndexOf("."));     // 获取文件后缀
+            File excelFile = File.createTempFile(fileName, prefix);
+            file.transferTo(excelFile);
 
-            //返回图片url
-            res.put("url", "http://127.0.0.1:88/upload/" + originalFilename);
+            //建立ftp连接
+            NginxUtil.connect(path);
+            //上传文件,返回随机生成的不唯一文件名
+            String uploadName = NginxUtil.upload(excelFile);
+            //返回服务器上存放图片的完整路径
+            String fileUrl = NginxUtil.getFileUrl(path, uploadName);
+            res.put("url", fileUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return res;
+    }
+
+    @RequestMapping("findGrade")
+    @ResponseBody
+    public List<Grade> findGrade() {
+        return productFeignInterface.findGrade();
     }
 
     //新增商品
     @RequestMapping("addGoods")
     @ResponseBody
-    public String addGoods(@RequestParam Map<String,Object> map){
+    public String addGoods(@RequestParam Map<String, Object> map) {
 
         return productFeignInterface.addGoods(map);
     }
@@ -79,7 +81,7 @@ public class GoodsController {
     //上架或下架商品
     @RequestMapping("upStateGoods")
     @ResponseBody
-    public String upStateGoods(@RequestParam Map<String,Object> map){
+    public String upStateGoods(@RequestParam Map<String, Object> map) {
 
         return productFeignInterface.upStateGoods(map);
     }
@@ -140,13 +142,9 @@ public class GoodsController {
 
     @RequestMapping("categoryShow")
     @ResponseBody
-    public List<Category> categoryShow(@RequestParam Map<String, String> param){
+    public List<Category> categoryShow(@RequestParam Map<String, String> param) {
         return productFeignInterface.categoryShow(param);
     }
-
-
-
-
 
 
 }
