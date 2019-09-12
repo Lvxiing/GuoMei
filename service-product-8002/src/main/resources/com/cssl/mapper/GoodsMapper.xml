@@ -17,4 +17,24 @@
         <result column="goods_seckill" property="seckill" />
     </resultMap>
 
+
+    <select id="findGoods" resultType="map">
+        SELECT g.*,b.`brand_name`
+        FROM goods g
+        INNER JOIN brand b ON g.`brand_id` = b.`brand_id`
+        INNER JOIN category c ON c.`category_id` = b.`category_id`
+        <where>
+            <if test="cname != 'null' and cname != '' ">
+                and c.`category_name`  = #{cname}
+            </if>
+            <if test="title != 'null' and title != '' ">
+                AND g.`goods_title` LIKE concat('%',#{title},'%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="addGoods" parameterType="map">
+        INSERT INTO goods(brand_id,goods_title,goods_sub_title,goods_main_img,goods_des_img,goods_des,goods_price,goods_stock,goods_state,goods_seckill) VALUES(#{brand},#{goodsName},#{subTitle},#{imgmain},#{imginfo},#{desc},#{price},#{stock},#{state},#{ms})
+    </insert>
+
 </mapper>

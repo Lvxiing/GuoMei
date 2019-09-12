@@ -3967,7 +3967,6 @@
 
     function mt(e, t) {
         if (t.src) {
-            a.ajax({url: t.src, async: false, dataType: "script"})
         } else {
             a.globalEval((t.text || t.textContent || t.innerHTML || "").replace(at, "/*$0*/"))
         }
@@ -4273,7 +4272,7 @@
     }
 
     function Zt(e, n) {
-        var i, r, o = a.ajaxSettings.flatOptions || {};
+
         for (i in n) {
             if (n[i] !== t) {
                 (o[i] ? e : r || (r = {}))[i] = n[i]
@@ -4311,20 +4310,6 @@
                 }
             }
             var l = this;
-            a.ajax({
-                url: e, type: s, dataType: "html", data: n, complete: function (e, t, n) {
-                    n = e.responseText;
-                    if (e.isResolved()) {
-                        e.done(function (e) {
-                            n = e
-                        });
-                        l.html(o ? a("<div>").append(n.replace(qt, "")).find(o) : n)
-                    }
-                    if (i) {
-                        l.each(i, [n, t, e])
-                    }
-                }
-            });
             return this
         }, serialize: function () {
             return a.param(this.serializeArray())
@@ -4372,26 +4357,6 @@
             }
             Zt(e, t);
             return e
-        },
-        ajaxSettings: {
-            url: Ut,
-            isLocal: _t.test(Gt[1]),
-            global: true,
-            type: "GET",
-            contentType: "application/x-www-form-urlencoded",
-            processData: true,
-            async: true,
-            accepts: {
-                xml: "application/xml, text/xml",
-                html: "text/html",
-                text: "text/plain",
-                json: "application/json, text/javascript",
-                "*": Jt
-            },
-            contents: {xml: /xml/, html: /html/, json: /json/},
-            responseFields: {xml: "responseXML", text: "responseText"},
-            converters: {"* text": e.String, "text html": true, "text json": a.parseJSON, "text xml": a.parseXML},
-            flatOptions: {context: true, url: true}
         },
         ajaxPrefilter: Qt(zt),
         ajaxTransport: Qt(Vt),
@@ -4829,7 +4794,7 @@
                             }
                         }
                     };
-                    r.insertBefore(i, r.firstChild)
+                    // r.insertBefore(i, r.firstChild)
                 }, abort: function () {
                     if (i) {
                         i.onload(0, 1)
@@ -4858,111 +4823,6 @@
         }
     }
 
-    a.ajaxSettings.xhr = e.ActiveXObject ? function () {
-        return !this.isLocal && fn() || un()
-    } : fn;
-    !function (e) {
-        a.extend(a.support, {ajax: !!e, cors: !!e && "withCredentials" in e})
-    }(a.ajaxSettings.xhr());
-    if (a.support.ajax) {
-        a.ajaxTransport(function (n) {
-            if (!n.crossDomain || a.support.cors) {
-                var i;
-                return {
-                    send: function (r, o) {
-                        var s = n.xhr(), l, f;
-                        if (n.username) {
-                            s.open(n.type, n.url, n.async, n.username, n.password)
-                        } else {
-                            s.open(n.type, n.url, n.async)
-                        }
-                        if (n.xhrFields) {
-                            for (f in n.xhrFields) {
-                                s[f] = n.xhrFields[f]
-                            }
-                        }
-                        if (n.mimeType && s.overrideMimeType) {
-                            s.overrideMimeType(n.mimeType)
-                        }
-                        if (!n.crossDomain && !r["X-Requested-With"]) {
-                            r["X-Requested-With"] = "XMLHttpRequest"
-                        }
-                        try {
-                            for (f in r) {
-                                s.setRequestHeader(f, r[f])
-                            }
-                        } catch (u) {
-                        }
-                        s.send(n.hasContent && n.data || null);
-                        i = function (e, r) {
-                            var f, u, c, d, p;
-                            try {
-                                if (i && (r || s.readyState === 4)) {
-                                    i = t;
-                                    if (l) {
-                                        s.onreadystatechange = a.noop;
-                                        if (on) {
-                                            delete ln[l]
-                                        }
-                                    }
-                                    if (r) {
-                                        if (s.readyState !== 4) {
-                                            s.abort()
-                                        }
-                                    } else {
-                                        f = s.status;
-                                        c = s.getAllResponseHeaders();
-                                        d = {};
-                                        p = s.responseXML;
-                                        if (p && p.documentElement) {
-                                            d.xml = p
-                                        }
-                                        d.text = s.responseText;
-                                        try {
-                                            u = s.statusText
-                                        } catch (h) {
-                                            u = ""
-                                        }
-                                        if (!f && n.isLocal && !n.crossDomain) {
-                                            f = d.text ? 200 : 404
-                                        } else {
-                                            if (f === 1223) {
-                                                f = 204
-                                            }
-                                        }
-                                    }
-                                }
-                            } catch (m) {
-                                if (!r) {
-                                    o(-1, m)
-                                }
-                            }
-                            if (d) {
-                                o(f, u, d, c)
-                            }
-                        };
-                        if (!n.async || s.readyState === 4) {
-                            i()
-                        } else {
-                            l = ++sn;
-                            if (on) {
-                                if (!ln) {
-                                    ln = {};
-                                    a(e).unload(on)
-                                }
-                                ln[l] = i
-                            }
-                            s.onreadystatechange = i
-                        }
-                    }, abort: function () {
-                        if (i) {
-                            i(0, 1)
-                        }
-                    }
-                }
-            }
-        })
-    }
     var cn = {}, dn, pn, hn = /^(?:toggle|show|hide)$/, mn = /^([+\-]=)?([\d+.\-]+)([a-z%]*)$/i, gn,
         yn = [["height", "marginTop", "marginBottom", "paddingTop", "paddingBottom"], ["width", "marginLeft", "marginRight", "paddingLeft", "paddingRight"], ["opacity"]],
         vn;
@@ -6265,32 +6125,7 @@ $(function () {
             $("#subnav").show();
             var a = e.attr("data-index");
             if ($("#subnav").attr("flag") == 0) {
-                $.ajax({
-                    url: stageJsServer + "/gmpro/1.0.0/public/1.0.0/js/category-tpl.min.js?versionData=" + versionData,
-                    dataType: "script",
-                    cache: true,
-                    success: function () {
-                        var e = window.location.href;
-                        var n = "//ss" + cookieDomain + "/exactNavNew.html";
-                        if (e.indexOf("jsp") > -1 && e.indexOf("preview") > -1) {
-                            n = "http://preview.ds" + cookieDomain + "/stage-web/2015/exactNavNew.jsp"
-                        }
-                        $.ajax({
-                            type: "get",
-                            url: n,
-                            cache: false,
-                            jsonpName: "navData",
-                            dataType: "JSONP",
-                            success: function (e) {
-                                if (e) {
-                                    var n = gomeTemplate("category", e);
-                                    $("#loading1-sync").html(n);
-                                    $("#loading1-sync>div").eq(a).show().siblings().hide()
-                                }
-                            }
-                        })
-                    }
-                });
+
                 $("#subnav").attr("flag", "1")
             } else {
                 $("#loading1-sync>div").eq(a).show().siblings().hide()
@@ -6764,7 +6599,8 @@ $(function () {
     }, t.o = function (e, o) {
         return Object.prototype.hasOwnProperty.call(e, o)
     }, t.p = "", t(t.s = 0)
-}([function (e, o, t) {
+}(
+    [function (e, o, t) {
     var n = t(1);
     try {
         var r = "", c = /([?&])cmpid=(.+?)(&(.+))?(#.*)?$/;
@@ -6973,16 +6809,7 @@ if (location.host.indexOf("hk") != -1 && location.host.indexOf("item") != -1) {
     $domain = location.host.replace("item", "");
     $atgregion = "hwgregion"
 }
-$.ajax({
-    type: "get",
-    url: "//ss" + $domain + "/item/v1/cookie/" + $atgregion + "/flag/public/ipWrite",
-    cache: false,
-    dataType: "jsonp",
-    jsonpName: "ipWrite",
-    success: function () {
-        signData.init()
-    }
-});
+
 window.signData = {
     gloginfn: null, loginEnd: false, init: function () {
         HeartBeat = null;
@@ -7034,36 +6861,6 @@ window.signData = {
             if (!$(this).data("open")) {
                 $(this).children("div").load("/n/common/global/head_" + $(this).data("load") + ".html", function () {
                     $(this).parent().attr("data-open", "true");
-                    $.ajax({
-                        url: stageJsServer + "/gmlib/ui/jcarousellite/1.0.1/jcarousellite.min.js",
-                        dataType: "script",
-                        cache: true,
-                        success: function () {
-                            $("#user-icon div").jCarouselLite({
-                                btnNext: ".user-icon-next",
-                                btnPrev: ".user-icon-prev",
-                                visible: 3,
-                                circular: false,
-                                scroll: 3
-                            })
-                        }
-                    });
-                    if (loginstatus != "true") {
-                        $.ajax({
-                            url: "//member" + cookieDomain + "/myaccount/profitAccountDetail/getProfitAccountDetail",
-                            type: "get",
-                            data: {type: 0},
-                            dataType: "jsonp",
-                            jsonpName: "ckdataPublic",
-                            success: function (e) {
-                                try {
-                                    t(e)
-                                } catch (i) {
-                                }
-                            }
-                        })
-                    }
-
                     function t(t) {
                         var e = t;
                         if (e.hasOwnProperty("error")) {
@@ -7211,28 +7008,9 @@ window.signData = {
         }
     }, ieUpdater: function () {
         if ($.browser.msie && $.browser.version == "6.0" && !$.support.style) {
-            $.ajax({
-                url: stageJsServer + "/gmlib/unit/ie-updater/1.0.0/ie-updater.min.js",
-                dataType: "script",
-                cache: true
-            })
         }
     }, getAjax: function (t) {
-        try {
-            $.ajax({
-                type: "get",
-                url: t.Jurl,
-                data: t.Jdat || {},
-                dataType: "jsonp",
-                jsonpName: t.Jname,
-                success: function (e) {
-                    t.Jcall(e)
-                },
-                error: function () {
-                }
-            })
-        } catch (e) {
-        }
+
     }
 };
 $(function (t) {
@@ -7416,43 +7194,6 @@ customerServiceCall.prototype = {
         }
         if (r.customerArr.length > 0) {
             var o = Math.random().toString(36).substr(2);
-            $.ajax({
-                type: "get",
-                url: r.serviceUrl + "/open/" + e,
-                data: t,
-                dataType: "jsonp",
-                jsonpName: "ckdataGent" + o,
-                success: function (t) {
-                    if (t.status == "200") {
-                        var i = t.data;
-                        if (r.customerArr.length > 1) {
-                            for (var e = 0; e < i.length; e++) {
-                                if (i[e].show == "1") {
-                                    $("[customer-service-button-id]").eq(e).show();
-                                    $("[customer-service-button-id]").eq(e).attr("orgi", i[e].orgi);
-                                    $("[customer-service-button-id]").eq(e).attr("orgitype", i[e].orgitype);
-                                    i[e].online === 0 && $("[customer-service-button-id]").eq(e).addClass("customerServiceAshes")
-                                } else {
-                                    $("[customer-service-button-id]").eq(e).hide()
-                                }
-                            }
-                        } else {
-                            if (i.show == "1") {
-                                $("[customer-service-button-id]").eq(0).attr("orgi", i.orgi);
-                                $("[customer-service-button-id]").eq(0).attr("orgitype", i.orgitype);
-                                i[e].online === 0 && $("[customer-service-button-id]").eq(0).addClass("customerServiceAshes")
-                            } else {
-                                $("[customer-service-button-id]").eq(0).hide()
-                            }
-                        }
-                        r.customerArr = [];
-                        r.entryArr = [];
-                        r.brandidArr = [];
-                        r.categoryidArr = [];
-                        r.skuIdArr = []
-                    }
-                }
-            })
         }
     }, customerJump: function () {
         var r = this;
@@ -7482,25 +7223,6 @@ customerServiceCall.prototype = {
             i.brandid = c;
             i.area = t.province;
             i.shopid = d;
-            $.ajax({
-                type: "get",
-                url: t.serviceUrl + "/open/checkagentByGet",
-                data: i,
-                dataType: "jsonp",
-                jsonpName: "ckdataGentByGet",
-                success: function (r) {
-                    if (r.status == "200") {
-                        if (r.data.show == "1") {
-                            e.show();
-                            e.attr("orgi", r.data.orgi);
-                            r.data.online === 0 && e.addClass("customerServiceAshes")
-                        } else {
-                            e.hide();
-                            e.attr("orgi", "")
-                        }
-                    }
-                }
-            })
         }
         e.off("click").on("click", function () {
             window.open("//cs" + cookieDomain + "?entry=" + s + "&orgi=" + e.attr("orgi") + "&productId=" + n + "&skuId=" + o, "_blank")
@@ -7728,11 +7450,6 @@ if ($("[customer-service-button-id]").length > 0 && $("[customer-service-button-
             c = s.loginData.loginId;
             var t = this,
                 a = t.options.url + "&module=searchSuggest" + "&query=" + encodeURIComponent(i) + "&jp=true&user=" + c;
-            e.ajax({
-                type: "get", url: a, dataType: "jsonp", jsonpName: "suggest", success: function (e) {
-                    t.renderDataForSearch(e, i)
-                }
-            })
         }, renderDataForSearch: function (e, s) {
             var i = e.length, t, a, r = [], o = 0, n = s === "" ? 10 : 2;
             this.highlightIndex = null;
@@ -7836,7 +7553,6 @@ if ($("[customer-service-button-id]").length > 0 && $("[customer-service-button-
                 i.$elem.attr({pos: o, sq: a, mode: r});
                 i.$elem.val(i.getPointWord(s))
             }
-            doSearch()
         }, selectTipItem: function (e) {
             var s = this, i = this.$searchTipsList.find("li:visible"), t = i.length, a, r;
             if (e === "KEY_UP") {
@@ -7881,10 +7597,7 @@ if ($("[customer-service-button-id]").length > 0 && $("[customer-service-button-
                 o.find(".related-keyword").text(e("#keyLabel").text());
                 o.show()
             }
-            e.ajax({
-                type: "get", url: a, cache: false, dataType: "jsonp", jsonpName: "suggest", success: function (e) {
-                }
-            })
+
         }, getPointWord: function (e) {
             return e.attr("keyword") ? e.attr("keyword") : e.find("span:first").text()
         }, toggleRelatedSearchItem: function (e) {
@@ -7948,65 +7661,7 @@ if (browserRule.test(navigator.userAgent)) {
     }
 }
 
-function saveHeaderSearchHistory(e) {
-    var o = [], r = $.cookie("headerSearchHistory");
-    if (r) {
-        o = JSON.parse(r) || []
-    }
-    for (var a = 0; a < o.length; a++) {
-        if (e === o[a]) {
-            o.splice(a, 1)
-        }
-    }
-    o.unshift(e);
-    if (o.length > 10) {
-        o.splice(10, o.length - 10)
-    }
-    $.cookie("headerSearchHistory", JSON.stringify(o), {expires: 365e3, domain: cookieDomain})
-}
 
-function doSearch() {
-    var e = $("#search-type-dropdown").find(".search-type-selected");
-    var o = e.attr("data-selected");
-    var r = {
-        goods: "//search" + cookieDomain + "/search?question=",
-        group: "//group" + cookieDomain + "/search/group?word=",
-        topic: "//group" + cookieDomain + "/search/topics?word=",
-        shop: "//search" + cookieDomain + "/search?shop="
-    };
-    var a = $("#searchInput");
-    var t = a.val();
-    var i = "";
-    if (a.attr("mode")) {
-        var n = a.attr("pos");
-        var s = a.attr("sq");
-        var h = a.attr("mode");
-        i = "&pos=" + n + "&sq=" + s + "&search_mode=" + h;
-        a.attr("pos", "").attr("sq", "").attr("mode", "");
-        a.attr({pos: "", sq: "", mode: ""})
-    } else {
-        i = "&search_mode=normal"
-    }
-    if (o === "goods" && $.trim(t) === "") {
-        var c = $("#keyLabel").text();
-        $("#keyLabel").hide();
-        a.val(c);
-        t = c
-    }
-    i += o === "goods" ? "&reWrite=true" : "";
-    if (t.length > 100) {
-        t = t.substring(0, 100);
-        a.val(t)
-    }
-    if ($.trim(t) !== "" && o === "goods") {
-        saveHeaderSearchHistory($.trim(t));
-        i += "&instock=1"
-    }
-    if ($.trim(t) !== "") {
-        location.href = r[o] + encodeURIComponent(t) + "&searchType=" + o + i
-    }
-    return false
-}
 
 $(function () {
     if ($("#searchInput").length > 0) {
@@ -8068,24 +7723,6 @@ $(function () {
     } else {
         hotkeywordurl = "//ss" + cookieDomain + "/item/v1/hotKeyword/" + a + "/flag/publicv1/gethotkeyword"
     }
-    $.ajax({
-        type: "get", url: hotkeywordurl, dataType: "jsonp", jsonpName: "gethotkeyword", success: function (o) {
-            if (o.length <= 0) {
-                return
-            }
-            if (o.length > 6) {
-                o.length = 6
-            }
-            var r = "";
-            for (var t = 0; t < o.length; t++) {
-                if (o[t].href == "") {
-                    o[t].href = encodeURI("//search" + cookieDomain + "/search?question=" + o[t].text + (a ? "&catId=" + a : ""))
-                }
-                r += '<a target="_blank" href="' + o[t].href + '"' + ' title="' + o[t].text + '"><span ' + (o[t].red == "Y" ? 'class="highlight"' : "") + ">" + o[t].text + "</span></a>"
-            }
-            e.html(r)
-        }
-    })
 });
 (function (t) {
     var a = function () {
@@ -8141,80 +7778,74 @@ $(function () {
         $.cookie("cartnum", m(), {domain: cookieDomain, path: "/", expires: a})
     }
 
-    t.mCart = {
-        getMcartNum: function (t) {
-            if (t) {
-                t = t
-            } else {
-                t = 0
-            }
-            $("#gome-aside-cart").find(".car_num s").html(t);
-            $(".gome-bar-btn-cart").find(".car_num s").html(t);
-            $("#commerceItemQuantityId").html(t);
-            if (t != 0) {
-                if (n()) {
-                    $("#hdrcarttext").text("企业购物车")
-                } else {
-                    $("#hdrcarttext").text("我的购物车")
-                }
-                $(".gome-bar-btn-cart .car_num, #gome-aside-cart .car_num").css("background", "#dd00a7");
-                $("#gome-bar-btn-cart .caricon,#gome-aside-cart .caricon").addClass("caricon_num");
-                $(".gome-bar-btn-cart .car_num, #gome-aside-cart .car_num").removeClass("car_num_0").addClass("car_num_more");
-                $(".mygome-side").addClass("havecount")
-            } else {
-                $(".gome-bar-btn-cart .car_num, #gome-aside-cart .car_num").css("background", "#A5A5A5");
-                $("#gome-bar-btn-cart .caricon,#gome-aside-cart .caricon").removeClass("caricon_num");
-                $(".gome-bar-btn-cart .car_num, #gome-aside-cart .car_num").addClass("car_num_0").removeClass("car_num_more");
-                $(".mygome-side").removeClass("havecount");
-                if (n()) {
-                    $("#hdrcarttext").text("企业购物车")
-                } else {
-                    $("#hdrcarttext").text("我的购物车")
-                }
-                return
-            }
-            $("#commerceItemQuantityId").html(t);
-            if (t > 0) {
-                $("[data-cart='mincart'],.cart").addClass("havecount");
-                if (n()) {
-                    $("#hdrcarttext").text("企业购物车")
-                } else {
-                    $("#hdrcarttext").text("我的购物车")
-                }
-            }
-        }, lazyCart: function (a) {
-            var e = c() || 0;
-            if (a == false) {
-                mCart.getMcartNum(e)
-            } else if (c() && c() >= 0) {
-                t.mCart.getMcartNum(c())
-            } else {
-                mCart.getCartNumber()
-            }
-        }, getCartNumber: function () {
-            $.ajax({
-                type: "get", url: a, dataType: "jsonp", success: function (t) {
-                    mCart.lazyCartDom(t)
-                }
-            })
-        }, lazyCartDom: function (t) {
-            if (t.success === true) {
-                i(t.data);
-                var a = c();
-                mCart.getMcartNum(a)
-            } else {
-                mCart.getMcartNum(0);
-                return
-            }
-        }, isQyg: n
-    };
-    $(function u() {
-        if (window.$page) {
-            t.mCart.lazyCart(false)
-        } else {
-            t.mCart.lazyCart(true)
-        }
-    })
+    // t.mCart = {
+    //     getMcartNum: function (t) {
+    //         if (t) {
+    //             t = t
+    //         } else {
+    //             t = 0
+    //         }
+    //         $("#gome-aside-cart").find(".car_num s").html(t);
+    //         $(".gome-bar-btn-cart").find(".car_num s").html(t);
+    //         $("#commerceItemQuantityId").html(t);
+    //         if (t != 0) {
+    //             if (n()) {
+    //                 $("#hdrcarttext").text("企业购物车")
+    //             } else {
+    //                 $("#hdrcarttext").text("我的购物车")
+    //             }
+    //             $(".gome-bar-btn-cart .car_num, #gome-aside-cart .car_num").css("background", "#dd00a7");
+    //             $("#gome-bar-btn-cart .caricon,#gome-aside-cart .caricon").addClass("caricon_num");
+    //             $(".gome-bar-btn-cart .car_num, #gome-aside-cart .car_num").removeClass("car_num_0").addClass("car_num_more");
+    //             $(".mygome-side").addClass("havecount")
+    //         } else {
+    //             $(".gome-bar-btn-cart .car_num, #gome-aside-cart .car_num").css("background", "#A5A5A5");
+    //             $("#gome-bar-btn-cart .caricon,#gome-aside-cart .caricon").removeClass("caricon_num");
+    //             $(".gome-bar-btn-cart .car_num, #gome-aside-cart .car_num").addClass("car_num_0").removeClass("car_num_more");
+    //             $(".mygome-side").removeClass("havecount");
+    //             if (n()) {
+    //                 $("#hdrcarttext").text("企业购物车")
+    //             } else {
+    //                 $("#hdrcarttext").text("我的购物车")
+    //             }
+    //             return
+    //         }
+    //         $("#commerceItemQuantityId").html(t);
+    //         if (t > 0) {
+    //             $("[data-cart='mincart'],.cart").addClass("havecount");
+    //             if (n()) {
+    //                 $("#hdrcarttext").text("企业购物车")
+    //             } else {
+    //                 $("#hdrcarttext").text("我的购物车")
+    //             }
+    //         }
+    //     }, lazyCart: function (a) {
+    //         var e = c() || 0;
+    //         if (a == false) {
+    //             mCart.getMcartNum(e)
+    //         } else if (c() && c() >= 0) {
+    //             t.mCart.getMcartNum(c())
+    //         } else {
+    //             mCart.getCartNumber()
+    //         }
+    //     }, lazyCartDom: function (t) {
+    //         if (t.success === true) {
+    //             i(t.data);
+    //             var a = c();
+    //             mCart.getMcartNum(a)
+    //         } else {
+    //             mCart.getMcartNum(0);
+    //             return
+    //         }
+    //     }, isQyg: n
+    // };
+    // $(function u() {
+    //     if (window.$page) {
+    //         t.mCart.lazyCart(false)
+    //     } else {
+    //         t.mCart.lazyCart(true)
+    //     }
+    // })
 })(window);
 (function (t) {
     function e() {
@@ -8244,7 +7875,6 @@ $(function () {
         renderEmptyCart: T,
         minloadCart: O,
         doActionCart: u,
-        reqChangeNum: h,
         qtyUpdate: y,
         tplHelp: p,
         twoScroll: I,
@@ -8266,7 +7896,7 @@ $(function () {
     }
 
     function l() {
-        return $.ajax({dataType: "jsonp", type: "get", url: o.loadCart})
+
     }
 
     function p() {
@@ -8399,16 +8029,6 @@ $(function () {
         return t.errCode !== "0"
     }
 
-    function h(t, e) {
-        var i = t.next().find("input").val();
-        var a = t.parent("span").data("cid");
-        return $.ajax({type: "get", dataType: "jsonp", data: {cid: a, pcount: e}, url: o.changeNum})
-    }
-
-    function v(t) {
-        return $.ajax({type: "get", dataType: "jsonp", data: {cid: t.cid, pcount: t.pcount}, url: o.changeNum})
-    }
-
     function y(t, e, i, a) {
         var n = t.parent().find("input").val();
         var r = n;
@@ -8456,12 +8076,12 @@ $(function () {
     }
 
     function g(t, e) {
-        t.find(".miniDel").off("click").on("click", function () {
-            var e = $(this).attr("data-itemid");
-            $.ajax({dataType: "jsonp", type: "get", url: o.delCartItem, data: {cid: e}}).then(function () {
-                l().then(u(t))
-            })
-        });
+            // t.find(".miniDel").off("click").on("click", function () {
+            //     var e = $(this).attr("data-itemid");
+            //     $.ajax({dataType: "jsonp", type: "get", url: o.delCartItem, data: {cid: e}}).then(function () {
+            //         l().then(u(t))
+            //     })
+            // });
         t.find(".mcart-count-input input").each(function () {
             var e = $(this);
             var i = $(this).parent().parent().prev(".quantity").html();
@@ -8509,7 +8129,7 @@ $(function () {
                 y(i, a, t, e)
             })
         })
-    }
+    };
 
     function C(t) {
         if (t.data.miniCartProfileVO == null || t.data.miniCommerceItemsGroupVOs.length === 0) {
@@ -8573,14 +8193,14 @@ $(function () {
             gminicart: function () {
                 var t = $(this).addClass("gminicart");
                 t.attr("carttype", "right");
-                m.reqMiniCart().then(u(t))
+                // m.reqMiniCart().then(u(t))
             }
         });
         t.cartUnit = {minloadCart: m.minloadCart}
     })();
-    $(function G() {
+     $(function G() {
         m.hoverMinCart()
-    })
+    });
 })(window);
 $(function () {
     $(".code-sm").hover(function () {
@@ -9070,7 +8690,6 @@ $(function () {
                 }
             })
         }
-
         s(function (e) {
             if (e == "true") {
                 $.ajax({
@@ -9941,58 +9560,58 @@ seajs.config({base: stageJsServer}), seajs.use(["gmpro/2.0.0/channel/newindex/8.
                         return [b[1], b[3], b[2], void 0 == b[0] ? "11011400" : b[0], void 0 == b[4] ? b[0] + "1" : b[4]]
                     }();
                     var c = b[2];
-                    $.ajax({
-                        type: "get",
-                        url: ajaxTuan + "/cheap/getIndexRushbuyItem?areaCode=" + c,
-                        cache: !1,
-                        dataType: "jsonp",
-                        timeout: 200,
-                        jsonpCallback: "tuanbackshouye",
-                        success: function (a) {
-                            if (a && a.data && a.data.indexRushItem && a.data.indexRushItem.length > 0) {
-                                var b = a.data.goods_endTim;
-                                var c = a.data.goods_curr;
-                                $(".countdown_js").hide();
-
-                                function d(a) {
-                                    return 10 > a ? "0" + a : "" + a
-                                }
-
-                                $.gTimer({
-                                    ct: c, et: b, aEven: function () {
-                                        if (!(this.ct >= this.et)) {
-                                            var a = d(Number(this.dt.format("$dd")));
-                                            var b = d(Number(this.dt.format("$hh")));
-                                            var c = d(Number(this.dt.format("$mm")));
-                                            var e = d(Number(this.dt.format("$s")));
-                                            "00" === a && "00" === b && "00" === c && "00" === e ? window.location.reload() : $(".time_box").html('<i class="defintext">\u672c\u573a\u6b21\u5269\u4f59\u65f6\u95f4</i><i class="timego"><em class="num">' + b + '</em>:<em class="num">' + c + '</em>:<em class="num">' + e + "</em></i>")
-                                        }
-                                    }
-                                }), a.data.extra = {domain: a.data.tuanIndexSite}, seajs.use("gmpro/2.0.0/channel/newindex/8.5.3/js/index-tpl", function (b) {
-                                    var c = b("tuan", a.data);
-                                    $(".countdown_l_b .countdown_lists").html(c), $(".countdown").show(), $(".count_l").mouseover(function () {
-                                        $(".countdown_btn").show()
-                                    }).mouseout(function () {
-                                        $(".countdown_btn").hide()
-                                    }), $(".count_l").mySlider({
-                                        content: ".count_l",
-                                        item: ".countdown_l_b .lay",
-                                        fadetime: 100,
-                                        prev: ".prebtn",
-                                        next: ".nexbtn"
-                                    })
-                                })
-                            } else $(".countdown_js").hide()
-                        },
-                        error: function () {
-                            $(".countdown_js").hide()
-                        },
-                        complete: function (a, b) {
-                            "timeout" == b && (window.tuanbackshouye = function () {
-                                delete window.tuanbackshouye
-                            }, $(".countdown_js").hide())
-                        }
-                    })
+                    // $.ajax({
+                    //     type: "get",
+                    //     url: ajaxTuan + "/cheap/getIndexRushbuyItem?areaCode=" + c,
+                    //     cache: !1,
+                    //     dataType: "jsonp",
+                    //     timeout: 200,
+                    //     jsonpCallback: "tuanbackshouye",
+                    //     success: function (a) {
+                    //         if (a && a.data && a.data.indexRushItem && a.data.indexRushItem.length > 0) {
+                    //             var b = a.data.goods_endTim;
+                    //             var c = a.data.goods_curr;
+                    //             $(".countdown_js").hide();
+                    //
+                    //             function d(a) {
+                    //                 return 10 > a ? "0" + a : "" + a
+                    //             }
+                    //
+                    //             $.gTimer({
+                    //                 ct: c, et: b, aEven: function () {
+                    //                     if (!(this.ct >= this.et)) {
+                    //                         var a = d(Number(this.dt.format("$dd")));
+                    //                         var b = d(Number(this.dt.format("$hh")));
+                    //                         var c = d(Number(this.dt.format("$mm")));
+                    //                         var e = d(Number(this.dt.format("$s")));
+                    //                         "00" === a && "00" === b && "00" === c && "00" === e ? window.location.reload() : $(".time_box").html('<i class="defintext">\u672c\u573a\u6b21\u5269\u4f59\u65f6\u95f4</i><i class="timego"><em class="num">' + b + '</em>:<em class="num">' + c + '</em>:<em class="num">' + e + "</em></i>")
+                    //                     }
+                    //                 }
+                    //             }), a.data.extra = {domain: a.data.tuanIndexSite}, seajs.use("gmpro/2.0.0/channel/newindex/8.5.3/js/index-tpl", function (b) {
+                    //                 var c = b("tuan", a.data);
+                    //                 $(".countdown_l_b .countdown_lists").html(c), $(".countdown").show(), $(".count_l").mouseover(function () {
+                    //                     $(".countdown_btn").show()
+                    //                 }).mouseout(function () {
+                    //                     $(".countdown_btn").hide()
+                    //                 }), $(".count_l").mySlider({
+                    //                     content: ".count_l",
+                    //                     item: ".countdown_l_b .lay",
+                    //                     fadetime: 100,
+                    //                     prev: ".prebtn",
+                    //                     next: ".nexbtn"
+                    //                 })
+                    //             })
+                    //         } else $(".countdown_js").hide()
+                    //     },
+                    //     error: function () {
+                    //         $(".countdown_js").hide()
+                    //     },
+                    //     complete: function (a, b) {
+                    //         "timeout" == b && (window.tuanbackshouye = function () {
+                    //             delete window.tuanbackshouye
+                    //         }, $(".countdown_js").hide())
+                    //     }
+                    // })
                 }, feature: function () {
                     var a = this;
 
@@ -10194,63 +9813,11 @@ seajs.config({base: stageJsServer}), seajs.use(["gmpro/2.0.0/channel/newindex/8.
                         var a = $(this);
                         $(this).floorTab({
                             content: a, endFun: function (a, b, c, d, e) {
-                                window.loadTabData(a, b, c, d, e)
+
                             }
                         })
-                    }), window.loadTabData = function (a, b, e, f, g) {
-                        var h = $.cookie("atgregion") ? $.cookie("atgregion").split("|")[0] : "24150300";
-                        var i = window.location.href;
-                        var j = "//ss" + cookieDomain + "/item/v1/floorSelect/" + f.split("/")[2] + "/" + f.split("/")[3] + "/" + h + "/home/flag/homepage/test" + a + b;
-                        i.indexOf("jsp") > -1 ? j = "../2016/indexFloorTabPrd2016.jsp?floor=" + f.split("/")[2] + "&tab=" + f.split("/")[3] : i.indexOf("ftl") > -1 && (j = "//preview.ds.atguat.com.cn/stage-web_06/2016/indexFloorTabPrd2016.jsp?floor=floor1and11_2&tab=tab_2&callback=test" + a + b), $.ajax({
-                            type: "get",
-                            url: j,
-                            cache: !1,
-                            dataType: "jsonp",
-                            jsonpCallback: "test" + a + b,
-                            success: function (h) {
-                                h && (h.extra = {
-                                    f: a,
-                                    t: b,
-                                    i: g
-                                }, seajs.use("gmpro/2.0.0/channel/newindex/8.5.3/js/index-tpl", function (g) {
-                                    var i = g("index-floor", h);
-                                    e.html(i), e.attr("tab-data-load", "1"), c.lazyload({source: "data-lazy-img"}), d(a, b, e, f)
-                                }))
-                            }
-                        })
-                    };
+                    })
 
-                    function d(a, b, c) {
-                        var f = e()[2];
-                        var g = "", h = "", i = [];
-                        var j = c.find(".p_price[sku]");
-                        c.find(".p_price");
-                        j.each(function () {
-                            var b = ($(this).attr("productId"), $(this).attr("sku"));
-                            "true" == $(this).attr("priceFlag") && ($(this).attr("priceFlag", "false"), g = b, i.push(g))
-                        }), h = i.join(","), l();
-
-                        function l() {
-                            $.ajax({
-                                type: "get",
-                                url: "//ss" + cookieDomain + "/item/v1/price/promogen/" + h + "/" + f + "/flag/channel/callback",
-                                cache: !1,
-                                dataType: "jsonp",
-                                jsonpName: "callback",
-                                success: function (a) {
-                                    a && a.result && (a = a.result), a && a.length > 0 && $.each(a, function (b) {
-                                        var d = a[b].skuId;
-                                        a[b].originalPrice;
-                                        var f = a[b].minPrice;
-                                        j.each(function () {
-                                            var a = $(this).attr("sku");
-                                            a == d && f && $(this).html("<span>\xa5</span>" + f)
-                                        })
-                                    })
-                                }
-                            })
-                        }
-                    }
 
                     function e() {
                         var a = $.cookie("atgregion") || "11011400|\u5317\u4eac\u5317\u4eac\u5e02\u4e1c\u57ce\u533a\u4e1c\u57ce\u533a|11010000|11000000|110114001",
