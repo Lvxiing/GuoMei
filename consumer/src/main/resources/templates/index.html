@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html">
-
     <title>国美(GOME)-综合网购商城，正品低价、品质保障、快速送达、安心服务！</title>
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
@@ -2993,40 +2992,14 @@ if (winWidth <= 1024) {
         <div class="focus_img_bg">
         </div>
         <div>
-            <div class="main_data">
-                <script type="text/javascript">
-                    var main_data = [
-                        [
-                            {
-                                background: "#c0e5f7",
-                                href: "//prom.gome.com.cn/html/prodhtml/topics/201908/13/kt8buy.html",
-                                alt: "",
-                                src: "//gfs13.gomein.net.cn/T1nvJXB7AT1RCvBVdK.jpg",
-                                code: "1000060759-1",
-                                chance: "1"
-                            }], [
-                            {
-                                background: "#c4c5ca",
-                                href: "//prom.gome.com.cn/html/prodhtml/topics/201603/22/hehc.html",
-                                alt: "",
-                                src: "//gfs11.gomein.net.cn/T1twJXBjJT1RCvBVdK.jpg",
-                                code: "1000060765-1",
-                                chance: "1"
-                            }, {
-                                background: "#0023e9",
-                                href: "//prom.gome.com.cn/html/prodhtml/topics/201908/14/1357150884.html",
-                                alt: "",
-                                src: "//gfs13.gomein.net.cn/T1qIJXBTLT1RCvBVdK.jpg",
-                                code: "1000060765-2",
-                                chance: "1"
-                            }]];
-                    var saleflag;
-                </script>
-            </div>
             <!--轮播-->
-            <ul class="focus_box"></ul>
-            <ol class="nav edit-mode" modelid="1000060755" modeltype="">
+            <ul class="focus_box">
+
+            </ul>
+            <!--下横线-->
+            <ol class="nav edit-mode" modelid="1000060755" modeltype="" id="ol">
             </ol>
+            <!--上下翻页-->
             <div class="slider-extra">
                 <div class="btn pre" onselectstart="return false" style="-moz-user-select:none;"><span
                         class='btnbg'></span>
@@ -3323,20 +3296,6 @@ if (winWidth <= 1024) {
         </div>
     </div>
 </div>
-<!--<div class='wbox gm_guess'>-->
-<!--<div class='gm_title'>-->
-<!--<h2>猜你喜欢</h2>-->
-<!--<span>YOU MAY LIKE</span>-->
-<!--<div class='change_btn'>-->
-<!--<a class="pre" onselectstart="return false" style="-moz-user-select:none;"></a>-->
-<!--<a class="nex" onselectstart="return false" style="-moz-user-select:none;"></a>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class='guess_main' id="guess_main">-->
-<!--<div id="j-imgload-recomm">-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
 <div class="lazy-fn-wrap clearfix async">
     <!--七楼-->
     <div class="floor wbox edit-mode" modelid="1000060859" modeltype="" data-title="手机通讯" data-code-index="1"
@@ -6352,12 +6311,14 @@ if (winWidth <= 1024) {
 </script>
 
 
+
 <script type="text/javascript">
     $(function () {
         $("a#a").attr("href", "car.html");
     });
 </script>
-
+<srcipt src="js/jquery.js"></srcipt>
+<script src="js/index.js"></script>
 </body>
 </html>
 

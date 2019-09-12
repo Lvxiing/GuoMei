@@ -39,7 +39,7 @@ public class Goods extends Model<Goods> {
     private String desImg;          //详情图片
 
     @TableField(value = "goods_des")
-    private String describe;            //商品描述
+    private String des;            //商品描述
 
     @TableField(value = "goods_price")
     private BigDecimal price;          //商品价格
