@@ -57,7 +57,6 @@ public class GoodsController {
             String uploadName = NginxUtil.upload(excelFile);
             //返回服务器上存放图片的完整路径
             String fileUrl = NginxUtil.getFileUrl(path, uploadName);
-            System.out.println("fileUrl = " + fileUrl);
             res.put("url", fileUrl);
         } catch (Exception e) {
             e.printStackTrace();
