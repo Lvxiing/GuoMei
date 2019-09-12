@@ -217,6 +217,19 @@ public class CategoryController {
         return  category;
     }
 
+    //查询当前分类的上一级父分类
+    @RequestMapping("findParentOne")
+    @ResponseBody
+    public Category findParentOne(@RequestParam("id")Integer id){
+        return categoryService.getOne(new QueryWrapper<Category>().eq("category_id",id));
+    }
+
+    //查询当前品牌的父分类信息
+    @RequestMapping("findBrandIsParentCategory")
+    @ResponseBody
+    public Map findBrandIsParentCategory(@RequestParam("id")Integer id){
+        return categoryService.findBrandIsParentCategory(id);
+    }
 
 
 }

@@ -10,7 +10,7 @@
         <result column="goods_sub_title" property="subTitle" />
         <result column="goods_main_img" property="mainImg" />
         <result column="goods_des_img" property="desImg" />
-        <result column="goods_des" property="describe" />
+        <result column="goods_des" property="des" />
         <result column="goods_price" property="price" />
         <result column="goods_stock" property="stock" />
         <result column="goods_state" property="state" />
@@ -35,7 +35,7 @@
     </select>
 
     <insert id="addGoods" parameterType="map" useGeneratedKeys="true" keyProperty="id" keyColumn="goods_id">
-        INSERT INTO goods(brand_id,goods_title,goods_sub_title,goods_main_img,goods_des_img,goods_des,goods_price,goods_stock,goods_state,goods_seckill) VALUES(#{bid},#{title},#{subTitle},#{mainImg},#{desImg},#{describe},#{price},#{stock},#{state},#{seckill})
+        INSERT INTO goods(brand_id,goods_title,goods_sub_title,goods_main_img,goods_des_img,goods_des,goods_price,goods_stock,goods_state,goods_seckill) VALUES(#{bid},#{title},#{subTitle},#{mainImg},#{desImg},#{des},#{price},#{stock},#{state},#{seckill})
     </insert>
 
 

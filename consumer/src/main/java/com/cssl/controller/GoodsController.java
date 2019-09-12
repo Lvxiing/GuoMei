@@ -146,5 +146,11 @@ public class GoodsController {
         return productFeignInterface.categoryShow(param);
     }
 
+    @RequestMapping("findGoodsById")
+    @ResponseBody
+    public Map findGoodsById(@RequestParam("id") Integer id){
+        return productFeignInterface.findGoodsById(id);
+    }
+
 
 }

@@ -69,6 +69,14 @@ public interface ProductFeignInterface {
     @RequestMapping("category/categoryShow")
     List<Category> categoryShow(@RequestParam Map<String, String> param);
 
+    //根据id查询当前分类
+    @RequestMapping("category/findParentOne")
+    Category findParentOne(@RequestParam("id")Integer id);
+
+    //查询当前品牌的父分类信息
+    @RequestMapping("category/findBrandIsParentCategory")
+    Map findBrandIsParentCategory(@RequestParam("id")Integer id);
+
 
     //--------------------------商品模块-------------------------------
     //查询商品
@@ -107,5 +115,8 @@ public interface ProductFeignInterface {
     //查询最近一周对应日期的订单金额,未付金额,退款金额,实际金额
     @RequestMapping("/orders/weekOrder")
     List<Map<String,Object>> weekOrder();
+
+    @RequestMapping("goods/findGoodsById")
+    Map findGoodsById(@RequestParam("id") Integer id);
 
 }
