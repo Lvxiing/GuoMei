@@ -107,9 +107,17 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             list4.add((String) i.get("times"));
         }
 
-        data2 = differenceSet(xcontent, list2, data2);
-        data3 = differenceSet(xcontent, list3, data3);
-        data4 = differenceSet(xcontent, list4, data4);
+       if(list2.size()!=xcontent.size()){
+           data2 = differenceSet(xcontent, list2, data2);
+       }
+        if(list3.size()!=xcontent.size()){
+            data3 = differenceSet(xcontent, list3, data3);
+        }
+        if(list4.size()!=xcontent.size()){
+            data4 = differenceSet(xcontent, list4, data4);
+        }
+
+        System.out.println("data3:"+data3);
         map1.put("data", data1);
         map2.put("data", data2);
         map3.put("data", data3);
@@ -131,7 +139,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     private List<Object> differenceSet(List<String> list1, List<String> list2, List<Object> data) {
         List<String> exists = new ArrayList<String>(list1);
         //求差集
-        exists.removeAll(list2);
+         exists.removeAll(list2);
         System.out.println("exists:"+exists);
         //查询差集得所在位置
         List<Object> existss = new ArrayList<Object>();
@@ -151,6 +159,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                 arrList.set(n,data.get(n));
             }
         }
+
         if(existss.size()>0){
             for (int k = 0; k < existss.size(); k++) {
                 arrList.add((int) existss.get(k), 0);
