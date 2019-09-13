@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -67,6 +68,7 @@ public class UserController {
 
     //判断该用户名是否已被注册
     @RequestMapping("/selectUserName")
+    @ResponseBody
     public  int  selectUserName(@RequestParam("userName") String userName){
         return  userFeignInterface.selectUserName(userName);
     }
@@ -75,8 +77,13 @@ public class UserController {
     @RequestMapping("/userRegister")
     @ResponseBody
     public   boolean   userRegister(Users users){
+        //spring 自带的 DigestUtils 工具类可以进行 md5 加密
+        String password = DigestUtils.md5DigestAsHex(users.getPassWord().getBytes());
+        users.setPassWord(password);
         return  userFeignInterface.userRegister(users);
     }
+
+
 
 
 
@@ -100,8 +107,8 @@ public class UserController {
     @RequestMapping("/adminLogin")
     public String adminLogin(Users users, Model model, HttpSession session) {
         //解密
-        //String password = DigestUtils.md5DigestAsHex(users.getPassWord().getBytes());
-        // users.setPassWord(password);
+        String password = DigestUtils.md5DigestAsHex(users.getPassWord().getBytes());
+        users.setPassWord(password);
         Users u = userFeignInterface.adminLogin(users);
         if (u== null) {
             model.addAttribute("errorMess", "用户名或密码错误");
@@ -210,13 +217,19 @@ public class UserController {
     @RequestMapping("/updatePwd")
     @ResponseBody
     public  boolean  updatePwd(Users users){
-        return  userFeignInterface.updatePwd(users);
+        //spring 自带的 DigestUtils 工具类可以进行 md5 加密
+        String password = DigestUtils.md5DigestAsHex(users.getPassWord().getBytes());
+        users.setPassWord(password);
+        return userFeignInterface.updatePwd(users);
     }
 
     //查询管理员的原始密码是否正确
     @RequestMapping("/selectPwd")
     @ResponseBody
     public Users selectPwd(Users user){
+        //解密
+        String password = DigestUtils.md5DigestAsHex(user.getPassWord().getBytes());
+        user.setPassWord(password);
         return  userFeignInterface.selectPwd(user);
     }
 

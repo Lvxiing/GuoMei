@@ -31,7 +31,12 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
-    <script type="text/javascript" src="regjs/newRegister.js"></script>
+    <script src="../static/layui/layui.all.js"></script>
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+    <script src="../static/Manager/js/jquery-3.2.1.js"></script>
+
+
+    <!-- <script type="text/javascript" src="regjs/newRegister.js"></script>-->
     <!--<script type="text/javascript">
         var contextPath = 'https://reg.gome.com.cn';
         var siteVersion = 'refuse';
@@ -76,45 +81,28 @@
 </div>
 <div style="border-top:1px solid #dd00a7;">
     <div class="step-progress" id="container">
-        <div class="step-slider">
-            <ul>
-                <li class="step-li1 "></li>
-                <li class="step-li2"></li>
-            </ul>
-            <div data-id="step1" class="step-active">
-                <div class="step-icon-pos step-icon step-icon1">1</div>
-                <div class="step-info step-info1">
-                    <div name="js_step_name_1">验证手机号</div>
-                </div>
-            </div>
-            <div data-id="step2">
-                <div class="step-icon-pos step-icon step-icon2">2</div>
-                <div class="step-info step-info2">
-                    <div name="js_step_name_2">填写账户信息</div>
-                </div>
-            </div>
-            <div data-id="step3">
-                <div class="step-icon-pos step-icon step-icon3">3</div>
-                <div class="step-info step-info3">
-                    <div name="js_step_name_3">注册成功</div>
-                </div>
-            </div>
-        </div>
-        <div class="step-content">
-            <form id="verifyAccountForm" autocomplete="off">
-                <div class="form-group err"><input type="text" id="username" name="username" maxlength="20"
+        <div class="step-content" style="margin-top: 50px;">
+            <form id="verifyAccountForm" autocomplete="off" method="post" action="/users/userRegister">
+                <div class="form-group err"><input type="text" id="phone" name="phone" maxlength="20"
                                                    onpaste="return false" tabindex="3"
                                                    onkeypress="if(event.keyCode==13||event.which==13){return false;}"
-                                                   class="form-control focus" placeholder="请输入用户名" autocomplete="aaa"
+                                                   class="form-control focus" placeholder="请填写手机号码" autocomplete="aaa"
                                                    verify="false"> <i class="reg-icon close" style="display: none;"></i>
                     <i class="inputSuc" style="display: none;"></i>
-                    <div class="input-call-info"></div>
-                    <div class="C_err_tips">请输入用户名</div>
+                    <div class="input-call-info" id="phoneMess"></div>
+                </div>
+                <div class="form-group err"><input type="text" id="userName" name="userName" maxlength="20"
+                                                   onpaste="return false" tabindex="3"
+                                                   onkeypress="if(event.keyCode==13||event.which==13){return false;}"
+                                                   class="form-control focus" placeholder="请设置用户名" autocomplete="aaa"
+                                                   verify="false"> <i class="reg-icon close" style="display: none;"></i>
+                    <i class="inputSuc" style="display: none;"></i>
+                    <div class="input-call-info" id="userNameMess"></div>
                     <div id="tj_name" class="recommended-list hide"><p>推荐您使用：</p>
                         <ul class="clearfix"></ul>
                     </div>
                 </div>
-                <div class="form-group err"><input type="password" isclick="false" id="password" name="password"
+                <div class="form-group err"><input type="password" isclick="false" id="passWord" name="passWord"
                                                    onpaste="return false" tabindex="3"
                                                    onkeypress="if(event.keyCode==13||event.which==13){return false;}"
                                                    class="form-control focus" placeholder="请设置登录密码" autocomplete="aaa"
@@ -129,33 +117,86 @@
                         </div>
                         <a class="pw-suggest" href="javascript:void(0);">密码设置建议</a></div>
                     <i class="inputSuc" style="display: none;"></i>
-                    <div class="input-call-info"></div>
-                    <div class="C_err_tips">请输入密码</div>
-                </div>
-                <div class="form-group"><input type="text" id="refereeCode" name="refereeCode"
-                                               class="form-control focus" placeholder="填写推荐人推荐码，帮好友赚收入（选填）"
-                                               autocomplete="off"> <i class="inputSuc" style="display: none;"></i>
-                    <div class="C_err_tips"></div>
+                    <div class="input-call-info" ></div>
                 </div>
                 <div class="form-group-submit"><a class="button btn-primary" href="javascript:;"
-                                                  id="submitVerifyAccountForm">下一步</a></div>
-                <div class="js-change-company step-link"><i class="company"></i> <a href="/register/index/company">企业用户注册</a>
-                </div>
-                <div class="grey-layer"></div>
-                <div class="bomb-box" id="pw-suggest-box">
-                    <div class="bomb-box-posi w440">
-                        <div class="bomb-box-title"><h1>密码设置建议</h1> <a href="javascript:void(0);"></a></div>
-                        <div class="bomb-box-text"><p>1.密码设置至少6位以上，由数字、字母和符号混合而成，安全性最高；</p>
-                            <p>2.不允许空格、特殊字符。允许的符号为：~!@#$%^&amp;*()_+-=；</p>
-                            <p class="bomb-box-text-b">统计分析表明，账号被盗，80%由于密码简单而被猜到引起的</p>
-                            <p>1.不建议使用7位以下纯数字；</p>
-                            <p>2.不建议和用户名太相似；</p>
-                            <p>3.不建议用太多连续或重复的字符（如：1234、ssss等）；</p>
-                            <p>4.不建议用手机号，身份证号，生日等个人信息</p></div>
-                    </div>
-                </div>
+                                                  id="submitVerifyAccountForm">立即注册</a></div>
+
+
             </form>
         </div>
+
+        <script >
+
+            $(function () {
+
+
+
+
+                $("a#submitVerifyAccountForm").click(function () {
+
+                    var phone = $("input[name=phone]").val();
+                    var userName = $("input[name=userName]").val();
+                    var passWord = $("input[name=passWord]").val();
+
+                       $.getJSON("/users/userRegister",{"phone":phone,"userName":userName,"passWord":passWord},function (result) {
+
+                        if (result==true){
+                            alert("注册成功,请登录!");
+                            location.href="gm-login.html";
+                        } else{
+                           alert("注册失败,请重试!!");
+                        }
+
+                    })
+
+                })
+
+
+                $("input[name=phone]").blur(checkPhone);
+                $("input[name=userName]").blur(checkUserName);
+
+            })
+
+
+            //验证手机号
+            function  checkPhone(){
+                var  phone= $("input[name=phone]").val();
+                $.getJSON("/users/selectPhone",{phoneNum:phone},function (result) {
+                    if (result>0){
+                        $("#phoneMess").text("该手机号已被注册").css("color","red");
+                        $("input[name=phone]").focus();
+                    }else{
+                        $("#phoneMess").text("");
+                    }
+                });
+            }
+
+            //验证用户名
+            function  checkUserName(){
+                var  userName= $("input[name=userName]").val();
+                $.getJSON("/users/selectUserName",{userName:userName},function (result) {
+                    if (result>0){
+                        $("#userNameMess").text("该用户名已被注册").css("color","red");
+                        $("input[name=userName]").focus();
+                    }else{
+                        $("#userNameMess").text("");
+                    }
+                });
+            }
+
+
+
+        </script>
+
+
+
+
+
+
+
+
+
         <!--手机短信验证-->
         <!--<div class="step-content">
             <form id="verifyMobileForm" autocomplete="off">
