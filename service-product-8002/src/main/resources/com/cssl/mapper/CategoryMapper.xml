@@ -57,7 +57,7 @@
         SELECT category_name AS `name`,category_id AS id,category_parent_id AS pid FROM category WHERE category_level !=#{cLevel}
     </select>
 
-    <insert id="addCategory" parameterType="category">
+    <insert id="addCategory" parameterType="category" useGeneratedKeys="true" keyProperty="cid" keyColumn="category_id">
         INSERT INTO category (category_name,category_parent_id,category_level) VALUES (#{name},#{parentId},#{cLevel})
     </insert>
 
