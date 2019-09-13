@@ -130,10 +130,12 @@
 
         // 表格渲染
         function dataList(data) {
-            layui.use('table', function () {
+            layui.use(['table','util'], function () {
                 var table=layui.table;
+                var util = layui.util;
                 table.render({
                     elem: "#followTable",
+                    even:true,
                     cols: [[
                         {field: "id", title: "id",hide:true},
                         {field: "orderNo", title: "订单编号",width:148},
@@ -141,7 +143,11 @@
                         {field: "title", title: "购买商品"},
                         {field: "total", title: "金额"},
                         {field: "address", title: "收货地址"},
-                        {field: "orderTime", title: "订单时间"},
+                        {field: "orderTime", title: "订单时间",
+                            templet: function(d){
+                                return util.toDateString(d.orderTime, "yyyy-MM-dd HH:mm:ss");
+                            }
+                        },
                         {field: "status", title: "状态",
                             templet: function(d){
                                 if(d.status == '1'){

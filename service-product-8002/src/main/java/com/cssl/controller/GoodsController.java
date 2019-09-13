@@ -1,6 +1,7 @@
 package com.cssl.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.entity.Goods;
 import com.cssl.entity.PageInfo;
 import com.cssl.entity.VipGoods;
@@ -72,7 +73,7 @@ public class GoodsController {
         Double price = new Double(map.get("price").toString());
         Integer state = new Integer(map.get("state").toString());
         Integer grade = null;
-        if (map.get("grade").toString() != null) {
+        if (map.get("grade")!=null && !"".equals(map.get("grade"))) {
             grade = new Integer(map.get("grade").toString());
         }
         int brandid = categoryService.selectBrandId(cid);
@@ -84,7 +85,7 @@ public class GoodsController {
         goods.setDesImg(map.get("imginfo").toString());
         goods.setPrice(BigDecimal.valueOf(price));
         goods.setStock(stock);
-        goods.setDescribe(map.get("desc").toString());
+        goods.setDes(map.get("desc").toString());
         goods.setState(state);
         goods.setBid(brandid);
         goods.setSeckill(ms);
@@ -105,7 +106,7 @@ public class GoodsController {
 
     @RequestMapping("upStateGoods")
     @ResponseBody
-    String upStateGoods(@RequestParam Map<String, Object> map) {
+    public String upStateGoods(@RequestParam Map<String, Object> map) {
         int result = goodsService.upStateGoods(map);
         if (result > 0) {
             String json = "{\"code\":\"success\"}";
@@ -113,6 +114,16 @@ public class GoodsController {
         }
 
         return "{\"msg\":\"修改失败\"}";
+    }
+    @RequestMapping("findGoodsById")
+    @ResponseBody
+    public Map findGoodsById(@RequestParam("id") Integer id){
+        Map map = new HashMap();
+        VipGoods vip = vipGoodsService.getOne(new QueryWrapper<VipGoods>().eq("goods_id",id));
+        Goods goods = goodsService.getOne(new QueryWrapper<Goods>().eq("goods_id", id));
+        map.put("goods",goods);
+        map.put("vip",vip!=null ? 1:0);
+        return map;
     }
 
 }

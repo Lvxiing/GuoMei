@@ -64,4 +64,8 @@
     <select id="selectBrandId" resultType="int">
         SELECT brand_id FROM category c INNER JOIN brand b ON c.category_id = b.category_id WHERE c.category_id=#{cid}
     </select>
+
+    <select id="findBrandIsParentCategory" resultType="map">
+        SELECT brand_id bid,c.category_id cid,brand_name bname,category_name cname,c.category_parent_id pid FROM brand b INNER JOIN category c ON c.category_id = b.category_id WHERE b.brand_id = #{id}
+    </select>
 </mapper>

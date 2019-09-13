@@ -69,6 +69,14 @@ public interface ProductFeignInterface {
     @RequestMapping("category/categoryShow")
     List<Category> categoryShow(@RequestParam Map<String, String> param);
 
+    //根据id查询当前分类
+    @RequestMapping("category/findParentOne")
+    Category findParentOne(@RequestParam("id")Integer id);
+
+    //查询当前品牌的父分类信息
+    @RequestMapping("category/findBrandIsParentCategory")
+    Map findBrandIsParentCategory(@RequestParam("id")Integer id);
+
 
     //--------------------------商品模块-------------------------------
     //查询商品
@@ -85,5 +93,30 @@ public interface ProductFeignInterface {
 
     @RequestMapping("grade/findAll")
     List<Grade> findGrade();
+    //---------------------------订单后台模块--------------------------------
+    //查询全部和模糊查询
+    @RequestMapping("/orders/orderList/{pageIndex}/{pageSize}/{orderNo}/{name}")
+    PageInfo<Map<String, Object>> orderList(@PathVariable("pageIndex")Integer pageIndex, @PathVariable("pageSize")Integer pageSize, @PathVariable("orderNo")String orderNo, @PathVariable("name")String name);
+    //根据订单号查询
+    @RequestMapping("/orders/ByIdOrders/{orderNo}")
+    List<Map<String,Object>> ByIdOrders(@PathVariable("orderNo")String orderNo);
+    //根据订单号修改
+    @RequestMapping("/orders/updateStatus")
+    int updateStatus(@RequestParam("orderNo") String orderNo, @RequestParam("status") int status);
+    //删除
+    @RequestMapping("/orders/deleteOrders")
+    int deleteOrders(@RequestParam("orderId")Integer orderId);
+    //计算本月退单数量,订单数量和金额,本月订单实际金额,本月未付款金额
+    @RequestMapping("/orders/inquiryAmount")
+    Map<String,Object> inquiryAmount();
+    //查询最近一周的订单金额,未付金额,退款金额,实际金额
+    @RequestMapping("/orders/weekInquiryAmount")
+    Map<String,Object> weekInquiryAmount();
+    //查询最近一周对应日期的订单金额,未付金额,退款金额,实际金额
+    @RequestMapping("/orders/weekOrder")
+    List<Map<String,Object>> weekOrder();
+
+    @RequestMapping("goods/findGoodsById")
+    Map findGoodsById(@RequestParam("id") Integer id);
 
 }

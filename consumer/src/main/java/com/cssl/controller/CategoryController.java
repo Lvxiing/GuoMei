@@ -40,5 +40,19 @@ public class CategoryController {
         return productFeignInterface.findCategoryAndChild(parentId);
     }
 
+    //查询当前分类信息
+    @RequestMapping("findParentOne")
+    @ResponseBody
+    public Category findParentOne(@RequestParam("id")Integer id){
+        return productFeignInterface.findParentOne(id);
+    }
+
+    //查询当前品牌的父分类信息
+    @RequestMapping("findBrandIsParentCategory")
+    @ResponseBody
+    public Map findBrandIsParentCategory(@RequestParam("id")Integer id){
+        return productFeignInterface.findBrandIsParentCategory(id);
+    }
+
 
 }
