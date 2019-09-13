@@ -80,12 +80,17 @@
         treetable.render({
             treeColIndex: 1,
             treeSpid: 0,
+            icon_key: 'title',// 必须
             treeIdName: 'cid',
             treePidName: 'parentId',
             elem: '#auth-table',
-            even: true, //隔行背景
             url: '../../../Goods/findCategory',
             page: false,
+            icon: {
+                open: 'layui-icon layui-icon-triangle-d',
+                close: 'layui-icon layui-icon-triangle-r',
+                left: 16,
+            },
             cols: [[
                 {type: 'numbers',title: '序号'},
                 {field: 'name', width: 350, title: '分类名称'},
@@ -100,6 +105,9 @@
                     }, title: '操作'
                 }
             ]],
+            is_click_icon: false,
+            is_checkbox: false,
+            is_cache: true,
             done: function () {
                 layer.closeAll('loading');
             }
@@ -145,7 +153,7 @@
             updateFrame = layer.open({
                 title: "商品分类修改",
                 type: 2,
-                area: ['557px', '400px'],
+                area: ['100%', '100%'],
                 scrollbar: false,	//默认：true,默认允许浏览器滚动，如果设定scrollbar: false，则屏蔽
                 maxmin: true,
                 content: '../category_update.html?cid=' + cid + '&parentId=' + parentId
@@ -200,7 +208,7 @@
             updateFrame = layer.open({
                 title: "商品分类新增",
                 type: 2,
-                area: ['557px', '400px'],
+                area: ['100%', '100%'],
                 scrollbar: false,	//默认：true,默认允许浏览器滚动，如果设定scrollbar: false，则屏蔽
                 maxmin: true,
                 content: '../category_add.html'
