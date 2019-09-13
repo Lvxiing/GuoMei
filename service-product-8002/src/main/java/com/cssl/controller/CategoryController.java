@@ -2,8 +2,10 @@ package com.cssl.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cssl.entity.Brand;
 import com.cssl.entity.Category;
 import com.cssl.entity.TreeCategory;
+import com.cssl.service.BrandService;
 import com.cssl.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +32,9 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private BrandService brandService;
 
     //--------------------------前台模块-------------------------------
 
@@ -190,6 +195,12 @@ public class CategoryController {
             }
         }
         int result = categoryService.addCategory(category2);
+        if(category2.getCLevel() ==4){
+            Brand category_name = brandService.getOne(new QueryWrapper<Brand>().eq("brand_name", category2.getName()));
+            if (category_name==null){
+                brandService.save(new Brand().setBname(category2.getName()).setCid(category2.getCid()));
+            }
+        }
         if (result > 0) {
             String json = "{\"code\":\"success\"}";
             return json;
