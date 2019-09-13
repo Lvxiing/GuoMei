@@ -81,6 +81,7 @@ public class UsersController {
         //友情提示:如果JSON中需要带换行符,请参照标准的JSON协议对换行符的要求,比如短信内容中包含\r\n的情况在JSON中需要表示成\\r\\n,否则会导致JSON在服务端解析失败
         //生成6位的动态验证码
         String numeric = VerifyCodeUtil.randNum();
+        System.out.println("***验证码:"+numeric);
         request.setTemplateParam("{\"code\":\""+numeric+"\"}");
         //可选-上行短信扩展码(扩展码字段控制在7位或以下，无特殊需求用户请忽略此字段)
         //request.setSmsUpExtendCode("90997");
@@ -109,6 +110,7 @@ public class UsersController {
 
         //获取redis中存放的验证码
         String redisCode = redisFeignInterface.get("sms_" + phoneNum);
+        System.out.println("*****redisCode:"+redisCode);
 int num=0;
 
         if (code != null && !"".equals(code)) {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <meta content="国美在线(Gome.com.cn)国美电器唯一官方网上商城，中国领先的专业家电网购平台。全球品牌电视、洗衣机、电脑、手机、数码、空调、电脑配件、生活电器、网络产品等正品行货，更低价格，更快送达，为您提供便捷、诚信的服务。有国美，生活美！"
@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="css/login.css">
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/login.js"></script>
+    <script src="../static/js/jquery-1.8.3.js"></script>
 </head>
 <body class="w990">
 <style type="text/css">
@@ -44,6 +45,15 @@
 <!--<script type="text/javascript">-->
     <!--var staSite = 'http://www.gome.com.cn';-->
 <!--</script>-->
+
+<script th:inline="javascript">
+
+    var mess = [[${errorMess}]];
+   alert(mess);
+
+</script>
+
+
 
 <div id="popLogin-dytscBir" style="display:none;z-index:9999999;position:fixed;">
     <iframe id="popLogin-ifrWindow" src="" frameborder="0" scrolling="no" style="width:462px;height:605px;"
@@ -158,13 +168,14 @@
                     <p class="tips" id="warmTips"><em></em><span></span><a href="" id="snsUrl" class="fontBlink"
                                                                            style="margin-left:6px;">登录</a></p>
 
-                    <form action="/gmsst5Login.no" method="post" id="frm" autocomplete="off">
+                    <form action="/users/verfiy" method="post" id="frm" autocomplete="off">
                         <div class="normalLogin">
                             <p class="tips warningTip"><em></em>公共场所不建议自动登录，以防账号丢失</p>
                             <div class="login-item login-item-name" id="loginNameDiv">
                                 <a href="javascript:;" class="clear-btn"></a>
-                                <span class="default" id="loginNameDefault">手机号码<em>/</em>用户名<em>/</em>邮箱<em>/</em>门店会员卡号</span>
-                                <input name="loginName" id="loginName" tabindex="1" type="text" class="txt">
+
+                                <input type="text" name="phoneNum" class="txt" required placeholder="手机号码" >
+                                <div class="input-call-info" id="phoneMess"></div>
                                 <div class="gome-coo8-tips" id="gome-coo8-tips" style="display:none"
                                      istestconflict="true">
                                     <b id="tip_icon"></b>
@@ -180,13 +191,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="login-item login-item-pwd" id="loginPasswordDiv">
+                            <div class="login-item login-item-pwd" id="loginPasswordDiv" style="margin-top: 15px;">
                                 <a href="javascript:;" class="clear-btn"></a>
 
-                                <span class="default" id="loginPasswordDefault">密码</span>
-                                <input id="loginPassword" tabindex="2" type="password" class="txt" value=""
-                                       autocomplete="off"
-                                       onkeypress="javascript:detectCapsLock(event);handleFocus('loginPassword');if(event.keyCode==13 && isSubmit){loginGome(preLogin);return false;}">
+                                <span class="default" id="loginPasswordDefault">验证码</span>
+                                <input type="text" name="code" class="txt" required placeholder="验证码" style="width: 210px;">
+                            <!--    <input type="button" id="second" value="获取验证码" >-->
+                               <a href="javascript:void(0);" class="fontBlink fr" style="margin-top: -20px;
+    color: #e3101e;" id="sendCode">获取验证码</a>
+                                <div class="input-call-info" id="codeMess"></div>
                                 <input type="password" name="password" value="" style="display: none;">
                                 <input type="publicKey" name="publicKey"
                                        value="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCBOIxEVE5kOoKO4/lUxLX0OIl5ioauoJZSO1G/3dYJRxuiWlfJzP4pDwtz2hPV2FhjrB7RdJ7qgrk7diTcet1QVyYtAJwS2NY6rwCUB7DHoWaz2HmLcIEniy0a0i6ofPQqaEnA8g0qZlye95pN+FeBdEzlMM8ut1a73NuyHH32iQIDAQAB"
@@ -245,8 +258,7 @@
                                 <input name="login" type="hidden" value="登录" id="loginButton">
                                 <input type="hidden" value="0" id="loginErrorNum">
                                 <!-- <input type="submit" class="btnnuw" value="登录"/> -->
-                                <input type="button" tabindex="5" value="登 录" class="btnnuw"
-                                       onclick="loginGome(preLogin);return false;">
+                                <input type="submit" tabindex="5" value="登 录" class="btnnuw" id=toLogin">
                             </div>
 
                             <p style="padding: 30px 0 15px;">
@@ -255,6 +267,96 @@
 
                         </div>
                     </form>
+
+
+                    <script >
+
+                        $(function () {
+
+                            $("#sendCode").click(function () {
+                                sendyzm($("#sendCode"));
+                            })
+
+                            $("input[name=phoneNum]").blur(checkPhone);
+                            $("input[name=code]").blur(checkCode);
+
+                        })
+
+                        function sendyzm(){
+                            var phone = $("input[name=phoneNum]").val();
+                                $.getJSON("/users/ajaxNum","phoneNum="+phone,function (json) {
+
+                                })
+                                setTime(obj);
+                        }
+
+                        var countdown = 60;
+                        function setTime(obj) {
+                            if (countdown == 0) {
+                                obj.prop('disabled', false);
+                                obj.text("点击获取验证码");
+                                countdown = 60;//60秒过后button上的文字初始化,计时器初始化;
+                                return;
+                            } else {
+                                obj.prop('disabled', true);
+                                obj.text("("+countdown+"s)后重新发送") ;
+                                countdown--;
+                            }
+                            setTimeout(function() { setTime(obj) },1000) //每1000毫秒执行一次
+                        }
+
+                        //验证手机号
+                        function  checkPhone(){
+                            var  phone= $("input[name=phoneNum]").val();
+                            //正则表达式
+                            var reg = /^1\d{10}$/;
+                            if(phone==''){
+                                $("#phoneMess").text("手机号必填").css("color","#e3101e");
+                                $("input[name=phoneNum]").focus();
+                            }else if (reg.test(phone) == false) {
+                                $("#phoneMess").text("手机号填写有误").css("color","#e3101e");
+                                $("input[name=phoneNum]").focus();
+                            }
+                            else{
+                                $.getJSON("/users/selectPhone",{phoneNum:phone},function (result) {
+                                    if (result<1){
+                                        $("#phoneMess").text("该手机号未被注册").css("color","#e3101e");
+                                        $("input[name=phoneNum]").focus();
+                                    }else{
+                                        $("#phoneMess").text("");
+                                    }
+                                });
+
+                                        $("#phoneMess").text("");
+                            }
+                        }
+
+                        //验证验证码
+                        function  checkCode(){
+                            var  code= $("input[name=code]").val();
+                            if(code==''){
+                                $("#codeMess").text("验证码必填").css("color","#e3101e");
+                                $("input[name=code]").focus();
+                            }
+                            else{
+                                $("#codeMess").text("");
+                            }
+                        }
+
+                    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <form action="/doQuickLogin.no" method="post" id="quickeLoginForm" autocomplete="off"
                           style="display:none">
                         <div class="quickenLogin">
