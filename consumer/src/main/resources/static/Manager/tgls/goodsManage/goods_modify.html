@@ -72,7 +72,6 @@
                     <p>点击修改商品主图，或将图片拖拽到此处</p>
                 </div>
             </div>
-            商品主图：
             <div class="layui-upload-list" id="demo2">
 
 
@@ -84,10 +83,12 @@
             <div class="layui-input-inline uploadHeadImage">
                 <div class="layui-upload-drag" id="goodsPic">
                     <i class="layui-icon"></i>
-                    <p>点击修改商品详情图，或将图片拖拽到此处</p>
+                    <p>点击新增商品详情图，或将图片拖拽到此处</p>
                 </div>
+
+
             </div>
-            商品详情图：
+            <div class="layui-upload-list" id="desButton"></div>
             <div class="layui-upload-list" id="demo3"></div>
             <input type="hidden" id="imgUrls2" name="imginfo" class="layui-input">
         </div>
@@ -159,6 +160,8 @@
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
+
+
     </form>
 
     <script>
@@ -275,8 +278,15 @@
 
             }
 
+            var renderImg = function () {
+                form.render();
+                layer.photos({
+                    photos: '.theImg'
+                    , anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+                });
+            }
+
             var s = "";
-            var mainUrl = "";
             var desUrl = "";
             //拖拽上传
             var uploadInst = upload.render({
@@ -292,7 +302,7 @@
                         $('#demo2 img[bs="zt"]').remove();
                         $('#demo2').append('<img src="' + result
                             + '" alt="' + file.name
-                            + '"height="100px" width="100px" bs="zt" class="layui-upload-img uploadImgPreView">')
+                            + '"height="100px" width="100px" bs="zt"  class="layui-upload-img uploadImgPreView">')
 
                     });
                 }
@@ -303,8 +313,7 @@
                     }
                     //上传成功
                     layer.msg("上传成功");
-                    mainUrl += res.url + ",";
-                    $("#imgUrls").val(mainUrl);
+                    $("#imgUrls").val(res.url);
 
                 }
                 , error: function () {
@@ -315,6 +324,8 @@
                 }
 
             });
+
+
             //拖拽上传
             var uploadInst = upload.render({
                 elem: '#goodsPic'
@@ -395,23 +406,38 @@
                             $("#gradeDiv").css("display", "inline-block");
                         }
                         if (data.goods.mainImg != null) {
-                            $('#demo2').append('<img  bs="zt" src="' + data.goods.mainImg
+                            $('#demo2').append('<img class="zt"  bs="zt" src="' + data.goods.mainImg
                                 + '" alt="' + "商品主图"
-                                + '"height="100px" width="100px" class="layui-upload-img uploadImgPreView">')
+                                + '"height="100px" width="100px"  class="layui-upload-img uploadImgPreView">')
 
                         }
+                        var desSrcList=[];
                         if (data.goods.desImg != null) {
                             var imgList = data.goods.desImg.split(",");
                             for (var i = 0; i < imgList.length; i++) {
                                 if(imgList[i].length>1){
+                                    desSrcList.push({'src':imgList[i]});
                                     $('#demo3').append('<img  bs="xq" src="' + imgList[i]
                                         + '" alt="' + "商品详情图片"
                                         + '"height="100px" width="100px" class="layui-upload-img uploadImgPreView">')
+                                    $("#desButton").append('<button class="layui-btn layui-btn-sm" type="button"><i class="layui-icon"></i></button>');
 
                                 }
                             }
 
                         }
+                        $("#demo2").on("click","img",function(){
+                            layer.photos({
+                                photos: { "data": [{"src": this.src }] }
+                                ,anim: 1 //0-6的选择，指定弹出图片动画类型，默认随机
+                            });
+                        });
+                        $("#demo3").on("click","img",function(){
+                            layer.photos({
+                                photos: { "data": desSrcList }
+                                ,anim: 1 //0-6的选择，指定弹出图片动画类型，默认随机
+                            });
+                        });
                         form.render();  //更新全部
                     }
                 });
@@ -440,6 +466,7 @@
                 }
                 return theRequest;
             }
+
         });
     </script>
 

@@ -2,8 +2,10 @@ package com.cssl.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cssl.entity.Brand;
 import com.cssl.entity.Category;
 import com.cssl.entity.TreeCategory;
+import com.cssl.service.BrandService;
 import com.cssl.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +32,9 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private BrandService brandService;
 
     //--------------------------前台模块-------------------------------
 
@@ -157,11 +162,11 @@ public class CategoryController {
     @ResponseBody
     public List<Map<String, Object>> findTreeCategory(@PathVariable("cLevel") Integer cLevel) {
         List<Map<String, Object>> list = categoryService.findTreeCategory(cLevel);
-        if(cLevel!=5){
-            Map<String,Object> map = new HashMap<>();
-            map.put("name","根栏目");
-            map.put("pid","0");
-            map.put("id","-1");
+        if (cLevel != 5) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", "根栏目");
+            map.put("pid", "0");
+            map.put("id", "-1");
             list.add(map);
         }
         return list;
@@ -169,65 +174,73 @@ public class CategoryController {
 
     @RequestMapping("addCategory")
     @ResponseBody
-    public String addCategory(@RequestBody Category category){
-        System.out.println("category = " + category);
-        String [] name = category.getName().split(":");
+    public String addCategory(@RequestBody Category category) {
+        String json = null;
+        String[] name = category.getName().split(":");
         String parentName = name[0];
         String newName = name[1];
         Category category2 = new Category();
-        if("根栏目".equals(parentName)){
+        if ("根栏目".equals(parentName)) {
             category2.setName(newName);
             category2.setParentId(0);
             category2.setCLevel(1);
-        }else{
-            Map<String,Object> param = new HashMap<>();
-            param.put("name",parentName);
+            int result = categoryService.addCategory(category2);
+            json = "{\"code\":\"success\"}";
+            return json;
+        } else {
+            Map<String, Object> param = new HashMap<>();
+            param.put("name", parentName);
             List<Category> parentBrother = categoryService.findCategory(param);
-            if(parentBrother.get(0)!=null){
+            Category existCategory = categoryService.getOne(new QueryWrapper<Category>().eq("category_parent_id", parentBrother.get(0).getCid()).eq("category_name", newName));
+            if (parentBrother.get(0) != null && existCategory == null) {
                 category2.setName(newName);
                 category2.setParentId(parentBrother.get(0).getCid());
-                category2.setCLevel(parentBrother.get(0).getCLevel()+1);
+                category2.setCLevel(parentBrother.get(0).getCLevel() + 1);
+                int result = categoryService.addCategory(category2);
+            } else if(existCategory != null) {
+                json = "{\"code\":\"error\"}";
+                return json;
             }
         }
-        int result = categoryService.addCategory(category2);
-        if (result > 0) {
-            String json = "{\"code\":\"success\"}";
-            return json;
+        if (category2.getCLevel() == 4) {
+            Brand category_name = brandService.getOne(new QueryWrapper<Brand>().eq("brand_name", category2.getName()));
+            if (category_name == null) {
+                brandService.save(new Brand().setBname(category2.getName()).setCid(category2.getCid()));
+            }
         }
-
         return "{\"msg\":\"新增失败\"}";
     }
 
 
     @RequestMapping("categoryShow")
     @ResponseBody
-    public List<Category> categoryShow(@RequestParam Map<String, String> param){
-        Map<String,Object> map = new HashMap<>();
+    public List<Category> categoryShow(@RequestParam Map<String, String> param) {
+        Map<String, Object> map = new HashMap<>();
 
-        if(param.get("level")!=null){
-            map.put("level",param.get("level"));
+        if (param.get("level") != null) {
+            map.put("level", param.get("level"));
         }
-        if(param.get("parentId")!=null){
-            map.put("parentId",param.get("parentId"));
+        if (param.get("parentId") != null) {
+            map.put("parentId", param.get("parentId"));
         }
-        if(param.get("cid")!=null){
-            map.put("cid",param.get("cid"));
+        if (param.get("cid") != null) {
+            map.put("cid", param.get("cid"));
         }
         List<Category> category = categoryService.findCategory(map);
-        return  category;
+        return category;
     }
 
     //查询当前分类的上一级父分类
     @RequestMapping("findParentOne")
     @ResponseBody
-    public Category findParentOne(@RequestParam("id")Integer id){
-        return categoryService.getOne(new QueryWrapper<Category>().eq("category_id",id));
+    public Category findParentOne(@RequestParam("id") Integer id) {
+        return categoryService.getOne(new QueryWrapper<Category>().eq("category_id", id));
     }
 
     //查询当前品牌的父分类信息
     @RequestMapping("findBrandIsParentCategory")
     @ResponseBody
-    public Map findBrandIsParentCategory(@RequestParam("id")Integer id){
+    public Map findBrandIsParentCategory(@RequestParam("id") Integer id) {
         return categoryService.findBrandIsParentCategory(id);
     }
 
