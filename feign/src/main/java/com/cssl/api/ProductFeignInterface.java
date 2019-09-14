@@ -91,8 +91,14 @@ public interface ProductFeignInterface {
     @RequestMapping("goods/upStateGoods")
     String upStateGoods(@RequestParam Map<String,Object> map);
 
+    //查询所有会员等级
     @RequestMapping("grade/findAll")
     List<Grade> findGrade();
+
+    //修改商品信息
+    @RequestMapping("goods/modifyGoods")
+    String modifyGoods(@RequestParam Map<String, Object> map);
+
     //---------------------------订单后台模块--------------------------------
     //查询全部和模糊查询
     @RequestMapping("/orders/orderList/{pageIndex}/{pageSize}/{orderNo}/{name}")
