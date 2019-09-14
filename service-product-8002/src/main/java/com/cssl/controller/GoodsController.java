@@ -104,6 +104,38 @@ public class GoodsController {
         return "{\"msg\":\"新增失败\"}";
     }
 
+    //修改商品
+    @RequestMapping("modifyGoods")
+    @ResponseBody
+    public String modifyGoods(@RequestParam Map<String, Object> map){
+        System.out.println("map = " + map);
+        Integer id = new Integer(map.get("gid").toString());
+        Double price = new Double(map.get("price").toString());
+        Integer stock = new Integer(map.get("stock").toString());
+        Integer state = new Integer(map.get("state").toString());
+        Integer ms = new Integer(map.get("ms").toString());
+        Integer cid = new Integer(map.get("brand").toString());
+        Goods goods = new Goods();
+        int bid = categoryService.selectBrandId(cid);
+        goods.setTitle(map.get("goodsName").toString());
+        goods.setSubTitle(map.get("subTitle").toString());
+        goods.setMainImg(map.get("imgmain").toString());
+        goods.setDesImg(map.get("imginfo").toString());
+        goods.setId(id);
+        goods.setPrice(BigDecimal.valueOf(price));
+        goods.setStock(stock);
+        goods.setDes(map.get("desc").toString());
+        goods.setState(state);
+        goods.setSeckill(ms);
+        goods.setBid(bid);
+        boolean b = goodsService.updateById(goods);
+        if(b){
+            String json = "{\"code\":\"success\"}";
+            return json;
+        }
+        return "{\"msg\":\"修改失败\"}";
+    }
+
     @RequestMapping("upStateGoods")
     @ResponseBody
     public String upStateGoods(@RequestParam Map<String, Object> map) {
