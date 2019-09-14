@@ -128,7 +128,7 @@ function createCaptcha(e, i) {
         }
     })
 }
-
+/*
 function loginGome() {
     $("#loginPassword").blur();
     if (!isSubmit) {
@@ -169,7 +169,7 @@ function loginGome() {
         loginGome1(preLogin)
     }
 }
-
+*/
 function loginGome1(e) {
     var i = 5410;
     var p = 5420;

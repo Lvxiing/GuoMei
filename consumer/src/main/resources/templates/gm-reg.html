@@ -31,9 +31,7 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
-    <script src="../static/layui/layui.all.js"></script>
-    <link rel="stylesheet" href="../static/layui/css/layui.css">
-    <script src="../static/Manager/js/jquery-3.2.1.js"></script>
+    <script src="../static/js/jquery-1.8.3.js"></script>
 
 
     <!-- <script type="text/javascript" src="regjs/newRegister.js"></script>-->
@@ -83,7 +81,8 @@
     <div class="step-progress" id="container">
         <div class="step-content" style="margin-top: 50px;">
             <form id="verifyAccountForm" autocomplete="off" method="post" action="/users/userRegister">
-                <div class="form-group err"><input type="text" id="phone" name="phone" maxlength="20"
+                <div class="form-group err"><input type="text" id="phone" name="phone"
+                                                required   maxlength="20"
                                                    onpaste="return false" tabindex="3"
                                                    onkeypress="if(event.keyCode==13||event.which==13){return false;}"
                                                    class="form-control focus" placeholder="请填写手机号码" autocomplete="aaa"
@@ -91,7 +90,7 @@
                     <i class="inputSuc" style="display: none;"></i>
                     <div class="input-call-info" id="phoneMess"></div>
                 </div>
-                <div class="form-group err"><input type="text" id="userName" name="userName" maxlength="20"
+                <div class="form-group err"><input type="text" id="userName" name="userName" maxlength="20" required
                                                    onpaste="return false" tabindex="3"
                                                    onkeypress="if(event.keyCode==13||event.which==13){return false;}"
                                                    class="form-control focus" placeholder="请设置用户名" autocomplete="aaa"
@@ -102,7 +101,7 @@
                         <ul class="clearfix"></ul>
                     </div>
                 </div>
-                <div class="form-group err"><input type="password" isclick="false" id="passWord" name="passWord"
+                <div class="form-group err"><input type="password" isclick="false" id="passWord" name="passWord" required
                                                    onpaste="return false" tabindex="3"
                                                    onkeypress="if(event.keyCode==13||event.which==13){return false;}"
                                                    class="form-control focus" placeholder="请设置登录密码" autocomplete="aaa"
@@ -117,10 +116,10 @@
                         </div>
                         <a class="pw-suggest" href="javascript:void(0);">密码设置建议</a></div>
                     <i class="inputSuc" style="display: none;"></i>
-                    <div class="input-call-info" ></div>
+                    <div class="input-call-info" id="passWordMess"></div>
                 </div>
                 <div class="form-group-submit"><a class="button btn-primary" href="javascript:;"
-                                                  id="submitVerifyAccountForm">立即注册</a></div>
+                                                  id="toReg">立即注册</a></div>
 
 
             </form>
@@ -133,12 +132,15 @@
 
 
 
-                $("a#submitVerifyAccountForm").click(function () {
+                $("a#toReg").click(function () {
 
                     var phone = $("input[name=phone]").val();
                     var userName = $("input[name=userName]").val();
                     var passWord = $("input[name=passWord]").val();
 
+                    if (phone=='' || userName=='' || passWord==''){
+                        alert("各项都必填哦!");
+                    } else{
                        $.getJSON("/users/userRegister",{"phone":phone,"userName":userName,"passWord":passWord},function (result) {
 
                         if (result==true){
@@ -149,12 +151,13 @@
                         }
 
                     })
-
+                    }
                 })
 
 
                 $("input[name=phone]").blur(checkPhone);
                 $("input[name=userName]").blur(checkUserName);
+                $("input[name=passWord]").blur(checkPwd);
 
             })
 
@@ -162,27 +165,54 @@
             //验证手机号
             function  checkPhone(){
                 var  phone= $("input[name=phone]").val();
+                //正则表达式
+                var reg = /^1\d{10}$/;
+                if(phone==''){
+                    $("#phoneMess").text("手机号必填").css("color","#e3101e");
+                    $("input[name=phone]").focus();
+                }else if (reg.test(phone) == false) {
+                    $("#phoneMess").text("手机号填写有误").css("color","#e3101e");
+                    $("input[name=phone]").focus();
+                }
+                else{
                 $.getJSON("/users/selectPhone",{phoneNum:phone},function (result) {
                     if (result>0){
-                        $("#phoneMess").text("该手机号已被注册").css("color","red");
+                        $("#phoneMess").text("该手机号已被注册").css("color","#e3101e");
                         $("input[name=phone]").focus();
                     }else{
                         $("#phoneMess").text("");
                     }
                 });
+                }
             }
 
             //验证用户名
             function  checkUserName(){
                 var  userName= $("input[name=userName]").val();
-                $.getJSON("/users/selectUserName",{userName:userName},function (result) {
-                    if (result>0){
-                        $("#userNameMess").text("该用户名已被注册").css("color","red");
-                        $("input[name=userName]").focus();
-                    }else{
-                        $("#userNameMess").text("");
-                    }
-                });
+                if(userName==''){
+                    $("#userNameMess").text("用户名必填").css("color","#e3101e");
+                    $("input[name=userName]").focus();
+                }else {
+                    $.getJSON("/users/selectUserName", {userName: userName}, function (result) {
+                        if (result > 0) {
+                            $("#userNameMess").text("该用户名已被注册").css("color", "#e3101e");
+                            $("input[name=userName]").focus();
+                        } else {
+                            $("#userNameMess").text("");
+                        }
+                    });
+                }
+            }
+
+//验证密码
+            function  checkPwd() {
+                var  passWord= $("input[name=passWord]").val();
+                if(passWord==''){
+                    $("#passWordMess").text("密码必填").css("color","#e3101e");
+                    $("input[name=passWord]").focus();
+                }else {
+                    $("#passWordMess").text("");
+                }
             }
 
 

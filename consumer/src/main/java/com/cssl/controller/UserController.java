@@ -7,6 +7,7 @@ import com.cssl.entity.Users;
 import com.cssl.util.NginxUtil;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,14 +49,15 @@ public class UserController {
 
 //验证手机验证码
     @RequestMapping("/verfiy")
-    public String login(@RequestParam("phoneNum") String phoneNum,@RequestParam("code") String code){
+    public String login(@RequestParam("phoneNum") String phoneNum,@RequestParam("code") String code,Model model){
         System.out.println("phoneNum:"+phoneNum+","+"code:"+code);
         int num = userFeignInterface.login(phoneNum, code);
         System.out.println("num:"+num);
         if(num==1){
             return "redirect:/index.html";
         }else {
-            return "redirect:/login.html";
+            model.addAttribute("errorMess", "登录失败,请重试");
+            return "gm-login";
         }
     }
 
@@ -104,7 +106,7 @@ public class UserController {
     //**************后台*************
 
     //管理员登录
-    @RequestMapping("/adminLogin")
+    @RequestMapping(value="/adminLogin",method = RequestMethod.POST)
     public String adminLogin(Users users, Model model, HttpSession session) {
         //解密
         String password = DigestUtils.md5DigestAsHex(users.getPassWord().getBytes());
@@ -112,10 +114,10 @@ public class UserController {
         Users u = userFeignInterface.adminLogin(users);
         if (u== null) {
             model.addAttribute("errorMess", "用户名或密码错误");
-            return "redirect:/Manager/login.html";
+            return "forward:/Manager/login.html";
         } else {
             session.setAttribute("user", u);
-            return "forward:/Manager/frame.html";
+            return "redirect:/Manager/frame.html";
         }
     }
 
