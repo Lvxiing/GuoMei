@@ -4,6 +4,7 @@ import com.cssl.entity.Goods;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.Page;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,4 +25,8 @@ public interface GoodsService extends IService<Goods> {
 
     //修改商品状态
     int upStateGoods(Map<String,Object> map);
+
+    //根据分类名称查询该分类下的所有品牌商品的热卖商品
+    List<Goods> findGoodsByCategoryName(String categoryName);
+
 }

@@ -46,6 +46,18 @@ public class GoodsController {
     @Autowired
     private Vip_goodsService vipGoodsService;
 
+
+    //--------------------------前台模块-------------------------------
+    //根据分类名称查询该分类下的所有品牌商品的热卖商品
+    @RequestMapping("findGoodsByCategoryName")
+    @ResponseBody
+    public List<Goods> findGoodsByCategoryName(@RequestParam("categoryName")String categoryName){
+
+        return goodsService.findGoodsByCategoryName(categoryName);
+    }
+
+
+
     //--------------------------后台模块-------------------------------
     @RequestMapping("findGoods")
     @ResponseBody
