@@ -4,17 +4,18 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Goods">
-        <id column="goods_id" property="id" />
-        <result column="brand_id" property="bid" />
-        <result column="goods_title" property="title" />
-        <result column="goods_sub_title" property="subTitle" />
-        <result column="goods_main_img" property="mainImg" />
-        <result column="goods_des_img" property="desImg" />
-        <result column="goods_des" property="des" />
-        <result column="goods_price" property="price" />
-        <result column="goods_stock" property="stock" />
-        <result column="goods_state" property="state" />
-        <result column="goods_seckill" property="seckill" />
+        <id column="goods_id" property="id"/>
+        <result column="brand_id" property="bid"/>
+        <result column="goods_title" property="title"/>
+        <result column="goods_sub_title" property="subTitle"/>
+        <result column="goods_main_img" property="mainImg"/>
+        <result column="goods_des_img" property="desImg"/>
+        <result column="goods_des" property="des"/>
+        <result column="goods_price" property="price"/>
+        <result column="goods_stock" property="stock"/>
+        <result column="goods_state" property="state"/>
+        <result column="goods_seckill" property="seckill"/>
+        <result column="goods_create_time" property="time"/>
     </resultMap>
 
 
@@ -25,7 +26,7 @@
         INNER JOIN category c ON c.`category_id` = b.`category_id`
         <where>
             <if test="cname != 'null' and cname != '' ">
-                and c.`category_name`  = #{cname}
+                and c.`category_name` = #{cname}
             </if>
             <if test="title != 'null' and title != '' ">
                 AND g.`goods_title` LIKE concat('%',#{title},'%')
@@ -35,13 +36,29 @@
     </select>
 
     <insert id="addGoods" parameterType="map" useGeneratedKeys="true" keyProperty="id" keyColumn="goods_id">
-        INSERT INTO goods(brand_id,goods_title,goods_sub_title,goods_main_img,goods_des_img,goods_des,goods_price,goods_stock,goods_state,goods_seckill) VALUES(#{bid},#{title},#{subTitle},#{mainImg},#{desImg},#{des},#{price},#{stock},#{state},#{seckill})
+        INSERT INTO goods(brand_id, goods_title, goods_sub_title, goods_main_img, goods_des_img, goods_des, goods_price,
+                          goods_stock, goods_state, goods_seckill)
+        VALUES (#{bid}, #{title}, #{subTitle}, #{mainImg}, #{desImg}, #{des}, #{price}, #{stock}, #{state}, #{seckill})
     </insert>
 
 
     <update id="upStateGoods" parameterType="map">
-        UPDATE goods SET goods_state = #{state} WHERE goods_id = #{gid}
+        UPDATE goods
+        SET goods_state = #{state}
+        WHERE goods_id = #{gid}
     </update>
 
+    <select id="findGoodsByCategoryName" resultMap="BaseResultMap">
+
+        SELECT g.*
+        FROM order_detail o
+                 INNER JOIN goods g ON g.goods_id = o.goods_id
+                 INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
+        WHERE b.`category_id` IN (SELECT category_id
+                                  FROM category
+                                  WHERE category_parent_id =
+                                        (SELECT category_id FROM category WHERE category_name = #{categoryName}  ))
+        ORDER BY detail_num DESC LIMIT 10
+    </select>
 
 </mapper>

@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,6 +41,11 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     @Override
     public int upStateGoods(Map<String, Object> map) {
         return goodsMapper.upStateGoods(map);
+    }
+
+    @Override
+    public List<Goods> findGoodsByCategoryName(String categoryName) {
+        return goodsMapper.findGoodsByCategoryName(categoryName);
     }
 
 }
