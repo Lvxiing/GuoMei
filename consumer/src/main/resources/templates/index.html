@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html">
@@ -51,16 +51,20 @@
         gfeProjectPath = "/gmpro/2.0.0/channel/newindex/8.5.3";</script>
     <link rel="stylesheet" href="css/201908251728gmlibunitsticknav1.0.css">
     <link rel="stylesheet" href="css/index.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script src="js/index/201908251728gmlibseaseajs3.0.0se.js"></script>
+    <!--<script src="js/index.js"></script>-->
 </head>
 <body class="home" v="201509v1" data-page="sy">
-<script type="text/javascript">var winWidth = window.screen.width, objb = document.body;
-if (winWidth <= 1024) {
-    objb.className += " " + "w1000";
-} else {
-    objb.className = objb.className.replace("w1000", '');
-}
-;</script>
+<!--<script type="text/javascript">var winWidth = window.screen.width, objb = document.body;-->
+<!--if (winWidth <= 1024) {-->
+<!--objb.className += " " + "w1000";-->
+<!--} else {-->
+<!--objb.className = objb.className.replace("w1000", '');-->
+<!--}-->
+<!--;</script>-->
 <!-- 返利的导航 -->
 <!--头部end--><!--newads-->
 <script>window.publicdefault = {
@@ -2959,35 +2963,8 @@ if (winWidth <= 1024) {
 <!--head-->
 <!--headerEnd-->
 <input type="hidden" id="layer_time" layer-timebetween="180" layer-timeshow="0.08">
-<script>
-    var layerdata;
-</script>
-<script>
-    //浮动logo全局变量
-    var FLtime = new Date();
-    var floatLogo;
 
-    function is_iPad() {
-        var ua = navigator.userAgent.toLowerCase();
-        if (ua.match(/iPad/i) == "ipad") {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    var is_iPad = is_iPad();
-    if (!is_iPad) {
-        floatLogo = 0;
-    } else {
-        floatLogo = 0;
-    }
-</script>
 <div id="gm_main" class="gm_main">
-    <!-- <div class="news_out">
-        <div class="news_bg"></div>
-        <span class="news_text news_text_size">广告</span>
-    </div> -->
     <div class="focus">
         <div class="focus_img_bg">
         </div>
@@ -3759,7 +3736,7 @@ if (winWidth <= 1024) {
                                 </ul>
                             </div>
                         </div>
-                        <div class="keywords edit-mode" style="background: url()" modelid="1000061277" modeltype="2">
+                        <div class="keywords edit-mode"  modelid="1000061277" modeltype="2">
                             <ul class="w55">
                                 <li class=""><a
                                         href="https://prom.gome.com.cn/html/prodhtml/topics/201705/9/1606222683.html"
@@ -4207,7 +4184,7 @@ if (winWidth <= 1024) {
                                 </ul>
                             </div>
                         </div>
-                        <div class="keywords edit-mode" style="background: url()" modelid="1000061175" modeltype="2">
+                        <div class="keywords edit-mode"  modelid="1000061175" modeltype="2">
                             <ul class="w55">
                                 <li class=""><a
                                         href="https://list.gome.com.cn/cat10000049-00-0-48-1-0-0-0-1-1dsf-0-0-10-0-0-0-0-0.html"
@@ -4713,7 +4690,7 @@ if (winWidth <= 1024) {
                                 </ul>
                             </div>
                         </div>
-                        <div class="keywords edit-mode" style="background: url()" modelid="1000061073" modeltype="2">
+                        <div class="keywords edit-mode"  modelid="1000061073" modeltype="2">
                             <ul class="w55">
                                 <li class=""><a
                                         href="//list.gome.com.cn/cat10000203-00-0-48-1-0-0-0-1-0-0-1-0-0-0-0-0-0.html"
@@ -5113,7 +5090,7 @@ if (winWidth <= 1024) {
                                 </ul>
                             </div>
                         </div>
-                        <div class="keywords edit-mode" style="background: url()" modelid="1000061481" modeltype="2">
+                        <div class="keywords edit-mode"  modelid="1000061481" modeltype="2">
                             <ul class="w55">
                                 <li class=""><a href="//list.gome.com.cn/cat21445665.html" target="_blank"
                                                 data-code="1000061481-1">吸顶灯</a></li>
@@ -5500,7 +5477,7 @@ if (winWidth <= 1024) {
                                 </ul>
                             </div>
                         </div>
-                        <div class="keywords edit-mode" style="background: url()" modelid="1000061583" modeltype="2">
+                        <div class="keywords edit-mode"  modelid="1000061583" modeltype="2">
                             <ul class="w55">
                                 <li class=""><a href="//list.gome.com.cn/cat12495647.html" target="_blank"
                                                 data-code="1000061583-1">行车记录仪</a></li>
@@ -6306,29 +6283,21 @@ if (winWidth <= 1024) {
 </div>
 <!--aside-->
 <!--footerEnd-->
-<script type="text/javascript">
-    var ajaxTuan = "//ajaxtuan.gome.com.cn";
-</script>
-
-
-
+<!--<script type="text/javascript">-->
+<!--var ajaxTuan = "//ajaxtuan.gome.com.cn";-->
+<!--</script>-->
 <script type="text/javascript">
     $(function () {
+        alert(4546);
         $("a#a").attr("href", "car.html");
-    });
-</script>
-<srcipt src="js/jquery.js"></srcipt>
-<script src="js/index.js"></script>
-<script src="js/jquery-1.8.3.js"></script>
-<script type="text/javascript">
-    $(function(){
-        alert(321);
-        alert(123);
-        $.getJSON("/index/mainImagesData",function(json){
+        $.getJSON("/index/mainImagesData", function (json) {
             alert(json);
-        });
+        })
     });
 </script>
+<!--<script src="js/jquery-1.8.3.js"></script>-->
+
+
 </body>
 </html>
 
