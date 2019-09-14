@@ -262,7 +262,6 @@
 
 
             var s = "";
-            var desUrl = "";
             //拖拽上传
             var uploadInst = upload.render({
                 elem: '#headImg'
@@ -274,9 +273,11 @@
                 , before: function (obj) {
                     //预读本地文件示例，不支持ie8
                     obj.preview(function (index, file, result) {
+                        $('#demo2 img[bs="zt"]').remove();
                         $('#demo2').append('<img src="' + result
                             + '" alt="' + file.name
-                            + '"height="100px" width="100px" class="layui-upload-img uploadImgPreView">')
+                            + '"height="100px" width="100px" bs="zt"  class="layui-upload-img uploadImgPreView">')
+
                     });
                 }
                 , done: function (res) {
@@ -297,6 +298,7 @@
                 }
 
             });
+            var desSrcList = [];
             //拖拽上传
             var uploadInst = upload.render({
                 elem: '#goodsPic'
@@ -308,11 +310,6 @@
                 , before: function (obj) {
                     //预读本地文件示例，不支持ie8
                     obj.preview(function (index, file, result) {
-                        // $('#demo1').attr('src', result); //图片链接（base64）
-                        $('#demo3').append('<img src="' + result
-                            + '" alt="' + file.name
-                            + '"height="100px" width="100px" class="layui-upload-img uploadImgPreView">')
-
 
                     });
                 }
@@ -323,8 +320,13 @@
                     }
                     //上传成功
                     layer.msg("上传成功");
-                    desUrl += res.url + ","
-                    $("#imgUrls2").val(desUrl);
+                    var  imgUrl = $("#imgUrls2").val();
+                    $("#imgUrls2").val(imgUrl+res.url+",");
+                    desSrcList.push({"src":res.url});
+                    $('#demo3').append(' <div style="display: inline-block"><img  bs="xq" src="' + res.url
+                        + '" alt="' + "商品详情图片"
+                        + '"height="100px" width="100px" class="layui-upload-img uploadImgPreView" <button  class="layui-btn layui-btn-sm"   type="button"><span  id="imgbut" style="cursor: pointer" imgurl="' + res.url + '" class="layui-icon"></span></button> </div>');
+
                 }
                 , error: function () {
                     demoText.find('.demo-reload').on('click', function () {
@@ -333,6 +335,29 @@
                 }
 
             });
+
+            $("#demo3").on("click", "span", function () {
+                delImg(this);
+
+            });
+
+            function delImg(that) {
+                var imgurlList = "";
+                $(that).parent().remove();
+                var imgurl = $(that).attr("imgurl");
+                for (var i = 0; i < desSrcList.length; i++) {
+                    if (desSrcList[i].src == imgurl) {
+                        desSrcList.splice(i, 1);//删除元素
+                        break;
+                    }
+                }
+                for (var i = 0; i < desSrcList.length; i++) {
+                    imgurlList += desSrcList[i].src + ",";
+                }
+                $("#imgUrls2").val(imgurlList);
+            }
+
+
             //监听提交
             //解决了layui.open弹窗从内部关闭这个弹窗的问题
             form.on('submit(submitBut)', function (data) {
