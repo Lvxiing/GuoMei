@@ -6319,6 +6319,16 @@ if (winWidth <= 1024) {
 </script>
 <srcipt src="js/jquery.js"></srcipt>
 <script src="js/index.js"></script>
+<script src="js/jquery-1.8.3.js"></script>
+<script type="text/javascript">
+    $(function(){
+        alert(321);
+        alert(123);
+        $.getJSON("/index/mainImagesData",function(json){
+            alert(json);
+        });
+    });
+</script>
 </body>
 </html>
 

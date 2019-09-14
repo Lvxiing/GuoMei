@@ -78,6 +78,13 @@ public class GoodsController {
         return productFeignInterface.addGoods(map);
     }
 
+    //修改商品
+    @RequestMapping("modifyGoods")
+    @ResponseBody
+    public String modifyGoods(@RequestParam Map<String, Object> map){
+        return productFeignInterface.modifyGoods(map);
+    }
+
     //上架或下架商品
     @RequestMapping("upStateGoods")
     @ResponseBody
@@ -135,6 +142,7 @@ public class GoodsController {
     @RequestMapping("addCategory")
     @ResponseBody
     public String addCategory(@RequestParam Map<String, String> map) {
+        System.out.println("map = " + map);
         Category category = new Category();
         category.setName(map.get("parentName") + ":" + map.get("categoryName"));
         return productFeignInterface.addCategory(category);
