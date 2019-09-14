@@ -175,18 +175,17 @@ public class CategoryController {
     @RequestMapping("addCategory")
     @ResponseBody
     public String addCategory(@RequestBody Category category) {
-        String json = null;
         String[] name = category.getName().split(":");
         String parentName = name[0];
         String newName = name[1];
+        boolean flag = false;
         Category category2 = new Category();
         if ("根栏目".equals(parentName)) {
             category2.setName(newName);
             category2.setParentId(0);
             category2.setCLevel(1);
             int result = categoryService.addCategory(category2);
-            json = "{\"code\":\"success\"}";
-            return json;
+            flag = true;
         } else {
             Map<String, Object> param = new HashMap<>();
             param.put("name", parentName);
@@ -197,18 +196,16 @@ public class CategoryController {
                 category2.setParentId(parentBrother.get(0).getCid());
                 category2.setCLevel(parentBrother.get(0).getCLevel() + 1);
                 int result = categoryService.addCategory(category2);
-            } else if(existCategory != null) {
-                json = "{\"code\":\"error\"}";
-                return json;
+                flag = true;
+                if (category2.getCLevel() == 4) {
+                    brandService.save(new Brand().setBname(category2.getName()).setCid(category2.getCid()));
+                }
             }
         }
-        if (category2.getCLevel() == 4) {
-            Brand category_name = brandService.getOne(new QueryWrapper<Brand>().eq("brand_name", category2.getName()));
-            if (category_name == null) {
-                brandService.save(new Brand().setBname(category2.getName()).setCid(category2.getCid()));
-            }
+        if(flag){
+            return "{\"code\":\"success\"}";
         }
-        return "{\"msg\":\"新增失败\"}";
+        return "{\"code\":\"error\"}";
     }
 
 

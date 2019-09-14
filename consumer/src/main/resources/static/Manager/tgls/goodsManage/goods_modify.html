@@ -38,7 +38,8 @@
         .layui-input-block {
             margin-left: 130px;
         }
-        #demo3 img{
+
+        #demo3 img {
             margin-left: 5px;
         }
     </style>
@@ -91,6 +92,7 @@
             <div class="layui-upload-list" id="desButton"></div>
             <div class="layui-upload-list" id="demo3"></div>
             <input type="hidden" id="imgUrls2" name="imginfo" class="layui-input">
+            <input type="hidden" id="gid" name="gid" class="layui-input">
         </div>
 
 
@@ -287,7 +289,6 @@
             }
 
             var s = "";
-            var desUrl = "";
             //拖拽上传
             var uploadInst = upload.render({
                 elem: '#headImg'
@@ -337,11 +338,6 @@
                 , before: function (obj) {
                     //预读本地文件示例，不支持ie8
                     obj.preview(function (index, file, result) {
-                        // $('#demo1').attr('src', result); //图片链接（base64）
-                        $('#demo3').append('<img src="' + result
-                            + '" alt="' + file.name
-                            + '"height="100px" width="100px" class="layui-upload-img uploadImgPreView">')
-
 
                     });
                 }
@@ -352,8 +348,13 @@
                     }
                     //上传成功
                     layer.msg("上传成功");
-                    desUrl += res.url + ","
-                    $("#imgUrls2").val(desUrl);
+                    var  imgUrl = $("#imgUrls2").val();
+                    $("#imgUrls2").val(imgUrl+res.url+",");
+                    desSrcList.push({"src":res.url});
+                    $('#demo3').append(' <div style="display: inline-block"><img  bs="xq" src="' + res.url
+                        + '" alt="' + "商品详情图片"
+                        + '"height="100px" width="100px" class="layui-upload-img uploadImgPreView" <button  class="layui-btn layui-btn-sm"   type="button"><span  id="imgbut" style="cursor: pointer" imgurl="' + res.url + '" class="layui-icon"></span></button> </div>');
+
                 }
                 , error: function () {
                     demoText.find('.demo-reload').on('click', function () {
@@ -369,15 +370,15 @@
                     return;
                 } else {
                     $.ajax({
-                        url: '../../Goods/addGoods',
+                        url: '../../Goods/modifyGoods',
                         method: 'post',
                         data: data.field,
                         dataType: 'JSON',
                         success: function (res) {
                             if (res.code = "success") {
-                                layer.msg('新增成功', {time: 600}, function () {
+                                layer.msg('修改成功', {time: 600}, function () {
                                     layer.close(layer.index); //关闭当前窗口
-                                    location.href = 'goods_list.html';
+                                    window.parent.location.reload(); //刷新父窗口数据
                                 });
                             } else
                                 layer.msg(res.msg);//输出错误消息
@@ -386,6 +387,7 @@
                 }
                 return false;
             });
+            var desSrcList = [];
             //页面一加载就发送ajax
             $(function () {
                 var re = GetRequest();
@@ -394,6 +396,7 @@
                     type: "get",
                     dataType: "json",
                     success: function (data) {
+                        $("#gid").val(data.goods.id);
                         $("input[name=goodsName]").val(data.goods.title);
                         $("input[name=subTitle]").val(data.goods.subTitle);
                         $("input[name=price]").val(data.goods.price);
@@ -406,43 +409,67 @@
                             $("#gradeDiv").css("display", "inline-block");
                         }
                         if (data.goods.mainImg != null) {
+                            $("#imgUrls").val(data.goods.mainImg);
                             $('#demo2').append('<img class="zt"  bs="zt" src="' + data.goods.mainImg
                                 + '" alt="' + "商品主图"
                                 + '"height="100px" width="100px"  class="layui-upload-img uploadImgPreView">')
 
                         }
-                        var desSrcList=[];
+
                         if (data.goods.desImg != null) {
+                            $("#imgUrls2").val(data.goods.desImg);
                             var imgList = data.goods.desImg.split(",");
                             for (var i = 0; i < imgList.length; i++) {
-                                if(imgList[i].length>1){
-                                    desSrcList.push({'src':imgList[i]});
-                                    $('#demo3').append('<img  bs="xq" src="' + imgList[i]
+                                if (imgList[i].length > 1) {
+                                    desSrcList.push({'src': imgList[i]});
+                                    $('#demo3').append(' <div style="display: inline-block"><img  bs="xq" src="' + imgList[i]
                                         + '" alt="' + "商品详情图片"
-                                        + '"height="100px" width="100px" class="layui-upload-img uploadImgPreView">')
-                                    $("#desButton").append('<button class="layui-btn layui-btn-sm" type="button"><i class="layui-icon"></i></button>');
-
+                                        + '"height="100px" width="100px" class="layui-upload-img uploadImgPreView" <button  class="layui-btn layui-btn-sm"   type="button"><span  id="imgbut" style="cursor: pointer" imgurl="' + imgList[i] + '" class="layui-icon"></span></button> </div>');
                                 }
                             }
-
                         }
-                        $("#demo2").on("click","img",function(){
-                            layer.photos({
-                                photos: { "data": [{"src": this.src }] }
-                                ,anim: 1 //0-6的选择，指定弹出图片动画类型，默认随机
-                            });
-                        });
-                        $("#demo3").on("click","img",function(){
-                            layer.photos({
-                                photos: { "data": desSrcList }
-                                ,anim: 1 //0-6的选择，指定弹出图片动画类型，默认随机
-                            });
-                        });
+
                         form.render();  //更新全部
                     }
                 });
 
             });
+
+            $("#demo3").on("click", "span", function () {
+                delImg(this);
+
+            });
+
+            function delImg(that) {
+                var imgurlList = "";
+                $(that).parent().remove();
+                var imgurl = $(that).attr("imgurl");
+                for (var i = 0; i < desSrcList.length; i++) {
+                    if (desSrcList[i].src == imgurl) {
+                        desSrcList.splice(i, 1);//删除元素
+                        break;
+                    }
+                }
+                for (var i = 0; i < desSrcList.length; i++) {
+                    imgurlList += desSrcList[i].src + ",";
+                }
+                $("#imgUrls2").val(imgurlList);
+            }
+
+            $("#demo2").on("click", "img", function () {
+                layer.photos({
+                    photos: {"data": [{"src": this.src}]}
+                    , anim: 1 //0-6的选择，指定弹出图片动画类型，默认随机
+                });
+            });
+            $("#demo3").on("click", "img", function () {
+                layer.photos({
+                    photos: {"data": desSrcList}
+                    , anim: 1 //0-6的选择，指定弹出图片动画类型，默认随机
+                });
+            });
+
+
             var bid = GetRequest().bid;
             if (bid != null && bid != '') {
                 $.getJSON("../../../category/findBrandIsParentCategory?id=" + bid, function (json) {

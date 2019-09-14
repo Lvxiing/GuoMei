@@ -15,6 +15,7 @@
     <meta name="description" content="网站简介"/>
     <!-- 网站简介 -->
     <meta name="keywords" content="搜索关键字，以半角英文逗号隔开"/>
+
     <!-- 公共样式 开始 -->
     <link rel="stylesheet" type="text/css" href="../../css/base.css">
     <link rel="stylesheet" type="text/css" href="../../css/iconfont.css">
@@ -90,13 +91,16 @@
                         data: data.field,
                         dataType: 'JSON',
                         success: function (res) {
-                            if (res.code = "success") {
+                            if (res.code == "success") {
                                 layer.msg('新增成功', {time: 600}, function () {
                                     layer.close(layer.index); //关闭当前窗口
                                     window.parent.location.reload(); //刷新父窗口数据
                                 });
                             } else
-                                layer.msg(res.msg);//输出错误消息
+                                layer.msg('新增失败,请检查该分类是否存在!', {time: 600}, function () {
+                                    layer.close(layer.index); //关闭当前窗口
+                                    window.parent.location.reload(); //刷新父窗口数据
+                                });
                         }
                     });
                 }
