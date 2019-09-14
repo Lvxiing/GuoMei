@@ -20,10 +20,10 @@ public interface UserFeignInterface {
     public String sendMsg(@RequestParam("phoneNum") String phoneNum) throws Exception;
 
     @RequestMapping("/users/verfiy")
-    public int login(@RequestParam("phoneNum") String phoneNum, @RequestParam("code") String code);
+    public Map<String,String> login(@RequestParam("phoneNum") String phoneNum, @RequestParam("code") String code);
 
     @RequestMapping("/users/selectPhone")
-    public  int  selectPhone(@RequestParam("phoneNum") String phoneNum);
+    public  Users  selectPhone(@RequestParam("phoneNum") String phoneNum);
 
     @RequestMapping("/users/userRegister")
     public   boolean   userRegister(Users users);
@@ -47,7 +47,7 @@ public interface UserFeignInterface {
     public Users findById(@PathVariable("id") Integer id);
 
     @RequestMapping("/users/updateUser")
-    public boolean updateUser(Users user);
+    public boolean updateUser(@RequestParam Map<String,String> map);
 
     @RequestMapping("/users/updatePwd")
     public boolean  updatePwd(Users users);

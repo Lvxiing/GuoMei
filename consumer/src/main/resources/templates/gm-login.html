@@ -46,14 +46,6 @@
     <!--var staSite = 'http://www.gome.com.cn';-->
 <!--</script>-->
 
-<script th:inline="javascript">
-
-    var mess = [[${errorMess}]];
-   alert(mess);
-
-</script>
-
-
 
 <div id="popLogin-dytscBir" style="display:none;z-index:9999999;position:fixed;">
     <iframe id="popLogin-ifrWindow" src="" frameborder="0" scrolling="no" style="width:462px;height:605px;"
@@ -274,7 +266,7 @@
                         $(function () {
 
                             $("#sendCode").click(function () {
-                                sendyzm($("#sendCode"));
+                                sendyzm();
                             })
 
                             $("input[name=phoneNum]").blur(checkPhone);
@@ -285,24 +277,9 @@
                         function sendyzm(){
                             var phone = $("input[name=phoneNum]").val();
                                 $.getJSON("/users/ajaxNum","phoneNum="+phone,function (json) {
+                                    alert("验证码已发送,请等待信息!");
 
                                 })
-                                setTime(obj);
-                        }
-
-                        var countdown = 60;
-                        function setTime(obj) {
-                            if (countdown == 0) {
-                                obj.prop('disabled', false);
-                                obj.text("点击获取验证码");
-                                countdown = 60;//60秒过后button上的文字初始化,计时器初始化;
-                                return;
-                            } else {
-                                obj.prop('disabled', true);
-                                obj.text("("+countdown+"s)后重新发送") ;
-                                countdown--;
-                            }
-                            setTimeout(function() { setTime(obj) },1000) //每1000毫秒执行一次
                         }
 
                         //验证手机号
@@ -319,15 +296,13 @@
                             }
                             else{
                                 $.getJSON("/users/selectPhone",{phoneNum:phone},function (result) {
-                                    if (result<1){
+                                    if (result==null){
                                         $("#phoneMess").text("该手机号未被注册").css("color","#e3101e");
                                         $("input[name=phoneNum]").focus();
                                     }else{
                                         $("#phoneMess").text("");
                                     }
                                 });
-
-                                        $("#phoneMess").text("");
                             }
                         }
 

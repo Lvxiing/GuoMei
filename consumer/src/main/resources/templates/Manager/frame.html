@@ -39,7 +39,7 @@
 		<img src="/images/logo.jpg" />
 		<div class="logoText">
 			<h1 >国美后台管理</h1>
-			<p th:text="'欢迎您:'+${session.user.userName}"></p>
+			<p >欢迎您:admin</p>
 		</div>
 	</div>
 	<div class="menu">
@@ -108,8 +108,6 @@
 
 
 <script th:inline="javascript">
-
-    //alert("****"+[[${session.user.id}]]);
 
 
     layui.use(['layer'],function () {

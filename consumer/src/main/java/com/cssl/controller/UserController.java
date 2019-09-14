@@ -47,16 +47,17 @@ public class UserController {
         return userFeignInterface.sendMsg(phoneNum);
     }
 
-//验证手机验证码
+//登录:验证手机验证码
     @RequestMapping("/verfiy")
-    public String login(@RequestParam("phoneNum") String phoneNum,@RequestParam("code") String code,Model model){
+    public String login(@RequestParam("phoneNum") String phoneNum,@RequestParam("code") String code,HttpSession session){
         System.out.println("phoneNum:"+phoneNum+","+"code:"+code);
-        int num = userFeignInterface.login(phoneNum, code);
-        System.out.println("num:"+num);
-        if(num==1){
+        Map<String, String> hm = userFeignInterface.login(phoneNum, code);
+        System.out.println("mess:"+hm.get("mess"));
+        if("success".equals(hm.get("mess"))){
+            Users u = selectPhone(phoneNum);
+            session.setAttribute("user",u);
             return "redirect:/index.html";
         }else {
-            model.addAttribute("errorMess", "登录失败,请重试");
             return "gm-login";
         }
     }
@@ -64,7 +65,7 @@ public class UserController {
 //判断该手机号是否已被注册
     @RequestMapping("/selectPhone")
     @ResponseBody
-    public  int  selectPhone(@RequestParam("phoneNum") String phoneNum){
+    public  Users  selectPhone(@RequestParam("phoneNum") String phoneNum){
         return  userFeignInterface.selectPhone(phoneNum);
     }
 
@@ -79,9 +80,6 @@ public class UserController {
     @RequestMapping("/userRegister")
     @ResponseBody
     public   boolean   userRegister(Users users){
-        //spring 自带的 DigestUtils 工具类可以进行 md5 加密
-        String password = DigestUtils.md5DigestAsHex(users.getPassWord().getBytes());
-        users.setPassWord(password);
         return  userFeignInterface.userRegister(users);
     }
 
@@ -107,16 +105,12 @@ public class UserController {
 
     //管理员登录
     @RequestMapping(value="/adminLogin",method = RequestMethod.POST)
-    public String adminLogin(Users users, Model model, HttpSession session) {
-        //解密
-        String password = DigestUtils.md5DigestAsHex(users.getPassWord().getBytes());
-        users.setPassWord(password);
+    public String adminLogin(Users users, HttpSession session) {
         Users u = userFeignInterface.adminLogin(users);
         if (u== null) {
-            model.addAttribute("errorMess", "用户名或密码错误");
             return "forward:/Manager/login.html";
         } else {
-            session.setAttribute("user", u);
+            session.setAttribute("adminUser", u);
             return "redirect:/Manager/frame.html";
         }
     }
@@ -151,18 +145,8 @@ public class UserController {
     //修改用户
     @RequestMapping("/updateUser")
     @ResponseBody
-    public boolean updateUser(@RequestParam Map<String, String> map) {
-        Users user = new Users();
-        user.setId(Integer.valueOf(map.get("id")));
-        user.setUserName(map.get("userName"));
-        user.setSex(Integer.valueOf(map.get("sex")));
-        user.setBirthday(Date.valueOf(map.get("birthday")));
-        user.setPhone(map.get("phone"));
-        user.setEmail(map.get("email"));
-        user.setTime(Date.valueOf(map.get("time")));
-        user.setAddress(map.get("address"));
-        user.setHeadImg(map.get("headImg"));
-        return userFeignInterface.updateUser(user);
+    public boolean updateUser(@RequestParam Map<String,String> map) {
+        return userFeignInterface.updateUser(map);
     }
 
     //上传用户头像
@@ -171,7 +155,7 @@ public class UserController {
     public Map<String, Object> upload(MultipartFile file, HttpServletRequest request) throws IOException {
         Map<String, Object> res = new HashMap<>();
         //服务器上存放图片的文件夹路径
-        String path = "/users";
+        String path = "users";
         try {
             //类型转换
             String fileName = file.getOriginalFilename();  //获取文件名
@@ -219,9 +203,6 @@ public class UserController {
     @RequestMapping("/updatePwd")
     @ResponseBody
     public  boolean  updatePwd(Users users){
-        //spring 自带的 DigestUtils 工具类可以进行 md5 加密
-        String password = DigestUtils.md5DigestAsHex(users.getPassWord().getBytes());
-        users.setPassWord(password);
         return userFeignInterface.updatePwd(users);
     }
 
@@ -229,16 +210,13 @@ public class UserController {
     @RequestMapping("/selectPwd")
     @ResponseBody
     public Users selectPwd(Users user){
-        //解密
-        String password = DigestUtils.md5DigestAsHex(user.getPassWord().getBytes());
-        user.setPassWord(password);
         return  userFeignInterface.selectPwd(user);
     }
 
     //管理员注销退出登录
     @RequestMapping("/outUser")
     public  String  outUser(HttpSession session){
-        session.removeAttribute("user");
+        session.removeAttribute("adminUser");
         return "redirect:/Manager/login.html";
     }
 

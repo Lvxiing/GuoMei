@@ -17,14 +17,21 @@ import com.cssl.service.UsersService;
 import com.cssl.util.AliAccessKey;
 import com.cssl.util.VerifyCodeUtil;
 import com.github.pagehelper.Page;
+import org.apache.logging.log4j.message.StringFormattedMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
 import com.aliyuncs.http.MethodType;
 import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -104,14 +111,14 @@ public class UsersController {
 
 
     @RequestMapping("/verfiy")
-    public int login(@RequestParam("phoneNum") String phoneNum,@RequestParam("code") String code) {
+    public Map<String,String> login(@RequestParam("phoneNum") String phoneNum, @RequestParam("code") String code) {
 
         //获取用户输入的手机号和验证码//客户端用户输入的手机号 //客户端用户输入的验证码
 
         //获取redis中存放的验证码
         String redisCode = redisFeignInterface.get("sms_" + phoneNum);
         System.out.println("*****redisCode:"+redisCode);
-int num=0;
+Map<String,String> hm=new HashMap<>();
 
         if (code != null && !"".equals(code)) {
             //如果用户输入的验证码和生成的验证码保持一致
@@ -120,8 +127,8 @@ int num=0;
                 redisFeignInterface.del(new String[]{"sms_" + phoneNum});
                 //同时删除redis中存放的用户输入验证码的错误次数
                 redisFeignInterface.del(new String[]{"error_" + phoneNum});
-                num=1;
-                return  num;    //"index";
+                hm.put("mess","success");
+                return  hm;    //"index";
             } else {
                 //如果验证失败  给该用户总共三次输入机会，大于三次重新获取验证码
                 //如果是第一次错误，则第一次给用户创建错误次数并存放于redis中，每次错误都会在原有的键上对其值+1
@@ -132,29 +139,32 @@ int num=0;
                     //清除redis中存放的用户输入验证码的错误次数
                     redisFeignInterface.del(new String[]{"error_" + phoneNum});
                    // model.addAttribute("accp", "1001");//超过验证码错误次数，请重新获取验证码！
-                    num=2;
-                    return   num;//"login";
+                    hm.put("mess","error");
+                    return   hm;//"login";
                 } else { //如果用户输入错误且错误小于3次 则刷新一次页面用户继续输入
-                    num=2;
-                    return  num; //"login";
+                    hm.put("mess","error");
+                    return  hm; //"login";
                 }
 
             }
         } else {
             System.out.println("没有取到验证码");
-            num=2;
-            return    num;//"login";
+            hm.put("mess","error");
+            return    hm;//"login";
         }
 
     }
 
 @RequestMapping("/selectPhone")
-    public  int  selectPhone(@RequestParam("phoneNum") String phoneNum){
-       return  usersService.count(new QueryWrapper<Users>().eq("user_phone", phoneNum));
+    public  Users  selectPhone(@RequestParam("phoneNum") String phoneNum){
+      return  usersService.getOne(new QueryWrapper<Users>().eq("user_phone",phoneNum));
     }
 
     @RequestMapping("/userRegister")
     public   boolean   userRegister(@RequestBody  Users users){
+        //spring 自带的 DigestUtils 工具类可以进行 md5 加密
+        String password = DigestUtils.md5DigestAsHex(users.getPassWord().getBytes());
+        users.setPassWord(password);
         return  usersService.save(users);
     }
 
@@ -169,6 +179,9 @@ int num=0;
 
     @RequestMapping("/adminLogin")
     public Users adminLogin(@RequestBody Users users){
+        //解密
+        String password = DigestUtils.md5DigestAsHex(users.getPassWord().getBytes());
+        users.setPassWord(password);
         return  usersService.getOne(new QueryWrapper<Users>().eq("user_name",users.getUserName()).eq("user_pwd",users.getPassWord()).eq("user_role",1));
     }
 
@@ -194,17 +207,34 @@ int num=0;
     }
 
     @RequestMapping("/updateUser")
-    public boolean updateUser(@RequestBody Users user){
+    public boolean updateUser(@RequestParam Map<String,String> map)
+    {
+        Users user = new Users();
+        user.setId(Integer.valueOf(map.get("id")));
+        user.setUserName(map.get("userName"));
+        user.setSex(Integer.valueOf(map.get("sex")));
+        user.setBirthday(Date.valueOf(map.get("birthday")));
+        user.setPhone(map.get("phone"));
+        user.setEmail(map.get("email"));
+        user.setTime(Date.valueOf(map.get("time")));
+        user.setAddress(map.get("address"));
+        user.setHeadImg(map.get("headImg"));
         return usersService.updateById(user);
     }
 
     @RequestMapping("/updatePwd")
     public boolean  updatePwd(@RequestBody Users users){
+        //spring 自带的 DigestUtils 工具类可以进行 md5 加密
+        String password = DigestUtils.md5DigestAsHex(users.getPassWord().getBytes());
+        users.setPassWord(password);
         return  usersService.updateById(users);
     }
 
     @RequestMapping("/selectPwd")
     public Users selectPwd(@RequestBody  Users user) {
+        //解密
+        String password = DigestUtils.md5DigestAsHex(user.getPassWord().getBytes());
+        user.setPassWord(password);
         return usersService.getOne(new QueryWrapper<Users>().eq("user_id",user.getId()).eq("user_pwd",user.getPassWord()));
     }
 
