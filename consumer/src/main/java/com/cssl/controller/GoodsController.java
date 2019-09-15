@@ -47,8 +47,9 @@ public class GoodsController {
     @ResponseBody
     public List<Goods> findGoodsLowPrice(@RequestParam("categoryName") String categoryName) {
 
-        return productFeignInterface.findGoodsNewByCategoryName(categoryName);
+        return productFeignInterface.findGoodsLowPrice(categoryName);
     }
+
 
 
     //--------------------------后台模块-------------------------------
