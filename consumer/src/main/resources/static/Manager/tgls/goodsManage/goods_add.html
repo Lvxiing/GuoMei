@@ -188,18 +188,26 @@
                     }
                 })
             });
+
+            function gradeShow(){
+                $.getJSON("../../../Goods/findGrade", function (json) {
+                    $("#grade OPTION").remove();
+                    var op ='<option value="">请选择等级</option>';
+                    for (var i = 0; i < json.length; i++) {
+                        var id = json[i].id;
+                        var gradeName = json[i].gradeName;
+                        op += "<option value=" + id + ">" + gradeName + "</option>";
+                    }
+                    $("#grade").append(op);
+                    //重新渲染select
+                    form.render('select');
+                });
+            }
+
+
             form.on("radio(vip)", function (data) {
                 if (data.value == '1') {
-                    $.getJSON("../../../Goods/findGrade", function (json) {
-                        for (var i = 0; i < json.length; i++) {
-                            var id = json[i].id;
-                            var gradeName = json[i].gradeName;
-                            var option = "<option value=" + id + ">" + gradeName + "</option>";
-                            $("#grade").append(option);
-                        }
-                        //重新渲染select
-                        form.render('select');
-                    })
+                    gradeShow();
                     $("#gradeDiv").css("display", "inline-block");
                 } else {
                     $("#gradeDiv").css("display", "none");
@@ -221,6 +229,7 @@
                 }
             })
             form.on('select(brand)', function (data) {
+                $("#grade OPTION:not(:first)").remove();
                 var id = data.value;
                 $.getJSON("../../../Goods/categoryShow", "cid=" + id, function (json) {
                     if (json != null) {
@@ -241,6 +250,7 @@
             }
 
             function categoryShow(pid) {
+                $("#category OPTION").remove();
                 $.getJSON("../../../Goods/categoryShow", "level=3", function (json) {
                     if (json != null) {
                         var op = "";
