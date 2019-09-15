@@ -99,7 +99,7 @@ public class UsersController {
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
         if(sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
             //请求成功
-            redisFeignInterface.set("sms_"+phoneNum,numeric,120);
+            redisFeignInterface.set("sms_"+phoneNum,numeric,-300);
             return numeric;
         }else {
             System.out.println("失败状态"+sendSmsResponse.getCode());
@@ -124,7 +124,7 @@ Map<String,String> hm=new HashMap<>();
             //如果用户输入的验证码和生成的验证码保持一致
             if (code.equals(redisCode)) {
                 //删除redis中存放的验证码缓存
-                redisFeignInterface.del(new String[]{"sms_" + phoneNum});
+ //答辩时取消该注释!!!               redisFeignInterface.del(new String[]{"sms_" + phoneNum});
                 //同时删除redis中存放的用户输入验证码的错误次数
                 redisFeignInterface.del(new String[]{"error_" + phoneNum});
                 hm.put("mess","success");
@@ -203,7 +203,7 @@ Map<String,String> hm=new HashMap<>();
 
     @RequestMapping("/findById/{id}")
     public Users findById(@PathVariable("id") Integer id){
-        return usersService.getOne(new QueryWrapper<Users>().eq("user_id",id));
+        return usersService.getOne(new QueryWrapper<Users>().eq("user_id", id));
     }
 
     @RequestMapping("/updateUser")
