@@ -42,6 +42,9 @@ public class Evaluate extends Model<Evaluate> {
     @TableField(value = "evaluate_time")
     private Date time;             //评价时间
 
+    @TableField(value = "order_id") //订单编号
+    private Integer oid;
+
 
     @Override
     protected Serializable pkVal() {
