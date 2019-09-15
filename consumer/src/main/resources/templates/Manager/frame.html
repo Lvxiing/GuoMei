@@ -39,7 +39,7 @@
 		<img src="/images/logo.jpg" />
 		<div class="logoText">
 			<h1 >国美后台管理</h1>
-			<p >欢迎您:admin</p>
+			<p >欢迎您:<span id="userId" style="display: none;"></span><span id="userName"></span></p>
 		</div>
 	</div>
 	<div class="menu">
@@ -88,7 +88,7 @@
 		<div class="topMenu">
 			<ul>
 				<li><a href="javascript:void(0)" id="updatePwd"><i class="iconfont icon-xiugaimima"></i>修改密码</a></li>
-				<li><a href="/users/outUser"><i class="iconfont icon-084tuichu"></i>注销</a></li>
+				<li><a href="/users/outAdminUser"><i class="iconfont icon-084tuichu"></i>注销</a></li>
 			</ul>
 		</div>
 	</div>
@@ -121,10 +121,21 @@
                 type:2,
                 title: "修改密码",
                 area: [ '500px', '500px' ],
-                content:'/tgls/modify_password.html?id=18'//+[[${session.user.id}]] //引用的弹出层的页面层的方式加载修改界面表单
+                content:'/tgls/modify_password.html?id='+$("span#userId").text() //引用的弹出层的页面层的方式加载修改界面表单
             });
 
         })
+
+
+
+		//一加载就得到session中的管理员
+		$(function () {
+		    $.getJSON("/users/getSessionAdminUser",function (json){
+		        $("span#userId").text(json.id);
+		        $("span#userName").text(json.userName);
+			})
+        })
+
 
 
 

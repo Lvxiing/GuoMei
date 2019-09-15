@@ -37,7 +37,7 @@
 
 <!--
 这里是弹出层的表单信息
-表单的id用于表单的选择，style是在本页隐藏，只有点击编辑才会弹出-->
+表单的id用于表单的选择，只有点击编辑才会弹出-->
 <div class="layui-row" id="popUpdateTest" >
     <form class="layui-form layui-from-pane" action="" style="margin-top:20px" lay-filter="example" id="userForm" enctype="mutipart/form-data" method="post">
         <input type="hidden" name="id">
@@ -93,7 +93,7 @@
             </div>
         </div>
 
-        <div class="layui-upload">
+        <div class="layui-upload" style="margin-left: 40px;">
             <button type="button" class="layui-btn" id="test1">头像图片</button>
             <!--隐藏的input  装头像url-->
             <input type="text" id="img_url" name="headImg" value="" style="display: none;"/>

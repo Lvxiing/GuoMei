@@ -1,6 +1,6 @@
 $(function () {
+
     lunbo();
-     alert(12);
   function lunbo() {
       $("ul.focus_box").empty();
       $.getJSON("../index/mainImagesData",function (json) {
@@ -25,6 +25,11 @@ $(function () {
           }
 
           });
+
+
   }
+
+
+
 
 });

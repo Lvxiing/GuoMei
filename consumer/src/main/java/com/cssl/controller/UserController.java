@@ -1,10 +1,12 @@
 package com.cssl.controller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.cssl.api.UserFeignInterface;
 import com.cssl.entity.Grade;
 import com.cssl.entity.PageInfo;
 import com.cssl.entity.Users;
 import com.cssl.util.NginxUtil;
+import org.apache.catalina.filters.SessionInitializerFilter;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,6 +58,7 @@ public class UserController {
         if("success".equals(hm.get("mess"))){
             Users u = selectPhone(phoneNum);
             session.setAttribute("user",u);
+            System.out.println("sessionUser:"+session.getAttribute("user"));
             return "redirect:/index.html";
         }else {
             return "gm-login";
@@ -83,10 +86,20 @@ public class UserController {
         return  userFeignInterface.userRegister(users);
     }
 
+    //得到session中的用户
+    @RequestMapping("/getSessionUser")
+    @ResponseBody
+    public  Users  getSessionUser(HttpSession session){
+        System.out.println("*******sessionUser");
+        return  (Users) session.getAttribute("user");
+    }
 
-
-
-
+    //用户退出登录
+    @RequestMapping("/outUser")
+    public  String  outUser(HttpSession session){
+        session.removeAttribute("user");
+        return "redirect:/gm-login.html";
+    }
 
 
 
@@ -139,7 +152,7 @@ public class UserController {
     @RequestMapping("/findById/{id}")
     @ResponseBody
     public Users findById(@PathVariable("id") Integer id) {
-        return userFeignInterface.findById(id);
+        return  userFeignInterface.findById(id);
     }
 
     //修改用户
@@ -214,10 +227,17 @@ public class UserController {
     }
 
     //管理员注销退出登录
-    @RequestMapping("/outUser")
-    public  String  outUser(HttpSession session){
+    @RequestMapping("/outAdminUser")
+    public  String  outAdminUser(HttpSession session){
         session.removeAttribute("adminUser");
         return "redirect:/Manager/login.html";
+    }
+
+    //得到session中的管理员
+    @RequestMapping("/getSessionAdminUser")
+    @ResponseBody
+    public  Users  getSessionAdminUser(HttpSession session){
+        return  (Users) session.getAttribute("adminUser");
     }
 
 
