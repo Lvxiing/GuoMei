@@ -44,7 +44,9 @@ public interface ProductFeignInterface {
     @RequestMapping("goods/findGoodsNewByCategoryName")
     List<Goods> findGoodsNewByCategoryName(@RequestParam("categoryName")String categoryName);
 
-
+    //根据分类名称查询该分类下的所有品牌商品的畅想低价
+    @RequestMapping("goods/findGoodsLowPrice")
+    List<Goods> findGoodsLowPrice(@RequestParam("categoryName") String categoryName);
 
 
 
