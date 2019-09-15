@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -52,6 +53,9 @@ public class Goods extends Model<Goods> {
 
     @TableField(value = "goods_seckill")
     private Integer seckill;             //销量
+
+    @TableField(value = "goods_create_time")//新增商品时间
+    private Date time;
 
     @Override
     protected Serializable pkVal() {

@@ -12,18 +12,20 @@ import java.util.Map;
 @FeignClient("service-product")
 public interface ProductFeignInterface {
 
-    //--------------------------前台模块-------------------------------
+    //-----------------------------前台模块-------------------------------
 
     //首页显示
     //首页大轮播图
     @RequestMapping("index/mainImagesData")
     public List<ImagesInfo> mainImagesData();
 
-    //新闻模块
+    //---------------------------新闻模块--------------------------------
     //查询所有新闻
     @RequestMapping("news/findAllNews")
     List<News> findAllNews();
 
+
+    //---------------------------分类模块--------------------------------
     //查询所有顶级分类
     @RequestMapping("category/findParentCategory")
     List<Category> findParentCategory(@RequestParam("pid") Integer pid);
@@ -31,6 +33,17 @@ public interface ProductFeignInterface {
     //根据分类编号查询当前分类下的所有子分类
     @RequestMapping("category/findCategoryAndChild")
     List<TreeCategory> findCategoryAndChild(@RequestParam("parentId") Integer parentId);
+
+
+    //---------------------------商品模块--------------------------------
+    //根据分类名称查询该分类下的所有品牌商品的热卖商品
+    @RequestMapping("goods/findGoodsByCategoryName")
+    List<Goods> findGoodsByCategoryName(@RequestParam("categoryName")String categoryName);
+
+
+
+
+
 
 
 

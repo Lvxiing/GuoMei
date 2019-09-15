@@ -176,7 +176,7 @@
                 }
                 else{
                 $.getJSON("/users/selectPhone",{phoneNum:phone},function (result) {
-                    if (result>0){
+                    if (result!=null){
                         $("#phoneMess").text("该手机号已被注册").css("color","#e3101e");
                         $("input[name=phone]").focus();
                     }else{

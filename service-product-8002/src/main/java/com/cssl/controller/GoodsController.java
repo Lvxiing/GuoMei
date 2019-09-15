@@ -4,18 +4,22 @@ package com.cssl.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.entity.Goods;
 import com.cssl.entity.PageInfo;
+import com.cssl.entity.Users;
 import com.cssl.entity.VipGoods;
 import com.cssl.service.CategoryService;
 import com.cssl.service.GoodsService;
 import com.cssl.service.Vip_goodsService;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
@@ -41,6 +45,18 @@ public class GoodsController {
 
     @Autowired
     private Vip_goodsService vipGoodsService;
+
+
+    //--------------------------前台模块-------------------------------
+    //根据分类名称查询该分类下的所有品牌商品的热卖商品
+    @RequestMapping("findGoodsByCategoryName")
+    @ResponseBody
+    public List<Goods> findGoodsByCategoryName(@RequestParam("categoryName")String categoryName){
+
+        return goodsService.findGoodsByCategoryName(categoryName);
+    }
+
+
 
     //--------------------------后台模块-------------------------------
     @RequestMapping("findGoods")
