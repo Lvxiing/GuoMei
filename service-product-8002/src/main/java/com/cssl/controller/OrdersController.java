@@ -102,4 +102,19 @@ public class OrdersController {
         return  ordersService.weekOrder();
     }
 
+
+    //查看订单详情购买商品信息
+    @RequestMapping("/orderDetail")
+    @ResponseBody
+    public PageInfo<Map<String, Object>> orderDetail(@RequestParam("order_no")String order_no,@RequestParam("page")int page,@RequestParam("limit")int limit){
+        PageInfo<Map<String, Object>>pages=new PageInfo<>();
+        Page<Map<String, Object>> maps = ordersService.orderDetail(order_no,page, limit);
+        List<Map<String, Object>> result = maps.getResult();
+        //封装查询数据
+        pages.setList(result);
+        //封装总记录数
+        pages.setTotalCount((int)maps.getTotal());
+         return pages;
+    }
+
 }

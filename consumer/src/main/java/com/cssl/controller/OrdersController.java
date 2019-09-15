@@ -46,14 +46,12 @@ public class OrdersController {
             return 0;
         }
     }
-
     //删除订单
     @RequestMapping("/deleteOrders")
     @ResponseBody
     public int deleteOrders(@RequestParam("orderId")Integer orderId){
         return productFeignInterface.deleteOrders(orderId);
     }
-
     //计算本月退单数量,订单数量和金额,本月订单实际金额,本月未付款金额
     @RequestMapping("/inquiryAmount")
     @ResponseBody
@@ -76,4 +74,18 @@ public class OrdersController {
         map.put("data",maps);
         return map;
     }
+    //查看订单详情购买商品信息
+    @RequestMapping("/orderDetail")
+    @ResponseBody
+    public Map<String,Object> orderDetail(@RequestParam("order_no")String order_no,@RequestParam("page")int page,@RequestParam("limit")int limit){
+        Map<String,Object> map=new HashMap<String,Object>();
+        PageInfo<Map<String, Object>> mapPageInfo = productFeignInterface.orderDetail(order_no,page, limit);
+        map.put("code",0);
+        map.put("msg", "");
+        map.put("data",mapPageInfo.getList());
+        map.put("count",mapPageInfo.getTotalCount());
+        System.out.println("dsdfdghjkjhgfds");
+        return map;
+    }
+
 }

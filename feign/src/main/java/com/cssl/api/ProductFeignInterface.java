@@ -121,8 +121,13 @@ public interface ProductFeignInterface {
     //查询最近一周对应日期的订单金额,未付金额,退款金额,实际金额
     @RequestMapping("/orders/weekOrder")
     List<Map<String,Object>> weekOrder();
+   //查看订单详情购买商品信息
+   @RequestMapping("/orders/orderDetail")
+   PageInfo<Map<String, Object>> orderDetail(@RequestParam("order_no")String order_no,@RequestParam("page")int page,@RequestParam("limit")int limit);
 
     @RequestMapping("goods/findGoodsById")
     Map findGoodsById(@RequestParam("id") Integer id);
+
+
 
 }

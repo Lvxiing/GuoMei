@@ -37,5 +37,6 @@ public interface OrdersMapper extends BaseMapper<Orders> {
     public  List<Map<String,Object>> weekOrderAmount();
     //查询最近一周的未付金额
     public  List<Map<String,Object>> weekUnpaidAmount ();
-
+    //查看订单详情信息
+    public List<Map<String,Object>>orderDetail(String order_no);
 }
