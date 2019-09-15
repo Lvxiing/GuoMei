@@ -3,6 +3,9 @@ package com.cssl.mapper;
 import com.cssl.entity.VipGoods;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  *  Mapper 接口
@@ -13,4 +16,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface Vip_goodsMapper extends BaseMapper<VipGoods> {
 
+    //查询所有会员商品
+    List<Map<String,Object>> vipGoodsFindAll();
 }

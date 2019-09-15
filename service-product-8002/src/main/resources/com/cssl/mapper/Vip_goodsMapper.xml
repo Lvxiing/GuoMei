@@ -10,4 +10,22 @@
         <result column="goods_id" property="goodsId" />
     </resultMap>
 
+    <!--<select id="vipGoodsFindAll" parameterType="map" resultType="map">-->
+         <!--SELECT g.*,b.`brand_name`,d.grade_name,d.discount_money-->
+         <!--FROM goods g-->
+         <!--INNER JOIN brand b ON g.`brand_id` = b.`brand_id`-->
+         <!--INNER JOIN category c ON c.`category_id` = b.`category_id`-->
+         <!--INNER JOIN vip_goods v ON v.goods_id = g.`goods_id`-->
+         <!--INNER JOIN grade d ON d.grade_id = v.grade_id-->
+        <!--<where>-->
+            <!--<if test="cname != 'null' and cname != '' ">-->
+                <!--and c.`category_name` = #{cname}-->
+            <!--</if>-->
+            <!--<if test="title != 'null' and title != '' ">-->
+                <!--AND g.`goods_title` LIKE concat('%',#{title},'%')-->
+            <!--</if>-->
+        <!--</where>-->
+        <!--ORDER BY g.`goods_state` DESC-->
+    <!--</select>-->
+
 </mapper>

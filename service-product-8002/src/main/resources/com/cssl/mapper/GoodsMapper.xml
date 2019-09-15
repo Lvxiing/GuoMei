@@ -80,4 +80,18 @@
         ORDER BY g.`goods_create_time` DESC LIMIT 10
     </select>
 
+    <select id="ListfindGoodsLowPrice" resultMap="BaseResultMap">
+        SELECT g.*
+        FROM goods g
+        INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
+        WHERE b.`category_id` IN
+        (SELECT category_id FROM category WHERE category_parent_id IN
+        (SELECT category_id FROM category
+        WHERE
+        <foreach item="item" index="index" collection="list" open="" separator=" OR " close="">
+            category_name =#{item}
+        </foreach>
+        ))
+        ORDER BY g.`goods_price` ASC LIMIT 10
+    </select>
 </mapper>

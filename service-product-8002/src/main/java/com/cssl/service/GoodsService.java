@@ -31,4 +31,7 @@ public interface GoodsService extends IService<Goods> {
 
     //根据分类名称查询该分类下的所有品牌商品的新品抢先
     List<Goods> findGoodsNewByCategoryName(List list);
+
+    //根据分类名称查询该分类下的所有品牌商品的畅想低价
+    List<Goods> ListfindGoodsLowPrice(List list);
 }
