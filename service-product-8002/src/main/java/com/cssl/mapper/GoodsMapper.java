@@ -2,6 +2,7 @@ package com.cssl.mapper;
 
 import com.cssl.entity.Goods;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
@@ -26,5 +27,11 @@ public interface GoodsMapper extends BaseMapper<Goods> {
     int upStateGoods(Map<String,Object> map);
 
     //根据分类名称查询该分类下的所有品牌商品的热卖商品
-    List<Goods> findGoodsByCategoryName(String categoryName);
+    List<Goods> findGoodsByCategoryName(List list);
+
+    //根据分类名称查询该分类下的所有品牌商品的新品抢先
+    List<Goods> findGoodsNewByCategoryName(List list);
+
+    //商品热销榜
+    List<Goods> findSaleGoods();
 }

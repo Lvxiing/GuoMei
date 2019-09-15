@@ -48,17 +48,36 @@
         WHERE goods_id = #{gid}
     </update>
 
-    <select id="findGoodsByCategoryName" resultMap="BaseResultMap">
+    <select id="findGoodsByCategoryName" resultMap="BaseResultMap" parameterType="list">
+        SELECT * FROM goods g INNER JOIN (SELECT goods_id,SUM(detail_num) AS num FROM order_detail
+        GROUP BY goods_id ORDER BY num DESC
+        ) o ON g.`goods_id` = o.goods_id
+        INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
+        WHERE b.`category_id` IN (SELECT category_id FROM category WHERE category_parent_id IN
+        (
+        SELECT category_id FROM category
+        WHERE
+        <foreach item="item" index="index" collection="list" open="" separator=" OR " close="">
+            category_name =#{item}
+        </foreach>
+        ))
+        LIMIT 10
+    </select>
 
+
+    <select id="findGoodsNewByCategoryName" resultMap="BaseResultMap">
         SELECT g.*
-        FROM order_detail o
-                 INNER JOIN goods g ON g.goods_id = o.goods_id
-                 INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
-        WHERE b.`category_id` IN (SELECT category_id
-                                  FROM category
-                                  WHERE category_parent_id =
-                                        (SELECT category_id FROM category WHERE category_name = #{categoryName}  ))
-        ORDER BY detail_num DESC LIMIT 10
+        FROM goods g
+        INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
+        WHERE b.`category_id` IN
+        (SELECT category_id FROM category WHERE category_parent_id IN
+        (SELECT category_id FROM category
+        WHERE
+        <foreach item="item" index="index" collection="list" open="" separator=" OR " close="">
+            category_name =#{item}
+        </foreach>
+        ))
+        ORDER BY g.`goods_create_time` DESC LIMIT 10
     </select>
 
 </mapper>

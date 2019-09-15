@@ -21,10 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -53,9 +50,41 @@ public class GoodsController {
     @ResponseBody
     public List<Goods> findGoodsByCategoryName(@RequestParam("categoryName")String categoryName){
 
-        return goodsService.findGoodsByCategoryName(categoryName);
+        List list = new ArrayList();
+        if (categoryName.indexOf(",") >= 0) {
+            String[] nameList = categoryName.split(",");
+            for (int i = 0; i < nameList.length; i++) {
+                list.add(nameList[i]);
+            }
+        }else{
+            list.add(categoryName);
+        }
+
+        return goodsService.findGoodsByCategoryName(list);
     }
 
+    //根据分类名称查询该分类下的所有品牌商品的新品抢先
+    @RequestMapping("findGoodsNewByCategoryName")
+    @ResponseBody
+    public List<Goods> findGoodsNewByCategoryName(@RequestParam("categoryName")String categoryName){
+        List list = new ArrayList();
+        if (categoryName.indexOf(",") >= 0) {
+            String[] nameList = categoryName.split(",");
+            for (int i = 0; i < nameList.length; i++) {
+                list.add(nameList[i]);
+            }
+        }else{
+            list.add(categoryName);
+        }
+        return goodsService.findGoodsNewByCategoryName(list);
+    }
+
+    //商品热销榜
+    @RequestMapping("findSaleGoods")
+    @ResponseBody
+    public List<Goods> findSaleGoods(){
+        return null;
+    }
 
 
     //--------------------------后台模块-------------------------------
