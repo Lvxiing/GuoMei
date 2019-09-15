@@ -84,7 +84,6 @@ public class OrdersController {
         map.put("msg", "");
         map.put("data",mapPageInfo.getList());
         map.put("count",mapPageInfo.getTotalCount());
-        System.out.println("dsdfdghjkjhgfds");
         return map;
     }
 
