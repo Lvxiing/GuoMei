@@ -83,8 +83,9 @@
                           console.log(res);
                       }
                       ,cols: [[ //表头
-                          {field: 'goods_title', title: '商品名称'}
-                          ,{field: 'goods_main_img', title: '购买商品',templet:"#imgtmp"}
+                          {field: 'order_no', title: '订单编号'},
+                          {field: 'goods_title', title: '商品名称'},
+                          ,{field: 'goods_main_img', title: '购买商品',templet:"#imgtmp",width:150}
                           ,{field: 'detail_num', title: '购买数量'}
                           ,{field: 'detail_money', title: '金额'}
                       ]]
@@ -93,8 +94,8 @@
       </script>
 
       <script type="text/html" id="imgtmp">
-          <div class="layer-photos-demo" onclick="img_click()" style="cursor:pointer;">
-              <img  width="35px" height="35px" layer-src="{{d.goods_main_img}}" src="{{d.goods_main_img}}" alt="购买商品"  >
+          <div class="layer-photos-demo"  onclick="img_click()" style="cursor:pointer; width: 120px;">
+              <img  width="50px" height="35px" layer-src="{{d.goods_main_img}}" src="{{d.goods_main_img}}" alt="购买商品"  >
           </div>
       </script>
   </div>
