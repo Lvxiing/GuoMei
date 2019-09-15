@@ -21,10 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -53,9 +50,41 @@ public class GoodsController {
     @ResponseBody
     public List<Goods> findGoodsByCategoryName(@RequestParam("categoryName")String categoryName){
 
-        return goodsService.findGoodsByCategoryName(categoryName);
+        List list = new ArrayList();
+        if (categoryName.indexOf(",") >= 0) {
+            String[] nameList = categoryName.split(",");
+            for (int i = 0; i < nameList.length; i++) {
+                list.add(nameList[i]);
+            }
+        }else{
+            list.add(categoryName);
+        }
+
+        return goodsService.findGoodsByCategoryName(list);
     }
 
+    //根据分类名称查询该分类下的所有品牌商品的新品抢先
+    @RequestMapping("findGoodsNewByCategoryName")
+    @ResponseBody
+    public List<Goods> findGoodsNewByCategoryName(@RequestParam("categoryName")String categoryName){
+        List list = new ArrayList();
+        if (categoryName.indexOf(",") >= 0) {
+            String[] nameList = categoryName.split(",");
+            for (int i = 0; i < nameList.length; i++) {
+                list.add(nameList[i]);
+            }
+        }else{
+            list.add(categoryName);
+        }
+        return goodsService.findGoodsNewByCategoryName(list);
+    }
+
+    //商品热销榜
+    @RequestMapping("findSaleGoods")
+    @ResponseBody
+    public List<Goods> findSaleGoods(){
+        return null;
+    }
 
 
     //--------------------------后台模块-------------------------------
@@ -124,7 +153,8 @@ public class GoodsController {
     @RequestMapping("modifyGoods")
     @ResponseBody
     public String modifyGoods(@RequestParam Map<String, Object> map){
-        System.out.println("map = " + map);
+        Integer vip = new Integer(map.get("vip").toString());
+        System.out.println("vip = " + vip);
         Integer id = new Integer(map.get("gid").toString());
         Double price = new Double(map.get("price").toString());
         Integer stock = new Integer(map.get("stock").toString());
@@ -132,6 +162,10 @@ public class GoodsController {
         Integer ms = new Integer(map.get("ms").toString());
         Integer cid = new Integer(map.get("brand").toString());
         Goods goods = new Goods();
+        Integer grade = null;
+        if (map.get("grade")!=null && !"".equals(map.get("grade"))) {
+            grade = new Integer(map.get("grade").toString());
+        }
         int bid = categoryService.selectBrandId(cid);
         goods.setTitle(map.get("goodsName").toString());
         goods.setSubTitle(map.get("subTitle").toString());
@@ -144,6 +178,17 @@ public class GoodsController {
         goods.setState(state);
         goods.setSeckill(ms);
         goods.setBid(bid);
+        if (vip == 1) { //新增到会员商品中
+            VipGoods vipGoods = new VipGoods();
+            vipGoods.setGradeId(grade);
+            vipGoods.setVipTime(new Date());
+            vipGoods.setGoodsId(goods.getId());
+            vipGoodsService.save(vipGoods);
+        }
+        if (vip == 0) { //从会员商品中删除
+             boolean b = vipGoodsService.remove(new QueryWrapper<VipGoods>().eq("goods_id",goods.getId()));
+            System.out.println("******************** = " + b);
+        }
         boolean b = goodsService.updateById(goods);
         if(b){
             String json = "{\"code\":\"success\"}";
@@ -171,6 +216,7 @@ public class GoodsController {
         Goods goods = goodsService.getOne(new QueryWrapper<Goods>().eq("goods_id", id));
         map.put("goods",goods);
         map.put("vip",vip!=null ? 1:0);
+        map.put("vipInfo",vip!=null ? vip:null);
         return map;
     }
 

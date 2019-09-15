@@ -23,13 +23,22 @@
         <result column="address_detail" property="address"/>
         <result column="address_name" property="userName"/>
     </resultMap>
+    <!--后台查看订单详情-->
+    <select id="orderDetail" resultType="map" parameterType="string">
+        SELECT o.order_no,g.`goods_title`,s.`detail_num`,s.`detail_money`,g.`goods_main_img`
+        FROM orders o
+                 INNER JOIN order_detail s ON s.`order_id`=o.order_id
+                 INNER JOIN   goods g ON g.`goods_id`=s.`goods_id`
+        WHERE o.`order_no`=#{order_no}
+    </select>
     <!--查询订单信息-->
     <select id="orderList" resultMap="maps" parameterType="map">
-        SELECT DISTINCT o.`order_id`,a.`address_name`,a.`address_detail`,o.`order_no`,o.`order_status`,g.`goods_title`,o.`order_total`,o.`order_time`
+        SELECT  o.`order_id`,
+        a.`address_name`,a.`address_detail`,
+        o.`order_no`,o.`order_status`,
+        o.`order_total`,o.`order_time`
         FROM orders o
-        INNER JOIN order_detail s ON s.`order_id`=o.order_id
-        INNER JOIN  address a ON a.`address_id`=o.`address_id`
-        INNER JOIN   goods g ON g.`goods_id`=s.`goods_id`
+        INNER JOIN address a ON a.`address_id`=o.`address_id`
 
         <trim prefix="where" prefixOverrides="and ||or">
             <if test="name !='null'and name !='' and name!=null ">
@@ -40,13 +49,14 @@
             </if>
         </trim>
     </select>
-    <!--根据订单号查询订单详情-->
+    <!--根据订单号查询订单详情(用于修改回显)-->
     <select id="ByIdOrders" resultMap="maps" parameterType="string">
-        SELECT DISTINCT o.`order_id`,a.`address_name`,a.`address_detail`,o.`order_no`,o.`order_status`,g.`goods_title`,o.`order_total`,o.`order_time`
+        SELECT DISTINCT o.`order_id`,
+                        a.`address_name`,a.`address_detail`,
+                        o.`order_no`,o.`order_status`,
+                        o.`order_total`,o.`order_time`
         FROM orders o
-                 INNER JOIN order_detail s ON s.`order_id`=o.order_id
-                 INNER JOIN  address a ON a.`address_id`=o.`address_id`
-                 INNER JOIN   goods g ON g.`goods_id`=s.`goods_id`
+                 INNER JOIN address a ON a.`address_id`=o.`address_id`
         where o.`order_no`=#{orderNo}
     </select>
     <!--修改订单状态-->

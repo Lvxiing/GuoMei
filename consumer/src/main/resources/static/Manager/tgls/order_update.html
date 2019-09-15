@@ -58,12 +58,6 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">购买商品</label>
-            <div class="layui-input-block">
-                <input type="text" name="title" readonly="readonly" lay-verify="required" autocomplete="off" class="layui-input" style="width: 343px">
-            </div>
-        </div>
-        <div class="layui-form-item">
             <label class="layui-form-label">金额</label>
             <div class="layui-input-block">
                 <input type="text" name="total" readonly="readonly" autocomplete="off" class="layui-input" style="width: 343px">
@@ -129,7 +123,6 @@
                         $("input[name=orderNo]").val(result[0].orderNo);
                         $("input[name=userName]").val(result[0].userName);
                         $("input[name=total]").val(result[0].total);
-                        $("input[name=title]").val(result[0].title);
                         $("input[name=address]").val(result[0].address);
                         $("select[name='provid']").val(result[0].status);
                         //转换时间格式

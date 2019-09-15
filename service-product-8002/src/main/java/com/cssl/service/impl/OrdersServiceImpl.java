@@ -224,4 +224,11 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         }
         return list;
     }
+
+    @Override
+    public Page<Map<String,Object>> orderDetail(String order_no,int pageIndex,int pageSize) {
+        Page<Map<String, Object>> page = PageHelper.startPage(pageIndex, pageSize);
+        ordersMapper.orderDetail(order_no);
+        return page;
+    }
 }

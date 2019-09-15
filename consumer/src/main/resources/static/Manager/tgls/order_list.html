@@ -140,7 +140,6 @@
                         {field: "id", title: "id",hide:true},
                         {field: "orderNo", title: "订单编号",width:148},
                         {field: "userName", title: "收货人"},
-                        {field: "title", title: "购买商品"},
                         {field: "total", title: "金额"},
                         {field: "address", title: "收货地址"},
                         {field: "orderTime", title: "订单时间",
@@ -194,7 +193,7 @@
                             layer.close(index);
                         });
                         //修改
-                    } else if(layEvent === 'edit'){
+                    } else if(layEvent === 'update'){
                         layui.use('layer', function () {
                             var layer = layui.layer;
                             //iframe层-父子操作
@@ -205,6 +204,19 @@
                                 scrollbar: false,	//默认：true,默认允许浏览器滚动，如果设定scrollbar: false，则屏蔽
                                 maxmin: true,
                                 content: 'order_update.html?orderNo='+data.orderNo
+                            });
+                        });
+                    }else if(layEvent === 'edit'){   //查看
+                        layui.use('layer', function () {
+                            var layer = layui.layer;
+                            //iframe层-父子操作
+                            layer.open({
+                                title: "订单信息查看",
+                                type: 2,
+                                area:  ['100%', '100%'],
+                                scrollbar: false,	//默认：true,默认允许浏览器滚动，如果设定scrollbar: false，则屏蔽
+                                maxmin: true,
+                                content: 'order_edit.html?orderNo='+data.orderNo
                             });
                         });
                     }
@@ -229,7 +241,8 @@
     </script>
 
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">查看</a>
+        <a class="layui-btn layui-btn-xs" lay-event="update">修改</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     </script>
 

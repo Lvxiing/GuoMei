@@ -24,6 +24,32 @@ public class GoodsController {
     @Autowired
     private ProductFeignInterface productFeignInterface;
 
+    //--------------------------前台模块-------------------------------
+
+    //根据分类名称查询该分类下的所有品牌商品的热卖商品
+    @RequestMapping("findGoodsByCategoryName")
+    @ResponseBody
+    public List<Goods> findGoodsByCategoryName(@RequestParam("categoryName") String categoryName) {
+
+        return productFeignInterface.findGoodsByCategoryName(categoryName);
+    }
+
+    //根据分类名称查询该分类下的所有品牌商品的新品抢先
+    @RequestMapping("findGoodsNewByCategoryName")
+    @ResponseBody
+    public List<Goods> findGoodsNewByCategoryName(@RequestParam("categoryName") String categoryName) {
+
+        return productFeignInterface.findGoodsNewByCategoryName(categoryName);
+    }
+
+    //根据分类名称查询该分类下的所有品牌商品的畅想低价
+    @RequestMapping("findGoodsLowPrice")
+    @ResponseBody
+    public List<Goods> findGoodsLowPrice(@RequestParam("categoryName") String categoryName) {
+
+        return productFeignInterface.findGoodsNewByCategoryName(categoryName);
+    }
+
 
     //--------------------------后台模块-------------------------------
     @RequestMapping("findGoods")
@@ -81,7 +107,7 @@ public class GoodsController {
     //修改商品
     @RequestMapping("modifyGoods")
     @ResponseBody
-    public String modifyGoods(@RequestParam Map<String, Object> map){
+    public String modifyGoods(@RequestParam Map<String, Object> map) {
         return productFeignInterface.modifyGoods(map);
     }
 
@@ -155,7 +181,7 @@ public class GoodsController {
 
     @RequestMapping("findGoodsById")
     @ResponseBody
-    public Map findGoodsById(@RequestParam("id") Integer id){
+    public Map findGoodsById(@RequestParam("id") Integer id) {
         return productFeignInterface.findGoodsById(id);
     }
 

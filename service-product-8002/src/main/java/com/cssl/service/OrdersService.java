@@ -33,4 +33,7 @@ public interface OrdersService extends IService<Orders> {
     public Map<String,Object> weekOrderQuantity();
     //查询最近一周对应日期的订单金额,未付金额,退款金额,实际金额
     public List<Map<String,Object>> weekOrder();
+
+    //查看订单详情信息(用于后台)
+    public Page<Map<String,Object>>orderDetail(String order_no,int pageIndex,int pageSize);
 }

@@ -40,7 +40,9 @@ public interface ProductFeignInterface {
     @RequestMapping("goods/findGoodsByCategoryName")
     List<Goods> findGoodsByCategoryName(@RequestParam("categoryName")String categoryName);
 
-
+    //根据分类名称查询该分类下的所有品牌商品的新品抢先
+    @RequestMapping("goods/findGoodsNewByCategoryName")
+    List<Goods> findGoodsNewByCategoryName(@RequestParam("categoryName")String categoryName);
 
 
 
@@ -112,6 +114,10 @@ public interface ProductFeignInterface {
     @RequestMapping("goods/modifyGoods")
     String modifyGoods(@RequestParam Map<String, Object> map);
 
+    @RequestMapping("goods/findGoodsById")
+    Map findGoodsById(@RequestParam("id") Integer id);
+
+
     //---------------------------订单后台模块--------------------------------
     //查询全部和模糊查询
     @RequestMapping("/orders/orderList/{pageIndex}/{pageSize}/{orderNo}/{name}")
@@ -134,8 +140,13 @@ public interface ProductFeignInterface {
     //查询最近一周对应日期的订单金额,未付金额,退款金额,实际金额
     @RequestMapping("/orders/weekOrder")
     List<Map<String,Object>> weekOrder();
+   //查看订单详情购买商品信息
+   @RequestMapping("/orders/orderDetail")
+   PageInfo<Map<String, Object>> orderDetail(@RequestParam("order_no")String order_no,@RequestParam("page")int page,@RequestParam("limit")int limit);
 
-    @RequestMapping("goods/findGoodsById")
-    Map findGoodsById(@RequestParam("id") Integer id);
+
+    //---------------------------商品评论后台模块--------------------------------
+    @RequestMapping("/evaluate/evaluateFindAll")
+    PageInfo<Map<String, Object>> evaluateFindAll(@RequestParam Map<String,Object> param, @RequestParam("page")int page, @RequestParam("limit")int limit);
 
 }
