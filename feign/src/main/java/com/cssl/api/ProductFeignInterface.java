@@ -114,6 +114,10 @@ public interface ProductFeignInterface {
     @RequestMapping("goods/modifyGoods")
     String modifyGoods(@RequestParam Map<String, Object> map);
 
+    @RequestMapping("goods/findGoodsById")
+    Map findGoodsById(@RequestParam("id") Integer id);
+
+
     //---------------------------订单后台模块--------------------------------
     //查询全部和模糊查询
     @RequestMapping("/orders/orderList/{pageIndex}/{pageSize}/{orderNo}/{name}")
@@ -140,9 +144,9 @@ public interface ProductFeignInterface {
    @RequestMapping("/orders/orderDetail")
    PageInfo<Map<String, Object>> orderDetail(@RequestParam("order_no")String order_no,@RequestParam("page")int page,@RequestParam("limit")int limit);
 
-    @RequestMapping("goods/findGoodsById")
-    Map findGoodsById(@RequestParam("id") Integer id);
 
-
+    //---------------------------商品评论后台模块--------------------------------
+    @RequestMapping("/evaluate/evaluateFindAll")
+    PageInfo<Map<String, Object>> evaluateFindAll(@RequestParam Map<String,Object> param, @RequestParam("page")int page, @RequestParam("limit")int limit);
 
 }
