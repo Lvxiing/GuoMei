@@ -3,6 +3,9 @@ package com.cssl.mapper;
 import com.cssl.entity.Evaluate;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  *  Mapper 接口
@@ -13,4 +16,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface EvaluateMapper extends BaseMapper<Evaluate> {
 
+    //查询全部评论
+    List<Map<String,Object>> evaluateFindAll(Map<String,Object> map);
 }

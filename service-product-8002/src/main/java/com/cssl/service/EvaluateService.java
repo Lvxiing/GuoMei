@@ -2,6 +2,9 @@ package com.cssl.service;
 
 import com.cssl.entity.Evaluate;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.Page;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -12,5 +15,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2019-09-10
  */
 public interface EvaluateService extends IService<Evaluate> {
+
+    //查询所有评论
+    Page<Map<String,Object>> evaluateFindAll(Map<String,Object>map, int pageIndex, int pageSize);
 
 }

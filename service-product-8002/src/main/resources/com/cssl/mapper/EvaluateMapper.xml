@@ -8,9 +8,27 @@
         <result column="goods_id" property="goodsId" />
         <result column="user_id" property="userId" />
         <result column="evaluate_content" property="content" />
+        <result column="order_id" property="oid"/>
         <result column="evaluate_star" property="star" />
         <result column="evaluate_imgs" property="imgs" />
         <result column="evaluate_time" property="time" />
     </resultMap>
 
+    <select id="evaluateFindAll" resultType="map" parameterType="map">
+        SELECT o.order_no AS num,u.user_name AS name,e.evaluate_content AS content,e.evaluate_time AS etime,g.`goods_id` AS gid,g.`goods_main_img` img FROM evaluate e
+        INNER JOIN users u ON e.user_id = u.user_id
+        INNER JOIN goods g ON g.`goods_id` = e.goods_id
+        INNER JOIN orders o ON o.order_id = e.order_id
+        <where>
+            <if test=" name!= 'null' and name!= '' ">
+                and u.user_name LIKE concat('%',#{name},'%')
+            </if>
+            <if test=" num!= 'null' and num!= '' ">
+                and o.order_no  LIKE concat('%',#{num},'%')
+            </if>
+            <if test=" content!= 'null' and content!= '' ">
+                and e.evaluate_content LIKE concat('%',#{content},'%')
+            </if>
+        </where>
+    </select>
 </mapper>

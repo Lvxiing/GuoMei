@@ -25,7 +25,7 @@
     </resultMap>
     <!--后台查看订单详情-->
     <select id="orderDetail" resultType="map" parameterType="string">
-        SELECT g.`goods_title`,s.`detail_num`,s.`detail_money`,g.`goods_main_img`
+        SELECT o.order_no,g.`goods_title`,s.`detail_num`,s.`detail_money`,g.`goods_main_img`
         FROM orders o
                  INNER JOIN order_detail s ON s.`order_id`=o.order_id
                  INNER JOIN   goods g ON g.`goods_id`=s.`goods_id`
