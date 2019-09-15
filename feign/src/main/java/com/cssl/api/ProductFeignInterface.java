@@ -24,6 +24,9 @@ public interface ProductFeignInterface {
     @RequestMapping("news/findAllNews")
     List<News> findAllNews();
 
+    @RequestMapping("news/findPageByTitle")
+    PageInfo findPageByTitle(@RequestParam("pageIndex") Integer pageIndex ,@RequestParam("pageSize") Integer pageSize,@RequestParam("title") String title);
+    //查询所有顶级分类
 
     //---------------------------分类模块--------------------------------
     //查询所有顶级分类

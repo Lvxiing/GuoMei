@@ -2,6 +2,7 @@ package com.cssl.controller;
 
 import com.cssl.entity.ImagesInfo;
 import com.cssl.entity.News;
+import com.cssl.entity.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -34,6 +35,29 @@ public class NewsController {
         return newsList;
     }
 
+    @RequestMapping("findPageByTitle")
+    @ResponseBody
+    public PageInfo findPageByTitle(Integer pageIndex , Integer pageSize, String title){
+        Query query = new Query();
+        Criteria criteria = new Criteria();
+        Pattern pattern = Pattern.compile("^.*" + title + ".*$", Pattern.CASE_INSENSITIVE);
+        criteria.andOperator(Criteria.where("title").regex(pattern));
+        if (title != null) {
+            query.addCriteria(criteria);
+        }
+        query.with(new Sort(Sort.Direction.DESC, "subtime"));
+        query.skip((pageIndex - 1) * pageSize);
+        query.limit(pageSize);
+        long count = mongoTemplate.count(query, News.class);
+        PageInfo pi = new PageInfo();
+        List<News> list = mongoTemplate.find(query,News.class);
+        System.out.println(list);
+        pi.setList(list);
+        pi.setPageNo(pageIndex);
+        pi.setPageSize(pageSize);
+        pi.setTotalCount(Integer.parseInt(Long.toString(count)));
+        return pi;
+    }
 
 
 }

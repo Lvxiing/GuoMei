@@ -5,6 +5,7 @@ import com.cssl.entity.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -25,6 +26,16 @@ public class NewsController {
         return productFeignInterface.findAllNews();
     }
 
-
+    @RequestMapping("findByTitlePage")
+    @ResponseBody
+    public List<News> findByTitlePage(@RequestParam("pageIndex") Integer pageIndex , @RequestParam("title") String title){
+        if(pageIndex !=null){
+            pageIndex =1;
+        }
+        Integer pageSize = 8;
+        System.out.println("标题:"+title);
+        System.out.println(productFeignInterface.findPageByTitle(pageIndex,pageSize,title).getList());
+        return productFeignInterface.findPageByTitle(pageIndex,pageSize,title).getList();
+    }
 
 }
