@@ -40,7 +40,9 @@ public interface ProductFeignInterface {
     @RequestMapping("goods/findGoodsByCategoryName")
     List<Goods> findGoodsByCategoryName(@RequestParam("categoryName")String categoryName);
 
-
+    //根据分类名称查询该分类下的所有品牌商品的新品抢先
+    @RequestMapping("goods/findGoodsNewByCategoryName")
+    List<Goods> findGoodsNewByCategoryName(@RequestParam("categoryName")String categoryName);
 
 
 
