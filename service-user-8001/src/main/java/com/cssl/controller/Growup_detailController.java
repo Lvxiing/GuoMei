@@ -1,9 +1,16 @@
 package com.cssl.controller;
 
 
+import com.cssl.service.GrowupService;
+import com.cssl.service.Growup_detailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -13,8 +20,16 @@ import org.springframework.stereotype.Controller;
  * @author lx
  * @since 2019-09-10
  */
-@Controller
+@RestController
 @RequestMapping("/growup_detail")
 public class Growup_detailController {
+
+    @Autowired
+    private Growup_detailService growupDetailService;
+
+    @RequestMapping("/saveGrowupdetail")
+    public int saveGrowupdetail(@RequestParam  Map map) {
+        return growupDetailService.saveGrowupdetail(map);
+    }
 
 }

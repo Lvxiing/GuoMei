@@ -197,7 +197,7 @@
                     $("input[name=userName]").focus();
                 }else {
                     $.getJSON("/users/selectUserName", {userName: userName}, function (result) {
-                        if (result > 0) {
+                        if (result !=null) {
                             $("#userNameMess").text("该用户名已被注册").css("color", "#e3101e");
                             $("input[name=userName]").focus();
                         } else {

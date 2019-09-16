@@ -2,9 +2,7 @@ package com.cssl.controller;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
 import com.cssl.api.UserFeignInterface;
-import com.cssl.entity.Grade;
-import com.cssl.entity.PageInfo;
-import com.cssl.entity.Users;
+import com.cssl.entity.*;
 import com.cssl.util.NginxUtil;
 import org.apache.catalina.filters.SessionInitializerFilter;
 import org.apache.commons.io.FileUtils;
@@ -21,11 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/users")
@@ -51,6 +46,25 @@ public class UserController {
         if("success".equals(hm.get("mess"))){
             Users u = selectPhone(phoneNum);
             session.setAttribute("user",u);
+            Map map=new HashMap();
+            map.put("userId",u.getId());
+            final String typeName="每日登录";
+            map.put("typeName",typeName);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//用户上次登录时间
+           String loginTime= sdf.format(u.getLoginTime());
+           //当前系统时间
+            String nowDate=sdf.format(System.currentTimeMillis());
+            //用户注册时间
+            String regTime= sdf.format(u.getTime());
+            //用户当日注册当日登录
+            //每日首次登录加成长值
+            if(!loginTime.equals(nowDate) || regTime.equals(nowDate)){
+                int ucount = userFeignInterface.updateGrowupSum(map);
+                int scount = userFeignInterface.saveGrowupdetail(map);
+            }
+            u.setLoginTime(new Date());
+            boolean b = userFeignInterface.updateLoginTime(u);
             System.out.println("sessionUser:"+session.getAttribute("user"));
             return "redirect:/index.html";
         }else {
@@ -68,7 +82,7 @@ public class UserController {
     //判断该用户名是否已被注册
     @RequestMapping("/selectUserName")
     @ResponseBody
-    public  int  selectUserName(@RequestParam("userName") String userName){
+    public  Users  selectUserName(@RequestParam("userName") String userName){
         return  userFeignInterface.selectUserName(userName);
     }
 
@@ -76,7 +90,22 @@ public class UserController {
     @RequestMapping("/userRegister")
     @ResponseBody
     public   boolean   userRegister(Users users){
-        return  userFeignInterface.userRegister(users);
+      boolean pd=userFeignInterface.userRegister(users);
+      if(pd==true){
+          Users u= userFeignInterface.selectUserName(users.getUserName());
+          Map map=new HashMap();
+          Growup growup=new Growup();
+          growup.setUserId(u.getId());
+          map.put("userId",u.getId());
+          //注册加成长值
+          final String typeName="注册";
+          map.put("typeName",typeName);
+          GrowupType growupType = userFeignInterface.findByTypeName(typeName);
+           growup.setGrowupSum(growupType.getValue());
+           boolean save =userFeignInterface.saveGrowup(growup);
+          int scount = userFeignInterface.saveGrowupdetail(map);
+      }
+        return  pd;
     }
 
     //得到session中的用户
@@ -125,7 +154,7 @@ public class UserController {
     @RequestMapping("/findUsers/{userName}")
     @ResponseBody
     public Map<String, Object> findUsers(@PathVariable("userName") String userName, int page, int limit) {
-        PageInfo<Users> usersPageInfo = userFeignInterface.UsersFenYe(userName, page, limit);
+        PageInfo<Users> usersPageInfo = userFeignInterface.usersFenYe(userName, page, limit);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("code", 0);
         map.put("msg", "");
@@ -189,12 +218,12 @@ public class UserController {
         Map hm = new HashMap();
         hm.put("userName", userName);
         hm.put("gradeName", gradeName);
-        PageInfo<Map> userInfoPageInfo = userFeignInterface.UserInfoFenYe(hm,page,limit);
+        PageInfo<Map> userVipPageInfo = userFeignInterface.userVipFenYe(hm,page,limit);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("code", 0);
         map.put("msg", "");
-        map.put("count", userInfoPageInfo.getTotalCount());  //总记录数
-        map.put("data",  userInfoPageInfo.getList());
+        map.put("count", userVipPageInfo.getTotalCount());  //总记录数
+        map.put("data",  userVipPageInfo.getList());
         return map;
     }
 
