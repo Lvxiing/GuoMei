@@ -13,13 +13,13 @@ import java.util.Map;
 public interface ProductFeignInterface {
 
     //-----------------------------前台模块-------------------------------
-
     //首页显示
     //首页大轮播图
     @RequestMapping("index/mainImagesData")
     public List<ImagesInfo> mainImagesData();
 
-    //---------------------------新闻模块--------------------------------
+
+    //---------------------------新闻前台模块--------------------------------
     //查询所有新闻
     @RequestMapping("news/findAllNews")
     List<News> findAllNews();
@@ -28,28 +28,8 @@ public interface ProductFeignInterface {
     PageInfo findPageByTitle(@RequestParam("pageIndex") Integer pageIndex ,@RequestParam("pageSize") Integer pageSize,@RequestParam("title") String title);
     //查询所有顶级分类
 
-    //---------------------------新闻后台模块--------------------------------
 
-    //新闻查询
-    @RequestMapping("news/findByNewsPage")
-    Map<String,Object> findAllNews(@RequestParam("pageIndex") Integer pageIndex);
-    //根据名称模糊查询
-    @RequestMapping("news/findByTitle/{title}")
-    Map<String, Object> findByTitle(@PathVariable("title") String title);
-    //新增数据
-    @RequestMapping("news/savaNews")
-    String save(News newsVo);
-    //删除新闻
-    @RequestMapping("news/deleteNews/{id}")
-    String deleteNews(@PathVariable("id") String id);
-    //修改新闻数据
-    @RequestMapping("news/updateNews")
-    String updateNews(News news);
-    //根据id查询需要修改的数据
-    @RequestMapping("news/findByUpdateId/{id}")
-    Map<String,Object> findByUpdateId(@PathVariable("id") String id);
-
-    //---------------------------分类模块--------------------------------
+    //---------------------------分类前台模块--------------------------------
     //查询所有顶级分类
     @RequestMapping("category/findParentCategory")
     List<Category> findParentCategory(@RequestParam("pid") Integer pid);
@@ -57,6 +37,10 @@ public interface ProductFeignInterface {
     //根据分类编号查询当前分类下的所有子分类
     @RequestMapping("category/findCategoryAndChild")
     List<TreeCategory> findCategoryAndChild(@RequestParam("parentId") Integer parentId);
+
+    //根据商品编号查询该商品所在的分类以及全部父分类信息
+    @RequestMapping("category/findCategoryByGoodsId")
+    Map<String,Object> findCategoryByGoodsId(@RequestParam("gid") Integer gid);
 
 
     //---------------------------商品前台模块--------------------------------
@@ -86,7 +70,29 @@ public interface ProductFeignInterface {
 
 
     //--------------------------后台模块----------------------------------
-    //--------------------------商品分类模块-------------------------------
+
+    //---------------------------新闻后台模块--------------------------------
+    //新闻查询
+    @RequestMapping("news/findByNewsPage")
+    Map<String,Object> findAllNews(@RequestParam("pageIndex") Integer pageIndex);
+    //根据名称模糊查询
+    @RequestMapping("news/findByTitle/{title}")
+    Map<String, Object> findByTitle(@PathVariable("title") String title);
+    //新增数据
+    @RequestMapping("news/savaNews")
+    String save(News newsVo);
+    //删除新闻
+    @RequestMapping("news/deleteNews/{id}")
+    String deleteNews(@PathVariable("id") String id);
+    //修改新闻数据
+    @RequestMapping("news/updateNews")
+    String updateNews(News news);
+    //根据id查询需要修改的数据
+    @RequestMapping("news/findByUpdateId/{id}")
+    Map<String,Object> findByUpdateId(@PathVariable("id") String id);
+
+
+    //--------------------------商品分类模块后台-------------------------------
     //查询所有分类
     @RequestMapping("category/findCategory")
     String findCategory();
@@ -128,7 +134,7 @@ public interface ProductFeignInterface {
     Map findBrandIsParentCategory(@RequestParam("id")Integer id);
 
 
-    //--------------------------商品模块-------------------------------
+    //--------------------------商品模块后台-------------------------------
     //查询商品
     @RequestMapping("goods/findGoods")
     PageInfo<Map<String, Object>> findGoods(@RequestParam Map<String,Object> param);

@@ -48,4 +48,7 @@ public interface CategoryMapper extends BaseMapper<Category> {
 
     //查询当前品牌的父分类
     Map findBrandIsParentCategory(Integer id);
+
+    //根据商品编号查询该商品所在的分类信息
+    Category findCategoryByGoodsId(Integer gid);
 }

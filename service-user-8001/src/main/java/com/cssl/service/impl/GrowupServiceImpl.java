@@ -2,7 +2,6 @@ package com.cssl.service.impl;
 
 import com.cssl.entity.Growup;
 import com.cssl.mapper.GrowupMapper;
-import com.cssl.mapper.UserinfoMapper;
 import com.cssl.service.GrowupService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
