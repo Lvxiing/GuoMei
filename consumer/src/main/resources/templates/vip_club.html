@@ -33,6 +33,8 @@
     <link rel="stylesheet"
           href="//css.gomein.net.cn/??gmpro/2.0.0/memberClub/1.2.2/css/common/h_b_c.css,gmpro/2.0.0/memberClub/1.2.2/css/common/vipMainHeader.css,gmpro/1.0.0/cart/1.0.0/css/headCart.min.css,gmpro/2.0.0/memberClub/1.2.2/css/common/mygome_new.css,gmpro/2.0.0/memberClub/1.2.2/css/common/pager.css,gmpro/2.0.0/memberClub/1.2.2/css/memberClub/membersClub.css">
 
+    <script src="js/jquery-1.8.3.js"></script>
+
 </head>
 <body class="memberClub">
 <script type="text/javascript">
@@ -49,34 +51,10 @@
         <ul>
             <li id="gome-entry-link">
                 <a data-code="public01001" href="index.html" target="_blank"><i
-                    class="icon-gome-logo"></i>国美首页</a></li>
+                        class="icon-gome-logo"></i>国美首页</a></li>
             <li class="gome-spacer"></li>
-            <li id="gome-user" data-load="user" class="" data-open="true">
-                <b id="loginDiv-name">Hi,&nbsp;<a data-code="public01054"
-                                                  href="vip_club.html"
-                                                  target="_blank"><span
-                        class="sign-top-member-name">LOgo&nbsp;</span><em class="level-g1"></em><i></i></a></b>
-                <div class="public-dropdown" style="height: 0px;">
-                    <div id="user-name">
-                        <a data-code="public01048" href="" target="_blank"><i class="no-bg"><img
-                                src="//gfs8.gomein.net.cn/T1EIKXB4Zv1RCvBVdK.jpg"></i></a>
-                        <div>
-                            <p><strong><a data-code="public01036" href=""
-                                          target="_blank">LOgo</a></strong><em>G1</em></p>
-                            <a data-code="public01047" href="" target="_blank">
-                                <p id="gradeup-amount" class="user-name-level"><span style="width: 100%;"></span><sup>85/0</sup>
-                                </p>
-                                <p id="gradeup-tips">升级到G2还需
-                                    <ins>1</ins>
-                                    个购物天数
-                                </p>
-                            </a></div>
-                    </div>
-                </div>
-            </li>
-            <li id="loginDiv-link" class="gome-link">
-                <a rel="nofollow" data-code="public01035" class="gome-link-logout" href="">退出</a>
-            </li>
+
+
         </ul>
         <ul id="gome-top-right">
             <li class="gome-link"><a rel="nofollow" data-code="public01004" href="#">我的订单</a>
@@ -457,24 +435,67 @@
                     <li js-data="userCoupon">优<i class="char"></i>惠<i class="char"></i>券：<b>0张</b></li>
                 </ul>
             </div>
-            <!--未登录状态-->
-            <div id="clubUserInfoboxLoginNo" style="display: none">
-                <ul class="club-info-user-nologin">
-                    <li class="img"><span><img src="//js.gomein.net.cn/images/pi-tx-new.jpg" width="60"
-                                               height="60"></span></li>
-                    <li class="name">hi！欢迎亲</li>
-                    <li class="level">您好没有登录哦</li>
-                </ul>
-                <ul class="club-info-coupon-nologin">
-                    <li><a href="javascript:void(0)" class="btn-loading">登录</a></li>
-                    <li>
-                        <p class="nOrange">登录后将为您提供</p>
-                        <p>1.个人美豆查询</p>
-                        <p>2.门店积分查询</p>
-                        <p>3.优惠券查询</p>
-                    </li>
-                </ul>
-            </div>
+
+
+
+
+            <script type="text/javascript">
+
+
+                $(function () {
+
+                    alert("sss");
+
+                    //一加载就得到session中的用户
+                    $.getJSON("/users/getSessionUser",function(json){
+                        var li;
+                        li=' <li id="gome-user" data-load="user" class="" data-open="true"  > <b id="loginDiv-name">Hi,&nbsp;<a data-code="public01054" href="vip_club.html" target="_blank">  <span  style="display: none;" id="userId">'+json.id+'</span>  <span class="sign-top-member-name" >'+json.userName+'</span></a></b>  </li>  <li  class="gome-link"   >  <a rel="nofollow" data-code="public01035" class="gome-link-logout" href="/users/outUser">退出</a> </li>';
+
+                        $("li#gome-entry-link").after(li);
+                    });
+
+
+                })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <dl class="club-info-privilege">
                 <dt>我的特权</dt>
                 <dd class="club-info-privilege-warp">

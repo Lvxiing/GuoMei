@@ -3,6 +3,8 @@ package com.cssl.mapper;
 import com.cssl.entity.GrowupDetail;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.Map;
+
 /**
  * <p>
  *  Mapper 接口
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface Growup_detailMapper extends BaseMapper<GrowupDetail> {
 
+   int  saveGrowupdetail(Map map);
 }

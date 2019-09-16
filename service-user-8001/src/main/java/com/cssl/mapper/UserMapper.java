@@ -5,6 +5,7 @@ import com.cssl.entity.Users;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -18,5 +19,8 @@ public interface UserMapper extends BaseMapper<Users> {
 
     //查询用户
     List<Users> findUsers(@Param("userName") String userName);
+
+    //查询会员
+    List<Map> findVip(Map map);
 
 }

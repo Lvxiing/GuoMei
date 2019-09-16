@@ -1,8 +1,6 @@
 package com.cssl.api;
 
-import com.cssl.entity.Grade;
-import com.cssl.entity.PageInfo;
-import com.cssl.entity.Users;
+import com.cssl.entity.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +25,22 @@ public interface UserFeignInterface {
        boolean   userRegister(Users users);
 
     @RequestMapping("/users/selectUserName")
-      int  selectUserName(@RequestParam("userName") String userName);
+    Users  selectUserName(@RequestParam("userName") String userName);
+
+    @RequestMapping("/growup/saveGrowup")
+      boolean   saveGrowup(Growup growup);
+
+    @RequestMapping("/growup_type/findByTypeName/{typeName}")
+     GrowupType findByTypeName(@PathVariable("typeName") String typeName);
+
+    @RequestMapping("/growup/updateGrowupSum")
+    int updateGrowupSum(@RequestParam Map map);
+
+    @RequestMapping("/users/updateLoginTime")
+     boolean updateLoginTime(Users users);
+
+    @RequestMapping("/growup_detail/saveGrowupdetail")
+     int saveGrowupdetail(@RequestParam  Map map);
 
 
     //**********后台***********
@@ -36,7 +49,7 @@ public interface UserFeignInterface {
      Users adminLogin(Users users);
 
     @RequestMapping("/users/findUsers/{userName}/{pageIndex}/{pageSize}")
-     PageInfo<Users> UsersFenYe(@PathVariable("userName") String userName, @PathVariable("pageIndex") int pageIndex, @PathVariable("pageSize") int pageSize);
+     PageInfo<Users> usersFenYe(@PathVariable("userName") String userName, @PathVariable("pageIndex") int pageIndex, @PathVariable("pageSize") int pageSize);
 
     @RequestMapping("/users/delUser/{id}")
      boolean delUser(@PathVariable("id") Integer id);
@@ -53,8 +66,8 @@ public interface UserFeignInterface {
     @RequestMapping("/users/selectPwd")
      Users selectPwd(Users user);
 
-    @RequestMapping("/userinfo/findVip/{pageIndex}/{pageSize}")
-     PageInfo<Map> UserInfoFenYe(@RequestBody Map map, @PathVariable("pageIndex") int pageIndex, @PathVariable("pageSize") int pageSize);
+    @RequestMapping("/users/findVip/{pageIndex}/{pageSize}")
+     PageInfo<Map> userVipFenYe(@RequestBody Map map, @PathVariable("pageIndex") int pageIndex, @PathVariable("pageSize") int pageSize);
 
     @RequestMapping("/grade/allGrade")
      List<Grade> allGrade();

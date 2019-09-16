@@ -57,6 +57,10 @@ public class Users extends Model<Users> {
     @TableField("user_role")
     private Integer role;            //角色
 
+    @TableField("user_logintime")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private  Date  loginTime;   //登录时间
+
     @Override
     protected Serializable pkVal() {
         return this.id;
