@@ -43,139 +43,184 @@
 <div class="cBody">
     <div class="console">
         <form class="layui-form" action="">
-            <div class="layui-inline">
+            <!--<div class="layui-inline">
                 <label class="layui-form-label">ID</label>
                 <div class="layui-input-inline">
                     <input type="text" name="cid" placeholder="请输入" autocomplete="off" class="layui-input">
                 </div>
-            </div>
+            </div>-->
             <div class="layui-inline">
-                <label class="layui-form-label">新闻内容</label>
+                <label class="layui-form-label">新闻标题</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="cid" placeholder="请输入" autocomplete="off" class="layui-input">
+                    <input type="text" name="title" placeholder="请输入" autocomplete="off" class="layui-input" id="title">
                 </div>
             </div>
-            <button class="layui-btn" lay-submit lay-filter="formDemo">检索</button>
-    </form>
+            <button type="button" class="layui-btn" lay-submit lay-filter="formDemo" id="serch">检索</button>
+        </form>
 
-    <script>
-        layui.use('form', function () {
-            var form = layui.form;
-            //监听提交
-            form.on('submit(formDemo)', function (data) {
-                layer.msg(JSON.stringify(data.field));
-                return false;
+        <table class="layui-table" id="layui-table" lay-filter="newstable">
+        </table>
+
+        <!--<script>
+            layui.use('form', function () {
+                var form = layui.form;
+                //监听提交
+                form.on('submit(formDemo)', function (data) {
+                    layer.msg(JSON.stringify(data.field));
+                    return false;
+                });
             });
-        });
-    </script>
-</div>
+        </script>-->
+        <script type="text/html" id="barOption">
+            <a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">修改</a>
+            <a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">删除</a>
+        </script>
+        <script>
 
-    <table class="layui-table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>新闻标题</th>
-            <th>新闻内容</th>
-            <th>时间</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>HTML5</td>
-            <td>xxxx</td>
-            <td>xxxx</td>
-            <td>xxxx</td>
-            <td>
-                <button class="layui-btn layui-btn-xs" onclick="updateBut()">修改</button>
-                <button class="layui-btn layui-btn-xs" >删除</button>
-            </td>
-        </tr>
-        <tr>
-            <td>HTML5</td>
-            <td>xxxx</td>
-            <td>xxxx</td>
-            <td>xxxx</td>
-            <td>
-                <button class="layui-btn layui-btn-xs" onclick="updateBut()">修改</button>
-                <button class="layui-btn layui-btn-xs" >删除</button>
-            </td>
-        </tr>
-        <tr>
-            <td>HTML5</td>
-            <td>xxxx</td>
-            <td>xxxx</td>
-            <td>xxxx</td>
-            <td>
-                <button class="layui-btn layui-btn-xs" onclick="updateBut()">修改</button>
-                <button class="layui-btn layui-btn-xs" >删除</button>
-            </td>
-        </tr>
-        <tr>
-            <td>HTML5</td>
-            <td>xxxx</td>
-            <td>xxxx</td>
-            <td>xxxx</td>
-            <td>
-                <button class="layui-btn layui-btn-xs" onclick="updateBut()">修改</button>
-                <button class="layui-btn layui-btn-xs" >删除</button>
-            </td>
-        </tr>
 
-        </tbody>
-    </table>
+            var pageIndex = 1;
+            var pageSize = 5;
+            layui.use(['table', 'layer', 'form'], function () {
+                var table = layui.table,
+                    layer = layui.layer,
+                    $ = layui.jquery,
+                    form = layui.form;
+                //渲染
+                table.render({
+                    elem: '#layui-table' //绑定table表格
+                    , height: 450
+                    , id: 'newsTable'
+                    , url: '../../news/findByNewsPage'
+                    , request: {     ////请求携带的参数
+                        pageName: 'pageIndex'    //页码参数名称
+                    },
+                    response: {    //后台返回数据
+                        countName: 'count',  //数据总数的名称
+                        dataName: 'data'        //数据
+                    },
+                    page: true
+                    ,limit : 5
+                    , cols: [[
+                        {field: 'id', width: 300, title: '新闻ID'}
+                        , {field: 'title', width: 300, title: '新闻标题'}
+                        , {field: 'context', width: 300, title: '新闻内容'}
+                        , {field: 'subtime', width: 300, title: '新闻时间'}
+                        , {field: 'right', title: '操作', toolbar: '#barOption'}
+                    ]]
+                });
+                // var $ = layui.$, active = {
+                //     reload: function(){
+                //         var title = $("#title").val();
+                //         layer.msg(JSON.stringify(title));
+                //         //执行重载
+                //         //testReload为table 的id标识
+                //         table.reload('newsTable', {
+                //             page: {
+                //                 curr: 1 //重新从第 1 页开始
+                //             }
+                //             ,where: {
+                //                 title : title
+                //             }, url:'../../Goods/findByTitle'
+                //         });
+                //     }
+                // };
+                $('#serch').on('click', function () {
+                    var title = $("#title").val();
+                    //执行重载
+                    //testReload为table 的id标识
+                    table.reload('newsTable', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , url: '/news/findByTitle/' + title
+                    });
+                });
+
+                table.on('tool(newstable)', function (obj) {
+                    var data = obj.data, layEvent = obj.event;
+                    if (layEvent == "del") {
+                        layer.confirm('确认是否删除', function (index) {
+                            $.getJSON("/news/deleteNews/" + data.id, function (result) {
+                                obj.del(); //删除对应行（tr）的DOM结构，并更新缓
+                                layer.close(index);
+                                layer.msg("删除成功!");
+                                parent.location.reload();//删除完需要加载数据
+                            });
+                            layer.close(index)
+                        });
+                    } else if (layEvent == "edit") {
+                        //修改新闻数据
+                        layer.open({
+                            //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                            type: 2,
+                            title: "修改新闻信息",
+                            area: ['750px', '480px'],
+                            content: 'upd_Journalism.html?id=' + data.id//引用的弹出层的页面层的方式加载修改界面表单
+                        });
+
+
+                    }
+                })
+            });
+        </script>
+
+
+    </div>
+
 
     <!-- layUI 分页模块 -->
     <div id="pages"></div>
-<script>
-    layui.use('laypage', function () {
-        var laypage = layui.laypage;
+    <script>
+        //         layui.use('laypage', function () {
+        //             var laypage = layui.laypage;
+        //
+        //             //总页数大于页码总数
+        //             laypage.render({
+        //                 elem: 'pages'
+        //                 , count: 100
+        //                 , layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
+        //                 , jump: function (obj) {
+        // //					      console.log(obj)
+        //                 }
+        //             });
+        //         });
 
-        //总页数大于页码总数
-        laypage.render({
-            elem: 'pages'
-            , count: 100
-            , layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
-            , jump: function (obj) {
-//					      console.log(obj)
-            }
-        });
-    });
-
-    //修改规格
-    function specificationsBut() {
-        layui.use('layer', function () {
-            var layer = layui.layer;
-            //iframe层-父子操作
-            layer.open({
-                type: 2,
-                area: ['70%', '60%'],
-                fixed: false, //不固定
-                maxmin: true,
-                content: 'specifications_list.html'
+        //修改规格
+        function specificationsBut() {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                //iframe层-父子操作
+                layer.open({
+                    type: 2,
+                    area: ['70%', '60%'],
+                    fixed: false, //不固定
+                    maxmin: true,
+                    content: 'specifications_list.html'
+                });
             });
-        });
-    }
+        }
 
-    //修改按钮
-    var updateFrame = null;
+        //修改按钮
+        var updateFrame = null;
 
-    function updateBut() {
-        layui.use('layer', function () {
-            var layer = layui.layer;
-
-            //iframe层-父子操作
-            updateFrame = layer.open({
-                title: "商品信息修改",
-                type: 2,
-                area: ['70%', '60%'],
-                scrollbar: false,	//默认：true,默认允许浏览器滚动，如果设定scrollbar: false，则屏蔽
-                maxmin: true,
-                content: 'goods_update.html'
+        function updateBut() {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                //iframe层-父子操作
+                updateFrame = layer.open({
+                    title: "新闻信息修改",
+                    type: 2,
+                    area: ['70%', '60%'],
+                    scrollbar: false,	//默认：true,默认允许浏览器滚动，如果设定scrollbar: false，则屏蔽
+                    maxmin: true,
+                    content: 'upd_Journalism.html',
+                    success: function (index) {
+                        console.log(data);
+                    }
+                });
             });
-        });
-    }
-</script>
+        }
+    </script>
 </div>
 </body>
 
