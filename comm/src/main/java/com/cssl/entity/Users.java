@@ -61,6 +61,9 @@ public class Users extends Model<Users> {
     @JsonFormat(pattern="yyyy-MM-dd")
     private  Date  loginTime;   //登录时间
 
+    @TableField("user_infocomplete")
+    private Integer infoComplete;  //信息完善度    0:未完善   1:已完善
+
     @Override
     protected Serializable pkVal() {
         return this.id;

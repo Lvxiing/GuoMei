@@ -179,6 +179,15 @@ Map<String,String> hm=new HashMap<>();
         return  usersService.getOne(new QueryWrapper<Users>().eq("user_name", userName));
     }
 
+    @RequestMapping("/findVip")
+    public List<Map> findVip(@RequestParam  Map map) {
+        return usersService.findVip(map);
+    }
+
+
+
+
+
 
     //**************后台************
 
@@ -223,6 +232,9 @@ Map<String,String> hm=new HashMap<>();
         user.setTime(Date.valueOf(map.get("time")));
         user.setAddress(map.get("address"));
         user.setHeadImg(map.get("headImg"));
+        if(map.get("infoComplete")!=null){
+            user.setInfoComplete(Integer.valueOf(map.get("infoComplete")));
+        }
         return usersService.updateById(user);
     }
 
