@@ -161,4 +161,16 @@
         )
             LIMIT 12
     </select>
+
+    <select id="indexSaleGoods" resultType="map">
+        SELECT *
+        FROM goods g
+                 INNER JOIN (SELECT goods_id,SUM(detail_num) AS num
+                             FROM order_detail
+                             GROUP BY goods_id
+                             ORDER BY num DESC
+            ) o ON g.`goods_id` = o.goods_id
+                 INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
+             LIMIT  5
+    </select>
 </mapper>
