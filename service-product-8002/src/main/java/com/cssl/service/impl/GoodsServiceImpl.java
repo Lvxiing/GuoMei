@@ -53,4 +53,9 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
         return goodsMapper.findGoodsNewByCategoryName(list);
     }
 
+    @Override
+    public List<Goods> ListfindGoodsLowPrice(List list) {
+        return goodsMapper.ListfindGoodsLowPrice(list);
+    }
+
 }

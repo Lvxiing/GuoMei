@@ -24,6 +24,30 @@ public interface ProductFeignInterface {
     @RequestMapping("news/findAllNews")
     List<News> findAllNews();
 
+    @RequestMapping("news/findPageByTitle")
+    PageInfo findPageByTitle(@RequestParam("pageIndex") Integer pageIndex ,@RequestParam("pageSize") Integer pageSize,@RequestParam("title") String title);
+    //查询所有顶级分类
+
+    //---------------------------新闻后台模块--------------------------------
+
+    //新闻查询
+    @RequestMapping("news/findByNewsPage")
+    Map<String,Object> findAllNews(@RequestParam("pageIndex") Integer pageIndex);
+    //根据名称模糊查询
+    @RequestMapping("news/findByTitle/{title}")
+    Map<String, Object> findByTitle(@PathVariable("title") String title);
+    //新增数据
+    @RequestMapping("news/savaNews")
+    String save(News newsVo);
+    //删除新闻
+    @RequestMapping("news/deleteNews/{id}")
+    String deleteNews(@PathVariable("id") String id);
+    //修改新闻数据
+    @RequestMapping("news/updateNews")
+    String updateNews(News news);
+    //根据id查询需要修改的数据
+    @RequestMapping("news/findByUpdateId/{id}")
+    Map<String,Object> findByUpdateId(@PathVariable("id") String id);
 
     //---------------------------分类模块--------------------------------
     //查询所有顶级分类
@@ -44,7 +68,9 @@ public interface ProductFeignInterface {
     @RequestMapping("goods/findGoodsNewByCategoryName")
     List<Goods> findGoodsNewByCategoryName(@RequestParam("categoryName")String categoryName);
 
-
+    //根据分类名称查询该分类下的所有品牌商品的畅想低价
+    @RequestMapping("goods/findGoodsLowPrice")
+    List<Goods> findGoodsLowPrice(@RequestParam("categoryName") String categoryName);
 
 
 

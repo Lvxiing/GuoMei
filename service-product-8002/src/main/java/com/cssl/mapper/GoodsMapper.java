@@ -34,4 +34,7 @@ public interface GoodsMapper extends BaseMapper<Goods> {
 
     //商品热销榜
     List<Goods> findSaleGoods();
+
+    //根据分类名称查询该分类下的所有品牌商品的畅想低价
+    List<Goods> ListfindGoodsLowPrice(List list);
 }

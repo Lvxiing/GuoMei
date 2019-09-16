@@ -48,41 +48,46 @@ public class GoodsController {
     //根据分类名称查询该分类下的所有品牌商品的热卖商品
     @RequestMapping("findGoodsByCategoryName")
     @ResponseBody
-    public List<Goods> findGoodsByCategoryName(@RequestParam("categoryName")String categoryName){
+    public List<Goods> findGoodsByCategoryName(@RequestParam("categoryName") String categoryName) {
 
-        List list = new ArrayList();
-        if (categoryName.indexOf(",") >= 0) {
-            String[] nameList = categoryName.split(",");
-            for (int i = 0; i < nameList.length; i++) {
-                list.add(nameList[i]);
-            }
-        }else{
-            list.add(categoryName);
-        }
-
-        return goodsService.findGoodsByCategoryName(list);
+        return goodsService.findGoodsByCategoryName(collectionCategoryName(categoryName));
     }
 
     //根据分类名称查询该分类下的所有品牌商品的新品抢先
     @RequestMapping("findGoodsNewByCategoryName")
     @ResponseBody
-    public List<Goods> findGoodsNewByCategoryName(@RequestParam("categoryName")String categoryName){
+    public List<Goods> findGoodsNewByCategoryName(@RequestParam("categoryName") String categoryName) {
+
+        return goodsService.findGoodsNewByCategoryName(collectionCategoryName(categoryName));
+    }
+
+    //根据分类名称查询该分类下的所有品牌商品的畅想低价
+    @RequestMapping("findGoodsLowPrice")
+    @ResponseBody
+    public List<Goods> findGoodsLowPrice(@RequestParam("categoryName") String categoryName) {
+
+        return goodsService.ListfindGoodsLowPrice(collectionCategoryName(categoryName));
+    }
+
+    //封装参数
+    public List collectionCategoryName(String categoryName) {
         List list = new ArrayList();
         if (categoryName.indexOf(",") >= 0) {
             String[] nameList = categoryName.split(",");
             for (int i = 0; i < nameList.length; i++) {
                 list.add(nameList[i]);
             }
-        }else{
+        } else {
             list.add(categoryName);
         }
-        return goodsService.findGoodsNewByCategoryName(list);
+        return list;
     }
+
 
     //商品热销榜
     @RequestMapping("findSaleGoods")
     @ResponseBody
-    public List<Goods> findSaleGoods(){
+    public List<Goods> findSaleGoods() {
         return null;
     }
 
@@ -118,7 +123,7 @@ public class GoodsController {
         Double price = new Double(map.get("price").toString());
         Integer state = new Integer(map.get("state").toString());
         Integer grade = null;
-        if (map.get("grade")!=null && !"".equals(map.get("grade"))) {
+        if (map.get("grade") != null && !"".equals(map.get("grade"))) {
             grade = new Integer(map.get("grade").toString());
         }
         int brandid = categoryService.selectBrandId(cid);
@@ -152,7 +157,7 @@ public class GoodsController {
     //修改商品
     @RequestMapping("modifyGoods")
     @ResponseBody
-    public String modifyGoods(@RequestParam Map<String, Object> map){
+    public String modifyGoods(@RequestParam Map<String, Object> map) {
         Integer vip = new Integer(map.get("vip").toString());
         System.out.println("vip = " + vip);
         Integer id = new Integer(map.get("gid").toString());
@@ -163,7 +168,7 @@ public class GoodsController {
         Integer cid = new Integer(map.get("brand").toString());
         Goods goods = new Goods();
         Integer grade = null;
-        if (map.get("grade")!=null && !"".equals(map.get("grade"))) {
+        if (map.get("grade") != null && !"".equals(map.get("grade"))) {
             grade = new Integer(map.get("grade").toString());
         }
         int bid = categoryService.selectBrandId(cid);
@@ -186,11 +191,11 @@ public class GoodsController {
             vipGoodsService.save(vipGoods);
         }
         if (vip == 0) { //从会员商品中删除
-             boolean b = vipGoodsService.remove(new QueryWrapper<VipGoods>().eq("goods_id",goods.getId()));
+            boolean b = vipGoodsService.remove(new QueryWrapper<VipGoods>().eq("goods_id", goods.getId()));
             System.out.println("******************** = " + b);
         }
         boolean b = goodsService.updateById(goods);
-        if(b){
+        if (b) {
             String json = "{\"code\":\"success\"}";
             return json;
         }
@@ -208,15 +213,16 @@ public class GoodsController {
 
         return "{\"msg\":\"修改失败\"}";
     }
+
     @RequestMapping("findGoodsById")
     @ResponseBody
-    public Map findGoodsById(@RequestParam("id") Integer id){
+    public Map findGoodsById(@RequestParam("id") Integer id) {
         Map map = new HashMap();
-        VipGoods vip = vipGoodsService.getOne(new QueryWrapper<VipGoods>().eq("goods_id",id));
+        VipGoods vip = vipGoodsService.getOne(new QueryWrapper<VipGoods>().eq("goods_id", id));
         Goods goods = goodsService.getOne(new QueryWrapper<Goods>().eq("goods_id", id));
-        map.put("goods",goods);
-        map.put("vip",vip!=null ? 1:0);
-        map.put("vipInfo",vip!=null ? vip:null);
+        map.put("goods", goods);
+        map.put("vip", vip != null ? 1 : 0);
+        map.put("vipInfo", vip != null ? vip : null);
         return map;
     }
 

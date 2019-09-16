@@ -31,15 +31,23 @@
     <script src="../../framework/cframe.js"></script><!-- 仅供所有子页面使用 -->
     <!-- 公共样式 结束 -->
 
+
+    <link rel="stylesheet" type="text/css" href="../../js/zTree_v3/css/zTreeStyle/zTreeStyle.css"/>
+    <script type="text/javascript" src="../../js/zTree_v3/js/jquery.ztree.all.js"></script>
+    <script type="text/javascript" src="../../js/tree-select.js"></script>
+
     <style type="text/css">
-        .layui-table-cell {
-            height: auto !important;
-            white-space: normal;
-        }
 
         .layui-table img {
             max-height: 25px
         }
+
+        .layui-table-cell {
+            height: auto;
+            overflow: visible;
+            text-overflow: inherit;
+        }
+
     </style>
 
 </head>
@@ -48,25 +56,24 @@
 <div class="cBody">
     <div class="console">
         <form class="layui-form" action="">
-            <div class="layui-inline">
-                <label class="layui-form-label">订单编号</label>
+            <div class="layui-form-item">
+                <label class="layui-form-label">商品名称</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="num" placeholder="请输入" autocomplete="off" class="layui-input">
+                    <input type="text" name="name" required lay-verify="required" id="title" placeholder="输入商品名称"
+                           autocomplete="off" class="layui-input">
                 </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">评论者</label>
+                <label class="layui-form-label">分类名称</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="name" placeholder="请输入" autocomplete="off" class="layui-input">
+                    <div class="layui-input-block">
+                        <input id="ts_input" type="text" style="width: 190px" name="parentName" required
+                               lay-verify="required" autocomplete="off" class="layui-input">
+                    </div>
                 </div>
+                <button type="button" class="layui-btn" id="serch" onclick="query()" data-type="reload"
+                        style="margin-bottom: 6px">检索
+                </button>
+                <a class="layui-btn" style="margin-bottom: 6px;" href="goods_add.html">导入商品</a>
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">评论内容</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="content" placeholder="请输入" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <button class="layui-btn" lay-submit lay-filter="formDemo">检索</button>
         </form>
     </div>
 
@@ -94,7 +101,7 @@
             //执行一个 table 实例
             table.render({
                 elem: '#table'
-                , url: "/evaluate/evaluateFindAll/null/null/null"
+                , url: "/evaluate/evaluateFindAll/null/null"
                 , even: true //隔行背景
                 , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem）
                     layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip'] //自定义排版
@@ -108,21 +115,41 @@
                     });
                     console.log(res);
                 }
-                , cols: [[ //表头
-                    {field: 'num', title: '订单编号', fixed: 'left', sort: true}
-                    , {field: 'name', title: '用户名'}
-                    , {field: 'content', title: '评价内容'}
-                    , {
-                        field: 'etime', title: '评价时间',
-                        templet: function (d) {
-                            return util.toDateString(d.etime, "yyyy-MM-dd HH:mm:ss");
+                , cols: [[
+                    {type: 'numbers', width: 80, title: "序号"},
+                    {
+                        field: "goods_title", title: "商品名称", templet: function (d) {
+                            if (d.goods_title.length > 7) {
+                                return d.goods_title.substring(0, 7) + '...';
+                            } else {
+                                return d.goods_title;
+                            }
                         }
+                    },
+                    {
+                        field: "goods_sub_title", title: "商品副标题", templet: function (d) {
+                            if (d.goods_sub_title.length > 7) {
+                                return d.goods_sub_title.substring(0, 7) + '...';
+                            } else {
+                                return d.goods_sub_title;
+                            }
+                        }
+                    },
+                    {field: "goods_sub_title", title: "商品图片", templet: '#imgtmp'},
+                    {field: "brand_name", title: "所属品牌"},
+                    {field: "goods_price", title: "参考价位", sort: true},
+                    {field: "goods_stock", title: "商品库存", sort: true},
+                    {field: "status", title: "商品状态", templet: '#state'},
+                    {
+                        field: 'isMenu', width: 150, align: 'center', templet: function (d) {
+
+                            if (d.goods_state == 1) {
+                                return '<button class="layui-btn layui-btn-xs"  onclick="updateBut(' + d.goods_id + ','+d.brand_id+') ">修改</button><a class="layui-btn layui-btn-xs"  onclick="upStateGoods(' + d.goods_id + ',' + d.goods_state + ')" >下架</a>';
+                            } else {
+                                return '<button class="layui-btn layui-btn-xs"  onclick="updateBut(' + d.goods_id + ','+d.brand_id+')">修改</button><a class="layui-btn layui-btn-danger layui-btn-xs"  onclick="upStateGoods(' + d.goods_id + ',' + d.goods_state + ')" >上架</a>';
+                            }
+                        }, title: '操作'
                     }
-                    , {
-                        field: 'img', title: '商品主图',
-                        templet: "#imgtmp"
-                    }
-                    ,{field: 'right', title: '操作', toolbar: '#barDemo'},
                 ]]
             });
 
@@ -134,14 +161,12 @@
                 if (data.field.num == '') {
                     data.field.num = null;
                 }
-                if (data.field.name == '') {
-                    data.field.name = null;
-                }
+
                 table.reload("table", {
                     page: {
                         curr: 1
                     },
-                    url: '/evaluate/evaluateFindAll/' + data.field.content + "/" + data.field.num + "/" + data.field.name
+                    url: '/evaluate/evaluateFindAll/' + data.field.content + "/" + data.field.num
                 })
                 return false;
             });
