@@ -2,9 +2,7 @@ package com.cssl.controller;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
 import com.cssl.api.UserFeignInterface;
-import com.cssl.entity.Grade;
-import com.cssl.entity.PageInfo;
-import com.cssl.entity.Users;
+import com.cssl.entity.*;
 import com.cssl.util.NginxUtil;
 import org.apache.catalina.filters.SessionInitializerFilter;
 import org.apache.commons.io.FileUtils;
@@ -21,11 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/users")
@@ -37,83 +32,112 @@ public class UserController {
     //给手机号码发验证码
     @RequestMapping("/ajaxNum")
     @ResponseBody
-    public String sendMsg(@RequestParam("phoneNum") String phoneNum) throws Exception{
-        System.out.println("phone:"+phoneNum);
+    public String sendMsg(@RequestParam("phoneNum") String phoneNum) throws Exception {
+        System.out.println("phone:" + phoneNum);
         return userFeignInterface.sendMsg(phoneNum);
     }
 
-//登录:验证手机验证码
+    //登录:验证手机验证码
     @RequestMapping("/verfiy")
-    public String login(@RequestParam("phoneNum") String phoneNum,@RequestParam("code") String code,HttpSession session){
-        System.out.println("phoneNum:"+phoneNum+","+"code:"+code);
+    public String login(@RequestParam("phoneNum") String phoneNum, @RequestParam("code") String code, HttpSession session) {
+        System.out.println("phoneNum:" + phoneNum + "," + "code:" + code);
         Map<String, String> hm = userFeignInterface.login(phoneNum, code);
-        System.out.println("mess:"+hm.get("mess"));
-        if("success".equals(hm.get("mess"))){
+        System.out.println("mess:" + hm.get("mess"));
+        if ("success".equals(hm.get("mess"))) {
             Users u = selectPhone(phoneNum);
-            session.setAttribute("user",u);
-            System.out.println("sessionUser:"+session.getAttribute("user"));
+            session.setAttribute("user", u);
+            Map map = new HashMap();
+            map.put("userId", u.getId());
+            final String typeName = "每日登录";
+            map.put("typeName", typeName);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//用户上次登录时间
+            String loginTime = sdf.format(u.getLoginTime());
+            //当前系统时间
+            String nowDate = sdf.format(System.currentTimeMillis());
+            //用户注册时间
+            String regTime = sdf.format(u.getTime());
+            //用户当日注册当日登录
+            //每日首次登录加成长值
+            if (!loginTime.equals(nowDate) || regTime.equals(nowDate)) {
+                int ucount = userFeignInterface.updateGrowupSum(map);
+                int scount = userFeignInterface.saveGrowupdetail(map);
+            }
+            u.setLoginTime(new Date());
+            boolean b = userFeignInterface.updateLoginTime(u);
+            System.out.println("sessionUser:" + session.getAttribute("user"));
             return "redirect:/index.html";
-        }else {
+        } else {
             return "gm-login";
         }
     }
 
-//判断该手机号是否已被注册
+    //判断该手机号是否已被注册
     @RequestMapping("/selectPhone")
     @ResponseBody
-    public  Users  selectPhone(@RequestParam("phoneNum") String phoneNum){
-        return  userFeignInterface.selectPhone(phoneNum);
+    public Users selectPhone(@RequestParam("phoneNum") String phoneNum) {
+        return userFeignInterface.selectPhone(phoneNum);
     }
 
     //判断该用户名是否已被注册
     @RequestMapping("/selectUserName")
     @ResponseBody
-    public  int  selectUserName(@RequestParam("userName") String userName){
-        return  userFeignInterface.selectUserName(userName);
+    public Users selectUserName(@RequestParam("userName") String userName) {
+        return userFeignInterface.selectUserName(userName);
     }
 
     //用户注册
     @RequestMapping("/userRegister")
     @ResponseBody
-    public   boolean   userRegister(Users users){
-        return  userFeignInterface.userRegister(users);
+    public boolean userRegister(Users users) {
+        boolean pd = userFeignInterface.userRegister(users);
+        if (pd == true) {
+            Users u = userFeignInterface.selectUserName(users.getUserName());
+            Map map = new HashMap();
+            Growup growup = new Growup();
+            growup.setUserId(u.getId());
+            map.put("userId", u.getId());
+            //注册加成长值
+            final String typeName = "注册";
+            map.put("typeName", typeName);
+            GrowupType growupType = userFeignInterface.findByTypeName(typeName);
+            growup.setGrowupSum(growupType.getValue());
+            boolean save = userFeignInterface.saveGrowup(growup);
+            int scount = userFeignInterface.saveGrowupdetail(map);
+        }
+        return pd;
     }
 
     //得到session中的用户
     @RequestMapping("/getSessionUser")
     @ResponseBody
-    public  Users  getSessionUser(HttpSession session){
+    public Users getSessionUser(HttpSession session) {
         System.out.println("*******sessionUser");
-        return  (Users) session.getAttribute("user");
+        return (Users) session.getAttribute("user");
     }
 
     //用户退出登录
     @RequestMapping("/outUser")
-    public  String  outUser(HttpSession session){
+    public String outUser(HttpSession session) {
         session.removeAttribute("user");
         return "redirect:/gm-login.html";
     }
 
-
-
-
-
-
-
-
-
-
-
-
+    //会员俱乐部显示该会员信息
+    @RequestMapping("/findVip")
+    @ResponseBody
+    public List<Map> findVip(@RequestParam Map map) {
+        return userFeignInterface.findVip(map);
+    }
 
 
     //**************后台*************
 
     //管理员登录
-    @RequestMapping(value="/adminLogin",method = RequestMethod.POST)
+    @RequestMapping(value = "/adminLogin", method = RequestMethod.POST)
     public String adminLogin(Users users, HttpSession session) {
         Users u = userFeignInterface.adminLogin(users);
-        if (u== null) {
+        if (u == null) {
             return "forward:/Manager/login.html";
         } else {
             session.setAttribute("adminUser", u);
@@ -125,33 +149,45 @@ public class UserController {
     @RequestMapping("/findUsers/{userName}")
     @ResponseBody
     public Map<String, Object> findUsers(@PathVariable("userName") String userName, int page, int limit) {
-        PageInfo<Users> usersPageInfo = userFeignInterface.UsersFenYe(userName, page, limit);
+        PageInfo<Users> usersPageInfo = userFeignInterface.usersFenYe(userName, page, limit);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("code", 0);
         map.put("msg", "");
         map.put("count", usersPageInfo.getTotalCount());  //总记录数
-        map.put("data",  usersPageInfo.getList());
+        map.put("data", usersPageInfo.getList());
         return map;
     }
 
     //删除用户
     @RequestMapping("/delUser/{id}")
     @ResponseBody
-    public boolean delUser(@PathVariable("id") Integer id){
-        return  userFeignInterface.delUser(id);
+    public boolean delUser(@PathVariable("id") Integer id) {
+        return userFeignInterface.delUser(id);
     }
 
     //根据id查询
     @RequestMapping("/findById/{id}")
     @ResponseBody
     public Users findById(@PathVariable("id") Integer id) {
-        return  userFeignInterface.findById(id);
+        return userFeignInterface.findById(id);
     }
 
     //修改用户
     @RequestMapping("/updateUser")
     @ResponseBody
-    public boolean updateUser(@RequestParam Map<String,String> map) {
+    public boolean updateUser(@RequestParam Map<String, String> map) {
+        Users u = userFeignInterface.selectUserName(map.get("userName"));
+        //用户完善基本资料加成长值
+        if (u.getInfoComplete() == 0) {
+            Map hm = new HashMap();
+            hm.put("userId", u.getId());
+            final String typeName = "完善基本资料";
+            hm.put("typeName", typeName);
+            int ucount = userFeignInterface.updateGrowupSum(hm);
+            int scount = userFeignInterface.saveGrowupdetail(hm);
+            String  infoComplete="1";
+            map.put("infoComplete",infoComplete);
+        }
         return userFeignInterface.updateUser(map);
     }
 
@@ -185,16 +221,16 @@ public class UserController {
     //查询会员,并分页显示
     @RequestMapping("/findVip/{userName}/{gradeName}")
     @ResponseBody
-    public Map<String, Object> findVip(@PathVariable("userName") String userName, @PathVariable("gradeName") String gradeName,int page, int limit){
+    public Map<String, Object> findVip(@PathVariable("userName") String userName, @PathVariable("gradeName") String gradeName, int page, int limit) {
         Map hm = new HashMap();
         hm.put("userName", userName);
         hm.put("gradeName", gradeName);
-        PageInfo<Map> userInfoPageInfo = userFeignInterface.UserInfoFenYe(hm,page,limit);
+        PageInfo<Map> userVipPageInfo = userFeignInterface.userVipFenYe(hm, page, limit);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("code", 0);
         map.put("msg", "");
-        map.put("count", userInfoPageInfo.getTotalCount());  //总记录数
-        map.put("data",  userInfoPageInfo.getList());
+        map.put("count", userVipPageInfo.getTotalCount());  //总记录数
+        map.put("data", userVipPageInfo.getList());
         return map;
     }
 
@@ -202,26 +238,26 @@ public class UserController {
     @RequestMapping("/allGrade")
     @ResponseBody
     public List<Grade> allGrade() {
-        return  userFeignInterface.allGrade();
+        return userFeignInterface.allGrade();
     }
 
     //管理员修改密码
     @RequestMapping("/updatePwd")
     @ResponseBody
-    public  boolean  updatePwd(Users users){
+    public boolean updatePwd(Users users) {
         return userFeignInterface.updatePwd(users);
     }
 
     //查询管理员的原始密码是否正确
     @RequestMapping("/selectPwd")
     @ResponseBody
-    public Users selectPwd(Users user){
-        return  userFeignInterface.selectPwd(user);
+    public Users selectPwd(Users user) {
+        return userFeignInterface.selectPwd(user);
     }
 
     //管理员注销退出登录
     @RequestMapping("/outAdminUser")
-    public  String  outAdminUser(HttpSession session){
+    public String outAdminUser(HttpSession session) {
         session.removeAttribute("adminUser");
         return "redirect:/Manager/login.html";
     }
@@ -229,8 +265,8 @@ public class UserController {
     //得到session中的管理员
     @RequestMapping("/getSessionAdminUser")
     @ResponseBody
-    public  Users  getSessionAdminUser(HttpSession session){
-        return  (Users) session.getAttribute("adminUser");
+    public Users getSessionAdminUser(HttpSession session) {
+        return (Users) session.getAttribute("adminUser");
     }
 
 

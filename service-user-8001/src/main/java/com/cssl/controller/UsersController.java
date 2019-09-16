@@ -1,6 +1,7 @@
 package com.cssl.controller;
 
 
+import com.alibaba.druid.sql.visitor.functions.Now;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
@@ -11,14 +12,19 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.cssl.api.RedisFeignInterface;
+import com.cssl.entity.Growup;
+import com.cssl.entity.GrowupType;
 import com.cssl.entity.PageInfo;
 import com.cssl.entity.Users;
+import com.cssl.service.GrowupService;
+import com.cssl.service.Growup_typeService;
 import com.cssl.service.UsersService;
 import com.cssl.util.AliAccessKey;
 import com.cssl.util.VerifyCodeUtil;
 import com.github.pagehelper.Page;
 import org.apache.logging.log4j.message.StringFormattedMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.ReactiveUpdateOperation;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -104,7 +110,6 @@ public class UsersController {
         //发送成功,存储到缓存
     }
 
-
     @RequestMapping("/verfiy")
     public Map<String,String> login(@RequestParam("phoneNum") String phoneNum, @RequestParam("code") String code) {
 
@@ -150,7 +155,13 @@ Map<String,String> hm=new HashMap<>();
 
     }
 
-@RequestMapping("/selectPhone")
+    @RequestMapping("/updateLoginTime")
+    public boolean updateLoginTime(@RequestBody  Users users) {
+        users.setLoginTime(new java.util.Date());
+       return  usersService.updateById(users);
+    }
+
+    @RequestMapping("/selectPhone")
     public  Users  selectPhone(@RequestParam("phoneNum") String phoneNum){
       return  usersService.getOne(new QueryWrapper<Users>().eq("user_phone",phoneNum));
     }
@@ -160,13 +171,22 @@ Map<String,String> hm=new HashMap<>();
         //spring 自带的 DigestUtils 工具类可以进行 md5 加密
         String password = DigestUtils.md5DigestAsHex(users.getPassWord().getBytes());
         users.setPassWord(password);
-        return  usersService.save(users);
+        return usersService.save(users);
     }
 
     @RequestMapping("/selectUserName")
-    public  int  selectUserName(@RequestParam("userName") String userName){
-        return  usersService.count(new QueryWrapper<Users>().eq("user_name", userName));
+    public  Users  selectUserName(@RequestParam("userName") String userName){
+        return  usersService.getOne(new QueryWrapper<Users>().eq("user_name", userName));
     }
+
+    @RequestMapping("/findVip")
+    public List<Map> findVip(@RequestParam  Map map) {
+        return usersService.findVip(map);
+    }
+
+
+
+
 
 
     //**************后台************
@@ -181,8 +201,8 @@ Map<String,String> hm=new HashMap<>();
     }
 
     @RequestMapping("/findUsers/{userName}/{pageIndex}/{pageSize}")
-    public PageInfo<Users> UsersFenYe(@PathVariable("userName") String userName,@PathVariable("pageIndex") int pageIndex,@PathVariable("pageSize") int pageSize) {
-        Page<Users> usersPage = usersService.UsersFenYe(userName, pageIndex, pageSize);
+    public PageInfo<Users> usersFenYe(@PathVariable("userName") String userName,@PathVariable("pageIndex") int pageIndex,@PathVariable("pageSize") int pageSize) {
+        Page<Users> usersPage = usersService.usersFenYe(userName, pageIndex, pageSize);
         PageInfo<Users> page=new PageInfo<>();
         page.setList(usersPage.getResult());
         page.setTotalCount((int)usersPage.getTotal());
@@ -212,6 +232,9 @@ Map<String,String> hm=new HashMap<>();
         user.setTime(Date.valueOf(map.get("time")));
         user.setAddress(map.get("address"));
         user.setHeadImg(map.get("headImg"));
+        if(map.get("infoComplete")!=null){
+            user.setInfoComplete(Integer.valueOf(map.get("infoComplete")));
+        }
         return usersService.updateById(user);
     }
 
@@ -231,7 +254,14 @@ Map<String,String> hm=new HashMap<>();
         return usersService.getOne(new QueryWrapper<Users>().eq("user_id",user.getId()).eq("user_pwd",user.getPassWord()));
     }
 
-
+    @RequestMapping("/findVip/{pageIndex}/{pageSize}")
+    public PageInfo<Map> userVipFenYe(@RequestBody Map map, @PathVariable("pageIndex") int pageIndex, @PathVariable("pageSize") int pageSize) {
+        Page<Map> userVipPage = usersService.userVipFenYe(map, pageIndex, pageSize);
+        PageInfo<Map> page=new PageInfo<>();
+        page.setList(userVipPage.getResult());
+        page.setTotalCount((int)userVipPage.getTotal());
+        return   page;
+    }
 
 
 

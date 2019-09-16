@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -55,7 +52,7 @@ public class CategoryController {
         return findChild(list, parentId);
     }
 
-    //递归分类数据方法
+    //递归分类数据方法(找子分类)
     public List<TreeCategory> findChild(List<Category> byParentIds, Integer parentId) {
         List<TreeCategory> list = new ArrayList<>();
         //没有子类则退出递归
@@ -81,6 +78,49 @@ public class CategoryController {
             return list;
         }
         return list;
+    }
+
+    //根据商品编号查询该商品所在的分类以及全部父分类信息
+    @RequestMapping("findCategoryByGoodsId")
+    @ResponseBody
+    public Map<String, Object> findCategoryByGoodsId(@RequestParam("gid") Integer gid) {
+        Category category = categoryService.findCategoryByGoodsId(gid);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("cid", category.getCid());
+        paramMap.put("cname", category.getName());
+        return getAllParentInfo(paramMap);
+    }
+
+    /**
+     * 根据指定末级分类id反向递归查询
+     *
+     * @param paramMap 末级分类参数
+     * @return 返回分类名称，分类id
+     */
+    public Map<String, Object> getAllParentInfo(Map<String, Object> paramMap) {
+        String catId = paramMap.get("cid").toString();
+        String catName = (String) paramMap.get("cname");
+        try {
+            //根据分类id查询分类信息
+            Category goodsCate = categoryService.getOne(new QueryWrapper<Category>().eq("category_id", catId));
+            //父级分类id
+            Integer catParentId = goodsCate.getParentId();
+            if (goodsCate != null && catParentId != 0) {//注意Long值比较
+                //父级分类名称
+                Category pCategory = categoryService.getOne(new QueryWrapper<Category>().eq("category_id", catParentId));
+                String catParentName = pCategory.getName();
+                //拼接所有分类名称,和分类编号
+                catName = catParentName + ">" + catName;
+                catId = pCategory.getCid() + ">" + catId;
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("cname", catName);
+                map.put("cid", catId);
+                return getAllParentInfo(map);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return paramMap;
     }
 
 
@@ -202,7 +242,7 @@ public class CategoryController {
                 }
             }
         }
-        if(flag){
+        if (flag) {
             return "{\"code\":\"success\"}";
         }
         return "{\"code\":\"error\"}";

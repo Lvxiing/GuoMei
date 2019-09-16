@@ -40,4 +40,7 @@ public interface GoodsService extends IService<Goods> {
 
     //根据当前一级分类编号查询该分类下的所有商品的热销榜
     List<Map<String,Object>> findSaleAll(Integer cid);
+
+    //首页的商品热销榜
+    List<Map<String,Object>> indexSaleGoods();
 }

@@ -97,6 +97,13 @@ public class GoodsController {
         return goodsService.findSaleAll(cid);
     }
 
+    //首页的商品热销榜
+    @RequestMapping("indexSaleGoods")
+    @ResponseBody
+    public List<Map<String,Object>> indexSaleGoods(){
+        return goodsService.indexSaleGoods();
+    }
+
 
     //--------------------------后台模块-------------------------------
     @RequestMapping("findGoods")

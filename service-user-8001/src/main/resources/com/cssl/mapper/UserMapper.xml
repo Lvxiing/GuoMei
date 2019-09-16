@@ -15,6 +15,8 @@
         <result column="user_headimg" property="headImg" />
         <result column="user_time" property="time" />
         <result column="user_role" property="role" />
+        <result column="user_logintime" property="loginTime" />
+        <result column="user_infocomplete" property="infoComplete" />
     </resultMap>
 
 
@@ -28,6 +30,45 @@
     </select>
 
 
+
+
+
+
+
+    <resultMap type="map" id="myMap">
+        <result column="user_id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_headimg" property="headImg"/>
+        <result column="growup_sum" property="growupSum"/>
+        <result column="score_sum" property="scoreSum"/>
+        <result column="grade_name" property="gradeName"/>
+        <result column="low" property="low"/>
+        <result column="high" property="high"/>
+    </resultMap>
+
+
+    <select id="findVip" resultMap="myMap">
+        SELECT     u.user_id,u.user_name,u.user_headimg ,IFNULL(g.growup_sum,0) AS growup_sum   ,IFNULL(gr.grade_name,'G1')  AS grade_name  ,
+        IFNULL(gr.low,0) AS  low ,
+        IFNULL(gr.high,100) AS  high  ,
+               IFNULL(s.score_sum,0)  AS score_sum  FROM  `users`  u
+        LEFT  JOIN     growup g ON u.user_id= g.user_id
+        LEFT  JOIN       grade gr ON ( g.growup_sum BETWEEN gr.low AND  gr.high)
+        LEFT JOIN     score s ON u.user_id=s.user_id
+        <where>
+            <if test="userName!=null  and  userName!='' and  userName!='null'">
+                u.user_name LIKE concat('%',#{userName},'%')
+            </if>
+            <if test="gradeName!=null and gradeName!='' and  gradeName!='null' ">
+                AND   gr.grade_name=#{gradeName}
+                                                                                                   <if test="gradeName=='G1'">                                                                 OR  gr.grade_name IS NULL
+                                                                                                    </if>
+            </if>
+            <if test="userId!=null and userId!=0">
+                AND   u.user_id=#{userId}
+            </if>
+        </where>
+    </select>
 
 
 
