@@ -51,11 +51,6 @@ public class UsersController {
     @Autowired
     private RedisFeignInterface redisFeignInterface;
 
-    @RequestMapping("/findAll")
-    public List<Users> findAll(){
-        return usersService.list();
-    }
-
 
     @RequestMapping("/ajaxNum")
     public String sendMsg(@RequestParam("phoneNum") String phoneNum) throws Exception{
@@ -194,12 +189,10 @@ Map<String,String> hm=new HashMap<>();
         return   page;
     }
 
-
     @RequestMapping("/delUser/{id}")
     public boolean delUser(@PathVariable("id") Integer id) {
         return usersService.removeById(id);
     }
-
 
     @RequestMapping("/findById/{id}")
     public Users findById(@PathVariable("id") Integer id){

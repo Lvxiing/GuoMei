@@ -34,13 +34,6 @@ public class UserController {
     @Autowired
     private UserFeignInterface userFeignInterface;
 
-    //查询所有用户
-    @RequestMapping("/findAll")
-    @ResponseBody
-    public List<Users> findAll(){
-        return userFeignInterface.findAll();
-    }
-
     //给手机号码发验证码
     @RequestMapping("/ajaxNum")
     @ResponseBody
@@ -128,7 +121,7 @@ public class UserController {
         }
     }
 
-    //查询用户
+    //查询用户,并分页显示
     @RequestMapping("/findUsers/{userName}")
     @ResponseBody
     public Map<String, Object> findUsers(@PathVariable("userName") String userName, int page, int limit) {
@@ -189,7 +182,7 @@ public class UserController {
         return res;
     }
 
-    //查询会员
+    //查询会员,并分页显示
     @RequestMapping("/findVip/{userName}/{gradeName}")
     @ResponseBody
     public Map<String, Object> findVip(@PathVariable("userName") String userName, @PathVariable("gradeName") String gradeName,int page, int limit){
