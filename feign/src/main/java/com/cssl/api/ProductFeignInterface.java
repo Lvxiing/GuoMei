@@ -59,7 +59,7 @@ public interface ProductFeignInterface {
     List<TreeCategory> findCategoryAndChild(@RequestParam("parentId") Integer parentId);
 
 
-    //---------------------------商品模块--------------------------------
+    //---------------------------商品前台模块--------------------------------
     //根据分类名称查询该分类下的所有品牌商品的热卖商品
     @RequestMapping("goods/findGoodsByCategoryName")
     List<Goods> findGoodsByCategoryName(@RequestParam("categoryName")String categoryName);
@@ -72,8 +72,17 @@ public interface ProductFeignInterface {
     @RequestMapping("goods/findGoodsLowPrice")
     List<Goods> findGoodsLowPrice(@RequestParam("categoryName") String categoryName);
 
+    //根据当前第二级分类编号查询该分类下的所有第三级分类的热销榜
+    @RequestMapping("goods/findSaleByCategoryId")
+    List<Map<String,Object>> findSaleByCategoryId(@RequestParam("cid")Integer cid);
 
+    //根据当前一级分类编号查询该分类下的所有商品的热销榜
+    @RequestMapping("goods/findSaleAll")
+    List<Map<String,Object>> findSaleAll(@RequestParam("cid")Integer cid);
 
+    //首页的商品热销榜
+    @RequestMapping("goods/indexSaleGoods")
+    List<Map<String,Object>> indexSaleGoods();
 
 
     //--------------------------后台模块----------------------------------

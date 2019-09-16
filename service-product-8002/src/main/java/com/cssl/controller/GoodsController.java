@@ -83,12 +83,25 @@ public class GoodsController {
         return list;
     }
 
-
-    //商品热销榜
-    @RequestMapping("findSaleGoods")
+    //根据当前第二级分类编号查询该分类下的所有第三级分类的热销榜
+    @RequestMapping("findSaleByCategoryId")
     @ResponseBody
-    public List<Goods> findSaleGoods() {
-        return null;
+    public List<Map<String,Object>> findSaleByCategoryId(@RequestParam("cid")Integer cid){
+        return goodsService.findSaleByCategoryId(cid);
+    }
+
+    //根据当前一级分类编号查询该分类下的所有商品的热销榜
+    @RequestMapping("findSaleAll")
+    @ResponseBody
+    public List<Map<String,Object>> findSaleAll(@RequestParam("cid")Integer cid){
+        return goodsService.findSaleAll(cid);
+    }
+
+    //首页的商品热销榜
+    @RequestMapping("indexSaleGoods")
+    @ResponseBody
+    public List<Map<String,Object>> indexSaleGoods(){
+        return goodsService.indexSaleGoods();
     }
 
 

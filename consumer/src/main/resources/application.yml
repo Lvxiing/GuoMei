@@ -2,6 +2,7 @@
 server:
   port: 9001
 
+
 spring:
   mvc:
     static-path-pattern: /**
@@ -45,3 +46,19 @@ eureka:
   instance:
     instance-id: microservice-consumer-9001
     prefer-ip-address: true     #访问路径可以显示IP地址
+
+feign:
+  hystrix:
+    enabled: true
+
+ribbon:
+  ReadTimeout: 120000
+  ConnectTimeout: 120000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 120000
