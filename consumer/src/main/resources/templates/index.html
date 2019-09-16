@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html">
@@ -51,21 +51,11 @@
         gfeProjectPath = "/gmpro/2.0.0/channel/newindex/8.5.3";</script>
     <link rel="stylesheet" href="css/201908251728gmlibunitsticknav1.0.css">
     <link rel="stylesheet" href="css/index.css">
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script src="js/index/201908251728gmlibseaseajs3.0.0se.js"></script>
-    <script src="js/index.js"></script>
     <script src="js/jquery-1.8.3.js"></script>
+    <script src="js/index.js"></script>
 </head>
 <body class="home" v="201509v1" data-page="sy">
-<!--<script type="text/javascript">var winWidth = window.screen.width, objb = document.body;-->
-<!--if (winWidth <= 1024) {-->
-<!--objb.className += " " + "w1000";-->
-<!--} else {-->
-<!--objb.className = objb.className.replace("w1000", '');-->
-<!--}-->
-<!--;</script>-->
 <!-- 返利的导航 -->
 <!--头部end--><!--newads-->
 <script>window.publicdefault = {
@@ -106,54 +96,21 @@
 <div class="gome-top">
     <div id="gome-top-body" class="wbox">
         <ul>
-            <li id="gome-entry-link">
-                <a data-code="public01001" href="index.html" target="_blank"><i
-                        class="icon-gome-logo"></i>国美首页</a></li>
+            <li id="gome-entry-link"><a data-code="public01001" href="index.html" target="_blank"><i
+                    class="icon-gome-logo"></i>国美首页</a></li>
             <li class="gome-spacer"></li>
-
-
-
+            <li id="gome-user" data-load="user">
+                <b id="loginDiv-name"><a data-code="public01053" href="vip_club.html" rel="nofollow"
+                                         target="_blank">国美会员</a><i></i></b>
+                <div class="public-dropdown"></div>
+            </li>
+            <li id="loginDiv-link" class="gome-link">
+                <a rel="nofollow" data-code="public01002" href="gm-login.html">登录</a><a class="gome-link-register"
+                                                                                        rel="nofollow"
+                                                                                        data-code="public01003"
+                                                                                        href="gm-reg.html">注册有礼<i></i></a>
+            </li>
         </ul>
-
-
-        <script type="text/javascript">
-
-            $(function(){
-
-                //一加载就得到session中的用户
-                $.getJSON("/users/getSessionUser",function(json){
-                    var li;
-                    if(json!=null){
-                        li=' <li id="gome-user" data-load="user" class="" data-open="true"  > <b id="loginDiv-name">Hi,&nbsp;<a data-code="public01054" href="vip_club.html" target="_blank">  <span  style="display: none;">'+json.id+'</span>  <span class="sign-top-member-name" >'+json.userName+'</span></a></b>  </li>  <li  class="gome-link"   >  <a rel="nofollow" data-code="public01035" class="gome-link-logout" href="/users/outUser">退出</a> </li>';
-
-                    }else{
-                        li='<li id="loginDiv-link" class="gome-link" name="logReg">  <a rel="nofollow" data-code="public01002" href="gm-login.html">登录</a><a class="gome-link-register"  rel="nofollow"  data-code="public01003"  href="gm-reg.html">注册有礼<i></i></a>  </li>';
-
-                    }
-                    $("li#gome-entry-link").after(li);
-                });
-
-
-
-
-
-
-
-            })
-
-        </script>
-
-
-
-
-
-
-
-
-
-
-
-
         <ul id="gome-top-right">
             <li class="gome-link"><a rel="nofollow" data-code="public01004" href="gm-myOrder.html">我的订单</a></li>
             <li id="gome-mygome" data-load="mygome">
@@ -360,10 +317,6 @@
             </li>
         </ul>
     </div>
-
-
-
-
 </div>
 <!--gome_top-->
 <div id="gome-head" class="wbox" data-need-slogan-judge="true">
@@ -3025,6 +2978,7 @@
             </div>
         </div>
     </div>
+
     <div class="wbox">
         <div class="gm_sever_wrap" id="gm_sever_wrap">
             <span class="guan"></span>
@@ -3160,8 +3114,9 @@
         <div class="wbox countdown_main">
             <div class="count_l">
                 <div class="countdown_l_t">
-                    <div class="time_box"><i class="defintext">本场次剩余时间</i><i class="timego"><em class="num">02</em>:<em
-                            class="num">52</em>:<em class="num">16</em></i></div>
+                    <div class="time_box"><i class="defintext">本场次剩余时间</i><i class="timego">
+                        <em class="num" id="h">02</em>:<em class="num" id="m">52</em>:<em id="s" class="num">16</em>
+                    </i></div>
                     <div class="click_box">
                         <img src="//gfs12.gomein.net.cn/T1ovZvBTbb1RCvBVdK.jpeg" width="40" height="40">
                         <h3>美日必抢</h3>
@@ -3261,72 +3216,79 @@
         </div>
     </div>
 </div>
+<!--卷-->
 <div class="quan_out wbox edit-mode" modelid="1000079893" modeltype="">
     <div class="mini">
         <div class="index_fl edit-mode" modelid="1000079894" modeltype="2">
             <a href="juan.html" target="_blank" data-code="1000079894-1">
-                <img class="lazyloading" src="picture/grey.gif"
-                     data-lazy-init="//gfs11.gomein.net.cn/T1K9ZvB5Kj1RCvBVdK.jpg" data-lazy-img="0" width="122"
+                <img class="lazyloading" src="//gfs11.gomein.net.cn/T1K9ZvB5Kj1RCvBVdK.jpg"
+                     data-lazy-init="//gfs11.gomein.net.cn/T1K9ZvB5Kj1RCvBVdK.jpg" data-lazy-img="done" width="122"
                      height="110">
             </a>
         </div>
         <ul class="index_fl list_out clearfix edit-mode" modelid="1000079895" modeltype="2">
             <li class="index_fl quan_list num1">
-                <a class="" href="javascript:;" target="_blank" data-code="1000079895-1">
-                    <img src="picture/grey.gif" data-lazy-init="//gfs10.gomein.net.cn/T1cmDXB4Cv1RCvBVdK.jpg"
-                         data-lazy-img="0" width="209" height="110">
+                <a class="" href="juan.html" target="_blank" data-code="1000079895-1">
+                    <img src="//gfs10.gomein.net.cn/T1zu_XBsLv1RCvBVdK.jpg"
+                         data-lazy-init="//gfs10.gomein.net.cn/T1zu_XBsLv1RCvBVdK.jpg" data-lazy-img="done" width="209"
+                         height="110">
                 </a>
             </li>
             <li class="index_fl quan_list num2">
-                <a class="" href="javascript:;" target="_blank" data-code="1000079895-2">
-                    <img src="picture/grey.gif" data-lazy-init="//gfs11.gomein.net.cn/T1oPxXBmxv1RCvBVdK.jpg"
-                         data-lazy-img="0" width="209" height="110">
+                <a class="" href="juan.html" target="_blank" data-code="1000079895-2">
+                    <img src="//gfs11.gomein.net.cn/T1oPxXBmxv1RCvBVdK.jpg"
+                         data-lazy-init="//gfs11.gomein.net.cn/T1oPxXBmxv1RCvBVdK.jpg" data-lazy-img="done" width="209"
+                         height="110">
                 </a>
             </li>
             <li class="index_fl quan_list num3">
-                <a class="" href="javascript:;" target="_blank" data-code="1000079895-3">
-                    <img src="picture/grey.gif" data-lazy-init="//gfs10.gomein.net.cn/T1PSCXBsbv1RCvBVdK.jpg"
-                         data-lazy-img="0" width="209" height="110">
+                <a class="" href="juan.html" target="_blank" data-code="1000079895-3">
+                    <img src="//gfs10.gomein.net.cn/T1XLEXBsxT1RCvBVdK.jpg"
+                         data-lazy-init="//gfs10.gomein.net.cn/T1XLEXBsxT1RCvBVdK.jpg" data-lazy-img="done" width="209"
+                         height="110">
                 </a>
             </li>
             <li class="index_fl quan_list num4">
-                <a class="" href="javascript:;" target="_blank" data-code="1000079895-4">
-                    <img src="picture/grey.gif" data-lazy-init="//gfs11.gomein.net.cn/T1YPxXBmbv1RCvBVdK.jpg"
-                         data-lazy-img="0" width="209" height="110">
+                <a class="" href="juan.html" target="_blank" data-code="1000079895-4">
+                    <img src="//gfs12.gomein.net.cn/T1qLVXByJ_1RCvBVdK.jpg"
+                         data-lazy-init="//gfs12.gomein.net.cn/T1qLVXByJ_1RCvBVdK.jpg" data-lazy-img="done" width="209"
+                         height="110">
                 </a>
             </li>
             <li class="index_fl quan_list num5">
-                <a class="" href="javascript:;" target="_blank" data-code="1000079895-5">
-                    <img src="picture/grey.gif" data-lazy-init="//gfs10.gomein.net.cn/T1MPJXBvCT1RCvBVdK.jpg"
-                         data-lazy-img="0" width="209" height="110">
+                <a class="" href="juan.html" target="_blank" data-code="1000079895-5">
+                    <img src="//gfs12.gomein.net.cn/T1LuLXBKEv1RCvBVdK.jpg"
+                         data-lazy-init="//gfs12.gomein.net.cn/T1LuLXBKEv1RCvBVdK.jpg" data-lazy-img="done" width="209"
+                         height="110">
                 </a>
             </li>
         </ul>
         <div class="index_fr quan_r edit-mode" modelid="1000079896" modeltype="2">
             <a href="juan.html" target="_blank" data-code="1000079896-1">
-                <img class="lazyloading" src="picture/grey.gif"
-                     data-lazy-init="//gfs10.gomein.net.cn/T13MDvBjC_1RCvBVdK.jpg" data-lazy-img="0" width="39"
+                <img class="lazyloading" src="//gfs10.gomein.net.cn/T13MDvBjC_1RCvBVdK.jpg"
+                     data-lazy-init="//gfs10.gomein.net.cn/T13MDvBjC_1RCvBVdK.jpg" data-lazy-img="done" width="39"
                      height="110">
             </a>
         </div>
     </div>
 </div>
+
 <div class="lazy-fn-wrap clearfix async">
-    <!--七楼-->
-    <div class="floor wbox edit-mode" modelid="1000060859" modeltype="" data-title="手机通讯" data-code-index="1"
+    <!--六楼-->
+    <div class="floor wbox edit-mode" modelid="1000060859" modeltype="" data-title="手机通讯" id="item-1"
          data-time="7087767e-d7d5-4505-9d6c-a9f4361bed72">
         <div class="ct temp0">
             <div class="mt" style="border-bottom:1px solid #719ef7">
                 <div class="mtTop"><span class="h2_text">1F</span>
                     <h2>手机通讯</h2></div>
-                <ul class="tab" floor-info="1" hcolor="#719ef7">
-                    <li key="/floor/floor1and11_1/tab_1" modelid="1000060877"><a href="javascript:void(0);">精选热卖</a>
+                <ul class="tab" floor-info="1" hcolor="#719ef7" id="groundFloor">
+                    <li key="0" modelid="1000060877" class="cur"><a style="background: rgb(113, 158, 247);" href="javascript:void(0);">精选热卖</a>
                     </li>
-                    <li key="/floor/floor1and11_1/tab_2" modelid="1000060877"><a href="javascript:void(0);">新品抢先</a>
+                    <li key="1" modelid="1000060877"><a href="javascript:void(0);">新品抢先</a>
                     </li>
-                    <li key="/floor/floor1and11_1/tab_3" modelid="1000060877"><a href="javascript:void(0);">时尚新品</a>
+                    <li key="2" modelid="1000060877"><a href="javascript:void(0);">时尚新品</a>
                     </li>
-                    <li key="/floor/floor1and11_1/tab_4" modelid="1000060949"><a href="javascript:void(0);">畅享低价</a>
+                    <li key="3" modelid="1000060949"><a href="javascript:void(0);">畅享低价</a>
                     </li>
                 </ul>
             </div>
@@ -3390,7 +3352,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="main_warp">
+                <div class="main_warp" id="groundFloor_div">
                     <div class="main" tab-data-load="0" style="display: block;">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/9140133854-1130662358.html" data-code="1000060949-1"
@@ -3475,90 +3437,6 @@
                                     <span>¥</span>1599.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="main" tab-data-load="0" style="display: none;">
-                        <ul class="main_inner">
-                            <li><a href="//item.gome.com.cn/9140133854-1130662358.html" data-code="1000060949-1"
-                                   target="_blank" title="三星A60 6 128G 浅滩蓝"> <img class="lazyloading"
-                                                                                  src="//gfs17.gomein.net.cn/T1vMJvByDb1RCvBVdK_130.jpg"
-                                                                                  alt="三星A60 6 128G 浅滩蓝" width="130"
-                                                                                  height="130">
-                                <p class="p_name">三星A60 6 128G 浅滩蓝</p>
-                                <p class="p_price" productid="9140133854" sku="1130662358" priceflag="false">
-                                    <span>¥</span>1999.00</p></a></li>
-                            <li><a href="//item.gome.com.cn/A0006540578-pop8012608027.html" data-code="1000060949-2"
-                                   target="_blank" title="荣耀V20 8 128G蓝色"> <img class="lazyloading"
-                                                                                src="//gfs17.gomein.net.cn/T170LgBQ_v1RCvBVdK_130.jpg"
-                                                                                alt="荣耀V20 8 128G蓝色" width="130"
-                                                                                height="130">
-                                <p class="p_name">荣耀V20 8 128G蓝色</p>
-                                <p class="p_price" productid="A0006540578" sku="pop8012608027" priceflag="false">
-                                    <span>¥</span>2488.00</p></a></li>
-                            <li><a href="//item.gome.com.cn/9140110683-1130568834.html" data-code="1000060949-3"
-                                   target="_blank" title="荣耀8X Max 全网通 魅焰红"> <img class="lazyloading"
-                                                                                  src="//gfs17.gomein.net.cn/T1WF_bByLv1RCvBVdK_130.jpg"
-                                                                                  alt="荣耀8X Max 全网通 魅焰红" width="130"
-                                                                                  height="130">
-                                <p class="p_name">荣耀8X Max 全网通 魅焰红</p>
-                                <p class="p_price" productid="9140110683" sku="1130568834" priceflag="false">
-                                    <span>¥</span>1499.00</p></a></li>
-                            <li><a href="//item.gome.com.cn/9140116999-1130571588.html" data-code="1000060949-4"
-                                   target="_blank" title="iPhone XS Max 256G 深空灰"> <img class="lazyloading"
-                                                                                        src="//gfs17.gomein.net.cn/T1NOWjBvYv1RCvBVdK_130.jpg"
-                                                                                        alt="iPhone XS Max 256G 深空灰"
-                                                                                        width="130" height="130">
-                                <p class="p_name">iPhone XS Max 256G 深空灰</p>
-                                <p class="p_price" productid="9140116999" sku="1130571588" priceflag="false">
-                                    <span>¥</span>8488.00</p></a></li>
-                            <li><a href="//item.gome.com.cn/9140128107-1130645795.html" data-code="1000060949-5"
-                                   target="_blank" title="小米Play  6 128G 黑"> <img class="lazyloading"
-                                                                                  src="//gfs17.gomein.net.cn/T1BUxgBQdv1RCvBVdK_130.jpg"
-                                                                                  alt="小米Play  6 128G 黑" width="130"
-                                                                                  height="130">
-                                <p class="p_name">小米Play 6 128G 黑</p>
-                                <p class="p_price" productid="9140128107" sku="1130645795" priceflag="false">
-                                    <span>¥</span>1099.00</p></a></li>
-                            <li><a href="//item.gome.com.cn/A0006593563-pop8012922399.html" data-code="1000060949-6"
-                                   target="_blank" title="荣耀9X Pro 8 256G幻夜黑"> <img class="lazyloading"
-                                                                                    src="//gfs17.gomein.net.cn/T120hXBbdv1RCvBVdK_130.jpg"
-                                                                                    alt="荣耀9X Pro 8 256G幻夜黑" width="130"
-                                                                                    height="130">
-                                <p class="p_name">荣耀9X Pro 8 256G幻夜黑</p>
-                                <p class="p_price" productid="A0006593563" sku="pop8012922399" priceflag="false">
-                                    <span>¥</span>2139.00</p></a></li>
-                            <li><a href="//item.gome.com.cn/A0006561181-pop8012773432.html" data-code="1000060949-7"
-                                   target="_blank" title="华为P30 8 128G 亮黑色"> <img class="lazyloading"
-                                                                                  src="//gfs17.gomein.net.cn/T1IEEsBTh_1RCvBVdK_130.jpg"
-                                                                                  alt="华为P30 8 128G 亮黑色" width="130"
-                                                                                  height="130">
-                                <p class="p_name">华为P30 8 128G 亮黑色</p>
-                                <p class="p_price" productid="A0006561181" sku="pop8012773432" priceflag="false">
-                                    <span>¥</span>4288.00</p></a></li>
-                            <li><a href="//item.gome.com.cn/9140116996-1130595019.html" data-code="1000060949-8"
-                                   target="_blank" title="iPhone XR 64G 红色"> <img class="lazyloading"
-                                                                                  src="//gfs17.gomein.net.cn/T1JRdjBbdT1RCvBVdK_130.jpg"
-                                                                                  alt="iPhone XR 64G 红色" width="130"
-                                                                                  height="130">
-                                <p class="p_name">iPhone XR 64G 红色</p>
-                                <p class="p_price" productid="9140116996" sku="1130595019" priceflag="false">
-                                    <span>¥</span>4688.00</p></a></li>
-                            <li><a href="//item.gome.com.cn/9140113837-1130560907.html" data-code="1000060949-9"
-                                   target="_blank" title="荣耀Note10 6 128G 幻夜黑"> <img class="lazyloading"
-                                                                                     src="//gfs17.gomein.net.cn/T1HLx_BgJv1RCvBVdK_130.jpg"
-                                                                                     alt="荣耀Note10 6 128G 幻夜黑"
-                                                                                     width="130" height="130">
-                                <p class="p_name">荣耀Note10 6 128G 幻夜黑</p>
-                                <p class="p_price" productid="9140113837" sku="1130560907" priceflag="false">
-                                    <span>¥</span>2999.00</p></a></li>
-                            <li><a href="//item.gome.com.cn/A0006586266-pop8012897129.html" data-code="1000060949-10"
-                                   target="_blank" title="华为nova4e 6 128G 蓝色"> <img class="lazyloading"
-                                                                                    src="//gfs17.gomein.net.cn/T1ORbXB7Wv1RCvBVdK_130.jpg"
-                                                                                    alt="华为nova4e 6 128G 蓝色" width="130"
-                                                                                    height="130">
-                                <p class="p_name">华为nova4e 6 128G 蓝色</p>
-                                <p class="p_price" productid="A0006586266" sku="pop8012897129" priceflag="false">
-                                    <span>¥</span>1599.00</p></a></li>
-                        </ul>
-                    </div>
                     <div class="main" style="display: none" tab-data-load="1">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/9140157642-1130688689.html" data-code="1000060877-1"
@@ -3566,7 +3444,7 @@
                                                                                     src="//gfs17.gomein.net.cn/T1FdEXBsEv1RCvBVdK_130.jpg"
                                                                                     alt="三星Note10 8 256G莫奈彩" width="130"
                                                                                     height="130">
-                                <p class="p_name">三星Note10 8 256G莫奈彩</p>
+                                <p class="p_name">一星Note10 8 256G莫奈彩</p>
                                 <p class="p_price" productid="9140157642" sku="1130688689" priceflag="false">
                                     <span>¥</span>6599.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140145830-1130633024.html" data-code="1000060877-2"
@@ -3587,7 +3465,7 @@
                                     <span>¥</span>3799.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140143039-1130634596.html?intcmp=sy-1000060877-4"
                                    data-code="1000060877-4" target="_blank" title="OPPO RenoZ  8 128G 极夜黑"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1gKLsB_AT1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="OPPO RenoZ  8 128G 极夜黑" width="130" height="130">
                                 <p class="p_name">OPPO RenoZ 8 128G 极夜黑</p>
                                 <p class="p_price" productid="9140143039" sku="1130634596" priceflag="false">
@@ -3618,7 +3496,7 @@
                                     <span>¥</span>1899.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140141419-1130662994.html" data-code="1000060877-8"
                                    target="_blank" title="Redmi 7A 2 32G 晨曦蓝"> <img class="lazyloading"
-                                                                                    src="//gfs17.gomein.net.cn/T1ZuZsBgLv1RCvBVdK_130.jpg"
+                                                                                    src=""
                                                                                     alt="Redmi 7A 2 32G 晨曦蓝" width="130"
                                                                                     height="130">
                                 <p class="p_name">Redmi 7A 2 32G 晨曦蓝</p>
@@ -3640,6 +3518,90 @@
                                 <p class="p_name">荣耀20 8 256G 幻夜黑</p>
                                 <p class="p_price" productid="9140140475" sku="1130665212" priceflag="false">
                                     <span>¥</span>2999.00</p></a></li>
+                        </ul>
+                    </div>
+                    <div class="main" tab-data-load="0" style="display: none;">
+                        <ul class="main_inner">
+                            <li><a href="//item.gome.com.cn/9140133854-1130662358.html" data-code="1000060949-1"
+                                   target="_blank" title="三星A60 6 128G 浅滩蓝"> <img class="lazyloading"
+                                                                                  src="//gfs17.gomein.net.cn/T1vMJvByDb1RCvBVdK_130.jpg"
+                                                                                  alt="三星A60 6 128G 浅滩蓝" width="130"
+                                                                                  height="130">
+                                <p class="p_name">二星A60 6 128G 浅滩蓝</p>
+                                <p class="p_price" productid="9140133854" sku="1130662358" priceflag="false">
+                                    <span>¥</span>1999.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006540578-pop8012608027.html" data-code="1000060949-2"
+                                   target="_blank" title="荣耀V20 8 128G蓝色"> <img class="lazyloading"
+                                                                                src="//gfs17.gomein.net.cn/T170LgBQ_v1RCvBVdK_130.jpg"
+                                                                                alt="荣耀V20 8 128G蓝色" width="130"
+                                                                                height="130">
+                                <p class="p_name">荣耀V20 8 128G蓝色</p>
+                                <p class="p_price" productid="A0006540578" sku="pop8012608027" priceflag="false">
+                                    <span>¥</span>2488.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140110683-1130568834.html" data-code="1000060949-3"
+                                   target="_blank" title="荣耀8X Max 全网通 魅焰红"> <img class="lazyloading"
+                                                                                  src="//gfs17.gomein.net.cn/T1WF_bByLv1RCvBVdK_130.jpg"
+                                                                                  alt="荣耀8X Max 全网通 魅焰红" width="130"
+                                                                                  height="130">
+                                <p class="p_name">荣耀8X Max 全网通 魅焰红</p>
+                                <p class="p_price" productid="9140110683" sku="1130568834" priceflag="false">
+                                    <span>¥</span>1499.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140116999-1130571588.html" data-code="1000060949-4"
+                                   target="_blank" title="iPhone XS Max 256G 深空灰"> <img class="lazyloading"
+                                                                                        src="//gfs17.gomein.net.cn/T1NOWjBvYv1RCvBVdK_130.jpg"
+                                                                                        alt="iPhone XS Max 256G 深空灰"
+                                                                                        width="130" height="130">
+                                <p class="p_name">iPhone XS Max 256G 深空灰</p>
+                                <p class="p_price" productid="9140116999" sku="1130571588" priceflag="false">
+                                    <span>¥</span>8488.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140128107-1130645795.html" data-code="1000060949-5"
+                                   target="_blank" title="小米Play  6 128G 黑"> <img class="lazyloading"
+                                                                                  src="//gfs17.gomein.net.cn/T1BUxgBQdv1RCvBVdK_130.jpg"
+                                                                                  alt="小米Play  6 128G 黑" width="130"
+                                                                                  height="130">
+                                <p class="p_name">小米Play 6 128G 黑</p>
+                                <p class="p_price" productid="9140128107" sku="1130645795" priceflag="false">
+                                    <span>¥</span>1099.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006593563-pop8012922399.html" data-code="1000060949-6"
+                                   target="_blank" title="荣耀9X Pro 8 256G幻夜黑"> <img class="lazyloading"
+                                                                                    src="//gfs17.gomein.net.cn/T120hXBbdv1RCvBVdK_130.jpg"
+                                                                                    alt="荣耀9X Pro 8 256G幻夜黑" width="130"
+                                                                                    height="130">
+                                <p class="p_name">荣耀9X Pro 8 256G幻夜黑</p>
+                                <p class="p_price" productid="A0006593563" sku="pop8012922399" priceflag="false">
+                                    <span>¥</span>2139.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006561181-pop8012773432.html" data-code="1000060949-7"
+                                   target="_blank" title="华为P30 8 128G 亮黑色"> <img class="lazyloading"
+                                                                                  src="//gfs17.gomein.net.cn/T1IEEsBTh_1RCvBVdK_130.jpg"
+                                                                                  alt="华为P30 8 128G 亮黑色" width="130"
+                                                                                  height="130">
+                                <p class="p_name">华为P30 8 128G 亮黑色</p>
+                                <p class="p_price" productid="A0006561181" sku="pop8012773432" priceflag="false">
+                                    <span>¥</span>4288.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140116996-1130595019.html" data-code="1000060949-8"
+                                   target="_blank" title="iPhone XR 64G 红色"> <img class="lazyloading"
+                                                                                  src="//gfs17.gomein.net.cn/T1JRdjBbdT1RCvBVdK_130.jpg"
+                                                                                  alt="iPhone XR 64G 红色" width="130"
+                                                                                  height="130">
+                                <p class="p_name">iPhone XR 64G 红色</p>
+                                <p class="p_price" productid="9140116996" sku="1130595019" priceflag="false">
+                                    <span>¥</span>4688.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140113837-1130560907.html" data-code="1000060949-9"
+                                   target="_blank" title="荣耀Note10 6 128G 幻夜黑"> <img class="lazyloading"
+                                                                                     src="//gfs17.gomein.net.cn/T1HLx_BgJv1RCvBVdK_130.jpg"
+                                                                                     alt="荣耀Note10 6 128G 幻夜黑"
+                                                                                     width="130" height="130">
+                                <p class="p_name">荣耀Note10 6 128G 幻夜黑</p>
+                                <p class="p_price" productid="9140113837" sku="1130560907" priceflag="false">
+                                    <span>¥</span>2999.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006586266-pop8012897129.html" data-code="1000060949-10"
+                                   target="_blank" title="华为nova4e 6 128G 蓝色"> <img class="lazyloading"
+                                                                                    src="//gfs17.gomein.net.cn/T1ORbXB7Wv1RCvBVdK_130.jpg"
+                                                                                    alt="华为nova4e 6 128G 蓝色" width="130"
+                                                                                    height="130">
+                                <p class="p_name">华为nova4e 6 128G 蓝色</p>
+                                <p class="p_price" productid="A0006586266" sku="pop8012897129" priceflag="false">
+                                    <span>¥</span>1599.00</p></a></li>
                         </ul>
                     </div>
                     <div class="main" tab-data-load="0" style="display: none;">
@@ -3726,29 +3688,24 @@
                                     <span>¥</span>1599.00</p></a></li>
                         </ul>
                     </div>
-
-                    <div class="page_slider" style="display: none;">
-                        <p class="page_down" onselectstart="return false" style="-moz-user-select:none;"><a
-                                href="javascript:void(0)" class="slider_next"></a><span class="next"></span></p>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="floor wbox edit-mode" modelid="1000061267" modeltype="" data-title="电脑数码" data-code-index="2"
+    <div class="floor wbox edit-mode" modelid="1000061267" modeltype="" data-title="电脑数码" id="item-2"
          data-time="e8e7624f-4570-4df8-990f-b606fa9dc20b">
         <div class="ct temp0">
             <div class="mt" style="border-bottom:1px solid #50bfec">
                 <div class="mtTop"><span class="h2_text">2F</span>
                     <h2>电脑数码</h2></div>
-                <ul class="tab" floor-info="2" hcolor="#50bfec">
-                    <li key="/floor/floor1and11_5/tab_2" modelid="1000061285"><a href="javascript:void(0);">精选热卖</a>
+                <ul class="tab" floor-info="2" hcolor="#50bfec" id="secondFloor">
+                    <li key="0" modelid="1000061285" class="cur"><a style="background: rgb(80, 191, 236);" href="javascript:void(0);">精选热卖</a>
                     </li>
-                    <li key="/floor/floor1and11_5/tab_3" modelid="1000061297"><a href="javascript:void(0);">新品抢先</a>
+                    <li key="1" modelid="1000061297"><a href="javascript:void(0);">新品抢先</a>
                     </li>
-                    <li key="/floor/floor1and11_5/tab_4" modelid="1000061309"><a href="javascript:void(0);">笔记本</a>
+                    <li key="2" modelid="1000061309"><a href="javascript:void(0);">笔记本</a>
                     </li>
-                    <li key="/floor/floor1and11_5/tab_5" modelid="1000061321"><a href="javascript:void(0);">摄影摄像</a>
+                    <li key="3" modelid="1000061321"><a href="javascript:void(0);">摄影摄像</a>
                     </li>
                 </ul>
             </div>
@@ -3774,7 +3731,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="keywords edit-mode"  modelid="1000061277" modeltype="2">
+                        <div class="keywords edit-mode" modelid="1000061277" modeltype="2">
                             <ul class="w55">
                                 <li class=""><a
                                         href="https://prom.gome.com.cn/html/prodhtml/topics/201705/9/1606222683.html"
@@ -3823,8 +3780,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="main_warp">
-                    <div class="main" tab-data-load="1" style="display: block;">
+                <div class="main_warp" id="secondFloor_div">
+                    <div class="main"  style="display: block;">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/9140143316-1130628823.html" data-code="1000061321-1"
                                    target="_blank" title="AirPods 二代蓝牙耳机"> <img class="lazyloading"
@@ -3851,7 +3808,7 @@
                                     <span>¥</span>3116.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140055521-1130575520.html?intcmp=sy-1000061321-4"
                                    data-code="1000061321-4" target="_blank" title="小米手环3"> <img class="lazyloading"
-                                                                                                src="//gfs17.gomein.net.cn/T1GvKQBKVT1RCvBVdK_130.jpg"
+                                                                                                src=""
                                                                                                 alt="小米手环3" width="130"
                                                                                                 height="130">
                                 <p class="p_name">小米手环3</p>
@@ -3859,42 +3816,42 @@
                                     <span>¥</span>138.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140142414-1130644159.html" data-code="1000061321-5"
                                    target="_blank" title="华为手环3"> <img class="lazyloading"
-                                                                       src="//gfs17.gomein.net.cn/T1YzLXBvbT1RCvBVdK_130.jpg"
+                                                                       src=""
                                                                        alt="华为手环3" width="130" height="130">
                                 <p class="p_name">华为手环3</p>
                                 <p class="p_price" productid="9140142414" sku="1130644159" priceflag="false">
                                     <span>¥</span>269.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140106242-1130575416.html" data-code="1000061321-6"
                                    target="_blank" title="小度智能音箱"> <img class="lazyloading"
-                                                                        src="//gfs17.gomein.net.cn/T1lZdsBgYT1RCvBVdK_130.jpg"
+                                                                        src=""
                                                                         alt="小度智能音箱" width="130" height="130">
                                 <p class="p_name">小度智能音箱</p>
                                 <p class="p_price" productid="9140106242" sku="1130575416" priceflag="false">
                                     <span>¥</span>119.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140134802-1130675679.html" data-code="1000061321-7"
                                    target="_blank" title="小爱音箱遥控版"> <img class="lazyloading"
-                                                                         src="//gfs17.gomein.net.cn/T1brVsB4dv1RCvBVdK_130.jpg"
+                                                                         src=""
                                                                          alt="小爱音箱遥控版" width="130" height="130">
                                 <p class="p_name">小爱音箱遥控版</p>
                                 <p class="p_price" productid="9140134802" sku="1130675679" priceflag="false">
                                     <span>¥</span>199.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140060110-1130549376.html" data-code="1000061321-8"
                                    target="_blank" title="德生收音机 R-911"> <img class="lazyloading"
-                                                                             src="//gfs17.gomein.net.cn/T1_cdXBXET1RCvBVdK_130.jpg"
+                                                                             src=""
                                                                              alt="德生收音机 R-911" width="130" height="130">
                                 <p class="p_name">德生收音机 R-911</p>
                                 <p class="p_price" productid="9140060110" sku="1130549376" priceflag="false">
                                     <span>¥</span>69.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140142601-1130642988.html" data-code="1000061321-9"
                                    target="_blank" title="漫步者蓝牙耳机TWS1"> <img class="lazyloading"
-                                                                             src="//gfs17.gomein.net.cn/T18IhXB4dT1RCvBVdK_130.jpg"
+                                                                             src=""
                                                                              alt="漫步者蓝牙耳机TWS1" width="130" height="130">
                                 <p class="p_name">漫步者蓝牙耳机TWS1</p>
                                 <p class="p_price" productid="9140142601" sku="1130642988" priceflag="false">
                                     <span>¥</span>228.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140145166-1130655483.html" data-code="1000061321-10"
                                    target="_blank" title="漫步者蓝牙耳机FreeLace"> <img class="lazyloading"
-                                                                                 src="//gfs17.gomein.net.cn/T1EX_XBghv1RCvBVdK_130.jpg"
+                                                                                 src=""
                                                                                  alt="漫步者蓝牙耳机FreeLace" width="130"
                                                                                  height="130">
                                 <p class="p_name">漫步者蓝牙耳机FreeLace</p>
@@ -3902,12 +3859,12 @@
                                     <span>¥</span>499.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="main" tab-data-load="0">
+                    <div class="main" style="display: none">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/A0006576121-pop8012861799.html" data-code="1000061285-1"
                                    target="_blank"
                                    title="惠普（HP）暗影精灵5代 OMEN系列 15.6英寸暗夜吃鸡游戏电竞大屏游戏笔记本电脑 Win10 吃鸡神器(i5-9300H GTX1650 4G独显 60Hz 72%色域 8G高频内存 512GSSD)">
-                                <img class="lazyloading" src="//gfs17.gomein.net.cn/T1TSLsBbCT1RCvBVdK_130.jpg"
+                                <img class="lazyloading" src=""
                                      alt="惠普（HP）暗影精灵5代 OMEN系列 15.6英寸暗夜吃鸡游戏电竞大屏游戏笔记本电脑 Win10 吃鸡神器(i5-9300H GTX1650 4G独显 60Hz 72%色域 8G高频内存 512GSSD)"
                                      width="130" height="130">
                                 <p class="p_name">惠普（HP）暗影精灵5代 OMEN系列 15.6英寸暗夜吃鸡游戏电竞大屏游戏笔记本电脑 Win10 吃鸡神器(i5-9300H
@@ -3917,7 +3874,7 @@
                             <li><a href="//item.gome.com.cn/9140127528-1130678293.html" data-code="1000061285-2"
                                    target="_blank"
                                    title="戴尔(DELL)灵越5000 13.3英寸英特尔酷睿i5超轻薄便携窄边框笔记本电脑(i5-8265U 8G 512G PCIe IPS)银"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1PYZsB_ZT1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="戴尔(DELL)灵越5000 13.3英寸英特尔酷睿i5超轻薄便携窄边框笔记本电脑(i5-8265U 8G 512G PCIe IPS)银"
                                     width="130" height="130">
                                 <p class="p_name">戴尔(DELL)灵越5000 13.3英寸英特尔酷睿i5超轻薄便携窄边框笔记本电脑(i5-8265U 8G 512G PCIe
@@ -3936,7 +3893,7 @@
                                     <span>¥</span>12999.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140143119-1130701571.html" data-code="1000061285-4"
                                    target="_blank" title="华为(HUAWEI) M6 8.4英寸 平板电脑 游戏版 高能版（6G内存/128G存储 通话版版)幻影红"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1WMDXBv_T1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="华为(HUAWEI) M6 8.4英寸 平板电脑 游戏版 高能版（6G内存/128G存储 通话版版)幻影红" width="130"
                                     height="130">
                                 <p class="p_name">华为(HUAWEI) M6 8.4英寸 平板电脑 游戏版 高能版（6G内存/128G存储 通话版版)幻影红</p>
@@ -3944,7 +3901,7 @@
                                     <span>¥</span>2999.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140037721-1130037303.html" data-code="1000061285-5"
                                    target="_blank" title="艾比格特(IBIG Stor) IBSP6291 旗舰版 无线 移动硬盘 2TB 远程传输 黑"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1bmVvBQxg1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="艾比格特(IBIG Stor) IBSP6291 旗舰版 无线 移动硬盘 2TB 远程传输 黑" width="130" height="130">
                                 <p class="p_name">艾比格特(IBIG Stor) IBSP6291 旗舰版 无线 移动硬盘 2TB 远程传输 黑</p>
                                 <p class="p_price" productid="9140037721" sku="1130037303" priceflag="false">
@@ -3972,7 +3929,7 @@
                                     <span>¥</span>4298.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140151235-1130659301.html" data-code="1000061285-9"
                                    target="_blank" title="Redmi充电宝 20000mAh"> <img class="lazyloading"
-                                                                                   src="//gfs17.gomein.net.cn/T1uELXBmDT1RCvBVdK_130.jpg"
+                                                                                   src=""
                                                                                    alt="Redmi充电宝 20000mAh" width="130"
                                                                                    height="130">
                                 <p class="p_name">Redmi充电宝 20000mAh</p>
@@ -3980,19 +3937,19 @@
                                     <span>¥</span>99.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140147665-1130686778.html" data-code="1000061285-10"
                                    target="_blank" title="小度在家1S乐享版"> <img class="lazyloading"
-                                                                           src="//gfs17.gomein.net.cn/T1UVAXB7dT1RCvBVdK_130.jpg"
+                                                                           src=""
                                                                            alt="小度在家1S乐享版" width="130" height="130">
                                 <p class="p_name">小度在家1S乐享版</p>
                                 <p class="p_price" productid="9140147665" sku="1130686778" priceflag="false">
                                     <span>¥</span>399.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="main" tab-data-load="0">
+                    <div class="main" style="display: none">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/9140024944-1130021026.html" data-code="1000061297-1"
                                    target="_blank"
                                    title="Apple Macbook Air 13.3  Core i5 8G 128G SSD 苹果笔记本电脑 轻薄本 银色 MQD32CH/A"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1Tq_jBKxv1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="Apple Macbook Air 13.3  Core i5 8G 128G SSD 苹果笔记本电脑 轻薄本 银色 MQD32CH/A"
                                     width="130" height="130">
                                 <p class="p_name">Apple Macbook Air 13.3 Core i5 8G 128G SSD 苹果笔记本电脑 轻薄本 银色
@@ -4002,7 +3959,7 @@
                             <li><a href="//item.gome.com.cn/9140124523-1130599344.html" data-code="1000061297-2"
                                    target="_blank"
                                    title="华硕(ASUS) 飞行堡垒6代 英特尔酷睿i7 15.6英寸游戏笔记本电脑(i7-8750H 8G 256GSSD+1T GTX1050Ti 4G )火陨">
-                                <img class="lazyloading" src="//gfs17.gomein.net.cn/T1hlbQB5hv1RCvBVdK_130.jpg"
+                                <img class="lazyloading" src=""
                                      alt="华硕(ASUS) 飞行堡垒6代 英特尔酷睿i7 15.6英寸游戏笔记本电脑(i7-8750H 8G 256GSSD+1T GTX1050Ti 4G )火陨"
                                      width="130" height="130">
                                 <p class="p_name">华硕(ASUS) 飞行堡垒6代 英特尔酷睿i7 15.6英寸游戏笔记本电脑(i7-8750H 8G 256GSSD+1T GTX1050Ti
@@ -4012,7 +3969,7 @@
                             <li><a href="//item.gome.com.cn/9140125350-1130664090.html" data-code="1000061297-3"
                                    target="_blank"
                                    title="联想(Lenovo)小新Air英特尔酷睿i5 13.3英寸轻薄笔记本电脑(I5-8265U 8G 512G SSD 300尼特高亮度)轻奢灰"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1TZAsBmVv1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="联想(Lenovo)小新Air英特尔酷睿i5 13.3英寸轻薄笔记本电脑(I5-8265U 8G 512G SSD 300尼特高亮度)轻奢灰"
                                     width="130" height="130">
                                 <p class="p_name">联想(Lenovo)小新Air英特尔酷睿i5 13.3英寸轻薄笔记本电脑(I5-8265U 8G 512G SSD
@@ -4021,7 +3978,7 @@
                                     <span>¥</span>5199.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140133870-1130621038.html" data-code="1000061297-4"
                                    target="_blank" title="宏碁(acer)SF313 13.3英寸轻薄笔记本电脑(I5-8250U 4G 256G 集显 IPS Win10 银)">
-                                <img class="lazyloading" src="//gfs17.gomein.net.cn/T13SC_BQWv1RCvBVdK_130.jpg"
+                                <img class="lazyloading" src=""
                                      alt="宏碁(acer)SF313 13.3英寸轻薄笔记本电脑(I5-8250U 4G 256G 集显 IPS Win10 银)" width="130"
                                      height="130">
                                 <p class="p_name">宏碁(acer)SF313 13.3英寸轻薄笔记本电脑(I5-8250U 4G 256G 集显 IPS Win10 银)</p>
@@ -4029,7 +3986,7 @@
                                     <span>¥</span>3899.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140115916-1130636775.html" data-code="1000061297-5"
                                    target="_blank" title="华硕(ASUS) 灵耀S4300 (i5-8250U 8G 256G SSD 2G独显)冰钻金"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1ETKsBCV_1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="华硕(ASUS) 灵耀S4300 (i5-8250U 8G 256G SSD 2G独显)冰钻金" width="130" height="130">
                                 <p class="p_name">华硕(ASUS) 灵耀S4300 (i5-8250U 8G 256G SSD 2G独显)冰钻金</p>
                                 <p class="p_price" productid="9140115916" sku="1130636775" priceflag="false">
@@ -4037,7 +3994,7 @@
                             <li><a href="//item.gome.com.cn/9140134956-1130653285.html" data-code="1000061297-6"
                                    target="_blank"
                                    title="ThinkPad T490(08CD)14.0英寸笔记本电脑 (I5-8265U 8G 512G硬盘 集显 FHD 指纹识别 Win10 黑色）">
-                                <img class="lazyloading" src="//gfs17.gomein.net.cn/T1kddQBKV_1RCvBVdK_130.jpg"
+                                <img class="lazyloading" src=""
                                      alt="ThinkPad T490(08CD)14.0英寸笔记本电脑 (I5-8265U 8G 512G硬盘 集显 FHD 指纹识别 Win10 黑色）"
                                      width="130" height="130">
                                 <p class="p_name">ThinkPad T490(08CD)14.0英寸笔记本电脑 (I5-8265U 8G 512G硬盘 集显 FHD 指纹识别 Win10
@@ -4046,7 +4003,7 @@
                                     <span>¥</span>7199.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140133866-1130692201.html" data-code="1000061297-7"
                                    target="_blank" title="宏碁（Acer）A314-32-C24Q 14英寸笔记本电脑（四核N4100 4G 500G win10 黑)"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1RmEXBbCT1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="宏碁（Acer）A314-32-C24Q 14英寸笔记本电脑（四核N4100 4G 500G win10 黑)" width="130"
                                     height="130">
                                 <p class="p_name">宏碁（Acer）A314-32-C24Q 14英寸笔记本电脑（四核N4100 4G 500G win10 黑)</p>
@@ -4055,7 +4012,7 @@
                             <li><a href="//item.gome.com.cn/A0006497462-pop8012303182.html" data-code="1000061297-8"
                                    target="_blank"
                                    title="戴尔灵越5000 fit 15.6英寸高性能轻薄窄边框笔记本电脑 可选十代i5/i7处理器 MX250 2G独显(5598-R1625S.十代i5 8G内存/512G固态/标配)">
-                                <img class="lazyloading" src="//gfs17.gomein.net.cn/T18MEXBjdT1RCvBVdK_130.jpg"
+                                <img class="lazyloading" src=""
                                      alt="戴尔灵越5000 fit 15.6英寸高性能轻薄窄边框笔记本电脑 可选十代i5/i7处理器 MX250 2G独显(5598-R1625S.十代i5 8G内存/512G固态/标配)"
                                      width="130" height="130">
                                 <p class="p_name">戴尔灵越5000 fit 15.6英寸高性能轻薄窄边框笔记本电脑 可选十代i5/i7处理器 MX250
@@ -4064,7 +4021,7 @@
                                     <span>¥</span>5699.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140144576-1130659108.html" data-code="1000061297-9"
                                    target="_blank" title="戴尔(DELL)灵越飞匣INS14E 14英寸轻薄便携笔记本电脑(i5-8265U 4G 1T 2G独显 Win10)银">
-                                <img class="lazyloading" src="//gfs17.gomein.net.cn/T1rVZ_BKY_1RCvBVdK_130.jpg"
+                                <img class="lazyloading" src=""
                                      alt="戴尔(DELL)灵越飞匣INS14E 14英寸轻薄便携笔记本电脑(i5-8265U 4G 1T 2G独显 Win10)银" width="130"
                                      height="130">
                                 <p class="p_name">戴尔(DELL)灵越飞匣INS14E 14英寸轻薄便携笔记本电脑(i5-8265U 4G 1T 2G独显 Win10)银</p>
@@ -4073,7 +4030,7 @@
                             <li><a href="//item.gome.com.cn/9140141736-1130653939.html" data-code="1000061297-10"
                                    target="_blank"
                                    title="惠普(HP)星14 青春版 14s-dp0005AU 14英寸轻薄窄边框笔记本电脑 R5-3500U 8G 512G SSD UMA FHD IPS 闪耀银">
-                                <img class="lazyloading" src="//gfs17.gomein.net.cn/T1zFZbBbDT1RCvBVdK_130.jpg"
+                                <img class="lazyloading" src=""
                                      alt="惠普(HP)星14 青春版 14s-dp0005AU 14英寸轻薄窄边框笔记本电脑 R5-3500U 8G 512G SSD UMA FHD IPS 闪耀银"
                                      width="130" height="130">
                                 <p class="p_name">惠普(HP)星14 青春版 14s-dp0005AU 14英寸轻薄窄边框笔记本电脑 R5-3500U 8G 512G SSD UMA FHD
@@ -4082,11 +4039,11 @@
                                     <span>¥</span>3859.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="main" tab-data-load="0">
+                    <div class="main" style="display: none">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/9140020802-1130017937.html" data-code="1000061309-1"
                                    target="_blank" title="佳能微单M6（EF-M 15-45 IS STM）"> <img class="lazyloading"
-                                                                                           src="//gfs17.gomein.net.cn/T1fmCvBThQ1RCvBVdK_130.jpg"
+                                                                                           src=""
                                                                                            alt="佳能微单M6（EF-M 15-45 IS STM）"
                                                                                            width="130" height="130">
                                 <p class="p_name">佳能微单M6（EF-M 15-45 IS STM）</p>
@@ -4094,7 +4051,7 @@
                                     <span>¥</span>3798.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9134291228-1123230794.html" data-code="1000061309-2"
                                    target="_blank" title="佳能单反80D(18-200mm)"> <img class="lazyloading"
-                                                                                   src="//gfs17.gomein.net.cn/T1Z6AvB5K_1RCvBVdK_130.jpg"
+                                                                                   src=""
                                                                                    alt="佳能单反80D(18-200mm)" width="130"
                                                                                    height="130">
                                 <p class="p_name">佳能单反80D(18-200mm)</p>
@@ -4102,7 +4059,7 @@
                                     <span>¥</span>8898.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9134570069-1123080471.html" data-code="1000061309-3"
                                    target="_blank" title="尼康全画幅单反D750(24-120mm)"> <img class="lazyloading"
-                                                                                       src="//gfs17.gomein.net.cn/T10gKbBsWT1RCvBVdK_130.jpg"
+                                                                                       src=""
                                                                                        alt="尼康全画幅单反D750(24-120mm)"
                                                                                        width="130" height="130">
                                 <p class="p_name">尼康全画幅单反D750(24-120mm)</p>
@@ -4110,7 +4067,7 @@
                                     <span>¥</span>12259.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9131061690-1120050115.html" data-code="1000061309-4"
                                    target="_blank" title="索尼黑卡相机RX100 M3"> <img class="lazyloading"
-                                                                                src="//gfs17.gomein.net.cn/T17FJbBCVv1RCvBVdK_130.jpg"
+                                                                                src=""
                                                                                 alt="索尼黑卡相机RX100 M3" width="130"
                                                                                 height="130">
                                 <p class="p_name">索尼黑卡相机RX100 M3</p>
@@ -4126,14 +4083,14 @@
                                     <span>¥</span>5299.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140138624-1130643919.html" data-code="1000061309-6"
                                    target="_blank" title="富士微单X-T20"> <img class="lazyloading"
-                                                                           src="//gfs17.gomein.net.cn/T1GwZbB4A_1RCvBVdK_130.jpg"
+                                                                           src=""
                                                                            alt="富士微单X-T20" width="130" height="130">
                                 <p class="p_name">富士微单X-T20</p>
                                 <p class="p_price" productid="9140138624" sku="1130643919" priceflag="false">
                                     <span>¥</span>6599.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9134401231-1123340942.html" data-code="1000061309-7"
                                    target="_blank" title="佳能单反相机EOS5D MarkⅣ"> <img class="lazyloading"
-                                                                                   src="//gfs17.gomein.net.cn/T1JFhbB_YT1RCvBVdK_130.jpg"
+                                                                                   src=""
                                                                                    alt="佳能单反相机EOS5D MarkⅣ" width="130"
                                                                                    height="130">
                                 <p class="p_name">佳能单反相机EOS5D MarkⅣ</p>
@@ -4141,7 +4098,7 @@
                                     <span>¥</span>22199.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140071523-1130571521.html" data-code="1000061309-8"
                                    target="_blank" title="索尼全画幅微单ILCE-7M3K"> <img class="lazyloading"
-                                                                                  src="//gfs17.gomein.net.cn/T1bQWQBTbT1RCvBVdK_130.jpg"
+                                                                                  src=""
                                                                                   alt="索尼全画幅微单ILCE-7M3K" width="130"
                                                                                   height="130">
                                 <p class="p_name">索尼全画幅微单ILCE-7M3K</p>
@@ -4149,7 +4106,7 @@
                                     <span>¥</span>15199.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140124548-1130629033.html" data-code="1000061309-9"
                                    target="_blank" title="尼康单反D3500(18-105mm)"> <img class="lazyloading"
-                                                                                     src="//gfs17.gomein.net.cn/T1rsKjBmDv1RCvBVdK_130.jpg"
+                                                                                     src=""
                                                                                      alt="尼康单反D3500(18-105mm)"
                                                                                      width="130" height="130">
                                 <p class="p_name">尼康单反D3500(18-105mm)</p>
@@ -4157,7 +4114,7 @@
                                     <span>¥</span>3499.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9134520498-1123460488.html" data-code="1000061309-10"
                                    target="_blank" title="佳能PowerShot SX620 HS"> <img class="lazyloading"
-                                                                                      src="//gfs17.gomein.net.cn/T1WkYTBgLv1RCvBVdK_130.jpg"
+                                                                                      src=""
                                                                                       alt="佳能PowerShot SX620 HS"
                                                                                       width="130" height="130">
                                 <p class="p_name">佳能PowerShot SX620 HS</p>
@@ -4165,9 +4122,90 @@
                                     <span>¥</span>1488.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="page_slider" style="display: none;">
-                        <p class="page_down" onselectstart="return false" style="-moz-user-select:none;"><a
-                                href="javascript:void(0)" class="slider_next"></a><span class="next"></span></p>
+                    <div class="main" style="display: none">
+                        <ul class="main_inner">
+                            <li><a href="//item.gome.com.cn/A0006576121-pop8012861799.html" data-code="1000061285-1"
+                                   target="_blank"
+                                   title="惠普（HP）暗影精灵5代 OMEN系列 15.6英寸暗夜吃鸡游戏电竞大屏游戏笔记本电脑 Win10 吃鸡神器(i5-9300H GTX1650 4G独显 60Hz 72%色域 8G高频内存 512GSSD)">
+                                <img class="lazyloading" src=""
+                                     alt="惠普（HP）暗影精灵5代 OMEN系列 15.6英寸暗夜吃鸡游戏电竞大屏游戏笔记本电脑 Win10 吃鸡神器(i5-9300H GTX1650 4G独显 60Hz 72%色域 8G高频内存 512GSSD)"
+                                     width="130" height="130">
+                                <p class="p_name">惠普（HP）暗影精灵5代 OMEN系列 15.6英寸暗夜吃鸡游戏电竞大屏游戏笔记本电脑 Win10 吃鸡神器(i5-9300H
+                                    GTX1650 4G独显 60Hz 72%色域 8G高频内存 512GSSD)</p>
+                                <p class="p_price" productid="A0006576121" sku="pop8012861799" priceflag="false">
+                                    <span>¥</span>6299.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140127528-1130678293.html" data-code="1000061285-2"
+                                   target="_blank"
+                                   title="戴尔(DELL)灵越5000 13.3英寸英特尔酷睿i5超轻薄便携窄边框笔记本电脑(i5-8265U 8G 512G PCIe IPS)银"> <img
+                                    class="lazyloading" src=""
+                                    alt="戴尔(DELL)灵越5000 13.3英寸英特尔酷睿i5超轻薄便携窄边框笔记本电脑(i5-8265U 8G 512G PCIe IPS)银"
+                                    width="130" height="130">
+                                <p class="p_name">戴尔(DELL)灵越5000 13.3英寸英特尔酷睿i5超轻薄便携窄边框笔记本电脑(i5-8265U 8G 512G PCIe
+                                    IPS)银</p>
+                                <p class="p_price" productid="9140127528" sku="1130678293" priceflag="false">
+                                    <span>¥</span>4999.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140150028-1130678255.html" data-code="1000061285-3"
+                                   target="_blank"
+                                   title="宏碁(acer)蜂鸟SF714 全面屏便携超轻薄触摸屏14英寸笔记本电脑(i7-8500Y 16G 512G PCIe SSD IPS win10 指纹识别 烟墨黑)">
+                                <img class="lazyloading" src="//gfs17.gomein.net.cn/T1z4JXBQDv1RCvBVdK_130.jpg"
+                                     alt="宏碁(acer)蜂鸟SF714 全面屏便携超轻薄触摸屏14英寸笔记本电脑(i7-8500Y 16G 512G PCIe SSD IPS win10 指纹识别 烟墨黑)"
+                                     width="130" height="130">
+                                <p class="p_name">宏碁(acer)蜂鸟SF714 全面屏便携超轻薄触摸屏14英寸笔记本电脑(i7-8500Y 16G 512G PCIe SSD IPS
+                                    win10 指纹识别 烟墨黑)</p>
+                                <p class="p_price" productid="9140150028" sku="1130678255" priceflag="false">
+                                    <span>¥</span>12999.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140143119-1130701571.html" data-code="1000061285-4"
+                                   target="_blank" title="华为(HUAWEI) M6 8.4英寸 平板电脑 游戏版 高能版（6G内存/128G存储 通话版版)幻影红"> <img
+                                    class="lazyloading" src=""
+                                    alt="华为(HUAWEI) M6 8.4英寸 平板电脑 游戏版 高能版（6G内存/128G存储 通话版版)幻影红" width="130"
+                                    height="130">
+                                <p class="p_name">华为(HUAWEI) M6 8.4英寸 平板电脑 游戏版 高能版（6G内存/128G存储 通话版版)幻影红</p>
+                                <p class="p_price" productid="9140143119" sku="1130701571" priceflag="false">
+                                    <span>¥</span>2999.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140037721-1130037303.html" data-code="1000061285-5"
+                                   target="_blank" title="艾比格特(IBIG Stor) IBSP6291 旗舰版 无线 移动硬盘 2TB 远程传输 黑"> <img
+                                    class="lazyloading" src=""
+                                    alt="艾比格特(IBIG Stor) IBSP6291 旗舰版 无线 移动硬盘 2TB 远程传输 黑" width="130" height="130">
+                                <p class="p_name">艾比格特(IBIG Stor) IBSP6291 旗舰版 无线 移动硬盘 2TB 远程传输 黑</p>
+                                <p class="p_price" productid="9140037721" sku="1130037303" priceflag="false">
+                                    <span>¥</span>1399.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140146027-1130646828.html" data-code="1000061285-6"
+                                   target="_blank" title="小度智能音箱Play"> <img class="lazyloading"
+                                                                            src="//gfs17.gomein.net.cn/T1QRJXBXx_1RCvBVdK_130.jpg"
+                                                                            alt="小度智能音箱Play" width="130" height="130">
+                                <p class="p_name">小度智能音箱Play</p>
+                                <p class="p_price" productid="9140146027" sku="1130646828" priceflag="false">
+                                    <span>¥</span>129.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140146210-1130704959.html" data-code="1000061285-7"
+                                   target="_blank" title="华为手环4e 篮球精灵"> <img class="lazyloading"
+                                                                             src="//gfs17.gomein.net.cn/T1zwJXB__T1RCvBVdK_130.jpg"
+                                                                             alt="华为手环4e 篮球精灵" width="130" height="130">
+                                <p class="p_name">华为手环4e 篮球精灵</p>
+                                <p class="p_price" productid="9140146210" sku="1130704959" priceflag="false">
+                                    <span>¥</span>119.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140149489-1130661811.html" data-code="1000061285-8"
+                                   target="_blank" title="佳能单反200D II"> <img class="lazyloading"
+                                                                             src="//gfs17.gomein.net.cn/T1wuWvBvh_1RCvBVdK_130.jpg"
+                                                                             alt="佳能单反200D II" width="130" height="130">
+                                <p class="p_name">佳能单反200D II</p>
+                                <p class="p_price" productid="9140149489" sku="1130661811" priceflag="false">
+                                    <span>¥</span>4298.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140151235-1130659301.html" data-code="1000061285-9"
+                                   target="_blank" title="Redmi充电宝 20000mAh"> <img class="lazyloading"
+                                                                                   src=""
+                                                                                   alt="Redmi充电宝 20000mAh" width="130"
+                                                                                   height="130">
+                                <p class="p_name">Redmi充电宝 20000mAh</p>
+                                <p class="p_price" productid="9140151235" sku="1130659301" priceflag="false">
+                                    <span>¥</span>99.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140147665-1130686778.html" data-code="1000061285-10"
+                                   target="_blank" title="小度在家1S乐享版"> <img class="lazyloading"
+                                                                           src=""
+                                                                           alt="小度在家1S乐享版" width="130" height="130">
+                                <p class="p_name">小度在家1S乐享版</p>
+                                <p class="p_price" productid="9140147665" sku="1130686778" priceflag="false">
+                                    <span>¥</span>399.00</p></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -4175,27 +4213,28 @@
                 <li>
                     <a href="//prom.gome.com.cn/html/prodhtml/topics/201712/27/7109918241.html" data-code="1000061284-1"
                        target="_blank">
-                        <img class="lazyloading" src="//gfs10.gomein.net.cn/T1S7AXBmKv1RCvBVdK.jpg"
-                             data-lazy-init="//gfs10.gomein.net.cn/T1S7AXBmKv1RCvBVdK.jpg" data-lazy-img="done"
+                        <img class="lazyloading" src="//gfs11.gomein.net.cn/T1HnCXBjhT1RCvBVdK.jpg"
+                             data-lazy-init="" data-lazy-img="done"
                              alt="2楼下-通栏1" title="">
                     </a>
                 </li>
             </ul>
         </div>
     </div>
-    <div class="floor wbox edit-mode" modelid="1000061165" modeltype="" data-title="家用电器" data-code-index="3"
+    <div class="floor wbox edit-mode" modelid="1000061165" modeltype="" data-title="家用电器" id="item-3"
          data-time="0e2fd736-a269-4b6a-926a-762758d4765a">
         <div class="ct temp0">
             <div class="mt" style="border-bottom:1px solid #7f86ec">
                 <div class="mtTop"><span class="h2_text">3F</span>
                     <h2>家用电器</h2></div>
-                <ul class="tab" floor-info="3" hcolor="#7f86ec">
-                    <li class="cur"><a style="background: #7f86ec;" href="javascript:void(0)"
-                                       modelid="1000061166">精选热卖</a></li>
-                    <li key="/floor/floor1and11_4/tab_1" modelid="1000061183"><a href="javascript:void(0);">新品抢先</a></li>
-                    <li key="/floor/floor1and11_4/tab_1" modelid="1000061183"><a href="javascript:void(0);">电视</a></li>
-                    <li key="/floor/floor1and11_4/tab_2" modelid="1000061195"><a href="javascript:void(0);">洗衣机</a></li>
-                    <li key="/floor/floor1and11_4/tab_3" modelid="1000061207"><a href="javascript:void(0);">冰箱</a></li>
+                <ul class="tab" floor-info="3" hcolor="#7f86ec" id="threeFloor">
+                    <li class="cur" key="0"><a style="background: #7f86ec;" href="javascript:void(0)"
+                                               modelid="1000061166">精选热卖</a></li>
+                    <li key="1" modelid="1000061183"><a href="javascript:void(0);">新品抢先</a>
+                    </li>
+                    <li key="2" modelid="1000061183"><a href="javascript:void(0);">电视</a></li>
+                    <li key="3" modelid="1000061195"><a href="javascript:void(0);">洗衣机</a></li>
+                    <li key="4" modelid="1000061207"><a href="javascript:void(0);">冰箱</a></li>
                 </ul>
             </div>
             <div class="mc">
@@ -4222,7 +4261,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="keywords edit-mode"  modelid="1000061175" modeltype="2">
+                        <div class="keywords edit-mode" modelid="1000061175" modeltype="2">
                             <ul class="w55">
                                 <li class=""><a
                                         href="https://list.gome.com.cn/cat10000049-00-0-48-1-0-0-0-1-1dsf-0-0-10-0-0-0-0-0.html"
@@ -4274,12 +4313,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="main_warp">
-                    <div class="main" style="display: block" tab-data-load="0">
+                <div class="main_warp" id="threeFloor_div">
+                    <div class="main" style="display: block" >
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/9140120847-1130588315.html" data-code="1000061231-1"
                                    target="_blank" title="TCL 65英寸4K智能电视"> <img class="lazyloading"
-                                                                                src="//gfs17.gomein.net.cn/T14rVsBTYT1RCvBVdK_130.jpg"
+                                                                                src=""
                                                                                 alt="TCL 65英寸4K智能电视" width="130"
                                                                                 height="130">
                                 <p class="p_name">TCL 65英寸4K智能电视</p>
@@ -4287,7 +4326,7 @@
                                     <span>¥</span>2899.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140133068-1130651089.html" data-code="1000061231-2"
                                    target="_blank" title="三洋55英寸4k超清智能电视"> <img class="lazyloading"
-                                                                                src="//gfs17.gomein.net.cn/T1ObZQBXCv1RCvBVdK_130.jpg"
+                                                                                src=""
                                                                                 alt="三洋55英寸4k超清智能电视" width="130"
                                                                                 height="130">
                                 <p class="p_name">三洋55英寸4k超清智能电视</p>
@@ -4295,7 +4334,7 @@
                                     <span>¥</span>1699.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140129903-1130636958.html" data-code="1000061231-3"
                                    target="_blank" title="海信55英寸4K AI智能电视"> <img class="lazyloading"
-                                                                                 src="//gfs17.gomein.net.cn/T1v_E_BgKv1RCvBVdK_130.jpg"
+                                                                                 src=""
                                                                                  alt="海信55英寸4K AI智能电视" width="130"
                                                                                  height="130">
                                 <p class="p_name">海信55英寸4K AI智能电视</p>
@@ -4303,7 +4342,7 @@
                                     <span>¥</span>4599.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140134267-1130641503.html" data-code="1000061231-4"
                                    target="_blank" title="索尼65英寸4K超高清智能电视"> <img class="lazyloading"
-                                                                                 src="//gfs17.gomein.net.cn/T10tCbBjWv1RCvBVdK_130.jpg"
+                                                                                 src=""
                                                                                  alt="索尼65英寸4K超高清智能电视" width="130"
                                                                                  height="130">
                                 <p class="p_name">索尼65英寸4K超高清智能电视</p>
@@ -4318,7 +4357,7 @@
                                     <span>¥</span>4999.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140143272-1130635437.html" data-code="1000061231-6"
                                    target="_blank" title="小米65英寸AI人工智能语音电视"> <img class="lazyloading"
-                                                                                  src="//gfs17.gomein.net.cn/T1nvJsBQWT1RCvBVdK_130.jpg"
+                                                                                  src=""
                                                                                   alt="小米65英寸AI人工智能语音电视" width="130"
                                                                                   height="130">
                                 <p class="p_name">小米65英寸AI人工智能语音电视</p>
@@ -4326,7 +4365,7 @@
                                     <span>¥</span>2699.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140128059-1130600639.html" data-code="1000061231-7"
                                    target="_blank" title="创维65英寸4K智能电视"> <img class="lazyloading"
-                                                                              src="//gfs17.gomein.net.cn/T1XkDgBjhv1RCvBVdK_130.jpg"
+                                                                              src=""
                                                                               alt="创维65英寸4K智能电视" width="130"
                                                                               height="130">
                                 <p class="p_name">创维65英寸4K智能电视</p>
@@ -4334,7 +4373,7 @@
                                     <span>¥</span>5999.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140135078-1130624264.html" data-code="1000061231-8"
                                    target="_blank" title="索尼65英寸4K智能超高清电视"> <img class="lazyloading"
-                                                                                 src="//gfs17.gomein.net.cn/T1MFAsBXdv1RCvBVdK_130.jpg"
+                                                                                 src=""
                                                                                  alt="索尼65英寸4K智能超高清电视" width="130"
                                                                                  height="130">
                                 <p class="p_name">索尼65英寸4K智能超高清电视</p>
@@ -4342,7 +4381,7 @@
                                     <span>¥</span>6388.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140135075-1130659958.html" data-code="1000061231-9"
                                    target="_blank" title="索尼75英寸4K超高清智能电视"> <img class="lazyloading"
-                                                                                 src="//gfs17.gomein.net.cn/T1Q7_jBXJ_1RCvBVdK_130.jpg"
+                                                                                 src=""
                                                                                  alt="索尼75英寸4K超高清智能电视" width="130"
                                                                                  height="130">
                                 <p class="p_name">索尼75英寸4K超高清智能电视</p>
@@ -4350,7 +4389,7 @@
                                     <span>¥</span>9399.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140128220-1130616346.html" data-code="1000061231-10"
                                    target="_blank" title="索尼75英寸4K超高清电视"> <img class="lazyloading"
-                                                                               src="//gfs17.gomein.net.cn/T1kKJbB4dv1RCvBVdK_130.jpg"
+                                                                               src=""
                                                                                alt="索尼75英寸4K超高清电视" width="130"
                                                                                height="130">
                                 <p class="p_name">索尼75英寸4K超高清电视</p>
@@ -4358,11 +4397,11 @@
                                     <span>¥</span>13899.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="main" tab-data-load="0">
+                    <div class="main" style="display: none">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/9134220036-1123170022.html" data-code="1000061219-1"
                                    target="_blank" title="伊莱克斯 1匹定频冷暖空调 静音 节能 速冷暖"> <img class="lazyloading"
-                                                                                         src="//gfs17.gomein.net.cn/T1OoVbB7Dv1RCvBVdK_130.jpg"
+                                                                                         src=""
                                                                                          alt="伊莱克斯 1匹定频冷暖空调 静音 节能 速冷暖"
                                                                                          width="130" height="130">
                                 <p class="p_name">伊莱克斯 1匹定频冷暖空调 静音 节能 速冷暖</p>
@@ -4370,7 +4409,7 @@
                                     <span>¥</span>1399.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9134570041-1123510042.html" data-code="1000061219-2"
                                    target="_blank" title="美的 1.5匹智弧冷暖空调智能 静音 强劲制冷热"> <img class="lazyloading"
-                                                                                          src="//gfs17.gomein.net.cn/T1BGDTB_ZT1RCvBVdK_130.jpg"
+                                                                                          src=""
                                                                                           alt="美的 1.5匹智弧冷暖空调智能 静音 强劲制冷热"
                                                                                           width="130" height="130">
                                 <p class="p_name">美的 1.5匹智弧冷暖空调智能 静音 强劲制冷热</p>
@@ -4378,7 +4417,7 @@
                                     <span>¥</span>2099.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140128025-1130634072.html" data-code="1000061219-3"
                                    target="_blank" title="海尔 1.5匹变频空调 一级能效 自清洁 17分贝静音"> <img class="lazyloading"
-                                                                                             src="//gfs17.gomein.net.cn/T1y2VXBsWT1RCvBVdK_130.jpg"
+                                                                                             src=""
                                                                                              alt="海尔 1.5匹变频空调 一级能效 自清洁 17分贝静音"
                                                                                              width="130" height="130">
                                 <p class="p_name">海尔 1.5匹变频空调 一级能效 自清洁 17分贝静音</p>
@@ -4386,7 +4425,7 @@
                                     <span>¥</span>3099.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140074502-1130580385.html" data-code="1000061219-4"
                                    target="_blank" title="长虹 1.5匹变频冷暖空调一级能效 WIFI操控"> <img class="lazyloading"
-                                                                                          src="//gfs17.gomein.net.cn/T1OQD_BjWT1RCvBVdK_130.jpg"
+                                                                                          src=""
                                                                                           alt="长虹 1.5匹变频冷暖空调一级能效 WIFI操控"
                                                                                           width="130" height="130">
                                 <p class="p_name">长虹 1.5匹变频冷暖空调一级能效 WIFI操控</p>
@@ -4442,7 +4481,7 @@
                                     <span>¥</span>2999.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="main" tab-data-load="0">
+                    <div class="main" style="display: none">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/9140068345-1130618144.html" data-code="1000061183-1"
                                    target="_blank" title="长虹55英寸人工智能电视"> <img class="lazyloading"
@@ -4477,7 +4516,7 @@
                                     <span>¥</span>1299.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140042265-1130038145.html" data-code="1000061183-5"
                                    target="_blank" title="海尔55英寸人工智能电视"> <img class="lazyloading"
-                                                                              src="//gfs17.gomein.net.cn/T1FALQBjLT1RCvBVdK_130.jpg"
+                                                                              src=""
                                                                               alt="海尔55英寸人工智能电视" width="130"
                                                                               height="130">
                                 <p class="p_name">海尔55英寸人工智能电视</p>
@@ -4525,7 +4564,7 @@
                                     <span>¥</span>1699.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="main" tab-data-load="0">
+                    <div class="main" style="display: none">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/9140047342-1130049244.html" data-code="1000061195-1"
                                    target="_blank" title="海尔10kg滚筒洗衣机"> <img class="lazyloading"
@@ -4557,60 +4596,60 @@
                                     <span>¥</span>5890.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9134520865-1123460337.html" data-code="1000061195-5"
                                    target="_blank" title="海尔8kg波轮洗衣机"> <img class="lazyloading"
-                                                                            src="//gfs17.gomein.net.cn/T1vzCjBChv1RCvBVdK_130.jpg"
+                                                                            src=""
                                                                             alt="海尔8kg波轮洗衣机" width="130" height="130">
                                 <p class="p_name">海尔8kg波轮洗衣机</p>
                                 <p class="p_price" productid="9134520865" sku="1123460337" priceflag="false">
                                     <span>¥</span>1099.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140018698-1130014523.html" data-code="1000061195-6"
                                    target="_blank" title="小天鹅8kg波轮洗衣机"> <img class="lazyloading"
-                                                                             src="//gfs17.gomein.net.cn/T1nGC_B_DT1RCvBVdK_130.jpg"
+                                                                             src=""
                                                                              alt="小天鹅8kg波轮洗衣机" width="130" height="130">
                                 <p class="p_name">小天鹅8kg波轮洗衣机</p>
                                 <p class="p_price" productid="9140018698" sku="1130014523" priceflag="false">
                                     <span>¥</span>1099.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140041362-1130045405.html" data-code="1000061195-7"
                                    target="_blank" title="松下10kg滚筒洗衣机"> <img class="lazyloading"
-                                                                             src="//gfs17.gomein.net.cn/T1nPEgBjYv1RCvBVdK_130.jpg"
+                                                                             src=""
                                                                              alt="松下10kg滚筒洗衣机" width="130" height="130">
                                 <p class="p_name">松下10kg滚筒洗衣机</p>
                                 <p class="p_price" productid="9140041362" sku="1130045405" priceflag="false">
                                     <span>¥</span>5298.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140071914-1130567892.html" data-code="1000061195-8"
                                    target="_blank" title="海尔9kg滚筒洗衣机"> <img class="lazyloading"
-                                                                            src="//gfs17.gomein.net.cn/T1_TxXBvAT1RCvBVdK_130.jpg"
+                                                                            src=""
                                                                             alt="海尔9kg滚筒洗衣机" width="130" height="130">
                                 <p class="p_name">海尔9kg滚筒洗衣机</p>
                                 <p class="p_price" productid="9140071914" sku="1130567892" priceflag="false">
                                     <span>¥</span>1899.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140071135-1130562213.html" data-code="1000061195-9"
                                    target="_blank" title="海信7kg波轮洗衣机"> <img class="lazyloading"
-                                                                            src="//gfs17.gomein.net.cn/T1HxAgBmbv1RCvBVdK_130.jpg"
+                                                                            src=""
                                                                             alt="海信7kg波轮洗衣机" width="130" height="130">
                                 <p class="p_name">海信7kg波轮洗衣机</p>
                                 <p class="p_price" productid="9140071135" sku="1130562213" priceflag="false">
                                     <span>¥</span>899.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9134520905-1123460725.html" data-code="1000061195-10"
                                    target="_blank" title="西门子9kg滚筒洗衣机"> <img class="lazyloading"
-                                                                             src="//gfs17.gomein.net.cn/T1TdJQBKCv1RCvBVdK_130.jpg"
+                                                                             src=""
                                                                              alt="西门子9kg滚筒洗衣机" width="130" height="130">
                                 <p class="p_name">西门子9kg滚筒洗衣机</p>
                                 <p class="p_price" productid="9134520905" sku="1123460725" priceflag="false">
                                     <span>¥</span>3899.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="main" tab-data-load="0">
+                    <div class="main" style="display: none">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/9140046278-1130047478.html" data-code="1000061207-1"
                                    target="_blank" title="海尔258L三门冰箱"> <img class="lazyloading"
-                                                                            src="//gfs17.gomein.net.cn/T1NLZsBKxv1RCvBVdK_130.jpg"
+                                                                            src=""
                                                                             alt="海尔258L三门冰箱" width="130" height="130">
                                 <p class="p_name">海尔258L三门冰箱</p>
                                 <p class="p_price" productid="9140046278" sku="1130047478" priceflag="false">
                                     <span>¥</span>2799.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140050587-1130345664.html" data-code="1000061207-2"
                                    target="_blank" title="西门子610L对开门冰箱"> <img class="lazyloading"
-                                                                              src="//gfs17.gomein.net.cn/T1nZ__BjDv1RCvBVdK_130.jpg"
+                                                                              src=""
                                                                               alt="西门子610L对开门冰箱" width="130"
                                                                               height="130">
                                 <p class="p_name">西门子610L对开门冰箱</p>
@@ -4618,28 +4657,28 @@
                                     <span>¥</span>6399.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0006368779-pop8010859737.html?intcmp=sy-1000061207-3"
                                    data-code="1000061207-3" target="_blank" title="美的535L对开门冰箱"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1mhKbBvC_1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="美的535L对开门冰箱" width="130" height="130">
                                 <p class="p_name">美的535L对开门冰箱</p>
                                 <p class="p_price" productid="A0006368779" sku="pop8010859737" priceflag="false">
                                     <span>¥</span>2799.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9134292184-1123231708.html" data-code="1000061207-4"
                                    target="_blank" title="美菱568L对开门冰箱"> <img class="lazyloading"
-                                                                             src="//gfs17.gomein.net.cn/T1MWC_BCJ_1RCvBVdK_130.jpg"
+                                                                             src=""
                                                                              alt="美菱568L对开门冰箱" width="130" height="130">
                                 <p class="p_name">美菱568L对开门冰箱</p>
                                 <p class="p_price" productid="9134292184" sku="1123231708" priceflag="false">
                                     <span>¥</span>2999.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140026313-1130022841.html" data-code="1000061207-5"
                                    target="_blank" title="美菱362L多门冰箱"> <img class="lazyloading"
-                                                                            src="//gfs17.gomein.net.cn/T1sXZsBXhv1RCvBVdK_130.jpg"
+                                                                            src=""
                                                                             alt="美菱362L多门冰箱" width="130" height="130">
                                 <p class="p_name">美菱362L多门冰箱</p>
                                 <p class="p_price" productid="9140026313" sku="1130022841" priceflag="false">
                                     <span>¥</span>3599.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9134402965-1123342862.html" data-code="1000061207-6"
                                    target="_blank" title="西门子452L十字对开门冰箱"> <img class="lazyloading"
-                                                                                src="//gfs17.gomein.net.cn/T1ZObbBTxv1RCvBVdK_130.jpg"
+                                                                                src=""
                                                                                 alt="西门子452L十字对开门冰箱" width="130"
                                                                                 height="130">
                                 <p class="p_name">西门子452L十字对开门冰箱</p>
@@ -4647,7 +4686,7 @@
                                     <span>¥</span>7999.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140056225-1130545498.html" data-code="1000061207-7"
                                    target="_blank" title="博世452L十字对开门冰箱"> <img class="lazyloading"
-                                                                               src="//gfs17.gomein.net.cn/T1erZjB7Lv1RCvBVdK_130.jpg"
+                                                                               src=""
                                                                                alt="博世452L十字对开门冰箱" width="130"
                                                                                height="130">
                                 <p class="p_name">博世452L十字对开门冰箱</p>
@@ -4655,21 +4694,21 @@
                                     <span>¥</span>9399.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140017959-1130013191.html" data-code="1000061207-8"
                                    target="_blank" title="美菱200L双门冰箱"> <img class="lazyloading"
-                                                                            src="//gfs17.gomein.net.cn/T1N0WjBgYb1RCvBVdK_130.jpg"
+                                                                            src=""
                                                                             alt="美菱200L双门冰箱" width="130" height="130">
                                 <p class="p_name">美菱200L双门冰箱</p>
                                 <p class="p_price" productid="9140017959" sku="1130013191" priceflag="false">
                                     <span>¥</span>1599.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140041686-1130042948.html" data-code="1000061207-9"
                                    target="_blank" title="海尔642L对开门冰箱"> <img class="lazyloading"
-                                                                             src="//gfs17.gomein.net.cn/T13eJXBvxT1RCvBVdK_130.jpg"
+                                                                             src=""
                                                                              alt="海尔642L对开门冰箱" width="130" height="130">
                                 <p class="p_name">海尔642L对开门冰箱</p>
                                 <p class="p_price" productid="9140041686" sku="1130042948" priceflag="false">
                                     <span>¥</span>3799.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9134561855-1123501802.html" data-code="1000061207-10"
                                    target="_blank" title="美的207L双门冰箱电脑控温芙蓉金"> <img class="lazyloading"
-                                                                                   src="//gfs17.gomein.net.cn/T1lRxsBvAT1RCvBVdK_130.jpg"
+                                                                                   src=""
                                                                                    alt="美的207L双门冰箱电脑控温芙蓉金" width="130"
                                                                                    height="130">
                                 <p class="p_name">美的207L双门冰箱电脑控温芙蓉金</p>
@@ -4677,28 +4716,108 @@
                                     <span>¥</span>1859.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="page_slider" style="display: none;">
-                        <p class="page_down" onselectstart="return false" style="-moz-user-select:none;"><a
-                                href="javascript:void(0)" class="slider_next"></a><span class="next"></span></p>
+                    <div class="main" style="display: none">
+                        <ul class="main_inner">
+                            <li><a href="//item.gome.com.cn/9134220036-1123170022.html" data-code="1000061219-1"
+                                   target="_blank" title="伊莱克斯 1匹定频冷暖空调 静音 节能 速冷暖"> <img class="lazyloading"
+                                                                                         src=""
+                                                                                         alt="伊莱克斯 1匹定频冷暖空调 静音 节能 速冷暖"
+                                                                                         width="130" height="130">
+                                <p class="p_name">伊莱克斯 1匹定频冷暖空调 静音 节能 速冷暖</p>
+                                <p class="p_price" productid="9134220036" sku="1123170022" priceflag="false">
+                                    <span>¥</span>1399.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9134570041-1123510042.html" data-code="1000061219-2"
+                                   target="_blank" title="美的 1.5匹智弧冷暖空调智能 静音 强劲制冷热"> <img class="lazyloading"
+                                                                                          src=""
+                                                                                          alt="美的 1.5匹智弧冷暖空调智能 静音 强劲制冷热"
+                                                                                          width="130" height="130">
+                                <p class="p_name">美的 1.5匹智弧冷暖空调智能 静音 强劲制冷热</p>
+                                <p class="p_price" productid="9134570041" sku="1123510042" priceflag="false">
+                                    <span>¥</span>2099.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140128025-1130634072.html" data-code="1000061219-3"
+                                   target="_blank" title="海尔 1.5匹变频空调 一级能效 自清洁 17分贝静音"> <img class="lazyloading"
+                                                                                             src=""
+                                                                                             alt="海尔 1.5匹变频空调 一级能效 自清洁 17分贝静音"
+                                                                                             width="130" height="130">
+                                <p class="p_name">海尔 1.5匹变频空调 一级能效 自清洁 17分贝静音</p>
+                                <p class="p_price" productid="9140128025" sku="1130634072" priceflag="false">
+                                    <span>¥</span>3099.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140074502-1130580385.html" data-code="1000061219-4"
+                                   target="_blank" title="长虹 1.5匹变频冷暖空调一级能效 WIFI操控"> <img class="lazyloading"
+                                                                                          src=""
+                                                                                          alt="长虹 1.5匹变频冷暖空调一级能效 WIFI操控"
+                                                                                          width="130" height="130">
+                                <p class="p_name">长虹 1.5匹变频冷暖空调一级能效 WIFI操控</p>
+                                <p class="p_price" productid="9140074502" sku="1130580385" priceflag="false">
+                                    <span>¥</span>2499.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9134570032-1123503012.html" data-code="1000061219-5"
+                                   target="_blank" title="美的 正1.5匹智弧变频空调ECO节能 静音 手机智控"> <img class="lazyloading"
+                                                                                             src="//gfs17.gomein.net.cn/T1QPKTB4Ev1RCvBVdK_130.jpg"
+                                                                                             alt="美的 正1.5匹智弧变频空调ECO节能 静音 手机智控"
+                                                                                             width="130" height="130">
+                                <p class="p_name">美的 正1.5匹智弧变频空调ECO节能 静音 手机智控</p>
+                                <p class="p_price" productid="9134570032" sku="1123503012" priceflag="false">
+                                    <span>¥</span>2299.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140028806-1130031271.html" data-code="1000061219-6"
+                                   target="_blank" title="国美 1.5匹冷暖定频空调WIFI智能 速冷暖 4重静音"> <img class="lazyloading"
+                                                                                              src="//gfs17.gomein.net.cn/T1VkZbByWv1RCvBVdK_130.jpg"
+                                                                                              alt="国美 1.5匹冷暖定频空调WIFI智能 速冷暖 4重静音"
+                                                                                              width="130" height="130">
+                                <p class="p_name">国美 1.5匹冷暖定频空调WIFI智能 速冷暖 4重静音</p>
+                                <p class="p_price" productid="9140028806" sku="1130031271" priceflag="false">
+                                    <span>¥</span>1699.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140137374-1130644088.html" data-code="1000061219-7"
+                                   target="_blank" title="美的 大1匹极酷变频空调一级能效 WIFI操控 一键防直吹"> <img class="lazyloading"
+                                                                                               src="//gfs17.gomein.net.cn/T1gNDgB4x_1RCvBVdK_130.jpg"
+                                                                                               alt="美的 大1匹极酷变频空调一级能效 WIFI操控 一键防直吹"
+                                                                                               width="130" height="130">
+                                <p class="p_name">美的 大1匹极酷变频空调一级能效 WIFI操控 一键防直吹</p>
+                                <p class="p_price" productid="9140137374" sku="1130644088" priceflag="false">
+                                    <span>¥</span>2699.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140144363-1130628832.html" data-code="1000061219-8"
+                                   target="_blank" title="伊莱克斯 大1匹变频空调一级能效  四重静音"> <img class="lazyloading"
+                                                                                        src="//gfs17.gomein.net.cn/T1kTxvBvLQ1RCvBVdK_130.jpg"
+                                                                                        alt="伊莱克斯 大1匹变频空调一级能效  四重静音"
+                                                                                        width="130" height="130">
+                                <p class="p_name">伊莱克斯 大1匹变频空调一级能效 四重静音</p>
+                                <p class="p_price" productid="9140144363" sku="1130628832" priceflag="false">
+                                    <span>¥</span>1999.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140070706-1130546036.html" data-code="1000061219-9"
+                                   target="_blank" title="美的 1.5匹冷静星Ⅱ变频空调"> <img class="lazyloading"
+                                                                                 src="//gfs17.gomein.net.cn/T1ocW_BsZT1RCvBVdK_130.jpg"
+                                                                                 alt="美的 1.5匹冷静星Ⅱ变频空调" width="130"
+                                                                                 height="130">
+                                <p class="p_name">美的 1.5匹冷静星Ⅱ变频空调</p>
+                                <p class="p_price" productid="9140070706" sku="1130546036" priceflag="false">
+                                    <span>¥</span>2849.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140000166-1123520096.html" data-code="1000061219-10"
+                                   target="_blank" title="格力 大1匹舒尚变频空调 智控 节能 集成四种睡眠模式"> <img class="lazyloading"
+                                                                                             src="//gfs17.gomein.net.cn/T1fPdTBbdv1RCvBVdK_130.jpg"
+                                                                                             alt="格力 大1匹舒尚变频空调 智控 节能 集成四种睡眠模式"
+                                                                                             width="130" height="130">
+                                <p class="p_name">格力 大1匹舒尚变频空调 智控 节能 集成四种睡眠模式</p>
+                                <p class="p_price" productid="9140000166" sku="1123520096" priceflag="false">
+                                    <span>¥</span>2999.00</p></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="floor wbox edit-mode" modelid="1000061063" modeltype="" data-title="厨房卫浴" data-code-index="4"
+    <div class="floor wbox edit-mode" modelid="1000061063" modeltype="" data-title="厨房卫浴" id="item-4"
          data-time="04d20ba6-8fb9-4a8e-b749-d552dabd70eb">
         <div class="ct temp1">
             <div class="mt" style="border-bottom:1px solid #41ccb8">
                 <div class="mtTop"><span class="h2_text">4F</span>
                     <h2>厨房卫浴</h2></div>
-                <ul class="tab" floor-info="4" hcolor="#41ccb8">
-                    <li class="cur"><a style="background: #41ccb8;" href="javascript:void(0)"
-                                       modelid="1000061064">精选热卖</a></li>
-                    <li key="/floor/floor1and11_3/tab_1" modelid="1000061081"><a href="javascript:void(0);">新品抢先</a>
+                <ul class="tab" floor-info="4" hcolor="#41ccb8" id="fourFloor">
+                    <li class="cur" key="0"><a style="background: #41ccb8;" href="javascript:void(0)"
+                                               modelid="1000061064">精选热卖</a></li>
+                    <li key="1" modelid="1000061081"><a href="javascript:void(0);">新品抢先</a>
                     </li>
-                    <li key="/floor/floor1and11_3/tab_1" modelid="1000061081"><a href="javascript:void(0);">厨房小电</a>
+                    <li key="2" modelid="1000061081"><a href="javascript:void(0);">厨房小电</a>
                     </li>
-                    <li key="/floor/floor1and11_3/tab_2" modelid="1000061093"><a href="javascript:void(0);">生活电器</a>
+                    <li key="3" modelid="1000061093"><a href="javascript:void(0);">生活电器</a>
                     </li>
                 </ul>
             </div>
@@ -4728,7 +4847,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="keywords edit-mode"  modelid="1000061073" modeltype="2">
+                        <div class="keywords edit-mode" modelid="1000061073" modeltype="2">
                             <ul class="w55">
                                 <li class=""><a
                                         href="//list.gome.com.cn/cat10000203-00-0-48-1-0-0-0-1-0-0-1-0-0-0-0-0-0.html"
@@ -4749,8 +4868,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="main_warp">
-                    <div class="main" style="display: block" tab-data-load="0">
+                <div class="main_warp" id="fourFloor_div">
+                    <div class="main" style="display: block">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/9140134011-1130631064.html" data-code="1000061153-1"
                                    target="_blank" title="克来比（KLEBY）电烧烤炉 家用无烟韩式电烤盘 双温控火锅烧烤多功能一体锅 KLB9064 中号"> <img
@@ -4837,7 +4956,7 @@
                                     <span>¥</span>2798.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="main" tab-data-load="0">
+                    <div class="main" style="display: none">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/9134562042-1123503019.html" data-code="1000061081-1"
                                    target="_blank" title="苏泊尔（SUPOR） CYSB50YCW10D-100 电压力锅"> <img class="lazyloading"
@@ -4918,7 +5037,7 @@
                                     <span>¥</span>3198.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="main" tab-data-load="0">
+                    <div class="main" style="display: none">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/9140022472-1130016235.html" data-code="1000061093-1"
                                    target="_blank"
@@ -4947,7 +5066,7 @@
                                     <span>¥</span>1099.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140000270-1122829291.html" data-code="1000061093-4"
                                    target="_blank" title="飞利浦PHILIPS电动牙刷HX9362/67钻石亮白型充电电动牙刷成人 奢宠粉钻 牙刷盒是USB充电器"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1EdKQBX__1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="飞利浦PHILIPS电动牙刷HX9362/67钻石亮白型充电电动牙刷成人 奢宠粉钻 牙刷盒是USB充电器" width="130" height="130">
                                 <p class="p_name">飞利浦PHILIPS电动牙刷HX9362/67钻石亮白型充电电动牙刷成人 奢宠粉钻 牙刷盒是USB充电器</p>
                                 <p class="p_price" productid="9140000270" sku="1122829291" priceflag="false">
@@ -5000,25 +5119,25 @@
                                     <span>¥</span>629.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="main" tab-data-load="0">
+                    <div class="main"style="display: none">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/9134180029-1122887558.html" data-code="1000061105-1"
                                    target="_blank" title="布鲁雅尔(Blueair) 510B 家用 空气净化器 除雾霾PM2.5甲醛 静音 白"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1nXDQBQdT1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="布鲁雅尔(Blueair) 510B 家用 空气净化器 除雾霾PM2.5甲醛 静音 白" width="130" height="130">
                                 <p class="p_name">布鲁雅尔(Blueair) 510B 家用 空气净化器 除雾霾PM2.5甲醛 静音 白</p>
                                 <p class="p_price" productid="9134180029" sku="1122887558" priceflag="false">
                                     <span>¥</span>5399.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140072632-1130563170.html" data-code="1000061105-2"
                                    target="_blank" title="352 X80 颗粒物CADR750m³/h 智能操控 去除甲醛 家用空气净化器 多层滤芯"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1CkL_BbAT1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="352 X80 颗粒物CADR750m³/h 智能操控 去除甲醛 家用空气净化器 多层滤芯" width="130" height="130">
                                 <p class="p_name">352 X80 颗粒物CADR750m³/h 智能操控 去除甲醛 家用空气净化器 多层滤芯</p>
                                 <p class="p_price" productid="9140072632" sku="1130563170" priceflag="false">
                                     <span>¥</span>1899.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9121713347-1130465797.html" data-code="1000061105-3"
                                    target="_blank" title="大金（DAIKIN）MC71NV2C-N  CADR值421除甲醛异味二手烟 流光能家用空气清洁器（金色）"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1gkbTB_ZT1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="大金（DAIKIN）MC71NV2C-N  CADR值421除甲醛异味二手烟 流光能家用空气清洁器（金色）" width="130"
                                     height="130">
                                 <p class="p_name">大金（DAIKIN）MC71NV2C-N CADR值421除甲醛异味二手烟 流光能家用空气清洁器（金色）</p>
@@ -5026,7 +5145,7 @@
                                     <span>¥</span>3500.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140047711-1130041548.html" data-code="1000061105-4"
                                    target="_blank" title="亚都(YADU) KJ350F-PH 40平方米 空气质量提示 加湿净化一体 无烟加湿 空气净化器 除PM2.5 白">
-                                <img class="lazyloading" src="//gfs17.gomein.net.cn/T1xJLvBQ_Q1RCvBVdK_130.jpg"
+                                <img class="lazyloading" src=""
                                      alt="亚都(YADU) KJ350F-PH 40平方米 空气质量提示 加湿净化一体 无烟加湿 空气净化器 除PM2.5 白" width="130"
                                      height="130">
                                 <p class="p_name">亚都(YADU) KJ350F-PH 40平方米 空气质量提示 加湿净化一体 无烟加湿 空气净化器 除PM2.5 白</p>
@@ -5034,28 +5153,28 @@
                                     <span>¥</span>5499.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9111030230-1130217279.html" data-code="1000061105-5"
                                    target="_blank" title="大金（DAIKIN）MC70KMV2-N CADR值336除甲醛异味二手烟 流光能家用空气清洁器"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1g.DvB7Av1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="大金（DAIKIN）MC70KMV2-N CADR值336除甲醛异味二手烟 流光能家用空气清洁器" width="130" height="130">
                                 <p class="p_name">大金（DAIKIN）MC70KMV2-N CADR值336除甲醛异味二手烟 流光能家用空气清洁器</p>
                                 <p class="p_price" productid="9111030230" sku="1130217279" priceflag="false">
                                     <span>¥</span>2299.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9140126381-1130631161.html" data-code="1000061105-6"
                                    target="_blank" title="海尔(Haier) CJ05GK 车载空气净化器 一键换挡 自动切换 3D涡轮增压系统"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1x5dQBbEv1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="海尔(Haier) CJ05GK 车载空气净化器 一键换挡 自动切换 3D涡轮增压系统" width="130" height="130">
                                 <p class="p_name">海尔(Haier) CJ05GK 车载空气净化器 一键换挡 自动切换 3D涡轮增压系统</p>
                                 <p class="p_price" productid="9140126381" sku="1130631161" priceflag="false">
                                     <span>¥</span>299.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9134260961-1123180094.html" data-code="1000061105-7"
                                    target="_blank" title="3M KJEA3087-GD 308m³/hCADR值 WiFi连接除甲醛除PM2.5 空气净化器香槟金"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T16.dTBmEv1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="3M KJEA3087-GD 308m³/hCADR值 WiFi连接除甲醛除PM2.5 空气净化器香槟金" width="130" height="130">
                                 <p class="p_name">3M KJEA3087-GD 308m³/hCADR值 WiFi连接除甲醛除PM2.5 空气净化器香槟金</p>
                                 <p class="p_price" productid="9134260961" sku="1123180094" priceflag="false">
                                     <span>¥</span>2499.00</p></a></li>
                             <li><a href="//item.gome.com.cn/9133612140-1122400500.html" data-code="1000061105-8"
                                    target="_blank" title="松下（Panasonic）F-PXJ35C-A空气净化器"> <img class="lazyloading"
-                                                                                              src="//gfs17.gomein.net.cn/T1f5JTBbdT1RCvBVdK_130.jpg"
+                                                                                              src=""
                                                                                               alt="松下（Panasonic）F-PXJ35C-A空气净化器"
                                                                                               width="130" height="130">
                                 <p class="p_name">松下（Panasonic）F-PXJ35C-A空气净化器</p>
@@ -5081,28 +5200,105 @@
                                     <span>¥</span>2199.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="page_slider" style="display: none;">
-                        <p class="page_down" onselectstart="return false" style="-moz-user-select:none;"><a
-                                href="javascript:void(0)" class="slider_next"></a><span class="next"></span></p>
+                    <div class="main" style="display: none">
+                        <ul class="main_inner">
+                            <li><a href="//item.gome.com.cn/9134562042-1123503019.html" data-code="1000061081-1"
+                                   target="_blank" title="苏泊尔（SUPOR） CYSB50YCW10D-100 电压力锅"> <img class="lazyloading"
+                                                                                                  src="//gfs17.gomein.net.cn/T1tzb_B_Zv1RCvBVdK_130.jpg"
+                                                                                                  alt="苏泊尔（SUPOR） CYSB50YCW10D-100 电压力锅"
+                                                                                                  width="130"
+                                                                                                  height="130">
+                                <p class="p_name">苏泊尔（SUPOR） CYSB50YCW10D-100 电压力锅</p>
+                                <p class="p_price" productid="9134562042" sku="1123503019" priceflag="false">
+                                    <span>¥</span>259.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140049255-1130547316.html" data-code="1000061081-2"
+                                   target="_blank" title="美的(Midea) 恒匀火电磁炉 智能恒匀火加热 滑控火力调节 C21-RH2162 (赠精铁渗氮炒锅)"> <img
+                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1JFDbBXZT1RCvBVdK_130.jpg"
+                                    alt="美的(Midea) 恒匀火电磁炉 智能恒匀火加热 滑控火力调节 C21-RH2162 (赠精铁渗氮炒锅)" width="130" height="130">
+                                <p class="p_name">美的(Midea) 恒匀火电磁炉 智能恒匀火加热 滑控火力调节 C21-RH2162 (赠精铁渗氮炒锅)</p>
+                                <p class="p_price" productid="9140049255" sku="1130547316" priceflag="false">
+                                    <span>¥</span>499.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140038452-1130038025.html?intcmp=sy-1000061081-3"
+                                   data-code="1000061081-3" target="_blank"
+                                   title="美的(Midea) 电饭煲 聚能圆灶釜 涡轮除泡防溢锅 金属拉丝机身 4L电饭锅 MB-WFS4037"> <img class="lazyloading"
+                                                                                                     src="//gfs17.gomein.net.cn/T1X6ZsBXWv1RCvBVdK_130.jpg"
+                                                                                                     alt="美的(Midea) 电饭煲 聚能圆灶釜 涡轮除泡防溢锅 金属拉丝机身 4L电饭锅 MB-WFS4037"
+                                                                                                     width="130"
+                                                                                                     height="130">
+                                <p class="p_name">美的(Midea) 电饭煲 聚能圆灶釜 涡轮除泡防溢锅 金属拉丝机身 4L电饭锅 MB-WFS4037</p>
+                                <p class="p_price" productid="9140038452" sku="1130038025" priceflag="false">
+                                    <span>¥</span>259.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9134076076-1123050113.html" data-code="1000061081-4"
+                                   target="_blank" title="【底价狂欢】格兰仕（Galanz）P70D20N3P- ST（W0）微波炉 20L容量 旋钮操作 简单省时 国家标准尺寸">
+                                <img class="lazyloading" src="//gfs17.gomein.net.cn/T1K.ZTByhv1RCvBVdK_130.jpg"
+                                     alt="【底价狂欢】格兰仕（Galanz）P70D20N3P- ST（W0）微波炉 20L容量 旋钮操作 简单省时 国家标准尺寸" width="130"
+                                     height="130">
+                                <p class="p_name">【底价狂欢】格兰仕（Galanz）P70D20N3P- ST（W0）微波炉 20L容量 旋钮操作 简单省时 国家标准尺寸</p>
+                                <p class="p_price" productid="9134076076" sku="1123050113" priceflag="false">
+                                    <span>¥</span>293.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9133744812-1122490798.html" data-code="1000061081-5"
+                                   target="_blank" title="忠臣(LOYOLA) 电陶炉 三环文武火 旋触双控 黑晶防爆面板 不挑锅家用电磁炉 LC-EB9S"> <img
+                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1cJEgByE_1RCvBVdK_130.jpg"
+                                    alt="忠臣(LOYOLA) 电陶炉 三环文武火 旋触双控 黑晶防爆面板 不挑锅家用电磁炉 LC-EB9S" width="130" height="130">
+                                <p class="p_name">忠臣(LOYOLA) 电陶炉 三环文武火 旋触双控 黑晶防爆面板 不挑锅家用电磁炉 LC-EB9S</p>
+                                <p class="p_price" productid="9133744812" sku="1122490798" priceflag="false">
+                                    <span>¥</span>189.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9134292230-1123231602.html" data-code="1000061081-6"
+                                   target="_blank" title="利仁(Liven) 电饼铛 30CM 家用双面加热 烙饼锅 可拆洗煎烤机 电脑版 LR-D3020A (美猴王) 黑咖">
+                                <img class="lazyloading" src="//gfs17.gomein.net.cn/T1xqCvB4hv1RCvBVdK_130.jpg"
+                                     alt="利仁(Liven) 电饼铛 30CM 家用双面加热 烙饼锅 可拆洗煎烤机 电脑版 LR-D3020A (美猴王) 黑咖" width="130"
+                                     height="130">
+                                <p class="p_name">利仁(Liven) 电饼铛 30CM 家用双面加热 烙饼锅 可拆洗煎烤机 电脑版 LR-D3020A (美猴王) 黑咖</p>
+                                <p class="p_price" productid="9134292230" sku="1123231602" priceflag="false">
+                                    <span>¥</span>239.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140116094-1130634861.html" data-code="1000061081-7"
+                                   target="_blank" title="荣事达（Royalstar）YSH1591养生壶 1.5升 高硼硅玻璃养生壶 养生锅 粉色"> <img
+                                    class="lazyloading" src="//gfs17.gomein.net.cn/T10vCjBsCv1RCvBVdK_130.jpg"
+                                    alt="荣事达（Royalstar）YSH1591养生壶 1.5升 高硼硅玻璃养生壶 养生锅 粉色" width="130" height="130">
+                                <p class="p_name">荣事达（Royalstar）YSH1591养生壶 1.5升 高硼硅玻璃养生壶 养生锅 粉色</p>
+                                <p class="p_price" productid="9140116094" sku="1130634861" priceflag="false">
+                                    <span>¥</span>79.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140001991-1130007347.html" data-code="1000061081-8"
+                                   target="_blank" title="九阳（Joyoung） DJ13B-D08D豆浆机 破壁免滤 快速制浆 白（新款）"> <img
+                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1XtEjB4AT1RCvBVdK_130.jpg"
+                                    alt="九阳（Joyoung） DJ13B-D08D豆浆机 破壁免滤 快速制浆 白（新款）" width="130" height="130">
+                                <p class="p_name">九阳（Joyoung） DJ13B-D08D豆浆机 破壁免滤 快速制浆 白（新款）</p>
+                                <p class="p_price" productid="9140001991" sku="1130007347" priceflag="false">
+                                    <span>¥</span>349.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140125834-1130634813.html" data-code="1000061081-9"
+                                   target="_blank" title="克来比（KLEBY）电烧烤炉 麦饭石家用无烟韩式电烤盘 适合3-5人 中号 KLB9001"> <img
+                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1ZRVjBKA_1RCvBVdK_130.jpg"
+                                    alt="克来比（KLEBY）电烧烤炉 麦饭石家用无烟韩式电烤盘 适合3-5人 中号 KLB9001" width="130" height="130">
+                                <p class="p_name">克来比（KLEBY）电烧烤炉 麦饭石家用无烟韩式电烤盘 适合3-5人 中号 KLB9001</p>
+                                <p class="p_price" productid="9140125834" sku="1130634813" priceflag="false">
+                                    <span>¥</span>129.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/9140113225-1130576242.html" data-code="1000061081-10"
+                                   target="_blank" title="惠人(HUROM) 原汁机 创新无网型易清洗果汁机 家用多功能低速榨汁机 H-100-DWBIA01"> <img
+                                    class="lazyloading" src="//gfs17.gomein.net.cn/T18KdXByYT1RCvBVdK_130.jpg"
+                                    alt="惠人(HUROM) 原汁机 创新无网型易清洗果汁机 家用多功能低速榨汁机 H-100-DWBIA01" width="130" height="130">
+                                <p class="p_name">惠人(HUROM) 原汁机 创新无网型易清洗果汁机 家用多功能低速榨汁机 H-100-DWBIA01</p>
+                                <p class="p_price" productid="9140113225" sku="1130576242" priceflag="false">
+                                    <span>¥</span>3198.00</p></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="floor wbox edit-mode" modelid="1000061471" modeltype="" data-title="家居家装" data-code-index="5"
+    <div class="floor wbox edit-mode" modelid="1000061471" modeltype="" data-title="家居家装" id="item-5"
          data-time="ded5c039-2b54-4923-982c-b934775b9574">
         <div class="ct temp1">
             <div class="mt" style="border-bottom:1px solid #abce5b">
                 <div class="mtTop"><span class="h2_text">5F</span>
                     <h2>家居家装</h2></div>
-                <ul class="tab" floor-info="6" hcolor="#abce5b">
-                    <li class="cur"><a style="background: #abce5b;" href="javascript:void(0)"
-                                       modelid="1000061472">精选热卖</a></li>
-                    <li key="/floor/floor1and11_7/tab_5" modelid="1000061537"><a href="javascript:void(0);">新品抢先</a>
+                <ul class="tab" floor-info="6" hcolor="#abce5b" id="fiveFloor">
+                    <li class="cur" key="0"><a style="background: #abce5b;" href="javascript:void(0)"
+                                               modelid="1000061472">精选热卖</a></li>
+                    <li key="1" modelid="1000061537"><a href="javascript:void(0);">新品抢先</a>
                     </li>
-                    <li key="/floor/floor1and11_7/tab_5" modelid="1000061537"><a href="javascript:void(0);">家装建材</a>
+                    <li key="2" modelid="1000061537"><a href="javascript:void(0);">家装建材</a>
                     </li>
-                    <li key="/floor/floor1and11_7/tab_6" modelid="1000061549"><a href="javascript:void(0);">精品家具</a>
+                    <li key="3" modelid="1000061549"><a href="javascript:void(0);">精品家具</a>
                     </li>
                 </ul>
             </div>
@@ -5128,7 +5324,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="keywords edit-mode"  modelid="1000061481" modeltype="2">
+                        <div class="keywords edit-mode" modelid="1000061481" modeltype="2">
                             <ul class="w55">
                                 <li class=""><a href="//list.gome.com.cn/cat21445665.html" target="_blank"
                                                 data-code="1000061481-1">吸顶灯</a></li>
@@ -5144,8 +5340,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="main_warp">
-                    <div class="main" style="display: block" tab-data-load="0">
+                <div class="main_warp" id="fiveFloor_div">
+                    <div class="main" style="display: block">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/A0006570885-pop8012827851.html" data-code="1000061561-1"
                                    target="_blank" title="汉斯格雅（Hansgrohe）柯洛玛3速智能节水花洒莲蓬头单品快速清洁（不含软管） 汉斯格雅手持花洒"> <img
@@ -5226,7 +5422,7 @@
                                     <span>¥</span>1599.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="main" tab-data-load="0">
+                    <div class="main" style="display: none">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/A0006315916-pop8010532448.html" data-code="1000061549-1"
                                    target="_blank" title="喜临门床垫22cm 泰国天然乳胶席梦思床垫 独立袋装弹簧 软硬两用椰棕床垫加厚 简约现代卧室家具 光年(1.8*2)">
@@ -5305,7 +5501,7 @@
                                     <span>¥</span>3460.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="main" tab-data-load="0">
+                    <div class="main" style="display: none">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/A0006321083-pop8010564645.html" data-code="1000061537-1"
                                    target="_blank" title="JOMOO九牧 卫浴花洒 空气能淋浴器花洒套装大蓬头可升降 旗舰版花洒 36182(36182经典款)"> <img
@@ -5381,7 +5577,7 @@
                                     <span>¥</span>1499.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0006535543-pop8012571495.html" data-code="1000061537-10"
                                    target="_blank" title="华帝 多功能智能风暖浴霸"> <img class="lazyloading"
-                                                                              src="//gfs17.gomein.net.cn/T1zCdXByYv1RCvBVdK_130.jpg"
+                                                                              src=""
                                                                               alt="华帝 多功能智能风暖浴霸" width="130"
                                                                               height="130">
                                 <p class="p_name">华帝 多功能智能风暖浴霸</p>
@@ -5389,7 +5585,86 @@
                                     <span>¥</span>399.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="main" tab-data-load="0">
+                    <div class="main" style="display: none">
+                        <ul class="main_inner">
+                            <li><a href="//item.gome.com.cn/A0006315916-pop8010532448.html" data-code="1000061549-1"
+                                   target="_blank" title="喜临门床垫22cm 泰国天然乳胶席梦思床垫 独立袋装弹簧 软硬两用椰棕床垫加厚 简约现代卧室家具 光年(1.8*2)">
+                                <img class="lazyloading" src=""
+                                     alt="喜临门床垫22cm 泰国天然乳胶席梦思床垫 独立袋装弹簧 软硬两用椰棕床垫加厚 简约现代卧室家具 光年(1.8*2)" width="130"
+                                     height="130">
+                                <p class="p_name">喜临门床垫22cm 泰国天然乳胶席梦思床垫 独立袋装弹簧 软硬两用椰棕床垫加厚 简约现代卧室家具 光年(1.8*2)</p>
+                                <p class="p_price" productid="A0006315916" sku="pop8010532448" priceflag="false">
+                                    <span>¥</span>2799.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006323888-pop8010577937.html" data-code="1000061549-2"
+                                   target="_blank"
+                                   title="A家家具 沙发 布艺沙发 可拆洗透气绒布客厅家具组合套装懒人北欧现代简约小户型布沙发 灰色 三人位+中位+右贵妃位(灰色 三人位+右贵妃位)"> <img
+                                    class="lazyloading" src=""
+                                    alt="A家家具 沙发 布艺沙发 可拆洗透气绒布客厅家具组合套装懒人北欧现代简约小户型布沙发 灰色 三人位+中位+右贵妃位(灰色 三人位+右贵妃位)"
+                                    width="130" height="130">
+                                <p class="p_name">A家家具 沙发 布艺沙发 可拆洗透气绒布客厅家具组合套装懒人北欧现代简约小户型布沙发 灰色 三人位+中位+右贵妃位(灰色
+                                    三人位+右贵妃位)</p>
+                                <p class="p_price" productid="A0006323888" sku="pop8010577937" priceflag="false">
+                                    <span>¥</span>3400.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006382649-pop8010984734.html" data-code="1000061549-3"
+                                   target="_blank" title="天米 TIMI 北欧白橡实木桌椅 1.2米1.4米餐厅家具 总统椅组合(原木色 1.4米餐桌+4把白蜡木总统椅)">
+                                <img class="lazyloading" src=""
+                                     alt="天米 TIMI 北欧白橡实木桌椅 1.2米1.4米餐厅家具 总统椅组合(原木色 1.4米餐桌+4把白蜡木总统椅)" width="130"
+                                     height="130">
+                                <p class="p_name">天米 TIMI 北欧白橡实木桌椅 1.2米1.4米餐厅家具 总统椅组合(原木色 1.4米餐桌+4把白蜡木总统椅)</p>
+                                <p class="p_price" productid="A0006382649" sku="pop8010984734" priceflag="false">
+                                    <span>¥</span>4188.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006336667-pop8010662645.html" data-code="1000061549-4"
+                                   target="_blank" title="恒兴达 白橡木床全实木双人床简约北欧卧室家具 大板直拼 纯实木 无贴皮(1.8*2米原木色 单床)"> <img
+                                    class="lazyloading" src=""
+                                    alt="恒兴达 白橡木床全实木双人床简约北欧卧室家具 大板直拼 纯实木 无贴皮(1.8*2米原木色 单床)" width="130" height="130">
+                                <p class="p_name">恒兴达 白橡木床全实木双人床简约北欧卧室家具 大板直拼 纯实木 无贴皮(1.8*2米原木色 单床)</p>
+                                <p class="p_price" productid="A0006336667" sku="pop8010662645" priceflag="false">
+                                    <span>¥</span>1499.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006204516-pop8009896559.html" data-code="1000061549-5"
+                                   target="_blank" title="双虎家私客厅布艺沙发整装现代简约大小户型皮布组合家具069(绅士蓝调右妃)"> <img
+                                    class="lazyloading" src=""
+                                    alt="双虎家私客厅布艺沙发整装现代简约大小户型皮布组合家具069(绅士蓝调右妃)" width="130" height="130">
+                                <p class="p_name">双虎家私客厅布艺沙发整装现代简约大小户型皮布组合家具069(绅士蓝调右妃)</p>
+                                <p class="p_price" productid="A0006204516" sku="pop8009896559" priceflag="false">
+                                    <span>¥</span>3799.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006541621-pop8012611927.html" data-code="1000061549-6"
+                                   target="_blank" title="浪漫星 北欧折叠餐桌椅组合 现代简约家用饭桌 小户型长方形圆餐桌子(灰橡木色 餐桌)"> <img
+                                    class="lazyloading" src=""
+                                    alt="浪漫星 北欧折叠餐桌椅组合 现代简约家用饭桌 小户型长方形圆餐桌子(灰橡木色 餐桌)" width="130" height="130">
+                                <p class="p_name">浪漫星 北欧折叠餐桌椅组合 现代简约家用饭桌 小户型长方形圆餐桌子(灰橡木色 餐桌)</p>
+                                <p class="p_price" productid="A0006541621" sku="pop8012611927" priceflag="false">
+                                    <span>¥</span>899.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006262953-pop8010183877.html" data-code="1000061549-7"
+                                   target="_blank" title="忆斧至家 床 真皮床 主卧现代简约 双人床1.8米婚床皮艺软体床(皮床+天然山棕床垫+2柜 1.8米)"> <img
+                                    class="lazyloading" src=""
+                                    alt="忆斧至家 床 真皮床 主卧现代简约 双人床1.8米婚床皮艺软体床(皮床+天然山棕床垫+2柜 1.8米)" width="130" height="130">
+                                <p class="p_name">忆斧至家 床 真皮床 主卧现代简约 双人床1.8米婚床皮艺软体床(皮床+天然山棕床垫+2柜 1.8米)</p>
+                                <p class="p_price" productid="A0006262953" sku="pop8010183877" priceflag="false">
+                                    <span>¥</span>2399.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006318177-pop8010545354.html" data-code="1000061549-8"
+                                   target="_blank" title="美天乐 北欧实木床主卧1.5m单双人床现代简约1.8米日式卧室高箱储物床婚床(1.8*2米无软靠 床)"> <img
+                                    class="lazyloading" src=""
+                                    alt="美天乐 北欧实木床主卧1.5m单双人床现代简约1.8米日式卧室高箱储物床婚床(1.8*2米无软靠 床)" width="130" height="130">
+                                <p class="p_name">美天乐 北欧实木床主卧1.5m单双人床现代简约1.8米日式卧室高箱储物床婚床(1.8*2米无软靠 床)</p>
+                                <p class="p_price" productid="A0006318177" sku="pop8010545354" priceflag="false">
+                                    <span>¥</span>1763.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006328388-pop8010598581.html" data-code="1000061549-9"
+                                   target="_blank" title="金屋藏娇 沙发 实木沙发 现代中式沙发组合 贵妃转角橡胶木沙发小户型客厅家具(颜色备注 三+贵妃+茶几)"> <img
+                                    class="lazyloading" src=""
+                                    alt="金屋藏娇 沙发 实木沙发 现代中式沙发组合 贵妃转角橡胶木沙发小户型客厅家具(颜色备注 三+贵妃+茶几)" width="130" height="130">
+                                <p class="p_name">金屋藏娇 沙发 实木沙发 现代中式沙发组合 贵妃转角橡胶木沙发小户型客厅家具(颜色备注 三+贵妃+茶几)</p>
+                                <p class="p_price" productid="A0006328388" sku="pop8010598581" priceflag="false">
+                                    <span>¥</span>3980.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0005128346-pop8005271421.html" data-code="1000061549-10"
+                                   target="_blank" title="浪漫星 头层中厚真牛皮沙发 大小户型客厅皮艺沙发 简约现代3088#(中厚皮-2+1+贵)"> <img
+                                    class="lazyloading" src=""
+                                    alt="浪漫星 头层中厚真牛皮沙发 大小户型客厅皮艺沙发 简约现代3088#(中厚皮-2+1+贵)" width="130" height="130">
+                                <p class="p_name">浪漫星 头层中厚真牛皮沙发 大小户型客厅皮艺沙发 简约现代3088#(中厚皮-2+1+贵)</p>
+                                <p class="p_price" productid="A0005128346" sku="pop8005271421" priceflag="false">
+                                    <span>¥</span>3460.00</p></a></li>
+                        </ul>
+                    </div>
+                    <div class="main" style="display: none">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/A0006315916-pop8010532448.html" data-code="1000061549-1"
                                    target="_blank" title="喜临门床垫22cm 泰国天然乳胶席梦思床垫 独立袋装弹簧 软硬两用椰棕床垫加厚 简约现代卧室家具 光年(1.8*2)">
@@ -5468,28 +5743,24 @@
                                     <span>¥</span>3460.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="page_slider" style="display: none;">
-                        <p class="page_down" onselectstart="return false" style="-moz-user-select:none;"><a
-                                href="javascript:void(0)" class="slider_next"></a><span class="next"></span></p>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="floor wbox edit-mode" modelid="1000061573" modeltype="" data-title="汽车用品" data-code-index="6"
+    <div class="floor wbox edit-mode" modelid="1000061573" modeltype="" data-title="汽车用品" id="item-6"
          data-time="51d787a5-a9a7-4b53-84f5-42a1bd2e0ea2">
         <div class="ct temp0">
             <div class="mt" style="border-bottom:1px solid #829daa">
                 <div class="mtTop"><span class="h2_text">6F</span>
                     <h2>汽车用品</h2></div>
-                <ul class="tab" floor-info="7" hcolor="#829daa">
-                    <li class="cur"><a style="background: #829daa;" href="javascript:void(0)"
-                                       modelid="1000061574">精品热卖</a></li>
-                    <li key="/floor/floor1and11_8/tab_1" modelid="1000061591"><a href="javascript:void(0);">新品抢先</a>
+                <ul class="tab" floor-info="7" hcolor="#829daa" id="sixFloor">
+                    <li class="cur" key="0"><a style="background: #829daa;" href="javascript:void(0)"
+                                               modelid="1000061574">精品热卖</a></li>
+                    <li key="1" modelid="1000061591"><a href="javascript:void(0);">新品抢先</a>
                     </li>
-                    <li key="/floor/floor1and11_8/tab_3" modelid="1000061615"><a href="javascript:void(0);">四季坐垫</a>
+                    <li key="2" modelid="1000061615"><a href="javascript:void(0);">四季坐垫</a>
                     </li>
-                    <li key="/floor/floor1and11_8/tab_4" modelid="1000061627"><a href="javascript:void(0);">净化器</a></li>
+                    <li key="3" modelid="1000061627"><a href="javascript:void(0);">净化器</a></li>
                 </ul>
             </div>
             <div class="mc">
@@ -5515,7 +5786,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="keywords edit-mode"  modelid="1000061583" modeltype="2">
+                        <div class="keywords edit-mode" modelid="1000061583" modeltype="2">
                             <ul class="w55">
                                 <li class=""><a href="//list.gome.com.cn/cat12495647.html" target="_blank"
                                                 data-code="1000061583-1">行车记录仪</a></li>
@@ -5555,8 +5826,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="main_warp">
-                    <div class="main" style="display: block" tab-data-load="0">
+                <div class="main_warp" id="sixFloor_div">
+                    <div class="main" style="display: block" >
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/A0006185112-pop8009802740.html" data-code="1000061603-1"
                                    target="_blank" title="乔氏汽车坐垫套新四季通用座垫迈腾凯美瑞帕萨特朗逸速腾坐垫-贝森(炫酷黑 十件套)"> <img
@@ -5636,7 +5907,7 @@
                                     <span>¥</span>88.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="main" tab-data-load="0">
+                    <div class="main" style="display: none">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/A0006135977-pop8009625259.html" data-code="1000061591-1"
                                    target="_blank"
@@ -5680,21 +5951,21 @@
                                     <span>¥</span>159.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0006354345-pop8010741638.html" data-code="1000061591-6"
                                    target="_blank" title="磐鼎 360度全景行车记录仪吸盘1080高清夜视360迷你隐藏式车载监控仪循环录像"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T19RYgBQLT1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="磐鼎 360度全景行车记录仪吸盘1080高清夜视360迷你隐藏式车载监控仪循环录像" width="130" height="130">
                                 <p class="p_name">磐鼎 360度全景行车记录仪吸盘1080高清夜视360迷你隐藏式车载监控仪循环录像</p>
                                 <p class="p_price" productid="A0006354345" sku="pop8010741638" priceflag="false">
                                     <span>¥</span>398.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0006359331-pop8010773359.html" data-code="1000061591-7"
                                    target="_blank" title="磐鼎 行车记录仪电子狗一体机 安全预警仪固定流动雷达测速仪高清1080p广角夜视一键升级"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T117ZgBmYT1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="磐鼎 行车记录仪电子狗一体机 安全预警仪固定流动雷达测速仪高清1080p广角夜视一键升级" width="130" height="130">
                                 <p class="p_name">磐鼎 行车记录仪电子狗一体机 安全预警仪固定流动雷达测速仪高清1080p广角夜视一键升级</p>
                                 <p class="p_price" productid="A0006359331" sku="pop8010773359" priceflag="false">
                                     <span>¥</span>239.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0006469781-pop8012002175.html" data-code="1000061591-8"
                                    target="_blank" title="金字號H7行车记录仪(标配 双镜头)"> <img class="lazyloading"
-                                                                                    src="//gfs17.gomein.net.cn/T1bOCbB4Wv1RCvBVdK_130.jpg"
+                                                                                    src=""
                                                                                     alt="金字號H7行车记录仪(标配 双镜头)" width="130"
                                                                                     height="130">
                                 <p class="p_name">金字號H7行车记录仪(标配 双镜头)</p>
@@ -5702,7 +5973,7 @@
                                     <span>¥</span>238.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0006350574-pop8010719940.html" data-code="1000061591-9"
                                    target="_blank" title="磐鼎P8619 3G中控台行车记录仪导航仪双镜头高清夜视广角声控高德地图带电子狗倒车影像停车监控一体机(官方标配无内存)">
-                                <img class="lazyloading" src="//gfs17.gomein.net.cn/T1IGWgBmET1RCvBVdK_130.jpg"
+                                <img class="lazyloading" src=""
                                      alt="磐鼎P8619 3G中控台行车记录仪导航仪双镜头高清夜视广角声控高德地图带电子狗倒车影像停车监控一体机(官方标配无内存)" width="130"
                                      height="130">
                                 <p class="p_name">磐鼎P8619 3G中控台行车记录仪导航仪双镜头高清夜视广角声控高德地图带电子狗倒车影像停车监控一体机(官方标配无内存)</p>
@@ -5711,7 +5982,7 @@
                             <li><a href="//item.gome.com.cn/A0005014339-pop8004790378.html" data-code="1000061591-10"
                                    target="_blank"
                                    title="磐鼎P666A四灯夜视电子狗记录仪后视镜行车记录仪后视镜电子狗行车记录仪重力感映停车监控1080P倒车后视行车记录仪(官方标配无内存)"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T18YZTB4Zv1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="磐鼎P666A四灯夜视电子狗记录仪后视镜行车记录仪后视镜电子狗行车记录仪重力感映停车监控1080P倒车后视行车记录仪(官方标配无内存)"
                                     width="130" height="130">
                                 <p class="p_name">
@@ -5720,18 +5991,18 @@
                                     <span>¥</span>229.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="main" tab-data-load="0">
+                    <div class="main" style="display: none">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/A0006185112-pop8009802740.html" data-code="1000061603-1"
                                    target="_blank" title="乔氏汽车坐垫套新四季通用座垫迈腾凯美瑞帕萨特朗逸速腾坐垫-贝森(炫酷黑 十件套)"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1DHYvBCDv1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="乔氏汽车坐垫套新四季通用座垫迈腾凯美瑞帕萨特朗逸速腾坐垫-贝森(炫酷黑 十件套)" width="130" height="130">
                                 <p class="p_name">乔氏汽车坐垫套新四季通用座垫迈腾凯美瑞帕萨特朗逸速腾坐垫-贝森(炫酷黑 十件套)</p>
                                 <p class="p_price" productid="A0006185112" sku="pop8009802740" priceflag="false">
                                     <span>¥</span>328.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0006369202-pop8010863366.html" data-code="1000061603-2"
                                    target="_blank" title="【下单备注车型号】2116 混纺麻时尚汽车四季坐垫 决明子亚麻汽车座垫 汽车用品(标准版咖色 材质)"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1dJWjBmDT1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="【下单备注车型号】2116 混纺麻时尚汽车四季坐垫 决明子亚麻汽车座垫 汽车用品(标准版咖色 材质)" width="130" height="130">
                                 <p class="p_name">【下单备注车型号】2116 混纺麻时尚汽车四季坐垫 决明子亚麻汽车座垫 汽车用品(标准版咖色 材质)</p>
                                 <p class="p_price" productid="A0006369202" sku="pop8010863366" priceflag="false">
@@ -5739,7 +6010,7 @@
                             <li><a href="//item.gome.com.cn/A0006367569-pop8010850222.html?intcmp=sy-1000061603-3"
                                    data-code="1000061603-3" target="_blank"
                                    title="【下单备注车型号】419混纺麻时尚汽车四季坐垫 亚麻汽车座垫 汽车用品(标准版红色 材质)"> <img class="lazyloading"
-                                                                                               src="//gfs17.gomein.net.cn/T186KjBmYT1RCvBVdK_130.jpg"
+                                                                                               src=""
                                                                                                alt="【下单备注车型号】419混纺麻时尚汽车四季坐垫 亚麻汽车座垫 汽车用品(标准版红色 材质)"
                                                                                                width="130" height="130">
                                 <p class="p_name">【下单备注车型号】419混纺麻时尚汽车四季坐垫 亚麻汽车座垫 汽车用品(标准版红色 材质)</p>
@@ -5748,7 +6019,7 @@
                             <li><a href="//item.gome.com.cn/A0006367547-pop8010850142.html?intcmp=sy-1000061603-4"
                                    data-code="1000061603-4" target="_blank"
                                    title="【下单备注车型】140丹尼皮冰丝夏季汽车坐垫 汽车用品 通用凉垫套座垫(豪华版橘色 材质)"> <img class="lazyloading"
-                                                                                               src="//gfs17.gomein.net.cn/T1IJdQB5_T1RCvBVdK_130.jpg"
+                                                                                               src=""
                                                                                                alt="【下单备注车型】140丹尼皮冰丝夏季汽车坐垫 汽车用品 通用凉垫套座垫(豪华版橘色 材质)"
                                                                                                width="130" height="130">
                                 <p class="p_name">【下单备注车型】140丹尼皮冰丝夏季汽车坐垫 汽车用品 通用凉垫套座垫(豪华版橘色 材质)</p>
@@ -5756,35 +6027,35 @@
                                     <span>¥</span>399.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0006367898-pop8010851997.html" data-code="1000061603-5"
                                    target="_blank" title="【下单备注车型号】328高大帅 格调竹碳皮四季汽车坐垫座套 豪华座垫 汽车用品(豪华版黑色 材质)"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1WGxQB5ZT1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="【下单备注车型号】328高大帅 格调竹碳皮四季汽车坐垫座套 豪华座垫 汽车用品(豪华版黑色 材质)" width="130" height="130">
                                 <p class="p_name">【下单备注车型号】328高大帅 格调竹碳皮四季汽车坐垫座套 豪华座垫 汽车用品(豪华版黑色 材质)</p>
                                 <p class="p_price" productid="A0006367898" sku="pop8010851997" priceflag="false">
                                     <span>¥</span>299.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0006368176-pop8010854310.html" data-code="1000061603-6"
                                    target="_blank" title="【下单备注车型号】047丹尼皮四季通用汽车坐垫 竹碳夏季座垫汽车用品座椅套(豪华版米色 材质)"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T13OKQBXAT1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="【下单备注车型号】047丹尼皮四季通用汽车坐垫 竹碳夏季座垫汽车用品座椅套(豪华版米色 材质)" width="130" height="130">
                                 <p class="p_name">【下单备注车型号】047丹尼皮四季通用汽车坐垫 竹碳夏季座垫汽车用品座椅套(豪华版米色 材质)</p>
                                 <p class="p_price" productid="A0006368176" sku="pop8010854310" priceflag="false">
                                     <span>¥</span>318.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0006185112-pop8009802738.html" data-code="1000061603-7"
                                    target="_blank" title="乔氏汽车坐垫套新四季通用座垫迈腾凯美瑞帕萨特朗逸速腾坐垫-贝森(浓情咖 十件套)"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1AiYTB4dv1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="乔氏汽车坐垫套新四季通用座垫迈腾凯美瑞帕萨特朗逸速腾坐垫-贝森(浓情咖 十件套)" width="130" height="130">
                                 <p class="p_name">乔氏汽车坐垫套新四季通用座垫迈腾凯美瑞帕萨特朗逸速腾坐垫-贝森(浓情咖 十件套)</p>
                                 <p class="p_price" productid="A0006185112" sku="pop8009802738" priceflag="false">
                                     <span>¥</span>328.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0006237058-pop8010058997.html" data-code="1000061603-8"
                                    target="_blank" title="乔氏汽车坐垫套新四季通用座垫大众北京帕萨特朗逸速腾坐垫(汉欧-黑色 汉欧豪华款-六件套)"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1EkJvBjW_1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="乔氏汽车坐垫套新四季通用座垫大众北京帕萨特朗逸速腾坐垫(汉欧-黑色 汉欧豪华款-六件套)" width="130" height="130">
                                 <p class="p_name">乔氏汽车坐垫套新四季通用座垫大众北京帕萨特朗逸速腾坐垫(汉欧-黑色 汉欧豪华款-六件套)</p>
                                 <p class="p_price" productid="A0006237058" sku="pop8010058997" priceflag="false">
                                     <span>¥</span>458.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0006357088-pop8010758151.html" data-code="1000061603-9"
                                    target="_blank" title="乔氏 汽车脚垫奥迪A4L宝骏730速腾昂科威crv卡罗拉迈腾轩逸哈弗H6丝圈脚垫(迪曼黑金皮-黑灰丝圈收纳)"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1FLhgBm_T1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="乔氏 汽车脚垫奥迪A4L宝骏730速腾昂科威crv卡罗拉迈腾轩逸哈弗H6丝圈脚垫(迪曼黑金皮-黑灰丝圈收纳)" width="130"
                                     height="130">
                                 <p class="p_name">乔氏 汽车脚垫奥迪A4L宝骏730速腾昂科威crv卡罗拉迈腾轩逸哈弗H6丝圈脚垫(迪曼黑金皮-黑灰丝圈收纳)</p>
@@ -5792,7 +6063,7 @@
                                     <span>¥</span>298.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0004011265-pop8002534631.html" data-code="1000061603-10"
                                    target="_blank" title="乔氏防滑防震后备箱垫XPE环保汽车尾箱垫专车专用丰田福克斯途观朗逸凯越科鲁兹尾垫(雍森款【时尚灰】下单留言车新年份)">
-                                <img class="lazyloading" src="//gfs17.gomein.net.cn/T1IrZTB4Lv1RCvBVdK_130.jpg"
+                                <img class="lazyloading" src=""
                                      alt="乔氏防滑防震后备箱垫XPE环保汽车尾箱垫专车专用丰田福克斯途观朗逸凯越科鲁兹尾垫(雍森款【时尚灰】下单留言车新年份)" width="130"
                                      height="130">
                                 <p class="p_name">乔氏防滑防震后备箱垫XPE环保汽车尾箱垫专车专用丰田福克斯途观朗逸凯越科鲁兹尾垫(雍森款【时尚灰】下单留言车新年份)</p>
@@ -5800,12 +6071,12 @@
                                     <span>¥</span>88.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="main" tab-data-load="0">
+                    <div class="main" style="display: none">
                         <ul class="main_inner">
                             <li><a href="//item.gome.com.cn/A0006474631-pop8012054500.html" data-code="1000061627-1"
                                    target="_blank"
                                    title="鼎负离子太阳能多功能净化器除甲醛雾霾加湿新车异味针对重污染设计高容量电池手机充电支架(升级版XG601白色 配安卓反向上宽下窄口手机接收器)"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T17GdgBXK_1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="鼎负离子太阳能多功能净化器除甲醛雾霾加湿新车异味针对重污染设计高容量电池手机充电支架(升级版XG601白色 配安卓反向上宽下窄口手机接收器)"
                                     width="130" height="130">
                                 <p class="p_name">鼎负离子太阳能多功能净化器除甲醛雾霾加湿新车异味针对重污染设计高容量电池手机充电支架(升级版XG601白色
@@ -5814,7 +6085,7 @@
                                     <span>¥</span>688.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0006512135-pop8012404643.html" data-code="1000061627-2"
                                    target="_blank" title="原厂便携式大功率干湿两用车载吸尘器 便携式车用吸尘器(随机颜色 版本)"> <img class="lazyloading"
-                                                                                                     src="//gfs17.gomein.net.cn/T1h6Y_BbEj1RCvBVdK_130.jpg"
+                                                                                                     src=""
                                                                                                      alt="原厂便携式大功率干湿两用车载吸尘器 便携式车用吸尘器(随机颜色 版本)"
                                                                                                      width="130"
                                                                                                      height="130">
@@ -5832,7 +6103,7 @@
                                     <span>¥</span>399.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0006047900-pop8009256728.html" data-code="1000061627-4"
                                    target="_blank" title="车载空气净化器除甲醛烟尘异味pm2.5活性炭汽车负离子等离子氧吧迷你"> <img class="lazyloading"
-                                                                                                    src="//gfs17.gomein.net.cn/T1qaKvBsYT1RCvBVdK_130.jpg"
+                                                                                                    src=""
                                                                                                     alt="车载空气净化器除甲醛烟尘异味pm2.5活性炭汽车负离子等离子氧吧迷你"
                                                                                                     width="130"
                                                                                                     height="130">
@@ -5848,44 +6119,124 @@
                                     <span>¥</span>100.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0005698463-pop8008083739.html" data-code="1000061627-6"
                                    target="_blank" title="高欣 车载空气净化器 充电器 600万负离子 3.4安双USB接口 接口镀金50m(黑色)"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1TAxTBvbT1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="高欣 车载空气净化器 充电器 600万负离子 3.4安双USB接口 接口镀金50m(黑色)" width="130" height="130">
                                 <p class="p_name">高欣 车载空气净化器 充电器 600万负离子 3.4安双USB接口 接口镀金50m(黑色)</p>
                                 <p class="p_price" productid="A0005698463" sku="pop8008083739" priceflag="false">
                                     <span>¥</span>119.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0005777639-pop8012415917.html" data-code="1000061627-7"
                                    target="_blank" title="奥得奥 车载空气净化器 太阳能汽车用负离子氧吧 除甲醛 祛除异味 除烟味 香薰(奥得奥)"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1TtYjBjhT1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="奥得奥 车载空气净化器 太阳能汽车用负离子氧吧 除甲醛 祛除异味 除烟味 香薰(奥得奥)" width="130" height="130">
                                 <p class="p_name">奥得奥 车载空气净化器 太阳能汽车用负离子氧吧 除甲醛 祛除异味 除烟味 香薰(奥得奥)</p>
                                 <p class="p_price" productid="A0005777639" sku="pop8012415917" priceflag="false">
                                     <span>¥</span>99.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0004680987-pop8003622225.html" data-code="1000061627-8"
                                    target="_blank" title="antrip安途 USB加湿器 香薰机 空气加湿器 静音迷你创意办公桌加湿机(USB插口标配)"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1hrdTBKWT1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="antrip安途 USB加湿器 香薰机 空气加湿器 静音迷你创意办公桌加湿机(USB插口标配)" width="130" height="130">
                                 <p class="p_name">antrip安途 USB加湿器 香薰机 空气加湿器 静音迷你创意办公桌加湿机(USB插口标配)</p>
                                 <p class="p_price" productid="A0004680987" sku="pop8003622225" priceflag="false">
                                     <span>¥</span>69.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0006367361-pop8010847943.html" data-code="1000061627-9"
                                    target="_blank" title="多功能四合一吸尘器 大功率干湿两用吸尘器 充气 照明【家用可联系客服买转换器】(尊贵黑 四合一)"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1QGKjBXCT1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="多功能四合一吸尘器 大功率干湿两用吸尘器 充气 照明【家用可联系客服买转换器】(尊贵黑 四合一)" width="130" height="130">
                                 <p class="p_name">多功能四合一吸尘器 大功率干湿两用吸尘器 充气 照明【家用可联系客服买转换器】(尊贵黑 四合一)</p>
                                 <p class="p_price" productid="A0006367361" sku="pop8010847943" priceflag="false">
                                     <span>¥</span>169.00</p></a></li>
                             <li><a href="//item.gome.com.cn/A0006370053-pop8010870138.html" data-code="1000061627-10"
                                    target="_blank" title="【颜色随机】车载空气净化器智能汽车内氧吧负离子香薰除甲醛异烟味PM2.5(颜色随机 版本)"> <img
-                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1gEJjB_WT1RCvBVdK_130.jpg"
+                                    class="lazyloading" src=""
                                     alt="【颜色随机】车载空气净化器智能汽车内氧吧负离子香薰除甲醛异烟味PM2.5(颜色随机 版本)" width="130" height="130">
                                 <p class="p_name">【颜色随机】车载空气净化器智能汽车内氧吧负离子香薰除甲醛异烟味PM2.5(颜色随机 版本)</p>
                                 <p class="p_price" productid="A0006370053" sku="pop8010870138" priceflag="false">
                                     <span>¥</span>199.00</p></a></li>
                         </ul>
                     </div>
-                    <div class="page_slider" style="display: none;">
-                        <p class="page_down" onselectstart="return false" style="-moz-user-select:none;"><a
-                                href="javascript:void(0)" class="slider_next"></a><span class="next"></span></p>
+                    <div class="main" style="display: none">
+                        <ul class="main_inner">
+                            <li><a href="//item.gome.com.cn/A0006135977-pop8009625259.html" data-code="1000061591-1"
+                                   target="_blank"
+                                   title="磐鼎P662A 1080P双录后视镜行车记录仪4.3英寸高清大屏 前后双镜头录像倒车时自动切换到倒车后视停车监控夜视后拉(官方标配无内存)"> <img
+                                    class="lazyloading" src="//gfs17.gomein.net.cn/T14BLTB4Zv1RCvBVdK_130.jpg"
+                                    alt="磐鼎P662A 1080P双录后视镜行车记录仪4.3英寸高清大屏 前后双镜头录像倒车时自动切换到倒车后视停车监控夜视后拉(官方标配无内存)"
+                                    width="130" height="130">
+                                <p class="p_name">磐鼎P662A 1080P双录后视镜行车记录仪4.3英寸高清大屏
+                                    前后双镜头录像倒车时自动切换到倒车后视停车监控夜视后拉(官方标配无内存)</p>
+                                <p class="p_price" productid="A0006135977" sku="pop8009625259" priceflag="false">
+                                    <span>¥</span>169.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006343186-pop8010681249.html" data-code="1000061591-2"
+                                   target="_blank" title="金字號H7后视镜行车记录仪高清星光夜视7英寸触摸大屏倒车影像停车监控一体机(标配 双镜头)"> <img
+                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1oyJgBgdv1RCvBVdK_130.jpg"
+                                    alt="金字號H7后视镜行车记录仪高清星光夜视7英寸触摸大屏倒车影像停车监控一体机(标配 双镜头)" width="130" height="130">
+                                <p class="p_name">金字號H7后视镜行车记录仪高清星光夜视7英寸触摸大屏倒车影像停车监控一体机(标配 双镜头)</p>
+                                <p class="p_price" productid="A0006343186" sku="pop8010681249" priceflag="false">
+                                    <span>¥</span>238.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0005090375-pop8005098326.html" data-code="1000061591-3"
+                                   target="_blank" title="磐鼎 P616C 1200万相素小巧轻便高清1080P 行车记录仪 重力感映 循环录像 停车监控(单镜头带电子狗无内存)">
+                                <img class="lazyloading" src="//gfs17.gomein.net.cn/T12WETBmxv1RCvBVdK_130.jpg"
+                                     alt="磐鼎 P616C 1200万相素小巧轻便高清1080P 行车记录仪 重力感映 循环录像 停车监控(单镜头带电子狗无内存)" width="130"
+                                     height="130">
+                                <p class="p_name">磐鼎 P616C 1200万相素小巧轻便高清1080P 行车记录仪 重力感映 循环录像 停车监控(单镜头带电子狗无内存)</p>
+                                <p class="p_price" productid="A0005090375" sku="pop8005098326" priceflag="false">
+                                    <span>¥</span>189.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006351368-pop8010724451.html?intcmp=sy-1000061591-4"
+                                   data-code="1000061591-4" target="_blank"
+                                   title="磐鼎 P606 汽车载新款隐藏式行车记录仪 锌合金3寸屏单双镜头高清夜视倒车影像一体机(标配（无内存）)"> <img
+                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1ekVTBQhT1RCvBVdK_130.jpg"
+                                    alt="磐鼎 P606 汽车载新款隐藏式行车记录仪 锌合金3寸屏单双镜头高清夜视倒车影像一体机(标配（无内存）)" width="130" height="130">
+                                <p class="p_name">磐鼎 P606 汽车载新款隐藏式行车记录仪 锌合金3寸屏单双镜头高清夜视倒车影像一体机(标配（无内存）)</p>
+                                <p class="p_price" productid="A0006351368" sku="pop8010724451" priceflag="false">
+                                    <span>¥</span>149.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006012534-pop8009636590.html" data-code="1000061591-5"
+                                   target="_blank" title="磐鼎P663A超高清后视镜行车记录仪4.3英寸蓝镜 双镜头(官方标配无内存)"> <img
+                                    class="lazyloading" src="//gfs17.gomein.net.cn/T1F1YTBsZT1RCvBVdK_130.jpg"
+                                    alt="磐鼎P663A超高清后视镜行车记录仪4.3英寸蓝镜 双镜头(官方标配无内存)" width="130" height="130">
+                                <p class="p_name">磐鼎P663A超高清后视镜行车记录仪4.3英寸蓝镜 双镜头(官方标配无内存)</p>
+                                <p class="p_price" productid="A0006012534" sku="pop8009636590" priceflag="false">
+                                    <span>¥</span>159.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006354345-pop8010741638.html" data-code="1000061591-6"
+                                   target="_blank" title="磐鼎 360度全景行车记录仪吸盘1080高清夜视360迷你隐藏式车载监控仪循环录像"> <img
+                                    class="lazyloading" src=""
+                                    alt="磐鼎 360度全景行车记录仪吸盘1080高清夜视360迷你隐藏式车载监控仪循环录像" width="130" height="130">
+                                <p class="p_name">磐鼎 360度全景行车记录仪吸盘1080高清夜视360迷你隐藏式车载监控仪循环录像</p>
+                                <p class="p_price" productid="A0006354345" sku="pop8010741638" priceflag="false">
+                                    <span>¥</span>398.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006359331-pop8010773359.html" data-code="1000061591-7"
+                                   target="_blank" title="磐鼎 行车记录仪电子狗一体机 安全预警仪固定流动雷达测速仪高清1080p广角夜视一键升级"> <img
+                                    class="lazyloading" src=""
+                                    alt="磐鼎 行车记录仪电子狗一体机 安全预警仪固定流动雷达测速仪高清1080p广角夜视一键升级" width="130" height="130">
+                                <p class="p_name">磐鼎 行车记录仪电子狗一体机 安全预警仪固定流动雷达测速仪高清1080p广角夜视一键升级</p>
+                                <p class="p_price" productid="A0006359331" sku="pop8010773359" priceflag="false">
+                                    <span>¥</span>239.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006469781-pop8012002175.html" data-code="1000061591-8"
+                                   target="_blank" title="金字號H7行车记录仪(标配 双镜头)"> <img class="lazyloading"
+                                                                                    src=""
+                                                                                    alt="金字號H7行车记录仪(标配 双镜头)" width="130"
+                                                                                    height="130">
+                                <p class="p_name">金字號H7行车记录仪(标配 双镜头)</p>
+                                <p class="p_price" productid="A0006469781" sku="pop8012002175" priceflag="false">
+                                    <span>¥</span>238.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0006350574-pop8010719940.html" data-code="1000061591-9"
+                                   target="_blank" title="磐鼎P8619 3G中控台行车记录仪导航仪双镜头高清夜视广角声控高德地图带电子狗倒车影像停车监控一体机(官方标配无内存)">
+                                <img class="lazyloading" src=""
+                                     alt="磐鼎P8619 3G中控台行车记录仪导航仪双镜头高清夜视广角声控高德地图带电子狗倒车影像停车监控一体机(官方标配无内存)" width="130"
+                                     height="130">
+                                <p class="p_name">磐鼎P8619 3G中控台行车记录仪导航仪双镜头高清夜视广角声控高德地图带电子狗倒车影像停车监控一体机(官方标配无内存)</p>
+                                <p class="p_price" productid="A0006350574" sku="pop8010719940" priceflag="false">
+                                    <span>¥</span>699.00</p></a></li>
+                            <li><a href="//item.gome.com.cn/A0005014339-pop8004790378.html" data-code="1000061591-10"
+                                   target="_blank"
+                                   title="磐鼎P666A四灯夜视电子狗记录仪后视镜行车记录仪后视镜电子狗行车记录仪重力感映停车监控1080P倒车后视行车记录仪(官方标配无内存)"> <img
+                                    class="lazyloading" src=""
+                                    alt="磐鼎P666A四灯夜视电子狗记录仪后视镜行车记录仪后视镜电子狗行车记录仪重力感映停车监控1080P倒车后视行车记录仪(官方标配无内存)"
+                                    width="130" height="130">
+                                <p class="p_name">
+                                    磐鼎P666A四灯夜视电子狗记录仪后视镜行车记录仪后视镜电子狗行车记录仪重力感映停车监控1080P倒车后视行车记录仪(官方标配无内存)</p>
+                                <p class="p_price" productid="A0005014339" sku="pop8004790378" priceflag="false">
+                                    <span>¥</span>229.00</p></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -6183,163 +6534,281 @@
         <em class="turst-gome"></em>
     </div>
 </div>
-<!--foot-->
-<div id="gome-bar">
-    <div class="gome-aside">
-        <ul>
-            <li id="gome-aside-cart" class="lang">
-                <b></b><a href="javascript:void(0)" class="lang"><i class="caricon"></i><b class="car_num car_num_0"><s>0</s><span
-                    class="point"></span></b><span class="text">购物车</span></a>
-            </li>
-            <li id="gome-aside-coupon">
-                <b></b><a href="javascript:void(0)"><i></i></a>
-                <div><a>我的优惠券</a></div>
-            </li>
-            <li id="gome-aside-app">
-                <b></b><a data-code="1000043134" href="javascript:;" target="_blank"><i></i></a>
-                <div></div>
-            </li>
-            <li id="gome-aside-survey">
-                <b></b><a rel="nofollow" data-code="1000043132" href="javascript:;" target="_blank"><i></i></a>
-                <div><p><a rel="nofollow" data-code="1000043132" href="javascript:;" target="_blank">有奖调研</a></p></div>
-            </li>
-            <li id="gome-aside-service">
-                <b></b><a class="live800-service" customer-entry="composite" customer-service-button-id=""><i></i></a>
-                <div><p><a class="live800-service" customer-entry="composite" customer-service-button-id="">在线客服</a></p>
-                </div>
-            </li>
-            <li id="gome-aside-backtop">
-                <b></b><a href="javascript:void(0)"><i></i></a>
-                <div><p><a>返回顶部</a></p></div>
-            </li>
-        </ul>
-    </div>
-    <!-- gome-aside -->
-    <div id="gome-aside-app-code">
-        <a data-code="1000043134" href="javascript:;" target="_blank">
-            <img src="picture/grey.gif" gome-src="//gfs11.gomein.net.cn/T1uBW_B5hv1RCvBVdK.png">
-            <strong>moren</strong></a>
-    </div>
-    <!-- gome-aside-app-code -->
-    <div id="gome-bar-border">
-        <ul id="gome-bar-border-tab">
-            <li class="gome-bar-btn-member" data-open="member"><b></b><i class="membericon"></i><a
-                    class="gome-bar-btn-tip" rel="nofollow" href="javascript:void(0);">国美会员</a></li>
-            <li class="gome-bar-btn-cart" data-open="cart" id="gome-bar-btn-cart"><b class="car_arrow"></b><i
-                    class="caricon"></i><b class="car_num car_num_0"><s>0</s><span class="point"></span></b><span
-                    class="text">购物车</span></li>
-            <li class="gome-bar-btn-coupon" data-open="coupon"><b></b><i class="caricon"></i></li>
-            <li class="gome-bar-btn-favorites" data-open="favorites" id="gome-bar-btn-favorites"><b></b><i
-                    class="favorites-icon"></i><a class="gome-bar-btn-tip" href="javascript:void(0);">我的收藏</a></li>
-        </ul>
-    </div>
-    <!-- gome-bar-border -->
-    <div id="gome-bar-box">
-        <div id="gome-bar-member" class="gome-bar-box-wrap" style="z-index: 997; visibility: visible; top: 0px;"
-             data-animate="true">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: 239px; height: 97%;">
-                <div id="member-body" class="gome-bar-box-body" data-open="true"
-                     style="overflow: hidden; width: 239px; height: 97%;">
-                    <div class="gomebar_member_user">
-                        <div class="member_user_touxiang"><a data-code="public06001" href="//club.gome.com.cn"
-                                                             class="touxiang" target="_blank"> <img
-                                src="//gfs8.gomein.net.cn/T1EIKXB4Zv1RCvBVdK.jpg" width="80" height="80"> </a>
-                            <div class="user_name_box"><span>Hi,&nbsp;</span> <a data-code="public06002"
-                                                                                 href="//club.gome.com.cn"
-                                                                                 class="user_name"
-                                                                                 target="_blank">LOgo</a> <a
-                                    data-code="public06003" class="user_level" href="//club.gome.com.cn">G1</a></div>
-                        </div>
-                        <ul class="show_list">
-                            <li class="bar_fl coupon"><a data-code="public06004"
-                                                         href="//myhome.gome.com.cn/member/gomeMyCoupon">优惠券</a><a
-                                    data-code="public06005" class="fontwt"
-                                    href="//myhome.gome.com.cn/member/gomeMyCoupon" target="_blank">2</a></li>
-                            <li class="bar_fl meidou"><a data-code="public06006"
-                                                         href="//myhome.gome.com.cn/member/pointConvert">美豆</a><a
-                                    data-code="public06007" class="fontwt"
-                                    href="//myhome.gome.com.cn/member/pointConvert" target="_blank">0</a></li>
-                            <li class="bar_fl jifen" style="display: none;"><a data-code="public06008"
-                                                                               href="//myhome.gome.com.cn/member/pointConvert">门店积分</a><a
-                                    data-code="public06009" class="fontwt"
-                                    href="//myhome.gome.com.cn/member/pointConvert" target="_blank">0.0</a></li>
-                            <li class="bar_fl balance"><a data-code="public06010"
-                                                          href="//myhome.gome.com.cn/member/gomeVirtualAcount">国美币</a><a
-                                    data-code="public06011" class="fontwt"
-                                    href="//myhome.gome.com.cn/member/gomeVirtualAcount" target="_blank">0.00</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="slimScrollBar"
-                     style="background: rgb(204, 204, 204); width: 5px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 4px; height: 182.353px;"></div>
-                <div class="slimScrollRail"
-                     style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 4px;"></div>
-            </div>
-        </div>
-        <div id="gome-bar-cart" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="cart-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
-                </div>
-            </div>
-        </div>
-        <div id="gome-bar-coupon" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="coupon-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
-                </div>
-            </div>
-        </div>
-        <div id="gome-bar-favorites" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span><span class="gome-bar-title">我的收藏</span></h3>
-            <ul class="favorites-tab">
-                <li class="tab-item tab-item-goods selected">商品</li>
-                <li class="tab-item tab-item-shop">店铺</li>
-                <li class="tab-item tab-item-brand">品牌</li>
-            </ul>
-            <div id="favorites-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
-                </div>
 
-                <div id="favorites-main-scrool" class="favorites-main">
-                    <div class="main-item main-item-goods">
-                    </div>
-                    <div class="main-item main-item-shop">
-                    </div>
-                    <div class="main-item main-item-brand">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- gome-bar-coupon -->
-    </div>
-    <!-- gome-bar-box -->
+<!--楼层导航栏--->
+<div id="elevator" class="elevator" style="z-index: 960; position: fixed; left: 5px; top: 128.5px; display: none;">
+    <div class="fl_nav">楼层导航</div>
+    <ul>
+        <li class="handler" data-idx="1"><b class="etitle" href="javascript:;"></b><a
+                href="javascript:;"><span>1F</span>
+
+            <p>手机通讯</p></a></li>
+        <li class="handler" data-idx="2"><b class="etitle" href="javascript:;"></b><a
+                href="javascript:;"><span>2F</span>
+            <p>电脑数码</p></a></li>
+        <li class="handler" data-idx="3"><b class="etitle" href="javascript:;"></b><a
+                href="javascript:;"><span>3F</span>
+            <p>家用电器</p></a></li>
+        <li class="handler" data-idx="4"><b class="etitle" href="javascript:;"></b><a
+                href="javascript:;"><span>4F</span>
+            <p>厨房卫浴</p></a></li>
+        <li class="handler" data-idx="5"><b class="etitle" href="javascript:;"></b><a
+                href="javascript:;"><span>5F</span>
+            <p>家居家装</p></a></li>
+        <li class="handler" data-idx="6"><b class="etitle" href="javascript:;"></b><a
+                href="javascript:;"><span>6F</span>
+            <p>汽车用品</p></a></li>
+    </ul>
+    <ul class="fl_goto">
+        <li class="flTop"><a href="javascript:;" class=""></a></li>
+        <li class="fl_bottom"><a href="javascript:;" class=""></a><span></span></li>
+    </ul>
 </div>
-<!--aside-->
-<!--footerEnd-->
-<!--<script type="text/javascript">-->
-<!--var ajaxTuan = "//ajaxtuan.gome.com.cn";-->
-<!--</script>-->
 
-<!--<script src="js/jquery-1.8.3.js"></script>-->
-<!--<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+
+<!--样式-->
+<script type="text/javascript">
+    var showIndex = 0;
+    var timer;
+    $(function () {
+        //倒计时
+        leftTimer();
+        //-----------------------轮播-------------------
+        startTimer();
+        //上一张
+        $("#go_l").click(function () {
+            clearInterval(timer);
+            if (showIndex == 0) showIndex = 8;
+            showIndex--;
+            showImg();
+            startTimer();
+        });
+        //下一张
+        $("#go_r").click(function () {
+            clearInterval(timer);
+            if (showIndex == 7) showIndex = -1;
+            showIndex++;
+            showImg();
+            startTimer();
+
+        });
+        //--------------------悬浮商品分类特效-------------------------
+        $("#lisnav li").hover(
+            function () {
+                $(this).addClass("bgw").siblings().removeClass("bgw");
+                $("#subnav").show();
+                var index = $(this).attr("data-index");
+                $("#loading1-sync>div").eq(index).show().siblings().hide();
+            }
+        );
+        //分类框失去焦点事件
+        $("#navBox,#subnav").hover(
+            function () {
+            },
+            function () {
+                $("#subnav").hide();
+                $("#lisnav li").removeClass("bgw");
+            }
+        );
+        //-----------------(6F)小分类悬浮事件-------------------------
+        //一楼
+        $("#groundFloor li").hover(
+            function () {
+                $(this).addClass("cur").siblings().removeClass("cur");
+                $(this).find("a").css("background","rgb(113, 158, 247)");
+                $(this).siblings().find("a").css("background","none");
+                //悬浮显示div
+                var key=$(this).attr("key");
+                $("#groundFloor_div>div").eq(key).show().siblings().hide();
+            }
+        );
+        //二楼
+        $("#secondFloor li").hover(
+            function () {
+                $(this).addClass("cur").siblings().removeClass("cur");
+                $(this).find("a").css("background","rgb(80, 191, 236)");
+                $(this).siblings().find("a").css("background","none");
+                //悬浮显示div
+                var key=$(this).attr("key");
+                $("#secondFloor_div>div").eq(key).show().siblings().hide();
+            }
+        );
+        //三楼
+        $("#threeFloor li").hover(
+            function () {
+                $(this).addClass("cur").siblings().removeClass("cur");
+                $(this).find("a").css("background","#7f86ec");
+                $(this).siblings().find("a").css("background","none");
+                //悬浮显示div
+                var key=$(this).attr("key");
+                $("#threeFloor_div>div").eq(key).show().siblings().hide();
+            }
+        );
+        //四楼
+        $("#fourFloor li").hover(
+            function () {
+                $(this).addClass("cur").siblings().removeClass("cur");
+                $(this).find("a").css("background","#41ccb8");
+                $(this).siblings().find("a").css("background","none");
+                //悬浮显示div
+                var key=$(this).attr("key");
+                $("#fourFloor_div>div").eq(key).show().siblings().hide();
+            }
+        );
+        //五楼
+        $("#fiveFloor li").hover(
+            function () {
+                $(this).addClass("cur").siblings().removeClass("cur");
+                $(this).find("a").css("background","#abce5b");
+                $(this).siblings().find("a").css("background","none");
+                //悬浮显示div
+                var key=$(this).attr("key");
+                $("#fiveFloor_div>div").eq(key).show().siblings().hide();
+            }
+        );
+        //六楼
+        $("#sixFloor li").hover(
+            function () {
+                $(this).addClass("cur").siblings().removeClass("cur");
+                $(this).find("a").css("background","#829daa");
+                $(this).siblings().find("a").css("background","none");
+                //悬浮显示div
+                var key=$(this).attr("key");
+                $("#sixFloor_div>div").eq(key).show().siblings().hide();
+            }
+        );
+        //-----------------楼层导航栏-------------------------
+        //给楼层加悬浮变色
+        $(".handler").hover(
+            function () {
+                $(this).addClass("hover").siblings().removeClass("hover");
+            },
+            function () {
+                $(this).removeClass("hover");
+            }
+        );
+        //顶层和底层添加悬浮事件
+        $(".flTop").hover(
+            function () {
+                $(".flTop a").addClass("hover");
+            },function () {
+                $(".flTop a").removeClass("hover");
+            }
+        );
+        $(".fl_bottom").hover(
+            function () {
+                $(".fl_bottom a").addClass("hover");
+            },function () {
+                $(".fl_bottom a").removeClass("hover");
+            }
+        );
+
+        //给窗口加滚动条事件
+        $(window).scroll(function () {
+            var ling = $(document).scrollTop();
+            // 如果滚动距离大于1534的时候让滚动框出来
+            if (ling > 900) {
+                $('#elevator').show();
+            }
+            if (ling > 4000 || ling < 900) {
+                $('#elevator').hide();
+            }
+            var sTop = $(window).scrollTop() + 400;
+            //获取6层楼相对应得位置
+            var floor1 = $("#item-1").offset().top;
+            var floor2 = $("#item-2").offset().top;
+            var floor3 = $("#item-3").offset().top;
+            var floor4 = $("#item-4").offset().top;
+            var floor5 = $("#item-5").offset().top;
+            var floor6 = $("#item-6").offset().top;
+            //滚到相对应得楼层添加样式
+            if(sTop > floor1){
+                $(".handler").eq(0).delay(300).addClass("current").siblings("li").removeClass("current");
+            }
+            if(sTop > floor2){
+                $(".handler").eq(1).delay(300).addClass("current").siblings("li").removeClass("current");
+            }
+            if(sTop > floor3){
+                $(".handler").eq(2).delay(300).addClass("current").siblings("li").removeClass("current");
+            }
+            if(sTop > floor4){
+                $(".handler").eq(3).delay(300).addClass("current").siblings("li").removeClass("current");
+            }
+            if(sTop > floor5){
+                $(".handler").eq(4).delay(300).addClass("current").siblings("li").removeClass("current");
+            }
+            if(sTop > floor6){
+                $(".handler").eq(5).delay(300).addClass("current").siblings("li").removeClass("current");
+            }
+        });
+        //楼层点击事件 定位到楼层
+        $(".handler").click(function () {
+            var id = $(this).attr("data-idx");
+            $(this).addClass("current").siblings().removeClass("current");
+            var h = $("#item-" + id).offset().top;
+            $('body,html').animate({ scrollTop: h }, 200);
+
+        });
+        //返回顶部
+        $(".flTop").click(function () {
+            $('#elevator').hide();
+            $('body,html').animate({"scrollTop":"0"},1000);
+        });
+        //返回底部
+        $(".fl_bottom").click(function () {
+            $('#elevator').hide();
+            var h=$("#gome-foot").offset().top;
+            $('body,html').animate({"scrollTop":h},1000);
+        });
+    });
+
+    function startTimer() {
+        timer = setInterval(function () {
+            showIndex++;
+            if (showIndex >= 8) showIndex = 0;
+            showImg();
+        }, 4000);
+    }
+
+    function showImg() {
+        // $("ul.focus_box li").stop(true, true);
+        $("ul.focus_box li").css("display", "none").eq(showIndex).css("display", "block");
+        $("#ol li").removeClass("cur").eq(showIndex).addClass("cur");
+    }
+
+    //倒计时
+    function leftTimer(year,month,day,hour,minute,second) {
+        var newDate = new Date();
+        var newDate1 = new Date(year,month-1,day,hour,minute,second);
+        var leftTime = (new Date(year,month-1,day,hour,minute,second)) - (new Date()); //计算剩余的毫秒数
+        var days = parseInt(leftTime / 1000 / 60 / 60 / 24 , 10); //计算剩余的天数
+        var hours = parseInt(leftTime / 1000 / 60 / 60 % 24 , 10); //计算剩余的小时
+        var minutes = parseInt(leftTime / 1000 / 60 % 60, 10);//计算剩余的分钟
+        var seconds = parseInt(leftTime / 1000 % 60, 10);//计算剩余的秒数
+        if (seconds<0) {
+            $(".time_box").css('display', 'none');
+        } else{
+            days = fix(days,2);
+            hours = fix(hours,2);
+            minutes = fix(minutes,2);
+            seconds = fix(seconds,2);
+            setTimeout("leftTimer(2019,9,16,20,0,0)",1000);
+            document.getElementById("h").innerHTML=hours;
+            document.getElementById("m").innerHTML=minutes;
+            document.getElementById("s").innerHTML=seconds;
+
+        }
+
+    }
+    //fix函数：将1~9的1位数转换成01~09的格式
+    function fix(num, length) {
+        return ('' + num).length < length ? ((new Array(length + 1)).join('0') + num).slice(-length) : '' + num;
+    }
+
+</script>
+
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
 
 

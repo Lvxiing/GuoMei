@@ -5811,6 +5811,8 @@
         return A
     })
 }).call(this);
+
+
 !function (e) {
     "use strict";
     var n = function (e, r) {
@@ -6118,107 +6120,7 @@
         })
     }
 })(jQuery);
-$(function () {
-    $(".mainnav").curNav({css: "cur"});
-    $("#navBox").dropdown({
-        topspeed: !0, current: "bgw", bodyClass: "fullcategory", onchange: function (e) {
-            $("#subnav").show();
-            var a = e.attr("data-index");
-            if ($("#subnav").attr("flag") == 0) {
 
-                $("#subnav").attr("flag", "1")
-            } else {
-                $("#loading1-sync>div").eq(a).show().siblings().hide()
-            }
-            var n = $("#subnav");
-            var t = n.find(".loading1-sync");
-            var o = n.offset().top;
-            var s = $(window).scrollTop();
-            var i = s - o;
-            if (s > o) {
-                t.css({top: i})
-            } else {
-                t.css({top: 0})
-            }
-        }, onmouseleave: function (e) {
-            $("#subnav").hide();
-
-            function a() {
-                $("#subnav").hide();
-                $("#lisnav li").removeClass("bgw")
-            }
-
-            var n;
-
-            function t() {
-                n = setTimeout(a, 100)
-            }
-
-            $(".sidecategory").hover(function () {
-                clearTimeout(n)
-            }, function () {
-                t()
-            })
-        }
-    });
-
-    function e() {
-        $("#subnav").hide();
-        $("#lisnav li").removeClass("bgw");
-        $(".lisbg,.lisnav").hide();
-        $(".sidecategory h2").removeClass("hover")
-    }
-
-    var a;
-
-    function n() {
-        a = setTimeout(e, 100)
-    }
-
-    if (!$("body").hasClass("home") && !$("body").hasClass("category-opened")) {
-        $(".sidecategory").hover(function () {
-            clearTimeout(a)
-        }, function () {
-            n()
-        })
-    } else {
-        $(".sidecategory h2").find("span").remove()
-    }
-    $(".category h2").hover(function () {
-        $(".lisbg,.lisnav").show();
-        $(".sidecategory h2").addClass("hover")
-    });
-    $('[data-roll="hdrSideUp"]').gScroll({
-        isAuto: true,
-        isImgLoad: true,
-        showNum: 1,
-        stepLen: 1,
-        speed: 6e3,
-        type: "vertical",
-        dataOriginal: "gome-src",
-        btnGo: {left: '[data-btn="goDown"]', right: '[data-btn="goUp"]'}
-    });
-
-    function t(e, a) {
-        var n = document;
-        var t = n.createElement("script");
-        t.type = "text/javascript";
-        if (t.readyState) {
-            t.onreadystatechange = function () {
-                if (t.readyState == "loaded" || t.readyState == "complete") {
-                    t.onreadystatechange = null;
-                    a()
-                }
-            }
-        } else {
-            t.onload = function () {
-                a()
-            }
-        }
-        t.src = e;
-        n.getElementsByTagName("head")[0].appendChild(t)
-    }
-});
 (function () {
     var e = $(".tag_newpic");
     e.css("background", "url(" + e.data("bg") + ")")
@@ -6601,157 +6503,157 @@ $(function () {
     }, t.p = "", t(t.s = 0)
 }(
     [function (e, o, t) {
-    var n = t(1);
-    try {
-        var r = "", c = /([?&])cmpid=(.+?)(&(.+))?(#.*)?$/;
-        r = (q = window.location.href.match(c)) && q[2] || "";
-        var a = "https://report.gome.com.cn/sa?project=production", d = !1,
-            i = navigator.userAgent.match(/(gome(plus|backup)|GomeSeller)?\/[iphone\/]{0,7}(\d*)\//);
-        d = 126 != +(i ? i[3] : -1)
-    } catch (H) {
-        console.log(H)
-    }
-    !function (e) {
-        var o = e.sdk_url, t = e.name, n = window, r = document, c = "script", a = null, d = null;
-        n.sensorsDataAnalytic201505 = t, n[t] = n[t] || function (e) {
-            return function () {
-                (n[t]._q = n[t]._q || []).push([e, arguments])
-            }
-        };
-        for (var i = ["track", "quick", "register", "registerPage", "registerOnce", "trackSignup", "trackAbtest", "setProfile", "setOnceProfile", "appendProfile", "incrementProfile", "deleteProfile", "unsetProfile", "identify", "login", "logout", "trackLink", "clearAllRegister", "getAppStatus"], m = 0; m < i.length; m++) n[t][i[m]] = n[t].call(null, i[m]);
-        n[t]._t || (a = r.createElement(c), d = r.getElementsByTagName(c)[0], a.async = 1, a.src = o, a.setAttribute("charset", "UTF-8"), d.parentNode.insertBefore(a, d), n[t].para = e)
-    }({
-        sdk_url: "https://js.gomein.net.cn/sitemonitor/tjs/sensorsdata/sensorsdata.min.js",
-        heatmap_url: "https://js.gomein.net.cn/sitemonitor/tjs/sensorsdata/heatmap.min.js",
-        name: "GomeSa",
-        server_url: a,
-        use_app_track: d,
-        show_log: !1,
-        heatmap: {
-            custom_property: function (e) {
-                if (e.getAttribute("data-code")) return {data_code: e.getAttribute("data-code")}
-            }, setContent: function (e) {
-                return e.getAttribute("data-code") ? e.getAttribute("data-code") : "没有data-code"
-            }
-        },
-        source_channel: ["cmpid"]
-    });
-    try {
-        var m, u, l = function (e) {
-                var o, t = new RegExp("(^| )" + e + "=([^;]*)(;|$)");
-                return (o = document.cookie.match(t)) ? decodeURIComponent(o[2]) : null
-            }, s = null, w = (r = null, null), h = null, p = null, k = null, g = null, f = null, b = null, _ = null,
-            y = window.location.host, v = [{key: "dc-bi", rule: /^(.+\.)*cb\.ds\.gome\.com\.cn/}, {
-                key: "dc-big",
-                rule: /^(.+\.)*bigdata\.ds\.gome\.com\.cn/
-            }, {key: "dc-2", rule: /^(.+\.)*m\.gome\.com\.cn/}, {key: "dc-6", rule: /^(.+\.)*gomehigo\.hk/}, {
-                key: "dc-10",
-                rule: /^(.+\.)*diy\.gome\.com\.cn/
-            }, {key: "dc-12", rule: /^(.+\.)*m\.gomehigo\.hk/}, {key: "dc-13", rule: /^(.+\.)*gomegj\.com/}, {
-                key: "dc-14",
-                rule: /^(.+\.)*wap\.gomegj\.com/
-            }, {key: "dc-25", rule: /^(.+\.)*gomehome\.com/}, {key: "dc-26", rule: /^(.+\.)*gomeart\.com/}, {
-                key: "dc-1",
-                rule: /^(.+\.)*gome\.com\.cn/
-            }, {key: "dc-7", rule: /^(.+\.)*atguat\.com\.cn/}];
-        !function () {
-            var e = document.getElementById("application-site");
-            if (!(s = e && e.getAttribute("tid"))) for (var o = 0, t = v.length; o < t; o++) if (v[o].rule.exec(y)) return s = v[o].key;
-            s = s || "未知站点"
-        }();
-        var q, S = l("sensorsdata2015jssdkcross"), j = (S ? JSON.parse(S) : {}).props, P = j && j._latest_cmpid;
-        if (r = (q = decodeURIComponent(window.location.href).match(c)) && q[2] || null) ; else if (window.document.referrer) {
-            for (var O = -1, U = 0, x = n.seoUrls.length; U < x; U++) {
-                var R = n.seoUrls[U], A = new RegExp(R.h), I = decodeURIComponent(window.document.referrer).match(A);
-                if (I) {
-                    h = I[0], O = U;
-                    break
+        var n = t(1);
+        try {
+            var r = "", c = /([?&])cmpid=(.+?)(&(.+))?(#.*)?$/;
+            r = (q = window.location.href.match(c)) && q[2] || "";
+            var a = "https://report.gome.com.cn/sa?project=production", d = !1,
+                i = navigator.userAgent.match(/(gome(plus|backup)|GomeSeller)?\/[iphone\/]{0,7}(\d*)\//);
+            d = 126 != +(i ? i[3] : -1)
+        } catch (H) {
+            console.log(H)
+        }
+        !function (e) {
+            var o = e.sdk_url, t = e.name, n = window, r = document, c = "script", a = null, d = null;
+            n.sensorsDataAnalytic201505 = t, n[t] = n[t] || function (e) {
+                return function () {
+                    (n[t]._q = n[t]._q || []).push([e, arguments])
                 }
+            };
+            for (var i = ["track", "quick", "register", "registerPage", "registerOnce", "trackSignup", "trackAbtest", "setProfile", "setOnceProfile", "appendProfile", "incrementProfile", "deleteProfile", "unsetProfile", "identify", "login", "logout", "trackLink", "clearAllRegister", "getAppStatus"], m = 0; m < i.length; m++) n[t][i[m]] = n[t].call(null, i[m]);
+            n[t]._t || (a = r.createElement(c), d = r.getElementsByTagName(c)[0], a.async = 1, a.src = o, a.setAttribute("charset", "UTF-8"), d.parentNode.insertBefore(a, d), n[t].para = e)
+        }({
+            sdk_url: "https://js.gomein.net.cn/sitemonitor/tjs/sensorsdata/sensorsdata.min.js",
+            heatmap_url: "https://js.gomein.net.cn/sitemonitor/tjs/sensorsdata/heatmap.min.js",
+            name: "GomeSa",
+            server_url: a,
+            use_app_track: d,
+            show_log: !1,
+            heatmap: {
+                custom_property: function (e) {
+                    if (e.getAttribute("data-code")) return {data_code: e.getAttribute("data-code")}
+                }, setContent: function (e) {
+                    return e.getAttribute("data-code") ? e.getAttribute("data-code") : "没有data-code"
+                }
+            },
+            source_channel: ["cmpid"]
+        });
+        try {
+            var m, u, l = function (e) {
+                    var o, t = new RegExp("(^| )" + e + "=([^;]*)(;|$)");
+                    return (o = document.cookie.match(t)) ? decodeURIComponent(o[2]) : null
+                }, s = null, w = (r = null, null), h = null, p = null, k = null, g = null, f = null, b = null, _ = null,
+                y = window.location.host, v = [{key: "dc-bi", rule: /^(.+\.)*cb\.ds\.gome\.com\.cn/}, {
+                    key: "dc-big",
+                    rule: /^(.+\.)*bigdata\.ds\.gome\.com\.cn/
+                }, {key: "dc-2", rule: /^(.+\.)*m\.gome\.com\.cn/}, {key: "dc-6", rule: /^(.+\.)*gomehigo\.hk/}, {
+                    key: "dc-10",
+                    rule: /^(.+\.)*diy\.gome\.com\.cn/
+                }, {key: "dc-12", rule: /^(.+\.)*m\.gomehigo\.hk/}, {key: "dc-13", rule: /^(.+\.)*gomegj\.com/}, {
+                    key: "dc-14",
+                    rule: /^(.+\.)*wap\.gomegj\.com/
+                }, {key: "dc-25", rule: /^(.+\.)*gomehome\.com/}, {key: "dc-26", rule: /^(.+\.)*gomeart\.com/}, {
+                    key: "dc-1",
+                    rule: /^(.+\.)*gome\.com\.cn/
+                }, {key: "dc-7", rule: /^(.+\.)*atguat\.com\.cn/}];
+            !function () {
+                var e = document.getElementById("application-site");
+                if (!(s = e && e.getAttribute("tid"))) for (var o = 0, t = v.length; o < t; o++) if (v[o].rule.exec(y)) return s = v[o].key;
+                s = s || "未知站点"
+            }();
+            var q, S = l("sensorsdata2015jssdkcross"), j = (S ? JSON.parse(S) : {}).props, P = j && j._latest_cmpid;
+            if (r = (q = decodeURIComponent(window.location.href).match(c)) && q[2] || null) ; else if (window.document.referrer) {
+                for (var O = -1, U = 0, x = n.seoUrls.length; U < x; U++) {
+                    var R = n.seoUrls[U], A = new RegExp(R.h), I = decodeURIComponent(window.document.referrer).match(A);
+                    if (I) {
+                        h = I[0], O = U;
+                        break
+                    }
+                }
+                ~O ? (p = "weizhi", r = "".concat(w = "seo", "_").concat(h, "_").concat(p), GomeSa.register({_latest_cmpid: r})) : r = P ? decodeURIComponent(P) : P
+            } else r = P ? decodeURIComponent(P) : P;
+            if (r) {
+                var G = r.split("_");
+                w = G[0], h = G[1], p = G[2]
             }
-            ~O ? (p = "weizhi", r = "".concat(w = "seo", "_").concat(h, "_").concat(p), GomeSa.register({_latest_cmpid: r})) : r = P ? decodeURIComponent(P) : P
-        } else r = P ? decodeURIComponent(P) : P;
-        if (r) {
-            var G = r.split("_");
-            w = G[0], h = G[1], p = G[2]
+            var C = window.location.href.match(/([?&])intcmp=(.+?)(&(.+))?(#.*)?$/);
+            if ((k = C && C[2]) && "undefined" !== k) {
+                var E = k.split("-");
+                f = E[0], g = E[1] + "-" + E[2], b = E[1], _ = E[2]
+            }
+            var $ = window.location.href.match(/([?&])search_id=(.+?)(&(.+))?(#.*)?$/);
+            m = $ && $[2];
+            var N = window.location.href.match(/([?&])mid=(.+?)(&(.+))?(#.*)?$/) || window.location.href.match(/([?/])mshop-(.+?)(&(.+))?(#.*)?(\..*)?$/),
+                M = N && N[2], z = l("__gmwsid"), T = l("DNY_USER_ID"), D = l("share_userId"), B = l("punionid");
+            GomeSa.registerPage({
+                tid: s,
+                $url: decodeURIComponent(window.location.href),
+                $referrer: decodeURIComponent(document.referrer),
+                cmpid: r,
+                intcmp: k,
+                url_data_code: g,
+                now_page: f,
+                module_id: b,
+                position: _,
+                first_channel: w,
+                second_channel: h,
+                third_channel: p,
+                mshop_id: M,
+                unionid: z,
+                sharer_userid: D,
+                sharer_unionid: B,
+                userid: T
+            }), (u = l("SSO_USER_ID")) && GomeSa.login(u), GomeSa.quick("autoTrack", {search_id: m}), GomeSa.setProfile({_latest_cmpid: r}), document.onclick = function (e) {
+                var o = (e = e || window.e).target || e.srcElement, t = o.parentNode;
+                ~o.className.indexOf("submit_element") ? GomeSa.quick("trackHeatMap", o) : ~t.className.indexOf("submit_element") && GomeSa.quick("trackHeatMap", t)
+            }
+        } catch (H) {
+            console.log(H)
         }
-        var C = window.location.href.match(/([?&])intcmp=(.+?)(&(.+))?(#.*)?$/);
-        if ((k = C && C[2]) && "undefined" !== k) {
-            var E = k.split("-");
-            f = E[0], g = E[1] + "-" + E[2], b = E[1], _ = E[2]
+    }, function (e, o) {
+        e.exports = {
+            seoUrls: [{h: "www.baidu.com", k: ["word", "wd"]}, {h: "www.so.com", k: ["m"]}, {
+                h: "m.baidu.com",
+                k: ["word", "wd"]
+            }, {h: "www.sogou.com", k: ["query"]}, {h: "m.so.com", k: ["m"]}, {
+                h: "cn.bing.com",
+                k: ["q"]
+            }, {h: "m.sogou.com", k: ["keyword"]}, {h: "so.m.sm.cn", k: ["q"]}, {
+                h: "wap.sogou.com",
+                k: ["keyword"]
+            }, {h: "yz.m.sm.cn", k: ["q"]}, {h: "www.bing.com", k: ["q"]}, {h: "m.sm.cn", k: ["q"]}, {
+                h: "m.yz.sm.cn",
+                k: ["q"]
+            }, {h: "m.sp.sm.cn", k: ["q"]}, {h: "search.yahoo.com", k: ""}, {
+                h: "www.haosou.com",
+                k: ["q"]
+            }, {h: "3g.baidu.com", k: ["word", "wd"]}, {h: "www.google-cn.net", k: ["q"]}, {
+                h: "baidu.mobi",
+                k: ["word"]
+            }, {h: "wap.baidu.com.cn", k: ["word"]}, {h: "wap.baidu.com", k: ["word", "wd"]}, {
+                h: "m.haosou.com",
+                k: ["q"]
+            }, {h: "so.com", k: ["m"]}, {h: "m.sj.sm.cn", k: ["q"]}, {h: "m.sa.sm.cn", k: ["q"]}, {
+                h: "m.xm.sm.cn",
+                k: ["q"]
+            }, {h: "www.youdao.com", k: ["q"]}, {h: "m.youdao.com", k: ["q"]}, {
+                h: "www1.baidu.com",
+                k: ["word", "wd"]
+            }, {h: "www5.baidu.com", k: ["word", "wd"]}, {h: "baidu.cn", k: ["word", "wd"]}, {
+                h: "m.baidu.cn",
+                k: ["word", "wd"]
+            }, {h: "m1.baidu.com", k: ["word", "wd"]}, {h: "m3.baidu.com", k: ["word", "wd"]}, {
+                h: "m5.baidu.com",
+                k: ["word", "wd"]
+            }, {h: "m9.baidu.com", k: ["word", "wd"]}, {h: "3g.baidu.cn", k: ["word", "wd"]}, {
+                h: "wap.baidu.cn",
+                k: ["word", "wd"]
+            }, {h: "bzclk.baidu.com", k: ["word", "wd"]}, {
+                h: "baidu.com",
+                k: ["word", "wd"]
+            }, {h: "(www.)?google(.com?)?(.[a-z]{2})?", k: ["q"]}]
         }
-        var $ = window.location.href.match(/([?&])search_id=(.+?)(&(.+))?(#.*)?$/);
-        m = $ && $[2];
-        var N = window.location.href.match(/([?&])mid=(.+?)(&(.+))?(#.*)?$/) || window.location.href.match(/([?/])mshop-(.+?)(&(.+))?(#.*)?(\..*)?$/),
-            M = N && N[2], z = l("__gmwsid"), T = l("DNY_USER_ID"), D = l("share_userId"), B = l("punionid");
-        GomeSa.registerPage({
-            tid: s,
-            $url: decodeURIComponent(window.location.href),
-            $referrer: decodeURIComponent(document.referrer),
-            cmpid: r,
-            intcmp: k,
-            url_data_code: g,
-            now_page: f,
-            module_id: b,
-            position: _,
-            first_channel: w,
-            second_channel: h,
-            third_channel: p,
-            mshop_id: M,
-            unionid: z,
-            sharer_userid: D,
-            sharer_unionid: B,
-            userid: T
-        }), (u = l("SSO_USER_ID")) && GomeSa.login(u), GomeSa.quick("autoTrack", {search_id: m}), GomeSa.setProfile({_latest_cmpid: r}), document.onclick = function (e) {
-            var o = (e = e || window.e).target || e.srcElement, t = o.parentNode;
-            ~o.className.indexOf("submit_element") ? GomeSa.quick("trackHeatMap", o) : ~t.className.indexOf("submit_element") && GomeSa.quick("trackHeatMap", t)
-        }
-    } catch (H) {
-        console.log(H)
-    }
-}, function (e, o) {
-    e.exports = {
-        seoUrls: [{h: "www.baidu.com", k: ["word", "wd"]}, {h: "www.so.com", k: ["m"]}, {
-            h: "m.baidu.com",
-            k: ["word", "wd"]
-        }, {h: "www.sogou.com", k: ["query"]}, {h: "m.so.com", k: ["m"]}, {
-            h: "cn.bing.com",
-            k: ["q"]
-        }, {h: "m.sogou.com", k: ["keyword"]}, {h: "so.m.sm.cn", k: ["q"]}, {
-            h: "wap.sogou.com",
-            k: ["keyword"]
-        }, {h: "yz.m.sm.cn", k: ["q"]}, {h: "www.bing.com", k: ["q"]}, {h: "m.sm.cn", k: ["q"]}, {
-            h: "m.yz.sm.cn",
-            k: ["q"]
-        }, {h: "m.sp.sm.cn", k: ["q"]}, {h: "search.yahoo.com", k: ""}, {
-            h: "www.haosou.com",
-            k: ["q"]
-        }, {h: "3g.baidu.com", k: ["word", "wd"]}, {h: "www.google-cn.net", k: ["q"]}, {
-            h: "baidu.mobi",
-            k: ["word"]
-        }, {h: "wap.baidu.com.cn", k: ["word"]}, {h: "wap.baidu.com", k: ["word", "wd"]}, {
-            h: "m.haosou.com",
-            k: ["q"]
-        }, {h: "so.com", k: ["m"]}, {h: "m.sj.sm.cn", k: ["q"]}, {h: "m.sa.sm.cn", k: ["q"]}, {
-            h: "m.xm.sm.cn",
-            k: ["q"]
-        }, {h: "www.youdao.com", k: ["q"]}, {h: "m.youdao.com", k: ["q"]}, {
-            h: "www1.baidu.com",
-            k: ["word", "wd"]
-        }, {h: "www5.baidu.com", k: ["word", "wd"]}, {h: "baidu.cn", k: ["word", "wd"]}, {
-            h: "m.baidu.cn",
-            k: ["word", "wd"]
-        }, {h: "m1.baidu.com", k: ["word", "wd"]}, {h: "m3.baidu.com", k: ["word", "wd"]}, {
-            h: "m5.baidu.com",
-            k: ["word", "wd"]
-        }, {h: "m9.baidu.com", k: ["word", "wd"]}, {h: "3g.baidu.cn", k: ["word", "wd"]}, {
-            h: "wap.baidu.cn",
-            k: ["word", "wd"]
-        }, {h: "bzclk.baidu.com", k: ["word", "wd"]}, {
-            h: "baidu.com",
-            k: ["word", "wd"]
-        }, {h: "(www.)?google(.com?)?(.[a-z]{2})?", k: ["q"]}]
-    }
-}]);
+    }]);
 jQuery.cookie = function (e, i, r) {
     if (typeof i != "undefined") {
         r = r || {};
@@ -7857,7 +7759,7 @@ $(function () {
 
     var i = e() ? "/qiyegou" : "/home";
     var n = '<div class="mini-products">                        <h2 class="hdrcartitle">最近加入的商品：</h2>                        <ul class="mini-nProductLists">                            <% for(var i=0;i<miniCommerceItemsGroupVOs.length;i++ ) { %>                            <li class="mini-list clearfix">                                <% var miniVOs = miniCommerceItemsGroupVOs[i] || {}; %>                                <dl class="nProduct-huod realMini">                                    <% if(miniVOs.promotionHeads && miniVOs.promotionHeads.length > 0 ) { %>                                    <% if(!(miniVOs.promotionHeads[0] && miniVOs.promotionHeads[0].type=="TZ")) {%>                                    <dd data-sub="tit-sub" class="huod-hd clearfix">                                        <% for(var k=0; k< miniVOs.promotionHeads.length; k++) {%>                                        <% var promotionHeadItem = miniVOs.promotionHeads[k] || {},label = promotionHeadItem.label ;%>                                        <div class="pCol-name-huod">                                            <% if (promotionHeadItem.type === "MJ") {%>                                                <% var promotionTxt = ""; %>                                                <% if(promotionHeadItem.satisfied) {%>                                                    <span class="ico-l">满减</span>                                                    <% promotionTxt = "活动商品已购满" + ($toFixed(promotionHeadItem.preC)) + "元（已减" + ($toFixed(promotionHeadItem.postC)) + "元）";%>                                                <% } else if (promotionHeadItem.validKindNum) {%>                                                     <span class="ico-l-gray"><i></i>满减</span>                                                     <% promotionTxt = "活动商品购满" + ($toFixed(promotionHeadItem.preC)) + "元不同种类商品，即可享受满减促销活动";%>                                                <% } else {%>                                                    <span class="ico-l-gray"><i></i>满减</span>                                                    <% promotionTxt = "活动商品购满" + ($toFixed(promotionHeadItem.preC)) + "元，即可享受满减";%>                                                <% } %>                                                <span class="nLowLeight " title="<%= promotionTxt %>"><%=$cutstr(promotionTxt,26)  %></span>                                            <% } else if (promotionHeadItem.type === "ZDZ"|| promotionHeadItem.type === "ZD") {%>                                                <% var promotionTxt = ""; %>                                                <% if(promotionHeadItem.satisfied) {%>                                                    <span class="ico-l">满折</span>                                                    <% promotionTxt = "活动商品已购满" + (promotionHeadItem.preC || "0") + "件（已减" + ($toFixed(promotionHeadItem.postC)) + "元）";%>                                                 <% } else if (promotionHeadItem.validKindNum) {%>                                                    <span class="ico-l">满折</span>                                                    <% promotionTxt = "购买" + (promotionHeadItem.preC || "0") + "件不同种类商品，即可享受满折活动";%>                                                 <% } else {%>                                                    <span class="ico-l-gray"><i></i>满折</span>                                                    <% promotionTxt = "活动商品购满" + (promotionHeadItem.preC || "0") + "件，即可享受满折";%>                                                <% } %>                                                <span class="nLowLeight " title="<%= promotionTxt %>"><%=$cutstr(promotionTxt,26)  %></span>                                            <% } else {%>                                                <span><%=$showTypeTitle(promotionHeadItem) %></span>                                            <% } %>                                        </div>                                        <%} %>                                        <% if(miniVOs.miniGroupSummaryVO && miniVOs.miniGroupSummaryVO.promtion && miniVOs.miniGroupSummaryVO.subAmount > 0) {%>                                        <p style="padding-left:8px;">                                            小计：<span class="yuan" style="margin-right:10px;"> <b>¥</b><%= $toFixed(miniVOs.miniGroupSummaryVO.subAmount) %></span>                                            <% if(miniVOs.miniGroupSummaryVO.promoDiscAmount > 0) {%>                                            <span class="nRed">已减：<%= $toFixed(miniVOs.miniGroupSummaryVO.promoDiscAmount)%>元</span>                                            <% } %>                                        </p>                                        <%} %>                                    </dd>                                    <%} %>                                    <%} %>                                    <% var commerceItemsGroup = miniVOs.commerceItemsGroup || [];%>                                    <% if(miniVOs.promotionHeads && miniVOs.promotionHeads.length > 0 && miniVOs.promotionHeads[0].type=="TZ"){ %>                                        <%if(commerceItemsGroup.length>0 && commerceItemsGroup[0]){%>                                        <dd class="mini-huod-list min-sideline-list clearfix">                                            <div class="mini-product-info clearfix">                                                <div class="mini-pCol-img">                                                    <a target="_blank" title="<%= commerceItemsGroup[0].vProductName %>" href="<%= commerceItemsGroup[0].vUrl %>">                                                        <img alt="" src="<%= commerceItemsGroup[0].vImageURL %>" width="50" height="50"></a>                                                </div>                                                <div class="mini-pCol-name">                                                    <p>                                                        <a target="_blank" class="nMinCartBlue" title="<%= commerceItemsGroup[0].vProductName %>" href="<%= commerceItemsGroup[0].vUrl %>">                                                            【套装】<%=commerceItemsGroup[0].vProductName  %></a>                                                    </p>                                                </div>                                                <div class="mini-pCol-row">                                                    <% if(miniVOs.miniGroupSummaryVO && miniVOs.miniGroupSummaryVO.subAmount){ %>                                                        <span class="yuan"><b>¥<%= $toFixed(miniVOs.miniGroupSummaryVO.subAmount) %></b></span>                                                    <% }%>                                                    <span  class="quantity"><%= commerceItemsGroup[0].quantity %></span>                                                    <span isClick="" mcart-count mcart-count-min="1"                                                        mcart-count-change-interval="100"                                                        mcart-change-count                                                        data-cid="<%= commerceItemsGroup[0].itemId %>"                                                        data-limit="<%= commerceItemsGroup[0].limitNum %>"class="mcart-count">                                                            <a href="javascript:;" type="down" mcart-count-sub class="mcart-count-btn mcart-count-sub  <% if(commerceItemsGroup[0].quantity ==1) {%>mcart-count-disabled<% } %> ">-</a>                                                            <a href="javascript:;" type="up" mcart-count-add class=" <% if(commerceItemsGroup[0].quantity >= commerceItemsGroup[0].limitNum  ) {%>mcart-count-disabled<% } %>  mcart-count-btn mcart-count-add  ">+</a>                                                            <div class="mcart-count-input"><input  maxlength="3" name="num" type="text" value="<%= commerceItemsGroup[0].quantity %>">                                                            </div>                                                    </span>                                                    <a class="nLowLeight miniDel" href="javascript:void(0)" title="删除" data-itemid="<%= commerceItemsGroup[0].itemId %>">删除</a>                                                </div>                                            </div>                                                                                </dd>                                        <%}%>                                    <%}else{%>                                        <% for(var j=0; j< commerceItemsGroup.length; j++) {%>                                        <% var commerceItem = commerceItemsGroup[j] || {}; %>                                        <dd class="mini-huod-list min-sideline-list clearfix">                                            <div class="mini-product-info clearfix">                                                <div class="mini-pCol-img">                                                    <a  style="position: relative;" target="_blank" title="<%= commerceItem.itemName %>" href="<%= commerceItem.itemURL %>">                                                       <%=$showTuanProductTip(commerceItem) %>                                                       <img alt="" src="<%= commerceItem.itemImageURL %>" width="50" height="50"></a>                                                </div>                                                <div class="mini-pCol-name">                                                    <p>                                                        <a target="_blank" class="nMinCartBlue" title="<%= commerceItem.itemName %>" href="<%= commerceItem.itemURL %>"><%=$cutstr(commerceItem.itemName,56)  %></a>                                                    </p>                                                </div>                                                <div class="mini-pCol-row">                                                    <span class="yuan"><b>¥<%= $toFixed(commerceItem.salePrice) %></b></span>                                                    <span  class="quantity"><%= commerceItem.quantity %></span>                                                    <span isClick="" mcart-count mcart-count-min="1"                                                        mcart-count-change-interval="100"                                                        mcart-change-count                                                        data-cid="<%= commerceItem.itemId %>"                                                        data-limit="<%= commerceItem.limitNum %>"class="mcart-count">                                                            <a href="javascript:;" type="down" mcart-count-sub class="mcart-count-btn mcart-count-sub  <% if(commerceItem.quantity ==1) {%>mcart-count-disabled<% } %> ">-</a>                                                            <a href="javascript:;" type="up" mcart-count-add class=" <% if(commerceItem.quantity >= commerceItem.limitNum  ) {%>mcart-count-disabled<% } %>  mcart-count-btn mcart-count-add  ">+</a>                                                            <div class="mcart-count-input"><input  maxlength="3" name="num" type="text" value="<%= commerceItem.quantity %>">                                                            </div>                                                    </span>                                                    <% if(commerceItemsGroup[j].commerceitemVOFlag != "SUB"){ %>                                                        <a class="nLowLeight miniDel" href="javascript:void(0)" title="删除" data-itemid="<%= commerceItem.itemId %>">删除</a>                                                    <% }%>                                                </div>                                            </div>                                            <% var incrementServiceItems = commerceItem.miniIncrementServiceInfoVOs || [], commerceItemVOs = commerceItem.showBaseGroupVOList || [];%>                                            <% if(incrementServiceItems.length > 0 || commerceItemVOs.length > 0) {%>                                            <div class="mini-pCol-promotion fl">                                                <%for(var k=0;k<incrementServiceItems.length;k++) {%>                                                    <% var dName = (incrementServiceItems[k].promotionType == "1"  ? "特惠" : "") + $toDisplayName(incrementServiceItems[k]) + "  " + incrementServiceItems[k].numOfYear + "年  ¥" + $toFixed(incrementServiceItems[k].price) %>                                                    <p class="nLowLeight cou-gift" title="<%=dName %>">[<em><%=$toServiceType(incrementServiceItems[k]) %></em>]<%=dName %></p>                                                <% } %>                                                <% for(var h=0;h<commerceItemVOs.length;h++) {%>                                                <% var itemName = commerceItemVOs[h].itemName || ""; %>                                                    <p class="nLowLeight cou-gift" title="<%=itemName %>">[<em>赠品</em>]&nbsp;&nbsp;<%=$cutstr(itemName,24)  %> </p>                                                <% } %>                                            </div>                                            <% } %>                                        </dd>                                        <%}%>                                     <%}%>                                </dl>                            </li>                            <% } %>                        </ul>                        <div id="atg_store_csFooter1" class="cartfooter">                            <h4>                                已选 <i><span id="csQuantity"><%= miniCartProfileVO.itemCount || 0 %></span></i>                                 件 ，共计： <strong><span id="csSubtotal">¥</span><%= $toFixed(miniCartProfileVO.totalAmount) %></strong>                            </h4>                            <% if(isUpCart) {%>                                <a  data-code="cart01002" id="csCheckout" style="text-decoration:none;" class="gocart" href="//cart' + cookieDomain + i + '/cart" title="去购物车">                                    <span>去购物车</span>                                </a>                            <% } else {%>                                <a  data-code="cart01001" id="csCheckout" style="text-decoration:none;" class="gocart" href="//cart' + cookieDomain + i + '/cart" title="去购物车">                                    <span>去购物车 </span>                                </a>                            <% } %>                        </div>                    </div>';
-   var r = '<div carttype="asidecart"  id="csEmptyMessage" class="noshop">                        <% if(isUpCart) {%>                            <a data-code="cart01002" href="//cart' + cookieDomain + i + '/cart" title="去购物车" style="text-decoration:underline;">购物车</a>                        <% } else {%>                            <a data-code="cart01001" href="//cart' + cookieDomain + i + '/cart" title="去购物车" style="text-decoration:underline;">购物车</a>                        <% } %>                        中还没有商品，赶紧选购吧！</div>';
+    var r = '<div carttype="asidecart"  id="csEmptyMessage" class="noshop">                        <% if(isUpCart) {%>                            <a data-code="cart01002" href="//cart' + cookieDomain + i + '/cart" title="去购物车" style="text-decoration:underline;">购物车</a>                        <% } else {%>                            <a data-code="cart01001" href="//cart' + cookieDomain + i + '/cart" title="去购物车" style="text-decoration:underline;">购物车</a>                        <% } %>                        中还没有商品，赶紧选购吧！</div>';
     var o = function () {
         return {
             loadCart: "//cart" + cookieDomain + i + "/api/cart/loadMiniCart",
@@ -8076,12 +7978,12 @@ $(function () {
     }
 
     function g(t, e) {
-            // t.find(".miniDel").off("click").on("click", function () {
-            //     var e = $(this).attr("data-itemid");
-            //     $.ajax({dataType: "jsonp", type: "get", url: o.delCartItem, data: {cid: e}}).then(function () {
-            //         l().then(u(t))
-            //     })
-            // });
+        // t.find(".miniDel").off("click").on("click", function () {
+        //     var e = $(this).attr("data-itemid");
+        //     $.ajax({dataType: "jsonp", type: "get", url: o.delCartItem, data: {cid: e}}).then(function () {
+        //         l().then(u(t))
+        //     })
+        // });
         t.find(".mcart-count-input input").each(function () {
             var e = $(this);
             var i = $(this).parent().parent().prev(".quantity").html();
@@ -8147,7 +8049,7 @@ $(function () {
     function O(t) {
         t = t || $("#miniShoppingcartLoadId");
         t.attr("carttype", "up");
-       // l().then(u(t))
+        // l().then(u(t))
     }
 
     function x(t, e) {
@@ -8198,7 +8100,7 @@ $(function () {
         });
         t.cartUnit = {minloadCart: m.minloadCart}
     })();
-     $(function G() {
+    $(function G() {
         m.hoverMinCart()
     });
 })(window);
