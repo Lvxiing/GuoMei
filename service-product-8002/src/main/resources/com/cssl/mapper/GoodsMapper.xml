@@ -94,4 +94,71 @@
         ))
         ORDER BY g.`goods_price` ASC LIMIT 10
     </select>
+
+    <select id="findSaleByCategoryId" resultType="map" parameterType="int">
+        SELECT *
+        FROM goods g
+                 INNER JOIN (SELECT goods_id,SUM(detail_num) AS num
+                             FROM order_detail
+                             GROUP BY goods_id
+                             ORDER BY num DESC
+            ) o ON g.`goods_id` = o.goods_id
+                 INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
+        WHERE b.`category_id` IN (
+            SELECT category_id
+            FROM category
+            WHERE category_parent_id IN (
+                SELECT category_id
+                FROM category
+                WHERE category_id IN
+                      (
+                          SELECT category_id
+                          FROM category
+                          WHERE category_parent_id =
+                                (
+                                    SELECT category_id
+                                    FROM category
+                                    WHERE category_id = #{cid}
+                                )
+                      )
+            )
+        )
+            LIMIT 12
+    </select>
+
+    <select id="findSaleAll" resultType="map" parameterType="int">
+
+        SELECT *
+        FROM goods g
+                 INNER JOIN (SELECT goods_id,SUM(detail_num) AS num
+                             FROM order_detail
+                             GROUP BY goods_id
+                             ORDER BY num DESC
+            ) o ON g.`goods_id` = o.goods_id
+                 INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
+        WHERE b.`category_id` IN (
+            SELECT category_id
+            FROM category
+            WHERE category_parent_id IN (
+                SELECT category_id
+                FROM category
+                WHERE category_id IN
+                      (
+                          SELECT category_id
+                          FROM category
+                          WHERE category_parent_id IN
+                                (
+                                    SELECT category_id
+                                    FROM category
+                                    WHERE category_parent_id = (
+                                        SELECT category_id
+                                        FROM category
+                                        WHERE category_id = #{cid}
+                                    )
+                                )
+                      )
+            )
+        )
+            LIMIT 12
+    </select>
 </mapper>

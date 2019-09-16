@@ -22,11 +22,14 @@
         INNER JOIN score s ON uinfo.sid=s.score_id
         INNER JOIN grade gr ON ( g.growup_sum BETWEEN gr.low AND high)
         <where>
-            <if test="userName!=null  and  userName!='' and userName!='null'">
+            <if test="userName!=null  and  userName!='' ">
                 u.user_name LIKE concat('%',#{userName},'%')
             </if>
-            <if test="gradeName!=null and gradeName!='' and gradeName!='null'">
+            <if test="gradeName!=null and gradeName!='' ">
                 AND   gr.grade_name=#{gradeName}
+            </if>
+            <if test="userId!=null and userId!=0">
+                AND   u.user_id=#{userId}
             </if>
         </where>
     </select>
