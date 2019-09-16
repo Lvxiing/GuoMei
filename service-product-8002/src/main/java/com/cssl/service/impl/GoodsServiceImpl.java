@@ -73,4 +73,9 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
         return goodsMapper.indexSaleGoods();
     }
 
+    @Override
+    public List<Goods> goodsInfoSale(Integer cid) {
+        return goodsMapper.goodsInfoSale(cid);
+    }
+
 }

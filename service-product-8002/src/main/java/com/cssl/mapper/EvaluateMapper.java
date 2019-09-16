@@ -18,4 +18,7 @@ public interface EvaluateMapper extends BaseMapper<Evaluate> {
 
     //查询全部评论
     List<Map<String,Object>> evaluateFindAll(Map<String,Object> map);
+
+    //查看某商品下的所有评论信息
+    List<Map<String,Object>> goodsEvaluate(Integer gid);
 }

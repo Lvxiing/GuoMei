@@ -173,4 +173,19 @@
                  INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
              LIMIT  5
     </select>
+
+    <select id="goodsInfoSale" resultMap="BaseResultMap" parameterType="int">
+        SELECT g.*
+        FROM goods g
+                 INNER JOIN (SELECT goods_id,SUM(detail_num) AS num
+                             FROM order_detail
+                             GROUP BY goods_id
+                             ORDER BY num DESC
+            ) o ON g.`goods_id` = o.goods_id
+                 INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
+        WHERE b.`category_id` IN (
+            SELECT category_id FROM category WHERE category_id= #{cid}
+        )
+            LIMIT 3
+    </select>
 </mapper>

@@ -43,4 +43,7 @@ public interface GoodsService extends IService<Goods> {
 
     //首页的商品热销榜
     List<Map<String,Object>> indexSaleGoods();
+
+    //商品详情热销榜
+    List<Goods> goodsInfoSale(Integer cid);
 }

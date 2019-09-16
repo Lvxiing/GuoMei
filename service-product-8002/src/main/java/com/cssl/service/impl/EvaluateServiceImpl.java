@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,5 +32,10 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate> i
         Page<Map<String, Object>> page = PageHelper.startPage(pageIndex, pageSize);
         evaluateMapper.evaluateFindAll(map);
         return page;
+    }
+
+    @Override
+    public List<Map<String, Object>> goodsEvaluate(Integer gid) {
+        return evaluateMapper.goodsEvaluate(gid);
     }
 }

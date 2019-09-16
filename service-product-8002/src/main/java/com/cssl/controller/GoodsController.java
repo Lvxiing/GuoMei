@@ -2,11 +2,9 @@ package com.cssl.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.cssl.entity.Goods;
-import com.cssl.entity.PageInfo;
-import com.cssl.entity.Users;
-import com.cssl.entity.VipGoods;
+import com.cssl.entity.*;
 import com.cssl.service.CategoryService;
+import com.cssl.service.EvaluateService;
 import com.cssl.service.GoodsService;
 import com.cssl.service.Vip_goodsService;
 import com.github.pagehelper.Page;
@@ -42,6 +40,9 @@ public class GoodsController {
 
     @Autowired
     private Vip_goodsService vipGoodsService;
+
+    @Autowired
+    private EvaluateService evaluateService;
 
 
     //--------------------------前台模块-------------------------------
@@ -86,24 +87,51 @@ public class GoodsController {
     //根据当前第二级分类编号查询该分类下的所有第三级分类的热销榜
     @RequestMapping("findSaleByCategoryId")
     @ResponseBody
-    public List<Map<String,Object>> findSaleByCategoryId(@RequestParam("cid")Integer cid){
+    public List<Map<String, Object>> findSaleByCategoryId(@RequestParam("cid") Integer cid) {
         return goodsService.findSaleByCategoryId(cid);
     }
 
     //根据当前一级分类编号查询该分类下的所有商品的热销榜
     @RequestMapping("findSaleAll")
     @ResponseBody
-    public List<Map<String,Object>> findSaleAll(@RequestParam("cid")Integer cid){
+    public List<Map<String, Object>> findSaleAll(@RequestParam("cid") Integer cid) {
         return goodsService.findSaleAll(cid);
     }
 
     //首页的商品热销榜
     @RequestMapping("indexSaleGoods")
     @ResponseBody
-    public List<Map<String,Object>> indexSaleGoods(){
+    public List<Map<String, Object>> indexSaleGoods() {
         return goodsService.indexSaleGoods();
     }
 
+
+    //查询商品详情信息
+    @RequestMapping("GoodInfoShow")
+    @ResponseBody
+    public Map<String, Object> GoodInfoShow(@RequestParam("gid") Integer gid) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("goodsDes", goodsService.getOne(new QueryWrapper<Goods>().eq("goods_id", gid)));
+        // 1:好评 0:差评 2:中评
+        int goodCount = evaluateService.count(new QueryWrapper<Evaluate>().eq("goods_id", gid).eq("evaluate_state", 1));
+        int diffCount = evaluateService.count(new QueryWrapper<Evaluate>().eq("goods_id", gid).eq("evaluate_state", 0));
+        int centCount = evaluateService.count(new QueryWrapper<Evaluate>().eq("goods_id", gid).eq("evaluate_state", 2));
+        int count = evaluateService.count(new QueryWrapper<Evaluate>().eq("goods_id", gid));
+        map.put("goodCount",goodCount);
+        map.put("diffCount",diffCount);
+        map.put("centCount",centCount);
+        map.put("count",count);
+        List<Map<String, Object>> list =  evaluateService.goodsEvaluate(gid);
+        map.put("evaluate",list);
+        return map;
+    }
+
+    //商品详情的热销榜
+    @RequestMapping("goodsInfoSale")
+    @ResponseBody
+    public List<Goods> goodsInfoSale(@RequestParam("cid") Integer cid){
+        return goodsService.goodsInfoSale(cid);
+    }
 
     //--------------------------后台模块-------------------------------
     @RequestMapping("findGoods")
