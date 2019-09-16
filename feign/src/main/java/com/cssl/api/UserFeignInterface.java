@@ -13,8 +13,6 @@ import java.util.Map;
 @FeignClient("service-user")
 public interface UserFeignInterface {
     //使用接口映射
-    @RequestMapping("/users/findAll")
-     List<Users> findAll();
 
     @RequestMapping("/users/ajaxNum")
      String sendMsg(@RequestParam("phoneNum") String phoneNum) throws Exception;
