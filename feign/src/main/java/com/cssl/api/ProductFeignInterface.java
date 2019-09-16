@@ -71,6 +71,13 @@ public interface ProductFeignInterface {
     @RequestMapping("goods/indexSaleGoods")
     List<Map<String,Object>> indexSaleGoods();
 
+    //查询商品详情信息
+    @RequestMapping("goods/GoodInfoShow")
+    Map<String, Object> GoodInfoShow(@RequestParam("gid") Integer gid);
+
+    //商品详情的热销榜
+    @RequestMapping("goods/goodsInfoSale")
+    List<Goods> goodsInfoSale(@RequestParam("cid") Integer cid);
 
     //--------------------------后台模块----------------------------------
 
