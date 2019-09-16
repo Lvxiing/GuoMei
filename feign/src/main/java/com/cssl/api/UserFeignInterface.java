@@ -42,6 +42,15 @@ public interface UserFeignInterface {
     @RequestMapping("/growup_detail/saveGrowupdetail")
      int saveGrowupdetail(@RequestParam  Map map);
 
+    @RequestMapping("/users/findVip")
+     List<Map> findVip(@RequestParam  Map map);
+
+
+
+
+
+
+
 
     //**********后台***********
 
@@ -71,5 +80,6 @@ public interface UserFeignInterface {
 
     @RequestMapping("/grade/allGrade")
      List<Grade> allGrade();
+
 
 }

@@ -414,25 +414,24 @@
             <div id="clubUserInfoboxLogin" style="display: block">
                 <ul class="club-info-user">
                     <li class="img" js-data="userImg">
-                        <a href="#">
-                            <img src="//gfs8.gomein.net.cn/T1EIKXB4Zv1RCvBVdK.jpg" alt="" width="60" height="60"
-                                 src="//js.gomein.net.cn/images/pi-tx-new.jpg"></a>
+                            <img alt="" width="60" height="60"
+                                 src="" id="headImg">
                     </li>
-                    <li class="name" js-data="userName"><a href="#">Logo</a></li>
-                    <li class="level" js-data="userLevel"><i class="io">G</i><s></s><a data-code="club-lbrk" href="libao.html"><span>礼包</span></a></li>
+                    <li class="name" js-data="userName" id="userName"></li>
+                    <li class="level" js-data="userLevel"><i class="io" id="gradeName"></i><s></s><a data-code="club-lbrk" href="libao.html"><span>礼包</span></a></li>
                     <li class="integral" js-data="userIntegral">
-                        <div class="gradeAmount"><em class="cod">85/0</em><span class="in"
-                                                                                style="width: 100%;">&nbsp;</span></div>
+                        <div class="gradeAmount"  style="width: 150px;"><em class="cod" id="growupSum"></em><span class="in"
+                                                                                style="width: 100%;"  id="length">&nbsp;</span></div>
                     </li>
                     <li class="upgrade" js-data="userUpgrade">
-                        <p class="conyenue">继续获得<em class="num">1</em>个购物天数，即可升级为G2等级会员</p>
+                        <p class="conyenue">继续获得<em class="num" id="balance"></em>个成长值，会员即可升级</p>
                         <p class="nextLevl"></p>
                     </li>
                 </ul>
 
                 <ul class="club-info-coupon">
-                    <li js-data="userShopInt">我的美豆：<b>0</b></li>
-                    <li js-data="userCoupon">优<i class="char"></i>惠<i class="char"></i>券：<b>0张</b></li>
+                    <li js-data="userShopInt">我的美豆：<b id="scoreSum"></b></li>
+                    <li js-data="userCoupon">优<i class="char"></i>惠<i class="char"></i>券：<b>0</b>张</li>
                 </ul>
             </div>
 
@@ -444,30 +443,46 @@
 
                 $(function () {
 
-                    alert("sss");
-
                     //一加载就得到session中的用户
                     $.getJSON("/users/getSessionUser",function(json){
                         var li;
                         li=' <li id="gome-user" data-load="user" class="" data-open="true"  > <b id="loginDiv-name">Hi,&nbsp;<a data-code="public01054" href="vip_club.html" target="_blank">  <span  style="display: none;" id="userId">'+json.id+'</span>  <span class="sign-top-member-name" >'+json.userName+'</span></a></b>  </li>  <li  class="gome-link"   >  <a rel="nofollow" data-code="public01035" class="gome-link-logout" href="/users/outUser">退出</a> </li>';
 
                         $("li#gome-entry-link").after(li);
+
+
+                        //显示该会员信息
+                        $.getJSON("/users/findVip",{"userId":json.id},function(result){
+                            for (var i = 0; i < result.length; i++) {
+                                $("#userName").text(result[i].userName);
+                                $("#gradeName").text(result[i].gradeName);
+                                $("#growupSum").text(result[i].growupSum+" / "+result[i].high);
+                                $("#scoreSum").text(result[i].scoreSum);
+                                $("#headImg").attr("src",result[i].headImg);
+                                var balance=result[i].high-result[i].growupSum;
+                                $("#balance").text(balance);
+                                var percent=result[i].growupSum/result[i].high*100;
+                                $("#length").attr("style","width: "+percent.toFixed(0)+"%;");
+                            }
+                        })
+
+
+
+
+
+
+
+
+
                     });
 
 
+
+
+
+
+
                 })
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

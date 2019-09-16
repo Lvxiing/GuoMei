@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.Page;
 
 import javax.management.loading.PrivateClassLoader;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,4 +23,6 @@ public interface UsersService extends IService<Users> {
 
     //分页
     Page<Map> userVipFenYe(Map map, int pageIndex, int pageSize);
+
+    List<Map> findVip(Map map);
 }

@@ -16,6 +16,7 @@
         <result column="user_time" property="time" />
         <result column="user_role" property="role" />
         <result column="user_logintime" property="loginTime" />
+        <result column="user_infocomplete" property="infoComplete" />
     </resultMap>
 
 
@@ -41,11 +42,16 @@
         <result column="growup_sum" property="growupSum"/>
         <result column="score_sum" property="scoreSum"/>
         <result column="grade_name" property="gradeName"/>
+        <result column="low" property="low"/>
+        <result column="high" property="high"/>
     </resultMap>
 
 
     <select id="findVip" resultMap="myMap">
-        SELECT     u.user_id,u.user_name,u.user_headimg ,IFNULL(g.growup_sum,0) AS growup_sum   ,IFNULL(gr.grade_name,'G1')  AS grade_name  ,IFNULL(s.score_sum,0)  AS score_sum  FROM  `users`  u
+        SELECT     u.user_id,u.user_name,u.user_headimg ,IFNULL(g.growup_sum,0) AS growup_sum   ,IFNULL(gr.grade_name,'G1')  AS grade_name  ,
+        IFNULL(gr.low,0) AS  low ,
+        IFNULL(gr.high,100) AS  high  ,
+               IFNULL(s.score_sum,0)  AS score_sum  FROM  `users`  u
         LEFT  JOIN     growup g ON u.user_id= g.user_id
         LEFT  JOIN       grade gr ON ( g.growup_sum BETWEEN gr.low AND  gr.high)
         LEFT JOIN     score s ON u.user_id=s.user_id
