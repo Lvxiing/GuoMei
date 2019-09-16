@@ -64,6 +64,14 @@ public class GoodsController {
         return productFeignInterface.findSaleAll(cid);
     }
 
+    //首页的商品热销榜
+    @RequestMapping("indexSaleGoods")
+    @ResponseBody
+    public List<Map<String,Object>> indexSaleGoods(){
+        return productFeignInterface.indexSaleGoods();
+    }
+
+
     //--------------------------后台模块-------------------------------
     @RequestMapping("findGoods")
     @ResponseBody
