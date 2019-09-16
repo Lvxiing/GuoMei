@@ -80,9 +80,12 @@ public interface ProductFeignInterface {
     @RequestMapping("goods/findSaleAll")
     List<Map<String,Object>> findSaleAll(@RequestParam("cid")Integer cid);
 
+    //首页的商品热销榜
+    @RequestMapping("goods/indexSaleGoods")
+    List<Map<String,Object>> indexSaleGoods();
 
 
-        //--------------------------后台模块----------------------------------
+    //--------------------------后台模块----------------------------------
     //--------------------------商品分类模块-------------------------------
     //查询所有分类
     @RequestMapping("category/findCategory")
