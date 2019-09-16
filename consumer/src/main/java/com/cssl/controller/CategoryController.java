@@ -40,6 +40,17 @@ public class CategoryController {
         return productFeignInterface.findCategoryAndChild(parentId);
     }
 
+
+    //根据商品编号查询该商品所在的分类以及全部父分类信息
+    @RequestMapping("findCategoryByGoodsId")
+    @ResponseBody
+    public Map<String,Object> findCategoryByGoodsId(@RequestParam("gid") Integer gid) {
+
+        return productFeignInterface.findCategoryByGoodsId(gid);
+    }
+
+
+    //------------------------------后台模块--------------------------------
     //查询当前分类信息
     @RequestMapping("findParentOne")
     @ResponseBody
