@@ -48,6 +48,10 @@ public interface ProductFeignInterface {
     @RequestMapping("category/findCategoryParent")
     Map<String, Object> findCategoryParent(@RequestParam("cid") Integer cid);
 
+    //根据分类显示商品
+    @RequestMapping("category/categoryGoodsShow")
+    Map<String, Object> categoryGoodsShow(@RequestParam Map<String, Object> map);
+
     //---------------------------商品前台模块--------------------------------
     //根据分类名称查询该分类下的所有品牌商品的热卖商品
     @RequestMapping("goods/findGoodsByCategoryName")
