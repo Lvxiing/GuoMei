@@ -171,7 +171,8 @@
                              ORDER BY num DESC
             ) o ON g.`goods_id` = o.goods_id
                  INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
-             LIMIT  5
+             LIMIT
+             5
     </select>
 
     <select id="goodsInfoSale" resultMap="BaseResultMap" parameterType="int">
@@ -184,8 +185,43 @@
             ) o ON g.`goods_id` = o.goods_id
                  INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
         WHERE b.`category_id` IN (
-            SELECT category_id FROM category WHERE category_id= #{cid}
+            SELECT category_id
+            FROM category
+            WHERE category_id = #{cid}
         )
             LIMIT 3
     </select>
+
+    <select id="categoryGoodsShow" parameterType="map" resultMap="BaseResultMap">
+        SELECT g.*
+        FROM goods g
+        INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
+        WHERE b.`category_id` IN
+        (SELECT category_id FROM category
+        WHERE
+        <foreach item="item" index="index" collection="list" open="" separator=" OR " close="">
+            category_id = #{item}
+        </foreach>
+        )
+        <if test="low!=null and low!= '' and high != null and high!= '' ">
+            and g.`goods_price` BETWEEN #{low} AND #{high}
+        </if>
+    </select>
+
+
+    <select id="categorySaleGoodsShow" parameterType="list" resultType="map">
+        SELECT * FROM goods g INNER JOIN (SELECT goods_id,SUM(detail_num) AS num FROM order_detail
+                                          GROUP BY goods_id ORDER BY num DESC
+        ) o ON g.`goods_id` = o.goods_id
+                              INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
+        WHERE b.`category_id` IN (
+            SELECT category_id
+            FROM category
+            WHERE
+               <foreach item="item" index="index" collection="list" open="" separator=" OR " close="">
+                 category_id = #{item}
+               </foreach>
+        )
+    </select>
+
 </mapper>

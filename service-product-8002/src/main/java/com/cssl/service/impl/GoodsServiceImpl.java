@@ -9,12 +9,13 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author lx
@@ -76,6 +77,52 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     @Override
     public List<Goods> goodsInfoSale(Integer cid) {
         return goodsMapper.goodsInfoSale(cid);
+    }
+
+    @Override
+    public Page<Map<String, Object>> categoryGoodsShow(Map<String, Object> map, List list) {
+        Page<Map<String, Object>> page;
+        Integer pageIndex = new Integer(map.get("pageIndex").toString());
+        Integer pageSize = new Integer(map.get("pageSize").toString());
+        Integer bs = -1;
+        if(map.get("bs") != null && !"".equals(map.get("bs")) ){
+            bs = new Integer(map.get("bs").toString());
+        }
+        Map param = new HashMap();
+        param.put("list", list);
+        if(map.get("low") != null && !"".equals(map.get("low")) ){
+            param.put("low", map.get("low"));
+        }
+        if(map.get("high") != null && !"".equals(map.get("high")) ){
+            param.put("high", map.get("high"));
+        }
+        String sort = null;
+        if (bs == 1) { //表示销量
+            page = PageHelper.startPage(pageIndex, pageSize);
+            goodsMapper.categorySaleGoodsShow(list);
+            return page;
+        }
+        if (bs == 2) { //表示新品
+            sort = "goods_create_time DESC";
+        }
+        if (bs == 3) { //表示低价
+            sort = "goods_price asc";
+        }
+        if (bs == 4) { //表示高价
+            sort = "goods_price DESC";
+        }
+        if (sort == null) {
+            page = PageHelper.startPage(pageIndex, pageSize);
+        } else {
+            page = PageHelper.startPage(pageIndex, pageSize, sort);
+        }
+        goodsMapper.categoryGoodsShow(param);
+        return page;
+    }
+
+    @Override
+    public List<Map<String, Object>> categorySaleGoodsShow(List list) {
+        return goodsMapper.categorySaleGoodsShow(list);
     }
 
 }
