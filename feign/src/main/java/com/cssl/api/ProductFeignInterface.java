@@ -44,6 +44,9 @@ public interface ProductFeignInterface {
     @RequestMapping("category/findCategoryByGoodsId")
     Map<String,Object> findCategoryByGoodsId(@RequestParam("gid") Integer gid);
 
+    //查询父分类信息(反向递归)
+    @RequestMapping("category/findCategoryParent")
+    Map<String, Object> findCategoryParent(@RequestParam("cid") Integer cid);
 
     //---------------------------商品前台模块--------------------------------
     //根据分类名称查询该分类下的所有品牌商品的热卖商品
@@ -81,6 +84,7 @@ public interface ProductFeignInterface {
     //商品评价
     @RequestMapping("evaluate/goodsEvaluate")
     PageInfo<Map<String,Object>> goodsEvaluate(@RequestParam("gid") Integer gid,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize);
+
 
 
 
