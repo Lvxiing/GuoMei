@@ -29,7 +29,7 @@ public class Vip_goodsServiceImpl extends ServiceImpl<Vip_goodsMapper, VipGoods>
 
     @Override
     public Page<Map<String, Object>> vipGoodsFindAll(Map<String, Object> map, int pageIndex, int pageSize) {
-        Page<Map<String, Object>> page = PageHelper.startPage(pageIndex, pageSize,"grade_id asc");
+        Page<Map<String, Object>> page = PageHelper.startPage(pageIndex, pageSize,"goods_state desc,grade_id asc");
         vip_goodsMapper.vipGoodsFindAll(map);
         return page;
     }
