@@ -221,5 +221,19 @@ public class GoodsController {
         return productFeignInterface.findGoodsById(id);
     }
 
-
+    //会员商品
+    @RequestMapping("/vipGoodsFindAll/{cname}/{title}")
+    @ResponseBody
+    public Map<String,Object> vipGoodsFindAll(@PathVariable("cname") String cname, @PathVariable("title") String title, @RequestParam("page")int page, @RequestParam("limit")int limit){
+        Map<String,Object> param = new HashMap<>();
+        param.put("cname",cname);
+        param.put("title",title);
+        Map<String,Object> map = new HashMap<String,Object>();
+        PageInfo<Map<String, Object>> mapPageInfo = productFeignInterface.vipGoodsFindAll(param,page,limit);
+        map.put("code",0);
+        map.put("msg", "");
+        map.put("data",mapPageInfo.getList());
+        map.put("count",mapPageInfo.getTotalCount());
+        return map;
+    }
 }
