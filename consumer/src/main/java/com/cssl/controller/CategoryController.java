@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +50,14 @@ public class CategoryController {
         return productFeignInterface.findCategoryByGoodsId(gid);
     }
 
+    //查询父分类信息(反向递归)
+    @RequestMapping("findCategoryParent")
+    @ResponseBody
+    public Map<String, Object> findCategoryParent(@RequestParam("cid") Integer cid){
+
+        return productFeignInterface.findCategoryParent(cid);
+    }
+
 
     //------------------------------后台模块--------------------------------
     //查询当前分类信息
@@ -61,8 +70,8 @@ public class CategoryController {
     //查询当前品牌的父分类信息
     @RequestMapping("findBrandIsParentCategory")
     @ResponseBody
-    public Map findBrandIsParentCategory(@RequestParam("id")Integer id){
-        return productFeignInterface.findBrandIsParentCategory(id);
+    public Map findBrandIsParentCategory(@RequestParam("cid")Integer cid){
+        return productFeignInterface.findBrandIsParentCategory(cid);
     }
 
 
