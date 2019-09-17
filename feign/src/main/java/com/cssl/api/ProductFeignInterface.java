@@ -31,7 +31,6 @@ public interface ProductFeignInterface {
     PageInfo findPageByTitle(@RequestParam("pageIndex") Integer pageIndex ,@RequestParam("pageSize") Integer pageSize,@RequestParam("title") String title);
     //查询所有顶级分类
 
-
     //---------------------------分类前台模块--------------------------------
     //查询所有顶级分类
     @RequestMapping("category/findParentCategory")
@@ -78,6 +77,13 @@ public interface ProductFeignInterface {
     //商品详情的热销榜
     @RequestMapping("goods/goodsInfoSale")
     List<Goods> goodsInfoSale(@RequestParam("cid") Integer cid);
+
+    //商品评价
+    @RequestMapping("evaluate/goodsEvaluate")
+    PageInfo<Map<String,Object>> goodsEvaluate(@RequestParam("gid") Integer gid,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize);
+
+
+
 
     //--------------------------后台模块----------------------------------
 

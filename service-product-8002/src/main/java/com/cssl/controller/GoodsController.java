@@ -16,7 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.*;
@@ -109,7 +111,7 @@ public class GoodsController {
     //查询商品详情信息
     @RequestMapping("GoodInfoShow")
     @ResponseBody
-    public Map<String, Object> GoodInfoShow(@RequestParam("gid") Integer gid) {
+    public Map<String, Object> GoodInfoShow(@RequestParam("gid") Integer gid, HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> map = new HashMap<>();
         map.put("goodsDes", goodsService.getOne(new QueryWrapper<Goods>().eq("goods_id", gid)));
         // 1:好评 0:差评 2:中评
@@ -117,19 +119,76 @@ public class GoodsController {
         int diffCount = evaluateService.count(new QueryWrapper<Evaluate>().eq("goods_id", gid).eq("evaluate_state", 0));
         int centCount = evaluateService.count(new QueryWrapper<Evaluate>().eq("goods_id", gid).eq("evaluate_state", 2));
         int count = evaluateService.count(new QueryWrapper<Evaluate>().eq("goods_id", gid));
-        map.put("goodCount",goodCount);
-        map.put("diffCount",diffCount);
-        map.put("centCount",centCount);
-        map.put("count",count);
-        List<Map<String, Object>> list =  evaluateService.goodsEvaluate(gid);
-        map.put("evaluate",list);
+        map.put("goodCount", goodCount);
+        map.put("diffCount", diffCount);
+        map.put("centCount", centCount);
+        map.put("count", count);
+
+        Cookie cookie = null;
+        String value = null;  //保存新的cookie中的值
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null && cookies.length > 0) {
+            for (Cookie cook : cookies) {
+                if (cook.getName().equals("gid")) {
+                    cookie = cook;
+                    break;
+                }
+            }
+        }
+        if (cookie == null) {
+            cookie = new Cookie("gid", gid.toString());
+        } else { //已存在
+            String pId = cookie.getValue();
+            String[] ids = pId.split(",");
+            value = "";//先清空
+            for (int i = 0; i < ids.length; i++) {
+                if (!ids[i].equals(gid.toString())) {
+                    value += ids[i] + ",";
+                }
+            }
+            value = value.substring(0, value.length() - 1);
+            value = gid.toString() + "," + value;//叠加新的值
+            String[] idss = value.split(",");
+            if (idss.length > 10) {
+                value = value.substring(0, value.lastIndexOf(","));
+            }
+            cookie.setValue(value);
+
+        }
+        cookie.setMaxAge(60 * 60 * 24 * 7);
+        response.addCookie(cookie);
+        List<Goods> goods = browseGoods(request, response);
+        map.put("browseGoods", goods);
         return map;
+    }
+
+
+    //最近浏览商品
+    public List<Goods> browseGoods(HttpServletRequest request, HttpServletResponse response) {
+        List<Goods> goods = new ArrayList<Goods>();
+        Cookie[] cookie = request.getCookies();
+        String value = null;
+        if (cookie != null) {
+            for (Cookie c : cookie) {
+                if (c.getName().equals("gid")) {
+                    value = c.getValue();
+                    break;
+                }
+            }
+        }
+        if (value != null) {
+            String[] id = value.split(",");
+            for (int i = 0; i < id.length; i++) {
+                goods.add(goodsService.getOne(new QueryWrapper<Goods>().eq("goods_id", Integer.valueOf(id[i]))));
+            }
+        }
+        return goods;
     }
 
     //商品详情的热销榜
     @RequestMapping("goodsInfoSale")
     @ResponseBody
-    public List<Goods> goodsInfoSale(@RequestParam("cid") Integer cid){
+    public List<Goods> goodsInfoSale(@RequestParam("cid") Integer cid) {
         return goodsService.goodsInfoSale(cid);
     }
 

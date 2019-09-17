@@ -20,6 +20,7 @@ public interface EvaluateService extends IService<Evaluate> {
     //查询所有评论
     Page<Map<String,Object>> evaluateFindAll(Map<String,Object>map, int pageIndex, int pageSize);
 
-    //查看某商品下的所有评论信息
-    List<Map<String,Object>> goodsEvaluate(Integer gid);
+    //查询所有商品
+    Page<Map<String,Object>> goodsEvaluate(Integer gid,int pageIndex,int pageSize);
+
 }

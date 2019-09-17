@@ -35,7 +35,11 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate> i
     }
 
     @Override
-    public List<Map<String, Object>> goodsEvaluate(Integer gid) {
-        return evaluateMapper.goodsEvaluate(gid);
+    public Page<Map<String, Object>> goodsEvaluate(Integer gid, int pageIndex, int pageSize) {
+        Page<Map<String, Object>> page = PageHelper.startPage(pageIndex, pageSize);
+        evaluateMapper.goodsEvaluate(gid);
+        return page;
     }
+
+
 }
