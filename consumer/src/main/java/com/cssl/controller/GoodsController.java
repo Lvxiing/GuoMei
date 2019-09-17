@@ -64,12 +64,27 @@ public class GoodsController {
         return productFeignInterface.findSaleAll(cid);
     }
 
+    //查询商品详情信息
+    @RequestMapping("GoodInfoShow")
+    @ResponseBody
+    public Map<String,Object> GoodInfoShow(@RequestParam("gid")Integer gid){
+        return productFeignInterface.GoodInfoShow(gid);
+    }
+
     //首页的商品热销榜
     @RequestMapping("indexSaleGoods")
     @ResponseBody
     public List<Map<String,Object>> indexSaleGoods(){
         return productFeignInterface.indexSaleGoods();
     }
+
+    //商品详情的热销榜
+    @RequestMapping("goodsInfoSale")
+    @ResponseBody
+    public List<Goods> goodsInfoSale(@RequestParam("cid") Integer cid){
+        return productFeignInterface.goodsInfoSale(cid);
+    }
+
 
 
     //--------------------------后台模块-------------------------------

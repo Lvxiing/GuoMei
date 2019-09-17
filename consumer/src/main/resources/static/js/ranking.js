@@ -2050,3 +2050,68 @@ $(function () {
     }
     define("seajs/seajs-combo/1.0.1/seajs-combo", [], {})
 }();
+$(function () {
+        !function (a) {
+            var b = function () {
+                this.init()
+            };
+            b.prototype = {
+                init: function () {
+                    this.ranking(), this.like()
+                }, ranking: function () {
+                    a("#logo").after('<div id="logoright"><a>\u6392\u884c\u699c</a></div>'), a(window).scroll(function () {
+                        var b = a(".ranking_nav_wrap").offset().top;
+                        var c = a(window).scrollTop();
+                        c - b > 0 ? (a(".ranking_nav_wrap").css("z-index", "981"), a(".nav_wrap").addClass("nav_wrap_fixed")) : (a(".ranking_nav_wrap").css("z-index", "100"), a(".nav_wrap").removeClass("nav_wrap_fixed"))
+                    });
+                    var b = new Date;
+                    b.setHours(0), b.setMinutes(0), b.setSeconds(0), b.setMilliseconds(0);
+                    var c = 864e5;
+                    var d = b.getTime() + c;
+                    var e = (new Date).getTime();
+
+                    function f(a) {
+                        return 10 > a ? "0" + a : "" + a
+                    }
+
+                }, like: function () {
+                    var b = a(".nav_one li");
+                    var c = a(".nav_two ul");
+                    var d = a(".nav_two ul li");
+                    e("box84", "cat10000004"), a.each(b, function () {
+                        var b = a(this);
+                        b.on("click", function () {
+                            var b = a(this).index();
+                            var d = a(".nav_two ul").eq(b).find("li:first").attr("data");
+                            a(".nav_two ul").eq(b).find("li:first").addClass("cur").siblings().removeClass("cur"), a(this).addClass("cur").siblings().removeClass("cur"), c.eq(b).addClass("active").siblings().removeClass("active"), e("box84", d)
+                        })
+                    }), a.each(d, function () {
+                        var b = a(this);
+                        b.on("click", function () {
+                            var b = a(this).attr("data");
+                            var c = a(this).index();
+                            if (a(this).addClass("cur").siblings().removeClass("cur"), 0 == c) {
+                                var d = a(this).attr("data");
+                                e("box84", d)
+                            } else e("box85", "", b)
+                        })
+                    });
+
+                    function e(b, c, d) {
+                        var e = {
+                            boxid: b,
+                            pid: "",
+                            area: a.cookie("atgregion") ? a.cookie("atgregion").split("|")[0] : "11011400",
+                            cid: a.cookie("__clickidc"),
+                            imagesize: "400",
+                            brid: "",
+                            shopid: "",
+                            c1id: c,
+                            c2id: d,
+                            sid: ""
+                        };
+                    }
+                }
+            }, new b
+        }(jQuery)
+    });

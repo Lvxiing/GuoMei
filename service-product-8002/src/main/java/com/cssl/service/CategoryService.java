@@ -40,6 +40,9 @@ public interface CategoryService extends IService<Category> {
     //删除品牌分类
     int deleteBrand(Integer cid);
 
+    //根据商品编号查询该商品所在的分类信息
+    Category findCategoryByGoodsId(Integer gid);
+
 
     //新增分类
     int addCategory(Category category);

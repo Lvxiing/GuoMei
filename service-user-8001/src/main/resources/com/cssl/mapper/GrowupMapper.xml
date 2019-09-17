@@ -9,4 +9,9 @@
         <result column="growup_sum" property="growupSum" />
     </resultMap>
 
+<update id="updateGrowupSum">
+    UPDATE  `growup` SET `growup_sum`=`growup_sum`+(SELECT  `type_value` FROM  `growup_type` WHERE  `type_name`=#{typeName})  WHERE `user_id`=#{userId}
+</update>
+
+
 </mapper>

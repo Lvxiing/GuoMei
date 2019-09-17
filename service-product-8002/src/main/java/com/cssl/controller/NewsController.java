@@ -34,7 +34,15 @@ public class NewsController {
         List<News> newsList = mongoTemplate.findAll(News.class);
         return newsList;
     }
-
+    //根据id查询数据,显示详情页面
+    @RequestMapping("findByNewsId")
+    @ResponseBody
+    public List<News> findByNewsId(@RequestParam("id") String id){
+        Query query = new Query(Criteria.where("id").is(id));
+        List<News> list = mongoTemplate.find(query, News.class);
+        return list;
+    }
+    //分页查询
     @RequestMapping("findPageByTitle")
     @ResponseBody
     public PageInfo findPageByTitle(Integer pageIndex , Integer pageSize, String title){

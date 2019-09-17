@@ -45,6 +45,8 @@ public class Evaluate extends Model<Evaluate> {
     @TableField(value = "order_id") //订单编号
     private Integer oid;
 
+    @TableField(value = "evaluate_state") //评级  1:好评 0:差评 2:中评
+    private Integer state;
 
     @Override
     protected Serializable pkVal() {

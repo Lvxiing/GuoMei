@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,6 +65,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     }
 
     @Override
+    public Category findCategoryByGoodsId(Integer gid) {
+        return categoryMapper.findCategoryByGoodsId(gid);
+    }
+
+    @Override
     public int addCategory(Category category) {
         return categoryMapper.addCategory(category);
     }
@@ -77,5 +83,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     public Map findBrandIsParentCategory(Integer id) {
         return categoryMapper.findBrandIsParentCategory(id);
     }
+
 
 }

@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  *  服务实现类
@@ -27,10 +30,21 @@ public class UsersServiceImpl extends ServiceImpl<UserMapper, Users> implements 
     private   UserMapper userMapper;
 
     @Override
-    public Page<Users> UsersFenYe(String userName, int pageIndex, int pageSize) {
+    public Page<Users> usersFenYe(String userName, int pageIndex, int pageSize) {
         Page<Users> usersPage = PageHelper.startPage(pageIndex, pageSize);
         userMapper.findUsers(userName);
         return usersPage;
     }
 
+    @Override
+    public Page<Map> userVipFenYe(Map map, int pageIndex, int pageSize) {
+        Page<Map> userVipPage = PageHelper.startPage(pageIndex, pageSize);
+        userMapper.findVip(map);
+        return userVipPage;
+    }
+
+    @Override
+    public List<Map> findVip(Map map) {
+        return userMapper.findVip(map);
+    }
 }
