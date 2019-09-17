@@ -705,16 +705,9 @@
                     });
                 });
 
-                $(".nav_two ul").on('click', 'li', function () {
-                    $(".nav_two ul").find("li:first").addClass("cur").siblings().removeClass("cur");
-                    $(this).addClass("cur").siblings().removeClass("cur");
-                });
+
             });
-
-
         }
-
-
         function OneGoods(id) {
             $("div.main_box ul").empty();
             $.getJSON('Goods/findSaleAll?cid=' + id, function (json) {
@@ -734,7 +727,7 @@
                     li += "<span>¥</span>";
                     li += "<i>" + cateOne.goods_price + "</i>";
                     li += "</div>";
-                    li += "<div class='salenum'>销售量 <span>" + cateOne.goods_stock + "</span>";
+                    li += "<div class='salenum'>销售量 <span>" + cateOne.num + "</span>";
                     li += "</div>";
                     li += "</div>";
                     li += "</li>";
@@ -757,18 +750,22 @@
                 for (var j = 0; j < json.length; j++) {
                     var subCate = json[j];
                     //console.log(j+" "+subCate.name);
-                    ul += "<li>" + subCate.name + "</li>";
+                    ul += "<li class='twoLi'>" + subCate.name + "</li>";
                 }
                 ul += "</ul>";
                 $("div.nav_two").append(ul);
             });
+
+            $("body").on('click', '.twoLi', function () {
+                alert(this);
+                $(".nav_two ul").find("li:first").addClass("cur").siblings().removeClass("cur");
+                $(this).addClass("cur").siblings().removeClass("cur");
+            });
         }
 
 
-    });
-    $(function () {
 
-    })
+    });
 </script>
 </body>
 </html>
