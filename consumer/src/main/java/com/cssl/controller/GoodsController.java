@@ -1,5 +1,6 @@
 package com.cssl.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.api.ProductFeignInterface;
 import com.cssl.entity.*;
 import com.cssl.util.NginxUtil;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.*;
 
 @Controller
@@ -131,6 +133,20 @@ public class GoodsController {
     public List<Grade> findGrade() {
         return productFeignInterface.findGrade();
     }
+
+
+    @RequestMapping("findGradeById")
+    @ResponseBody
+    public Grade findGradeById(@RequestParam("id") Integer id){
+        return productFeignInterface.findGradeById(id);
+    }
+
+    @RequestMapping("updateGradeMoney")
+    @ResponseBody
+    public String updateGradeMoney(@RequestParam("id") Integer id,@RequestParam("money") double money){
+       return productFeignInterface.updateGradeMoney(id,money);
+    }
+
 
     //新增商品
     @RequestMapping("addGoods")
