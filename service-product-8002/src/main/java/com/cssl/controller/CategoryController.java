@@ -91,6 +91,18 @@ public class CategoryController {
         return getAllParentInfo(paramMap);
     }
 
+    //查询父分类信息(反向递归)
+    @RequestMapping("findCategoryParent")
+    @ResponseBody
+    public Map<String, Object> findCategoryParent(@RequestParam("cid") Integer cid){
+        Category category = categoryService.getOne(new QueryWrapper<Category>().eq("category_id",cid));
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("cid", cid);
+        paramMap.put("cname", category.getName());
+        return getAllParentInfo(paramMap);
+    }
+
+
     /**
      * 根据指定末级分类id反向递归查询
      *
