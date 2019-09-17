@@ -762,9 +762,10 @@
             $(".nav_two ul").find("li:first").addClass("cur").siblings().removeClass("cur");
             $(this).addClass("cur").siblings().removeClass("cur");
         });
-        //点击全部时,拿到父类ul的name属性值
+        //点击全部时,拿到当前对应父类ul的name属性值
         $("body").on('click', '.cur', function () {
             var oneId= $(this).parent().attr("name");
+            alert(oneId);
         });
 
     });
