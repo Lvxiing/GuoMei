@@ -182,6 +182,10 @@ public interface ProductFeignInterface {
     @RequestMapping("goods/findGoodsById")
     Map findGoodsById(@RequestParam("id") Integer id);
 
+    //会员商品
+    @RequestMapping("/vip_goods/vipGoodsFindAll")
+    PageInfo<Map<String, Object>> vipGoodsFindAll(@RequestParam Map<String,Object> param, @RequestParam("page")int page, @RequestParam("limit")int limit);
+
 
     //---------------------------订单后台模块--------------------------------
     //查询全部和模糊查询
