@@ -756,14 +756,16 @@
                 $("div.nav_two").append(ul);
             });
 
-            $("body").on('click', '.twoLi', function () {
-                alert(this);
-                $(".nav_two ul").find("li:first").addClass("cur").siblings().removeClass("cur");
-                $(this).addClass("cur").siblings().removeClass("cur");
-            });
+
         }
-
-
+        $("body").on('click', '.twoLi', function () {
+            $(".nav_two ul").find("li:first").addClass("cur").siblings().removeClass("cur");
+            $(this).addClass("cur").siblings().removeClass("cur");
+        });
+        //点击全部时,拿到父类ul的name属性值
+        $("body").on('click', '.cur', function () {
+            var oneId= $(this).parent().attr("name");
+        });
 
     });
 </script>
