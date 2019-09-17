@@ -125,4 +125,9 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
         return goodsMapper.categorySaleGoodsShow(list);
     }
 
+    @Override
+    public List<Goods> categorySalaRankingGoods(List list) {
+        return goodsMapper.categorySalaRankingGoods(list);
+    }
+
 }
