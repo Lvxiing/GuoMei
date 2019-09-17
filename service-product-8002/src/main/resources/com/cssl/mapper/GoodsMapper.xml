@@ -224,4 +224,24 @@
         )
     </select>
 
+    <select id="categorySalaRankingGoods" parameterType="list" resultMap="BaseResultMap">
+        SELECT g.* FROM goods g
+        INNER JOIN (
+        SELECT goods_id,SUM(detail_num) AS num,order_id AS oid FROM order_detail
+        GROUP BY goods_id
+        ) o ON g.`goods_id` = o.goods_id
+        INNER JOIN orders r ON r.order_id = o.oid
+        INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
+        WHERE b.`category_id` IN (
+        SELECT category_id
+        FROM category
+         WHERE
+             <foreach item="item" index="index" collection="list" open="" separator=" OR " close="">
+                 category_id = #{item}
+             </foreach>
+        )
+        AND TO_DAYS(NOW())- TO_DAYS(r.order_time)&lt;=7
+        ORDER BY num DESC
+        LIMIT 6
+    </select>
 </mapper>

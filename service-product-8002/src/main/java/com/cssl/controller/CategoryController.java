@@ -162,7 +162,6 @@ public class CategoryController {
         if (level == 4) {
             list.add(cid);
         }
-        System.out.println("list = " + list);
         Page<Map<String, Object>> page = goodsService.categoryGoodsShow(map, list);
         pages.setList(page.getResult());
         pages.setPageNo(page.getPageNum());
@@ -170,6 +169,8 @@ public class CategoryController {
         pages.setPageSize(page.getPageSize());
         pages.setPageCount(page.getPages());
         json.put("page", pages);
+        json.put("categoryInfo",category);
+        json.put("salaRanking",goodsService.categorySalaRankingGoods(list));
         return json;
     }
 
