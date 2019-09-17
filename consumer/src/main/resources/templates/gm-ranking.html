@@ -353,25 +353,25 @@
     <div class="main_box">
         <ul>
             <!--<li class="ranking_big">-->
-                <!--<div class="inner">-->
-                    <!--<span class="tagred">1</span>-->
-                    <!--<a href="" target="_blank" title="海尔b0001电视语音遥控器LQ49AL88U82 LQ55AL88U82 LQ65AL88U82(白色 配件)">-->
-                        <!--<img class="lazyloading" src="picture/T1gJJXB5hT1RCvBVdK_400.png" data-lazy-img="done"-->
-                             <!--data-lazy-init="picture/T1gJJXB5hT1RCvBVdK_400.png"-->
-                             <!--alt="海尔b0001电视语音遥控器LQ49AL88U82 LQ55AL88U82 LQ65AL88U82(白色 配件)"-->
-                             <!--title="海尔b0001电视语音遥控器LQ49AL88U82 LQ55AL88U82 LQ65AL88U82(白色 配件)" width="370" height="370">-->
-                    <!--</a>-->
-                    <!--<a href="" target="_blank" title="海尔b0001电视语音遥控器LQ49AL88U82 LQ55AL88U82 LQ65AL88U82(白色 配件)">-->
-                        <!--<p class="img_name">海尔b0001电视语音遥控器LQ49AL88U82 LQ55AL88U82 LQ65AL88U82(白色 配件)</p>-->
-                    <!--</a>-->
-                    <!--<div class="hot_price">-->
-                        <!--<span>¥</span>-->
-                        <!--<i>98.00</i>-->
-                    <!--</div>-->
-                    <!--<div class="salenum">销售量-->
-                        <!--<span>949</span>-->
-                    <!--</div>-->
-                <!--</div>-->
+            <!--<div class="inner">-->
+            <!--<span class="tagred">1</span>-->
+            <!--<a href="" target="_blank" title="海尔b0001电视语音遥控器LQ49AL88U82 LQ55AL88U82 LQ65AL88U82(白色 配件)">-->
+            <!--<img class="lazyloading" src="picture/T1gJJXB5hT1RCvBVdK_400.png" data-lazy-img="done"-->
+            <!--data-lazy-init="picture/T1gJJXB5hT1RCvBVdK_400.png"-->
+            <!--alt="海尔b0001电视语音遥控器LQ49AL88U82 LQ55AL88U82 LQ65AL88U82(白色 配件)"-->
+            <!--title="海尔b0001电视语音遥控器LQ49AL88U82 LQ55AL88U82 LQ65AL88U82(白色 配件)" width="370" height="370">-->
+            <!--</a>-->
+            <!--<a href="" target="_blank" title="海尔b0001电视语音遥控器LQ49AL88U82 LQ55AL88U82 LQ65AL88U82(白色 配件)">-->
+            <!--<p class="img_name">海尔b0001电视语音遥控器LQ49AL88U82 LQ55AL88U82 LQ65AL88U82(白色 配件)</p>-->
+            <!--</a>-->
+            <!--<div class="hot_price">-->
+            <!--<span>¥</span>-->
+            <!--<i>98.00</i>-->
+            <!--</div>-->
+            <!--<div class="salenum">销售量-->
+            <!--<span>949</span>-->
+            <!--</div>-->
+            <!--</div>-->
             <!--</li>-->
         </ul>
     </div>
@@ -639,7 +639,33 @@
     $(function () {
 
         OneCategory();
-
+        function TwoGoods(id) {
+            $("div.main_box ul").empty();
+            $.getJSON('Goods/findSaleByCategoryId?cid=' + id, function (json) {
+                for (var i = 0; i < json.length; i++) {
+                    var cateOne = json[i];
+                    var li = "";
+                    li += "<li class='ranking_big'>";
+                    li += "<div class='inner'>";
+                    li += "<span class='tagred'>" + (i + 1) + "</span>";
+                    li += "<a href='product_details.html?gid=" + cateOne.goods_id + "' target='_blank' title='" + cateOne.goods_title + "'>";
+                    li += "<img class='lazyloading' src='" + cateOne.goods_main_img + "' data-lazy-img='done' data-lazy-init='" + cateOne.goods_main_img + "' alt='" + cateOne.goods_title + "' title='" + cateOne.goods_title + "' width='370' height='370'>";
+                    li += "</a>";
+                    li += "<a href='product_details.html?gid=" + cateOne.goods_id + "' target='_blank' title='" + cateOne.goods_title + "'>";
+                    li += "<p class='img_name'>" + cateOne.goods_title + "</p>";
+                    li += "</a>";
+                    li += "<div class='hot_price'>";
+                    li += "<span>¥</span>";
+                    li += "<i>" + cateOne.goods_price + "</i>";
+                    li += "</div>";
+                    li += "<div class='salenum'>销售量 <span>" + cateOne.num + "</span>";
+                    li += "</div>";
+                    li += "</div>";
+                    li += "</li>";
+                    $("div.main_box ul").append(li);
+                }
+            })
+        }
         //一级分类显示
         function OneCategory() {
             $("ul.nav_one").empty();
@@ -704,10 +730,23 @@
                         }
                     });
                 });
-
+                $("body").on('click', '.twoLi', function () {
+                    $(".nav_two ul").find("li:first").addClass("cur").siblings().removeClass("cur");
+                    $(this).addClass("cur").siblings().removeClass("cur");
+                    var index2 = $(this).attr("name");
+                    alert(index2);
+                    var index3 = $(".nav_two ul").attr("name");
+                    alert(index3);
+                    if (index2 == index3) {
+                        OneGoods(index3);
+                    } else {
+                        TwoGoods(index2);
+                    }
+                });
 
             });
         }
+
         function OneGoods(id) {
             $("div.main_box ul").empty();
             $.getJSON('Goods/findSaleAll?cid=' + id, function (json) {
@@ -717,10 +756,10 @@
                     li += "<li class='ranking_big'>";
                     li += "<div class='inner'>";
                     li += "<span class='tagred'>" + (i + 1) + "</span>";
-                    li += "<a href='product_details.html?gid="+cateOne.goods_id+"' target='_blank' title='" + cateOne.goods_title + "'>";
+                    li += "<a href='product_details.html?gid=" + cateOne.goods_id + "' target='_blank' title='" + cateOne.goods_title + "'>";
                     li += "<img class='lazyloading' src='" + cateOne.goods_main_img + "' data-lazy-img='done' data-lazy-init='" + cateOne.goods_main_img + "' alt='" + cateOne.goods_title + "' title='" + cateOne.goods_title + "' width='370' height='370'>";
                     li += "</a>";
-                    li += "<a href='product_details.html?gid="+cateOne.goods_id+"' target='_blank' title='" + cateOne.goods_title + "'>";
+                    li += "<a href='product_details.html?gid=" + cateOne.goods_id + "' target='_blank' title='" + cateOne.goods_title + "'>";
                     li += "<p class='img_name'>" + cateOne.goods_title + "</p>";
                     li += "</a>";
                     li += "<div class='hot_price'>";
@@ -742,15 +781,15 @@
                 var ul = "";
                 if (i == 0) {
                     ul += "<ul class='active' name='" + id + "'>";
-                    ul += "<li class='cur' >全部</li>";
+                    ul += "<li class='cur twoLi' name='" + id + "' >全部</li>";
                 } else {
                     ul += "<ul name='" + id + "'>";
-                    ul += "<li class='cur' >全部</li>";
+                    ul += "<li class='cur twoLi' name='" + id + "' >全部</li>";
                 }
                 for (var j = 0; j < json.length; j++) {
                     var subCate = json[j];
                     //console.log(j+" "+subCate.name);
-                    ul += "<li class='twoLi'>" + subCate.name + "</li>";
+                    ul += "<li class='twoLi' name='" + subCate.cid + "'>" + subCate.name + "</li>";
                 }
                 ul += "</ul>";
                 $("div.nav_two").append(ul);
@@ -766,6 +805,9 @@
         $("body").on('click', '.cur', function () {
             var oneId= $(this).parent().attr("name");
         });
+
+
+        }
 
 
     });
