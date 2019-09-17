@@ -17,5 +17,5 @@ import java.util.Map;
 public interface Vip_goodsMapper extends BaseMapper<VipGoods> {
 
     //查询所有会员商品
-    List<Map<String,Object>> vipGoodsFindAll();
+    List<Map<String,Object>> vipGoodsFindAll(Map<String,Object> map);
 }
