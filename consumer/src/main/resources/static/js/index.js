@@ -1,7 +1,7 @@
 $(function () {
     lunbo();
     findParentCategory();
-    category();
+    // category();
     //楼层左侧
     floor("#groundKey",26,"#6294f6");
     floor("#secondKey",9,"#3eb8e9");
@@ -10,19 +10,19 @@ $(function () {
     floor("#fiveKey",94,"#9cc736");
     floor("#sixKey",103,"#6a8ea0");
     //楼层小标题
-    floorTitle("#groundFloor",26,"rgb(113, 158, 247)","#groundFloor_div");
-    floorTitle("#secondFloor",9,"rgb(80, 191, 236)","#secondFloor_div");
-    floorTitle("#threeFloor",1,"#7f86ec","#threeFloor_div");
-    floorTitle("#fourFloor",68,"#41ccb8;","#fourFloor_div");
-    floorTitle("#fiveFloor",94," #abce5b","#fiveFloor_div");
-    floorTitle("#sixFloor",103,"#829daa","#sixFloor_div");
+    floorTitle("#groundFloor",26,"rgb(113, 158, 247)");
+    floorTitle("#secondFloor",9,"rgb(80, 191, 236)");
+    floorTitle("#threeFloor",1,"#7f86ec");
+    floorTitle("#fourFloor",68,"#41ccb8;");
+    floorTitle("#fiveFloor",94," #abce5b");
+    floorTitle("#sixFloor",103,"#829daa");
     //六楼小标题悬浮
-    floorDiv("#groundFloor li","rgb(113, 158, 247)","#groundFloor_div");
-    floorDiv("#secondFloor li","rgb(80, 191, 236)","#secondFloor_div");
-    floorDiv("#threeFloor li","#7f86ec","#threeFloor_div");
-    floorDiv("#fourFloor li","#41ccb8","#fourFloor_div");
-    floorDiv("#fiveFloor li","#abce5b","#fiveFloor_div");
-    floorDiv("#sixFloor li","#829daa","#sixFloor_div");
+    // floorDiv("#groundFloor li","rgb(113, 158, 247)","#groundFloor_div");
+    // floorDiv("#secondFloor li","rgb(80, 191, 236)","#secondFloor_div");
+    // floorDiv("#threeFloor li","#7f86ec","#threeFloor_div");
+    // floorDiv("#fourFloor li","#41ccb8","#fourFloor_div");
+    // floorDiv("#fiveFloor li","#abce5b","#fiveFloor_div");
+    // floorDiv("#sixFloor li","#829daa","#sixFloor_div");
 
     hot();
 
@@ -60,6 +60,7 @@ function hot() {
 }
 
 
+
 //小标题悬浮
 function floorDiv(h1,color,h2) {
     $(h1).live("hover",this,
@@ -70,11 +71,11 @@ function floorDiv(h1,color,h2) {
             var name=$(this).attr("name");
             var key=$(this).attr("key");
             var div="<div class='main' tab-data-load='0' style='display: block;'><ul class='main_inner'>";
-             var url="";
+            var url="";
             //悬浮显示热卖
             if(key==0){
                 url="../../Goods/findGoodsByCategoryName";
-             }else if(key==2){
+            }else if(key==2){
                 //低价
                 url="../../Goods/findGoodsLowPrice";
             }else{
@@ -97,9 +98,8 @@ function floorDiv(h1,color,h2) {
         }
     );
 }
-
  //楼层小标题
-function floorTitle(key,id,color,h2) {
+function floorTitle(key,id,color) {
 
     $.getJSON("../../category/findCategoryAndChild",{"parentId":id},function (json) {
         var names="";
@@ -127,18 +127,18 @@ function floorTitle(key,id,color,h2) {
         }
         $(key).append(li);
        //显示热卖
-        $.getJSON("../../Goods/findGoodsByCategoryName",{"categoryName":names},function (json) {
-            var div="<div class='main' tab-data-load='0' style='display: block;'><ul class='main_inner'>";
-            for(var i=0;i<json.length;i++){
-                div+=" <li><a href='product_details.html?gid="+json[i].id+"' target='_blank' title='"+json[i].title+"'>";
-                div+=" <img class='lazyloading'src='"+json[i].mainImg+"'alt='"+json[i].title+"' width='130'height='130'>";
-                div+="<p class='p_name'>"+json[i].title+"</p>";
-                div+=" <p class='p_price' productid='9140133854' sku='1130662358' priceflag='false'>";
-                div+=" <span>¥</span>"+json[i].price+"</p></a></li>";
-            }
-            div+="</ul></div>";
-            $(h2).append(div);
-        });
+       //  $.getJSON("../../Goods/findGoodsByCategoryName",{"categoryName":names},function (json) {
+       //      var div="<div class='main' tab-data-load='0' style='display: block;'><ul class='main_inner'>";
+       //      for(var i=0;i<json.length;i++){
+       //          div+=" <li><a href='product_details.html?gid="+json[i].id+"' target='_blank' title='"+json[i].title+"'>";
+       //          div+=" <img class='lazyloading'src='"+json[i].mainImg+"'alt='"+json[i].title+"' width='130'height='130'>";
+       //          div+="<p class='p_name'>"+json[i].title+"</p>";
+       //          div+=" <p class='p_price' productid='9140133854' sku='1130662358' priceflag='false'>";
+       //          div+=" <span>¥</span>"+json[i].price+"</p></a></li>";
+       //      }
+       //      div+="</ul></div>";
+       //      $(h2).append(div);
+       //  });
     });
 
 }
@@ -189,51 +189,33 @@ function floor(key,id,color) {
 }
 
 //根据分类编号查询子分类
-function category() {
-    $("#lisnav li").live("hover",this,
-        function () {
-            $(this).addClass("bgw").siblings().removeClass("bgw");
-            $("#subnav").show();
-            var cid = $(this).attr("cid");
-            $.getJSON("../../category/findCategoryAndChild",{"parentId":cid}, function (json) {
-                $("#loading1-sync").empty();
-                var div="<div class='fullcategory' style='display: block;'><div class='fullcategory-left'>";
-                div+=" <div class='fullcategory-title'><a href='#' target='_blank' title='潮3C'>潮3C<i></i></a>";
-                div+="<a href='#' target='_blank' title='手机'>手机<i></i></a> <a href='#'target='_blank' title='数码'>数码<i></i></a>";
-                div+=" <a href='#'target='_blank' title='以旧换新' >以旧换新<i></i></a>  <a href='#' target='_blank' title='手机充值'>手机充值<i></i></a> ";
-                div+=" <a href='#' target='_blank' title='延保服务'>延保服务<i></i></a> <a href='#' target='_blank' title='智享生活' >智享生活<i></i></a></div>";
-                div+="<div class='fullcategory-content-box' id='fullcategory-content-box'style='width: 769px;'>";
-                var divs="";
-                for(var i=0;i<json.length;i++){
-                    divs+="<div class='fullcategory-content' style='width: 769px;'><ul class='fullcategory-list' style='width: 769px;'>  <div class='title' style='margin-top: -8px;_margin: -8px 0;'>"+json[i].name+"</div> <div class='list' style='width: 700px;' id='empty'>";
-                    $("#empty").empty();
-                    var list=json[i].categoryChildren;
-                    var divss="";
-                    for(var j=0;j<list.length;j++){
-                        divss+="<a href='#' target='_blank' class='hot' cid='"+list[j].cid+"' title='"+list[j].name+"'>"+list[j].name+"</a>";
-                        var lists=json[i].categoryChildren[j].categoryChildren;
-                        for(var k=0;k<lists.length;k++){
-                            divss+="<a href='#' target='_blank' cid='"+lists[k].cid+"' title='"+lists[k].name+"'>"+lists[k].name+"</a>";
-                        }
-                        divs+=divss;
-                    }
-                    divs+="</div></ul></div>";
+function category(cid) {
+    $.getJSON("../../category/findCategoryAndChild",{"parentId":cid}, function (json) {
+        var div="<div class='fullcategory' style='display: none;' id='cid-"+cid+"'><div class='fullcategory-left'>";
+        div+=" <div class='fullcategory-title'><a href='#' target='_blank' title='潮3C'>潮3C<i></i></a>";
+        div+="<a href='#' target='_blank' title='手机'>手机<i></i></a> <a href='#'target='_blank' title='数码'>数码<i></i></a>";
+        div+=" <a href='#'target='_blank' title='以旧换新' >以旧换新<i></i></a>  <a href='#' target='_blank' title='手机充值'>手机充值<i></i></a> ";
+        div+=" <a href='#' target='_blank' title='延保服务'>延保服务<i></i></a> <a href='#' target='_blank' title='智享生活' >智享生活<i></i></a></div>";
+        div+="<div class='fullcategory-content-box' id='fullcategory-content-box'style='width: 769px;'>";
+        var divs="";
+        for(var i=0;i<json.length;i++){
+            divs+="<div class='fullcategory-content' style='width: 769px;'><ul class='fullcategory-list' style='width: 769px;'>  <div class='title' style='margin-top: -8px;_margin: -8px 0;'>"+json[i].name+"</div> <div class='list' style='width: 700px;'>";
+            var list=json[i].categoryChildren;
+            var divss="";
+            for(var j=0;j<list.length;j++){
+                divss+="<a href='#' target='_blank' class='hot' cid='"+list[j].cid+"' title='"+list[j].name+"'>"+list[j].name+"</a>";
+                var lists=json[i].categoryChildren[j].categoryChildren;
+                for(var k=0;k<lists.length;k++){
+                    divss+="<a href='#' target='_blank' cid='"+lists[k].cid+"' title='"+lists[k].name+"'>"+lists[k].name+"</a>";
                 }
-                div+=divs;
-                div+="</div></div></div>";
-                $("#loading1-sync").append(div);
-            });
+                divs+=divss;
+            }
+            divs+="</div></ul></div>";
         }
-    );
-    //分类框失去焦点事件
-    $("#navBox,#subnav").hover(
-        function () {
-        },
-        function () {
-            $("#subnav").hide();
-            $("#lisnav li").removeClass("bgw");
-        }
-    );
+        div+=divs;
+        div+="</div></div></div>";
+        $("#loading1-sync").append(div);
+    });
 }
 
 //轮播
@@ -265,11 +247,13 @@ function lunbo() {
 function findParentCategory() {
     $.getJSON("../../category/findParentCategory?pid=0", function (json) {
         for(var i=0;i<json.length;i++){
-            var li="<li class='first edit-mode nav-item' cid='"+json[i].cid+"'> <h3>"
+            category(json[i].cid);
+            var li="<li class='first edit-mode nav-item' data-index='"+i+"' cid='"+json[i].cid+"'> <h3>"
             li+=" <a href='javascript:;' target='_blank' >"+json[i].name+"</a>";
-            li+=" </h3> </li>";
+            li+=" </h3></li>";
             $("#lisnav").append(li);
         }
+
     })
 }
 
