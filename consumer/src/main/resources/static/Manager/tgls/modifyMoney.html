@@ -47,22 +47,22 @@
     <form id="addForm" class="layui-form" lay-filter="cateFrom" action="">
         <div class="layui-form-item"></div>
         <div class="layui-form-item">
-            <label class="layui-form-label">父分类</label>
+            <label class="layui-form-label">会员等级</label>
             <div class="layui-input-inline">
-                <select id="categoryList" name="categoryList" id="provid" lay-filter="provid"></select>
+                <select id="gradeList" name="gradeList" id="provid" lay-filter="provid">
+                    <option value="">请选择</option>
+                </select>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label" id="cname">分类名称</label>
+            <label class="layui-form-label" id="cname">优惠金额</label>
             <div class="layui-input-block">
-                <input type="text" name="categoryName" style="width: 343px" required lay-verify="required" autocomplete="off"
-                       class="layui-input">
-                <input type="hidden" name="cid" id="cid">
+                <input type="text" name="money" style="width: 343px" required lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="submitBut">立即提交</button>
+                <button class="layui-btn" lay-submit lay-filter="submitBut">立即修改</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
@@ -79,31 +79,17 @@
             });
             //页面一加载就发送ajax
             $(function () {
-                var re = GetRequest();
                 $.ajax({
-                    url: "../../Goods/updateCategoryInfo/" + re.cid + "/" + re.parentId + "",
+                    url: "../../Goods/findGrade",
                     type: "get",
                     dataType: "json",
                     success: function (data) {
-                        //表单初始赋值
-                        if (data.myCategory.clevel == 4) { //表示是品牌
-                            $("#cname").text("品牌名称");
-                        }
-                        $("input[name='categoryName']").val(data.myCategory.name);
-                        $("#cid").val(data.myCategory.cid);
-                        if (data.parentBrother != null) {
-                            var select = "";
-                            $.each(data.parentBrother, function (index, value) {
-                                if (data.parentCategory.cid == value.cid) {
-                                    select += "<option selected value=" + value.cid + ">" + value.name + "</option>";
-                                } else {
-                                    select += "<option value=" + value.cid + ">" + value.name + "</option>";
-                                }
+                        if (data!= null) {
+                            var option = "";
+                            $.each(data, function (index, value) {
+                                option += "<option  value=" + value.id + ">" + value.gradeName + "</option>";
                             });
-                            $("#categoryList").append(select)
-                        }
-                        if (data.flag == 'myRoot') {
-                            $("#categoryList").append("<option value=" + data.myCategory.parentId + ">根栏目</option>")
+                            $("#gradeList").append(option)
                         }
                         //重新渲染select
                         form.render('select');
@@ -137,18 +123,7 @@
                 return false;
             });
 
-            function GetRequest() {
-                var url = location.search; //获取url中"?"符后的字串
-                var theRequest = new Object();
-                if (url.indexOf("?") != -1) {
-                    var str = url.substr(1);
-                    strs = str.split("&");
-                    for (var i = 0; i < strs.length; i++) {
-                        theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
-                    }
-                }
-                return theRequest;
-            }
+
         });
     </script>
 
