@@ -1687,6 +1687,37 @@
             startTimer();
 
         });
+        //--------------------悬浮商品分类特效-------------------------
+        $("#lisnav li").live("hover",this,
+            function () {
+                $(this).addClass("bgw").siblings().removeClass("bgw");
+                $("#subnav").show();
+                var index = $(this).attr("cid");
+                $("#cid-" +index).show().siblings().hide();
+                // $("#loading1-sync>div").eq(index);
+            }
+        );
+        //分类框失去焦点事件
+        $("#navBox,#subnav").hover(
+            function () {
+            },
+            function () {
+                $("#subnav").hide();
+                $("#lisnav li").removeClass("bgw");
+            }
+        );
+        //-----------------(6F)小分类悬浮事件-------------------------
+        //一楼
+        $("#groundFloor li").live("hover",this,
+            function () {
+                $(this).addClass("cur").siblings().removeClass("cur");
+                $(this).find("a").css("background","rgb(113, 158, 247)");
+                $(this).siblings().find("a").css("background","none");
+                //悬浮显示div
+                var key=$(this).attr("key");
+                $("#groundFloor_div>div").eq(key).show().siblings().hide();
+            }
+        );
         //-----------------楼层导航栏-------------------------
         //给楼层加悬浮变色
         $(".handler").hover(
