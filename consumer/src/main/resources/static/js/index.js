@@ -10,12 +10,12 @@ $(function () {
     floor("#fiveKey",94,"#9cc736");
     floor("#sixKey",103,"#6a8ea0");
     //楼层小标题
-    floorTitle("#groundFloor",26,"rgb(113, 158, 247)");
-    floorTitle("#secondFloor",9,"rgb(80, 191, 236)");
-    floorTitle("#threeFloor",1,"#7f86ec");
-    floorTitle("#fourFloor",68,"#41ccb8;");
-    floorTitle("#fiveFloor",94," #abce5b");
-    floorTitle("#sixFloor",103,"#829daa");
+    floorTitle("#groundFloor",26,"rgb(113, 158, 247)","#groundFloor_div");
+    floorTitle("#secondFloor",9,"rgb(80, 191, 236)","#secondFloor_div");
+    floorTitle("#threeFloor",1,"#7f86ec","#threeFloor_div");
+    floorTitle("#fourFloor",68,"#41ccb8;","#fourFloor_div");
+    floorTitle("#fiveFloor",94," #abce5b","#fiveFloor_div");
+    floorTitle("#sixFloor",103,"#829daa","#sixFloor_div");
     //六楼小标题悬浮
     // floorDiv("#groundFloor li","rgb(113, 158, 247)","#groundFloor_div");
     // floorDiv("#secondFloor li","rgb(80, 191, 236)","#secondFloor_div");
@@ -61,29 +61,16 @@ function hot() {
 
 
 
-//小标题悬浮
-function floorDiv(h1,color,h2) {
-    $(h1).live("hover",this,
-        function () {
-            $(this).addClass("cur").siblings().removeClass("cur");
-            $(this).find("a").css("background",color);
-            $(this).siblings().find("a").css("background","none");
-            var name=$(this).attr("name");
-            var key=$(this).attr("key");
-            var div="<div class='main' tab-data-load='0' style='display: block;'><ul class='main_inner'>";
-            var url="";
-            //悬浮显示热卖
-            if(key==0){
-                url="../../Goods/findGoodsByCategoryName";
-            }else if(key==2){
-                //低价
-                url="../../Goods/findGoodsLowPrice";
+//生产小标题下的div
+function floorDiv(url,h2,name,key) {
+          //判断是否是热卖商品
+               var div="";
+             if(key==0){
+                  div="<div class='main' tab-data-load='0' style='display: block;'><ul class='main_inner'>";
             }else{
-                //查询和新新品抢先
-                url="../../Goods/findGoodsNewByCategoryName";
-            }
+                  div="<div class='main' tab-data-load='0' style='display: none;'><ul class='main_inner'>";
+             }
             $.getJSON(url,{"categoryName":name},function (json) {
-                $(h2).empty();
                 for(var i=0;i<json.length;i++){
                     div+=" <li><a href='product_details.html?gid="+json[i].id+"' target='_blank' title='"+json[i].title+"'>";
                     div+=" <img class='lazyloading'src='"+json[i].mainImg+"'alt='"+json[i].title+"' width='130'height='130'>";
@@ -95,11 +82,10 @@ function floorDiv(h1,color,h2) {
                 $(h2).append(div);
             });
 
-        }
-    );
+
 }
  //楼层小标题
-function floorTitle(key,id,color) {
+function floorTitle(key,id,color,h2) {
 
     $.getJSON("../../category/findCategoryAndChild",{"parentId":id},function (json) {
         var names="";
@@ -111,34 +97,31 @@ function floorTitle(key,id,color) {
             }
         }
         names=names.substring(0,names.length-1);
+        //热卖
+         floorDiv("../../Goods/findGoodsByCategoryName",h2,names,0);
+         //新品抢先
+        floorDiv("../../Goods/findGoodsNewByCategoryName",h2,names,1);
+        //低价
+        floorDiv("../../Goods/findGoodsLowPrice",h2,names,1);
         var li=" <li  class='cur' key='0' name='"+names+"'><a style='background:"+color+";' href='javascript:void(0);'>精选热卖</a></li>";
         li+=" <li key='1' name='"+names+"'><a href='javascript:void(0);'>新品抢先</a> </li>";
         li+="<li key='2' name='"+names+"'><a href='javascript:void(0);'>畅享低价</a> </li>";
+         var k=2;
         for(var i=0;i<json.length;i++){
             var list=json[i].categoryChildren;
             for(var j=0;j<list.length;j++){
+                k++;
                  var name=list[j].name.substring(0,list[j].name.length-1);
                 if(list[j].name=="通讯设备"){
-                    li+="<li key='3' name='"+name+"'><a href='javascript:void(0);'>手机</a></li>";
+                    li+="<li key='"+k+"' name='"+name+"'><a href='javascript:void(0);'>手机</a></li>";
                 }else{
-                    li+="<li key='3' name='"+name+"'><a href='javascript:void(0);'>"+name+"</a> </li>";
+                    li+="<li key='"+k+"' name='"+name+"'><a href='javascript:void(0);'>"+name+"</a> </li>";
                 }
+                //普通商品
+                floorDiv("../../Goods/findGoodsNewByCategoryName",h2,name,1);
             }
         }
         $(key).append(li);
-       //显示热卖
-       //  $.getJSON("../../Goods/findGoodsByCategoryName",{"categoryName":names},function (json) {
-       //      var div="<div class='main' tab-data-load='0' style='display: block;'><ul class='main_inner'>";
-       //      for(var i=0;i<json.length;i++){
-       //          div+=" <li><a href='product_details.html?gid="+json[i].id+"' target='_blank' title='"+json[i].title+"'>";
-       //          div+=" <img class='lazyloading'src='"+json[i].mainImg+"'alt='"+json[i].title+"' width='130'height='130'>";
-       //          div+="<p class='p_name'>"+json[i].title+"</p>";
-       //          div+=" <p class='p_price' productid='9140133854' sku='1130662358' priceflag='false'>";
-       //          div+=" <span>¥</span>"+json[i].price+"</p></a></li>";
-       //      }
-       //      div+="</ul></div>";
-       //      $(h2).append(div);
-       //  });
     });
 
 }
