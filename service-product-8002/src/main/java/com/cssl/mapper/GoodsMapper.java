@@ -46,4 +46,13 @@ public interface GoodsMapper extends BaseMapper<Goods> {
 
     //商品详情热销榜
     List<Goods> goodsInfoSale(Integer cid);
+
+    //根据分类显示商品
+    List<Goods> categoryGoodsShow(Map param);
+
+    //根据销量显示商品
+    List<Map<String,Object>> categorySaleGoodsShow(List list);
+
+    //根据分类显示商品排行榜
+    List<Goods> categorySalaRankingGoods(List list);
 }
