@@ -24,10 +24,12 @@ public interface ProductFeignInterface {
     @RequestMapping("news/findAllNews")
     List<News> findAllNews();
 
+    @RequestMapping("news/findByNewsId")
+    List<News> findByNewsId(@RequestParam("id") String id);
+
     @RequestMapping("news/findPageByTitle")
     PageInfo findPageByTitle(@RequestParam("pageIndex") Integer pageIndex ,@RequestParam("pageSize") Integer pageSize,@RequestParam("title") String title);
     //查询所有顶级分类
-
 
     //---------------------------分类前台模块--------------------------------
     //查询所有顶级分类
@@ -42,6 +44,13 @@ public interface ProductFeignInterface {
     @RequestMapping("category/findCategoryByGoodsId")
     Map<String,Object> findCategoryByGoodsId(@RequestParam("gid") Integer gid);
 
+    //查询父分类信息(反向递归)
+    @RequestMapping("category/findCategoryParent")
+    Map<String, Object> findCategoryParent(@RequestParam("cid") Integer cid);
+
+    //根据分类显示商品
+    @RequestMapping("category/categoryGoodsShow")
+    Map<String, Object> categoryGoodsShow(@RequestParam Map<String, Object> map);
 
     //---------------------------商品前台模块--------------------------------
     //根据分类名称查询该分类下的所有品牌商品的热卖商品
@@ -67,6 +76,21 @@ public interface ProductFeignInterface {
     //首页的商品热销榜
     @RequestMapping("goods/indexSaleGoods")
     List<Map<String,Object>> indexSaleGoods();
+
+    //查询商品详情信息
+    @RequestMapping("goods/GoodInfoShow")
+    Map<String, Object> GoodInfoShow(@RequestParam("gid") Integer gid);
+
+    //商品详情的热销榜
+    @RequestMapping("goods/goodsInfoSale")
+    List<Goods> goodsInfoSale(@RequestParam("cid") Integer cid);
+
+    //商品评价
+    @RequestMapping("evaluate/goodsEvaluate")
+    PageInfo<Map<String,Object>> goodsEvaluate(@RequestParam("gid") Integer gid,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize);
+
+
+
 
 
     //--------------------------后台模块----------------------------------
@@ -151,12 +175,23 @@ public interface ProductFeignInterface {
     @RequestMapping("grade/findAll")
     List<Grade> findGrade();
 
+    @RequestMapping("grade/findGradeById")
+    Grade findGradeById(@RequestParam("id") Integer id);
+
+    @RequestMapping("grade/updateGradeMoney")
+    String updateGradeMoney(@RequestParam("id") Integer id,@RequestParam("money") double money);
+
+
     //修改商品信息
     @RequestMapping("goods/modifyGoods")
     String modifyGoods(@RequestParam Map<String, Object> map);
 
     @RequestMapping("goods/findGoodsById")
     Map findGoodsById(@RequestParam("id") Integer id);
+
+    //会员商品
+    @RequestMapping("/vip_goods/vipGoodsFindAll")
+    PageInfo<Map<String, Object>> vipGoodsFindAll(@RequestParam Map<String,Object> param, @RequestParam("page")int page, @RequestParam("limit")int limit);
 
 
     //---------------------------订单后台模块--------------------------------

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,5 +40,18 @@ public class EvaluateController {
         //封装总记录数
         pages.setTotalCount((int)maps.getTotal());
         return pages;
+    }
+
+    @RequestMapping("goodsEvaluate")
+    @ResponseBody
+    public PageInfo<Map<String,Object>> goodsEvaluate(@RequestParam("gid") Integer gid,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize){
+        PageInfo<Map<String, Object>>pages=new PageInfo<>();
+        Page<Map<String, Object>> page = evaluateService.goodsEvaluate(gid, pageIndex, pageSize);
+        pages.setList(page.getResult());
+        pages.setPageNo(page.getPageNum());
+        pages.setTotalCount((int)page.getTotal());
+        pages.setPageSize(page.getPageSize());
+        pages.setPageCount(page.getPages());
+        return  pages;
     }
 }

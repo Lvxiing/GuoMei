@@ -4,9 +4,13 @@ package com.cssl.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.entity.Brand;
 import com.cssl.entity.Category;
+import com.cssl.entity.PageInfo;
 import com.cssl.entity.TreeCategory;
+import com.cssl.mapper.GoodsMapper;
 import com.cssl.service.BrandService;
 import com.cssl.service.CategoryService;
+import com.cssl.service.GoodsService;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +33,9 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private GoodsService goodsService;
 
     @Autowired
     private BrandService brandService;
@@ -91,6 +98,19 @@ public class CategoryController {
         return getAllParentInfo(paramMap);
     }
 
+    //查询父分类信息(反向递归)
+    @RequestMapping("findCategoryParent")
+    @ResponseBody
+    public Map<String, Object> findCategoryParent(@RequestParam("cid") Integer cid) {
+        Category category = categoryService.getOne(new QueryWrapper<Category>().eq("category_id", cid));
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("cid", cid);
+        paramMap.put("cname", category.getName());
+        paramMap.put("clevel", category.getCLevel());
+        return getAllParentInfo(paramMap);
+    }
+
+
     /**
      * 根据指定末级分类id反向递归查询
      *
@@ -100,6 +120,7 @@ public class CategoryController {
     public Map<String, Object> getAllParentInfo(Map<String, Object> paramMap) {
         String catId = paramMap.get("cid").toString();
         String catName = (String) paramMap.get("cname");
+        String clevel =  paramMap.get("clevel").toString();
         try {
             //根据分类id查询分类信息
             Category goodsCate = categoryService.getOne(new QueryWrapper<Category>().eq("category_id", catId));
@@ -112,15 +133,49 @@ public class CategoryController {
                 //拼接所有分类名称,和分类编号
                 catName = catParentName + ">" + catName;
                 catId = pCategory.getCid() + ">" + catId;
+                clevel = pCategory.getCLevel() +">"+clevel;
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("cname", catName);
                 map.put("cid", catId);
+                map.put("clevel", clevel);
                 return getAllParentInfo(map);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return paramMap;
+    }
+
+
+    //根据分类显示商品
+    @RequestMapping("categoryGoodsShow")
+    @ResponseBody
+    public Map<String, Object> categoryGoodsShow(@RequestParam Map<String, Object> map) {
+        Map<String, Object> json = new HashMap<>();
+        Integer cid = new Integer(map.get("cid").toString());
+        Integer level = new Integer(map.get("level").toString());
+        Category category = categoryService.getOne(new QueryWrapper<Category>().eq("category_id", cid));
+        PageInfo<Map<String, Object>> pages = new PageInfo<>();
+        List list = new ArrayList();
+        if (level == 3) {
+            List<TreeCategory> categoryAndChild = findCategoryAndChild(cid);
+            for (TreeCategory t : categoryAndChild) {
+                list.add(t.getCid());
+            }
+        }
+        if (level == 4) {
+            list.add(cid);
+        }
+        Page<Map<String, Object>> page = goodsService.categoryGoodsShow(map, list);
+        pages.setList(page.getResult());
+        pages.setPageNo(page.getPageNum());
+        pages.setTotalCount((int) page.getTotal());
+        pages.setPageSize(page.getPageSize());
+        pages.setPageCount(page.getPages());
+        json.put("page", pages);
+        json.put("categoryInfo",category);
+        json.put("salaRanking",goodsService.categorySalaRankingGoods(list));
+        return json;
     }
 
 

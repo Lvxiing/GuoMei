@@ -28,6 +28,13 @@ public class NewsController {
         return productFeignInterface.findAllNews();
     }
 
+    @RequestMapping("findByNewsId")
+    @ResponseBody
+    public List<News> findByNewsId(@RequestParam("id") String id){
+        System.out.println("asdasdasdasdsad:"+id);
+        System.out.println(productFeignInterface.findByNewsId(id));
+        return productFeignInterface.findByNewsId(id);
+    }
     @RequestMapping("findByTitlePage")
     @ResponseBody
     public List<News> findByTitlePage(@RequestParam("pageIndex") Integer pageIndex , @RequestParam("title") String title){

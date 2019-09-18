@@ -1,4 +1,3 @@
-
 (function () {
     function N(p, r) {
         function q(a) {
@@ -1100,9 +1099,7 @@ $(function () {
     };
     a.init()
 });
-;
-/*! Mon Jul 01 2019 08:59:18 GMT+0800 (CST) */
-
+;/*! Mon Jul 01 2019 08:59:18 GMT+0800 (CST) */
 jQuery.cookie = function (e, i, r) {
     if (typeof i != "undefined") {
         r = r || {};
@@ -1149,7 +1146,6 @@ if (location.host.indexOf("hk") != -1 && location.host.indexOf("item") != -1) {
     $domain = location.host.replace("item", "");
     $atgregion = "hwgregion"
 }
-
 $(function (t) {
     var e = a("bd_vid");
     i();
@@ -1330,6 +1326,7 @@ customerServiceCall.prototype = {
         }
         if (r.customerArr.length > 0) {
             var o = Math.random().toString(36).substr(2);
+
         }
     }, customerJump: function () {
         var r = this;
@@ -1341,6 +1338,7 @@ customerServiceCall.prototype = {
             r.orgi = $(this).attr("orgi") ? $(this).attr("orgi") : "";
             r.productId = $(this).attr("productid") ? $(this).attr("productid") : "";
             if (t == "order") {
+
             } else if (t == "product") {
             } else {
             }
@@ -1356,9 +1354,9 @@ customerServiceCall.prototype = {
             i.brandid = c;
             i.area = t.province;
             i.shopid = d;
+
         }
-        e.off("click").on("click", function () {
-        })
+
     }
 };
 var customerServiceCall = new customerServiceCall;
@@ -1472,6 +1470,7 @@ if ($("[customer-service-button-id]").length > 0 && $("[customer-service-button-
             }).on("click", "#closeSearch", function () {
                 s.hideSearchTips()
             }).on("click", "#delHeaderHistorySearch span", function () {
+
                 s.hideSearchTips()
             });
             this.$searchTipsList.on("click", ".his_del", function (i) {
@@ -1580,11 +1579,7 @@ if ($("[customer-service-button-id]").length > 0 && $("[customer-service-button-
             c = s.loginData.loginId;
             var t = this,
                 a = t.options.url + "&module=searchSuggest" + "&query=" + encodeURIComponent(i) + "&jp=true&user=" + c;
-            e.ajax({
-                type: "get", url: a, dataType: "jsonp", jsonpName: "suggest", success: function (e) {
-                    t.renderDataForSearch(e, i)
-                }
-            })
+
         }, renderDataForSearch: function (e, s) {
             var i = e.length, t, a, r = [], o = 0, n = s === "" ? 10 : 2;
             this.highlightIndex = null;
@@ -1671,8 +1666,7 @@ if ($("[customer-service-button-id]").length > 0 && $("[customer-service-button-
                 var o = s.index() + 1;
                 if (s.hasClass("search-item")) {
                     var n = s.attr("category");
-                    t="";
-                    location.href = t;
+
                     return false
                 }
                 if (s.hasClass("related-shop-search")) {
@@ -1688,7 +1682,7 @@ if ($("[customer-service-button-id]").length > 0 && $("[customer-service-button-
                 i.$elem.attr({pos: o, sq: a, mode: r});
                 i.$elem.val(i.getPointWord(s))
             }
-
+            doSearch()
         }, selectTipItem: function (e) {
             var s = this, i = this.$searchTipsList.find("li:visible"), t = i.length, a, r;
             if (e === "KEY_UP") {
@@ -1733,10 +1727,6 @@ if ($("[customer-service-button-id]").length > 0 && $("[customer-service-button-
                 o.find(".related-keyword").text(e("#keyLabel").text());
                 o.show()
             }
-            e.ajax({
-                type: "get", url: a, cache: false, dataType: "jsonp", jsonpName: "suggest", success: function (e) {
-                }
-            })
         }, getPointWord: function (e) {
             return e.attr("keyword") ? e.attr("keyword") : e.find("span:first").text()
         }, toggleRelatedSearchItem: function (e) {
@@ -1816,9 +1806,49 @@ function saveHeaderSearchHistory(e) {
     }
 }
 
+function doSearch() {
+    var e = $("#search-type-dropdown").find(".search-type-selected");
+    var o = e.attr("data-selected");
+    var r = {
+
+    };
+    var a = $("#searchInput");
+    var t = a.val();
+    var i = "";
+    if (a.attr("mode")) {
+        var n = a.attr("pos");
+        var s = a.attr("sq");
+        var h = a.attr("mode");
+        i = "&pos=" + n + "&sq=" + s + "&search_mode=" + h;
+        a.attr("pos", "").attr("sq", "").attr("mode", "");
+        a.attr({pos: "", sq: "", mode: ""})
+    } else {
+        i = "&search_mode=normal"
+    }
+    if (o === "goods" && $.trim(t) === "") {
+        var c = $("#keyLabel").text();
+        $("#keyLabel").hide();
+        a.val(c);
+        t = c
+    }
+    i += o === "goods" ? "&reWrite=true" : "";
+    if (t.length > 100) {
+        t = t.substring(0, 100);
+        a.val(t)
+    }
+    if ($.trim(t) !== "" && o === "goods") {
+        saveHeaderSearchHistory($.trim(t));
+        i += "&instock=1"
+    }
+    if ($.trim(t) !== "") {
+        location.href = r[o] + encodeURIComponent(t) + "&searchType=" + o + i
+    }
+    return false
+}
 
 $(function () {
     if ($("#searchInput").length > 0) {
+        $("#searchInput").autopoint({url: ""})
     }
     $("#searchInput").ginputfocus();
     if (navigator.userAgent.toLowerCase().indexOf("webkit") >= 0) {
@@ -1872,7 +1902,9 @@ $(function () {
         a = window.location.href.match(r)[0]
     }
     if (a == "" || a == null) {
+        hotkeywordurl = "";
     } else {
+        hotkeywordurl = ""
     }
 });
 (function (t) {
@@ -1926,7 +1958,6 @@ $(function () {
         }
         var a = new Date;
         a.setTime(a.getTime() + 60 * 60 * 1e3 * 24 * 7);
-
     }
 
     t.mCart = {
@@ -2013,7 +2044,6 @@ $(function () {
     var r = '<div carttype="asidecart"  id="csEmptyMessage" class="noshop">                        <% if(isUpCart) {%>                            <a data-code="cart01002" href="" title="去购物车" style="text-decoration:underline;">购物车</a>                        <% } else {%>                            <a data-code="cart01001" href="" title="去购物车" style="text-decoration:underline;">购物车</a>                        <% } %>                        中还没有商品，赶紧选购吧！</div>';
     var o = function () {
         return {
-
         }
     }();
     var c = 10 * 1e3;
@@ -2048,7 +2078,7 @@ $(function () {
     }
 
     function l() {
-        return ""
+
     }
 
     function p() {
@@ -2182,13 +2212,11 @@ $(function () {
     }
 
     function h(t, e) {
-        var i = t.next().find("input").val();
-        var a = t.parent("span").data("cid");
-        return ""
+
     }
 
     function v(t) {
-        return ""
+
     }
 
     function y(t, e, i, a) {
@@ -2240,6 +2268,7 @@ $(function () {
     function g(t, e) {
         t.find(".miniDel").off("click").on("click", function () {
             var e = $(this).attr("data-itemid");
+
         });
         t.find(".mcart-count-input input").each(function () {
             var e = $(this);
@@ -2397,6 +2426,7 @@ $(function () {
         S = parseInt(v + w + y);
         f.find("div").remove();
         $(".gome-bar-btn-time").remove();
+
         $(".gome-bar-box-loading").css("top", $(window).height() / 2 - 100);
         if (typeof window.prdInfo != "undefined") {
             if (window.prdInfo.shopNo == "") {
@@ -2551,6 +2581,7 @@ $(function () {
     }
 
 
+
     function F(e) {
         $("#gome-bar-sale").css("background", "url(" + $("#gome-bar-sale").data("bg") + ") repeat-x #" + $("#gome-bar-sale").data("color")).removeAttr("data-bg data-color");
 
@@ -2566,6 +2597,7 @@ $(function () {
         var i = e;
 
         function s(e) {
+
         }
 
         s(function (e) {
@@ -2725,6 +2757,7 @@ $(function () {
     }
 
     (function U() {
+        x();
         J();
         O();
         q();
@@ -2775,6 +2808,26 @@ $(function () {
         }
     })
 });
+(function (a) {
+    var t = function (t) {
+        var e = {Jump: false, openJump: false, url: "", data: "", callback: ""};
+        var t = a.extend({}, e, t);
+        if (t.Jump && t.url) {
+            if (t.openJump) {
+                var u = window.open(t.url, "_blank");
+                if (u == null) {
+                    alert("您的浏览器拦截了弹出窗口，请您在浏览器上方点击拦截信息允许弹出此窗口！")
+                }
+            } else {
+                window.location.href = t.url
+            }
+        } else {
+        }
+    };
+    a.createProgress = function (a) {
+        return new t(a)
+    }
+})(jQuery);
 window.g = window.g || {};
 (function () {
     window.g = window.g || {};
@@ -2798,27 +2851,27 @@ window.g = window.g || {};
         } else {
             t = 3
         }
-        var n = "";
-        var i = e("atgregion") || "11011400|北京北京市东城区东城区|11010000|11000000|110114001";
-        var a = i.split("|");
+        var i = "";
+        var n = e("atgregion") || "11010200|北京北京市朝阳区|11010000|11000000|110102002";
+        var a = n.split("|");
         switch (t) {
             case 0:
-                n = a[1];
+                i = a[1];
                 break;
             case 1:
-                n = a[3];
+                i = a[3];
                 break;
             case 2:
-                n = a[2];
+                i = a[2];
                 break;
             case 3:
-                n = a[0];
+                i = a[0];
                 break;
             case 4:
-                n = a[4] == undefined ? "" : a[4];
+                i = a[4] == undefined ? a[0] + "1" : a[4];
                 break
         }
-        return n
+        return i
     }
 })();
 (function () {
@@ -2828,33 +2881,33 @@ window.g = window.g || {};
             return
         }
         var t = undefined;
-        var n = {};
-        var i = undefined;
+        var i = {};
+        var n = undefined;
         var a = {};
         if (arguments.length == 1) {
             t = arguments[0];
-            n = {}
+            i = {}
         } else if (arguments.length == 2) {
             if (typeof arguments[1] == "function") {
                 t = arguments[0];
-                i = arguments[1]
+                n = arguments[1]
             } else {
                 t = arguments[0];
-                n = arguments[1]
+                i = arguments[1]
             }
         } else if (arguments.length == 3 && typeof arguments[2] == "function") {
             t = arguments[0];
-            n = arguments[1];
-            i = arguments[2]
+            i = arguments[1];
+            n = arguments[2]
         } else if (arguments.length == 3 && typeof arguments[2] == "object") {
             t = arguments[0];
-            n = arguments[1];
+            i = arguments[1];
             a = arguments[2]
         } else if (arguments.length == 4) {
             t = arguments[0];
-            n = arguments[1];
+            i = arguments[1];
             a = arguments[2];
-            i = arguments[3]
+            n = arguments[3]
         }
         if (typeof a.site == "string" && a.site.indexOf("g") >= 0) {
             t = g.url.g + t
@@ -2862,36 +2915,37 @@ window.g = window.g || {};
             t = g.url.w + t
         } else if (typeof a.site == "string" && a.site.indexOf("f") >= 0) {
             t = t
-        } else if (n.site && n.site.indexOf("g") >= 0) {
+        } else if (i.site && i.site.indexOf("g") >= 0) {
             t = g.url.g + t
-        } else if (n.site && n.site.indexOf("w") >= 0) {
+        } else if (i.site && i.site.indexOf("w") >= 0) {
             t = g.url.w + t
-        } else if (n.site && n.site.indexOf("f") >= 0) {
+        } else if (i.site && i.site.indexOf("f") >= 0) {
             t = t
-        } else if (n.site && n.site.indexOf("s") >= 0) {
+        } else if (i.site && i.site.indexOf("s") >= 0) {
+
         } else {
             t = g.url.g + t
         }
-        if (n.site) {
-            delete n.site
+        if (i.site) {
+            delete i.site
         }
-        var r = {
+        var o = {
             type: "get",
             url: t,
-            data: n,
+            data: i,
             dataType: "jsonp",
-            jsonpName: n.callback == undefined ? "cb_" + parseInt(Math.random() * 1e15) : n.callback,
+            jsonpName: i.callback == undefined ? "cb_" + parseInt(Math.random() * 1e15) : i.callback,
             success: function (e) {
-                i && i(e)
+                n && n(e)
             }
         };
-        if (n.callback) {
-            delete n.callback
+        if (i.callback) {
+            delete i.callback
         }
         if (typeof a == "object") {
-            e.extend(r, a)
+            e.extend(o, a)
         }
-        return e.ajax(r)
+        return e.ajax(o)
     };
     window.g = window.g || {};
     g.ajax = ajax
@@ -2916,12 +2970,12 @@ window.g = window.g || {};
             this._endStatus = false;
             if (typeof this.setAJAX == "function") {
                 this.setAJAX().done(function (t) {
-                    for (var n = 0; n < e._subs.length; n++) {
-                        e._subs[n](t)
+                    for (var i = 0; i < e._subs.length; i++) {
+                        e._subs[i](t)
                     }
                     e._endStatus = true;
-                    for (var n = 0; n < e._endfn.length; n++) {
-                        e._endfn[n](t)
+                    for (var i = 0; i < e._endfn.length; i++) {
+                        e._endfn[i](t)
                     }
                 })
             } else {
@@ -2946,698 +3000,957 @@ window.g = window.g || {};
     window.g = window.g || {};
     g.Pubsub = e
 })();
-var s_account = s_account || "gome-prd";
-var wurl = window.location.href;
-if (wurl.search(/\.gomehome\.com(\.cn|)/) > 0) {
-    s_account = "gome-gomehome-prd"
-} else if (wurl.search(/\.gome(|higo)\.(com\.cn|hk)/) < 0) {
-    s_account = "gome-dev"
-}
-
-function s_doPlugins(e) {
-    if (!e.campaign) {
-        if (e.getQueryParam("cmpid") && e.getQueryParam("cmpid") != "") e.campaign = e.getQueryParam("cmpid"); else {
-            var s = e.getQueryParam("utm_campaign");
-            var i = e.getQueryParam("utm_source");
-            var t = e.getQueryParam("utm_medium");
-            var n = e.getQueryParam("utm_term");
-            var r = e.getQueryParam("utm_content");
-            var a = "none";
-            var f;
-            if (s == "" || s == null) {
-                s = a
-            }
-            if (i == "" || i == null) {
-                i = a
-            }
-            if (t == "" || t == null) {
-                t = a
-            }
-            if (n == "" || n == null) {
-                n = a
-            }
-            if (r == "" || r == null) {
-                r = a
-            }
-            f = i + "/" + t + "/" + n + "/" + r + "/" + s;
-            if (f != null && f != "" && f != "none/none/none/none/none") e.campaign = f
-        }
-    }
-    if (!e.eVar30) {
-        e.eVar30 = e.getQueryParam("resc")
-    }
-    if (!e.eVar2) {
-        e.eVar2 = e.getQueryParam("intcmp")
-    }
-    if (!e.eVar34) {
-        e.eVar34 = e.getQueryParam("recmd")
-    }
-    var o = e.getValOnce(e.eVar1, "ev1", 0);
-    if (o) {
-        e.events = e.apl(e.events, "event1", ",", 2)
-    } else {
-        if (e.events == "event2") {
-            e.events = ""
-        }
-    }
-    if (e.eVar1) {
-        e.prop5 = e.eVar1
-    }
-    if (e.pageName) {
-        e.pageName = e.pageName.replace(/\t/g, " ")
-    }
-    e.prop6 = e.getPreviousValue(e.prop4, "gpv_p6", "scAdd");
-    e.prop25 = e.getPreviousValue(e.pageName, "gpv_pn", "");
-    if (e.prop25) e.prop13 = e.getPercentPageViewed();
-    if (e.linkTracking == true) e.prop22 = s_objectID; else e.prop22 = e.getPreviousValue(s_objectID, "gpv_p22", "");
-    e.prop9 = e.getTimeParting("h", "8");
-    e.prop10 = e.getTimeParting("d", "8");
-    e.eVar9 = e.prop9;
-    e.eVar10 = e.prop10;
-    e.prop8 = e.getNewRepeat(365, "s_getNewRepeat");
-    e.eVar8 = e.prop8;
-    e.eVar31 = e.pageName;
-    e.eVar11 = e.transactionID;
-    e.eVar13 = e.crossVisitParticipation(e.campaign, "s_ev13", "30", "6", ">", "purchase");
-    if (window.loginData && window.loginData.loginName) {
-        if (window.loginData.loginName != "") {
-            e.eVar14 = window.loginData.loginId
-        } else {
-            e.eVar14 = ""
-        }
-    } else {
-        e.eVar14 = ""
-    }
-    e.setupFormAnalysis()
-}
-
-var s_code = "";
-
-
 (function (t) {
-    var a = {
-        pre: "上一页", next: "下一页", nav: function (t, a) {
-            var s = "";
-            if (a <= 1 || t > a) {
-                s = this.pager(1, 1)
-            } else {
-                s += t == 1 ? this.showPre(0) : this.showPre(1, t);
-                if (a > 6) {
-                    var e = 1;
-                    if (t >= 5 && t <= a) {
-                        s += t == 1 ? this.numStatusHTML(0, 1) : this.numStatusHTML(1, 1)
-                    } else {
-                        for (var n = 1; n < 4; n++) {
-                            s += t == n ? this.numStatusHTML(0, n) : this.numStatusHTML(1, n)
-                        }
-                    }
-                    s += t >= 5 ? "<span class='placeholder'></span>" : "";
-                    e = t - 2;
-                    if (e >= 3 && e < a - 2) s += t == e ? this.numStatusHTML(0, e) : this.numStatusHTML(1, e);
-                    e = t - 1;
-                    if (e > 3 && e < a - 2) s += t == e ? this.numStatusHTML(0, e) : this.numStatusHTML(1, e);
-                    e = t;
-                    if (e > 3 && e < a - 2) s += t == e ? this.numStatusHTML(0, e) : this.numStatusHTML(1, e);
-                    e = t + 1;
-                    if (e > 3 && e < a - 2) s += t == e ? this.numStatusHTML(0, e) : this.numStatusHTML(1, e);
-                    e = t + 2;
-                    if (e > 3 && e < a - 2) s += t == e ? this.numStatusHTML(0, e) : this.numStatusHTML(1, e);
-                    s += t <= a - 4 ? "<span class='placeholder'></span>" : "";
-                    if (t <= a - 4) {
-                        s += t == a ? this.numStatusHTML(0, a) : this.numStatusHTML(1, a)
-                    } else {
-                        for (var n = a - 2; n <= a; n++) {
-                            s += t == n ? this.numStatusHTML(0, n) : this.numStatusHTML(1, n)
-                        }
-                    }
+    t.fn.gCity = function (c) {
+        var i = function (t, c) {
+            this.cache = {snam: "", sid: "", cnam: "", cid: "", xnam: "", xid: "", znam: "", zid: "", chtm: ""};
+            this.adress = "11011400|北京北京市东城区东城区|11010000|11000000|110114001";
+            this.province = {
+                11000000: "北京",
+                12000000: "天津",
+                13000000: "河北省",
+                14000000: "山西省",
+                15000000: "内蒙古",
+                21000000: "上海",
+                22000000: "浙江省",
+                23000000: "江苏省",
+                24000000: "安徽省",
+                25000000: "福建省",
+                26000000: "山东省",
+                31000000: "广东省",
+                32000000: "广西",
+                33000000: "海南省",
+                41000000: "湖北省",
+                42000000: "湖南省",
+                43000000: "河南省",
+                44000000: "江西省",
+                51000000: "黑龙江省",
+                52000000: "吉林省",
+                53000000: "辽宁省",
+                61000000: "宁夏",
+                62000000: "新疆",
+                63000000: "青海省",
+                64000000: "陕西省",
+                65000000: "甘肃省",
+                71000000: "四川省",
+                72000000: "云南省",
+                73000000: "贵州省",
+                74000000: "重庆",
+                75000000: "西藏",
+                81000000: "台湾省",
+                82000000: "香港",
+                83000000: "澳门",
+                84000000: "钓鱼岛"
+            };
+            this.city = {
+                11000000: {11010000: "北京市"},
+                12000000: {12010000: "天津市"},
+                13000000: {
+                    13010000: "保定市",
+                    13020000: "沧州市",
+                    13030000: "承德市",
+                    13040000: "邯郸市",
+                    13050000: "衡水市",
+                    13060000: "廊坊市",
+                    13070000: "秦皇岛市",
+                    13080000: "石家庄市",
+                    13090000: "唐山市",
+                    13100000: "邢台市",
+                    13110000: "张家口市"
+                },
+                14000000: {
+                    14010000: "长治市",
+                    14020000: "大同市",
+                    14030000: "晋城市",
+                    14040000: "晋中市",
+                    14050000: "临汾市",
+                    14060000: "吕梁市",
+                    14070000: "朔州市",
+                    14080000: "太原市",
+                    14090000: "忻州市",
+                    14100000: "阳泉市",
+                    14110000: "运城市"
+                },
+                15000000: {
+                    15010000: "阿拉善盟",
+                    15020000: "巴彦淖尔市",
+                    15030000: "包头市",
+                    15040000: "赤峰市",
+                    15050000: "鄂尔多斯市",
+                    15060000: "呼和浩特市",
+                    15070000: "呼伦贝尔市",
+                    15080000: "通辽市",
+                    15090000: "乌海市",
+                    15100000: "乌兰察布市",
+                    15110000: "锡林郭勒盟",
+                    15120000: "兴安盟"
+                },
+                21000000: {21010000: "上海市"},
+                22000000: {
+                    22010000: "杭州市",
+                    22020000: "湖州市",
+                    22030000: "嘉兴市",
+                    22040000: "金华市",
+                    22050000: "丽水市",
+                    22060000: "宁波市",
+                    22070000: "衢州市",
+                    22080000: "绍兴市",
+                    22090000: "台州市",
+                    22100000: "温州市",
+                    22110000: "舟山市"
+                },
+                23000000: {
+                    23010000: "南京市",
+                    23020000: "淮安市",
+                    23030000: "连云港市",
+                    23040000: "常州市",
+                    23050000: "南通市",
+                    23060000: "苏州市",
+                    23070000: "宿迁市",
+                    23080000: "泰州市",
+                    23090000: "无锡市",
+                    23100000: "徐州市",
+                    23110000: "盐城市",
+                    23120000: "扬州市",
+                    23130000: "镇江市"
+                },
+                24000000: {
+                    24010000: "合肥市",
+                    24020000: "安庆市",
+                    24030000: "蚌埠市",
+                    24040000: "亳州市",
+                    24060000: "池州市",
+                    24070000: "滁州市",
+                    24080000: "阜阳市",
+                    24090000: "淮北市",
+                    24100000: "淮南市",
+                    24110000: "黄山市",
+                    24120000: "六安市",
+                    24130000: "马鞍山市",
+                    24140000: "宿州市",
+                    24150000: "铜陵市",
+                    24160000: "芜湖市",
+                    24170000: "宣城市"
+                },
+                25000000: {
+                    25010000: "福州市",
+                    25020000: "龙岩市",
+                    25030000: "南平市",
+                    25040000: "宁德市",
+                    25050000: "莆田市",
+                    25060000: "泉州市",
+                    25070000: "三明市",
+                    25080000: "厦门市",
+                    25090000: "漳州市"
+                },
+                26000000: {
+                    26010000: "滨州市",
+                    26020000: "德州市",
+                    26030000: "东营市",
+                    26040000: "菏泽市",
+                    26050000: "济南市",
+                    26060000: "济宁市",
+                    26070000: "莱芜市",
+                    26080000: "聊城市",
+                    26090000: "临沂市",
+                    26100000: "青岛市",
+                    26110000: "日照市",
+                    26120000: "泰安市",
+                    26130000: "威海市",
+                    26140000: "潍坊市",
+                    26150000: "烟台市",
+                    26160000: "枣庄市",
+                    26170000: "淄博市"
+                },
+                31000000: {
+                    31010000: "广州市",
+                    31020000: "深圳市",
+                    31030000: "潮州市",
+                    31040000: "河源市",
+                    31050000: "惠州市",
+                    31060000: "江门市",
+                    31070000: "揭阳市",
+                    31080000: "茂名市",
+                    31090000: "梅州市",
+                    31100000: "清远市",
+                    31110000: "汕头市",
+                    31120000: "汕尾市",
+                    31130000: "韶关市",
+                    31140000: "阳江市",
+                    31150000: "云浮市",
+                    31160000: "湛江市",
+                    31170000: "肇庆市",
+                    31180000: "珠海市",
+                    31190000: "东莞市",
+                    31200000: "中山市",
+                    31210000: "佛山市"
+                },
+                32000000: {
+                    32010000: "桂林市",
+                    32020000: "百色市",
+                    32030000: "北海市",
+                    32040000: "崇左市",
+                    32050000: "防城港市",
+                    32060000: "贵港市",
+                    32070000: "河池市",
+                    32080000: "贺州市",
+                    32090000: "来宾市",
+                    32100000: "柳州市",
+                    32110000: "南宁市",
+                    32120000: "钦州市",
+                    32130000: "梧州市",
+                    32140000: "玉林市"
+                },
+                33000000: {
+                    33010000: "海口市",
+                    33020000: "白沙县",
+                    33030000: "保亭县",
+                    33040000: "昌江县",
+                    33050000: "澄迈县",
+                    33060000: "儋州市",
+                    33070000: "定安县",
+                    33080000: "东方市",
+                    33090000: "乐东县",
+                    33100000: "临高县",
+                    33110000: "陵水县",
+                    33130000: "琼海市",
+                    33140000: "琼中县",
+                    33150000: "屯昌县",
+                    33160000: "万宁市",
+                    33170000: "文昌市",
+                    33180000: "五指山市",
+                    33210000: "三亚市",
+                    33220000: "三沙市"
+                },
+                41000000: {
+                    41010000: "武汉市",
+                    41020000: "鄂州市",
+                    41030000: "恩施州",
+                    41040000: "黄冈市",
+                    41050000: "黄石市",
+                    41060000: "荆门市",
+                    41070000: "荆州市",
+                    41080000: "十堰市",
+                    41090000: "随州市",
+                    41100000: "咸宁市",
+                    41110000: "襄阳市",
+                    41120000: "孝感市",
+                    41130000: "宜昌市",
+                    41140000: "仙桃市",
+                    41150000: "潜江市",
+                    41160000: "天门市",
+                    41170000: "神农架林区"
+                },
+                42000000: {
+                    42010000: "长沙市",
+                    42020000: "常德市",
+                    42030000: "郴州市",
+                    42040000: "衡阳市",
+                    42050000: "怀化市",
+                    42060000: "娄底市",
+                    42070000: "邵阳市",
+                    42080000: "湘潭市",
+                    42090000: "湘西州",
+                    42100000: "益阳市",
+                    42110000: "永州市",
+                    42120000: "岳阳市",
+                    42130000: "张家界市",
+                    42140000: "株洲市"
+                },
+                43000000: {
+                    43010000: "郑州市",
+                    43020000: "安阳市",
+                    43030000: "鹤壁市",
+                    43040000: "焦作市",
+                    43050000: "开封市",
+                    43060000: "洛阳市",
+                    43070000: "漯河市",
+                    43080000: "南阳市",
+                    43090000: "平顶山市",
+                    43100000: "濮阳市",
+                    43110000: "三门峡市",
+                    43120000: "商丘市",
+                    43130000: "新乡市",
+                    43140000: "信阳市",
+                    43150000: "许昌市",
+                    43160000: "周口市",
+                    43170000: "驻马店市",
+                    43180000: "济源市"
+                },
+                44000000: {
+                    44010000: "南昌市",
+                    44020000: "抚州市",
+                    44030000: "赣州市",
+                    44040000: "吉安市",
+                    44050000: "景德镇市",
+                    44060000: "九江市",
+                    44070000: "萍乡市",
+                    44080000: "上饶市",
+                    44090000: "新余市",
+                    44100000: "宜春市",
+                    44110000: "鹰潭市"
+                },
+                51000000: {
+                    51010000: "哈尔滨市",
+                    51020000: "大庆市",
+                    51030000: "大兴安岭",
+                    51040000: "鹤岗市",
+                    51050000: "黑河市",
+                    51060000: "鸡西市",
+                    51070000: "佳木斯市",
+                    51080000: "牡丹江市",
+                    51090000: "七台河市",
+                    51100000: "齐齐哈尔市",
+                    51110000: "双鸭山市",
+                    51120000: "绥化市",
+                    51130000: "伊春市"
+                },
+                52000000: {
+                    52010000: "长春市",
+                    52020000: "白城市",
+                    52030000: "白山市",
+                    52040000: "吉林市",
+                    52050000: "辽源市",
+                    52060000: "四平市",
+                    52070000: "松原市",
+                    52080000: "通化市",
+                    52090000: "延边州"
+                },
+                53000000: {
+                    53010000: "沈阳市",
+                    53020000: "鞍山市",
+                    53030000: "本溪市",
+                    53040000: "朝阳市",
+                    53050000: "大连市",
+                    53060000: "丹东市",
+                    53070000: "抚顺市",
+                    53080000: "阜新市",
+                    53090000: "葫芦岛市",
+                    53100000: "锦州市",
+                    53110000: "辽阳市",
+                    53120000: "盘锦市",
+                    53130000: "铁岭市",
+                    53140000: "营口市"
+                },
+                61000000: {61010000: "固原市", 61020000: "石嘴山市", 61030000: "吴忠市", 61040000: "中卫市", 61050000: "银川市"},
+                62000000: {
+                    62010000: "乌鲁木齐市",
+                    62190000: "北屯市",
+                    62020000: "阿克苏地区",
+                    62030000: "阿勒泰地区",
+                    62040000: "巴音郭楞州",
+                    62050000: "博尔塔拉州",
+                    62060000: "昌吉州",
+                    62070000: "哈密地区",
+                    62080000: "和田地区",
+                    62090000: "喀什地区",
+                    62100000: "克拉玛依市",
+                    62110000: "克孜州",
+                    62120000: "塔城地区",
+                    62130000: "吐鲁番地区",
+                    62140000: "伊犁州",
+                    62150000: "石河子市",
+                    62160000: "阿拉尔市",
+                    62170000: "图木舒克市",
+                    62180000: "五家渠市"
+                },
+                63000000: {
+                    63010000: "西宁市",
+                    63020000: "果洛州",
+                    63030000: "海北州",
+                    63040000: "海东市",
+                    63050000: "海南州",
+                    63060000: "海西州",
+                    63070000: "黄南州",
+                    63080000: "玉树州"
+                },
+                64000000: {
+                    64010000: "西安市",
+                    64020000: "安康市",
+                    64030000: "宝鸡市",
+                    64040000: "汉中市",
+                    64050000: "商洛市",
+                    64060000: "铜川市",
+                    64070000: "渭南市",
+                    64080000: "咸阳市",
+                    64090000: "延安市",
+                    64100000: "榆林市"
+                },
+                65000000: {
+                    65010000: "兰州市",
+                    65020000: "白银市",
+                    65030000: "定西市",
+                    65040000: "甘南州",
+                    65050000: "嘉峪关市",
+                    65060000: "金昌市",
+                    65070000: "酒泉市",
+                    65080000: "临夏州",
+                    65090000: "陇南市",
+                    65100000: "平凉市",
+                    65110000: "庆阳市",
+                    65120000: "天水市",
+                    65130000: "张掖市",
+                    65140000: "武威市"
+                },
+                71000000: {
+                    71010000: "成都市",
+                    71020000: "阿坝州",
+                    71030000: "巴中市",
+                    71040000: "达州市",
+                    71050000: "德阳市",
+                    71060000: "甘孜州",
+                    71070000: "广元市",
+                    71080000: "乐山市",
+                    71090000: "凉山州",
+                    71100000: "泸州市",
+                    71110000: "眉山市",
+                    71120000: "绵阳市",
+                    71130000: "内江市",
+                    71140000: "南充市",
+                    71150000: "攀枝花市",
+                    71160000: "遂宁市",
+                    71170000: "雅安市",
+                    71180000: "宜宾市",
+                    71190000: "资阳市",
+                    71200000: "自贡市",
+                    71210000: "广安市"
+                },
+                72000000: {
+                    72010000: "昆明市",
+                    72020000: "保山市",
+                    72030000: "楚雄州",
+                    72040000: "大理州",
+                    72050000: "德宏州",
+                    72060000: "迪庆州",
+                    72070000: "红河州",
+                    72080000: "丽江市",
+                    72090000: "临沧市",
+                    72100000: "怒江州",
+                    72110000: "曲靖市",
+                    72120000: "普洱市",
+                    72130000: "文山州",
+                    72140000: "西双版纳",
+                    72150000: "玉溪市",
+                    72160000: "昭通市"
+                },
+                73000000: {
+                    73010000: "贵阳市",
+                    73020000: "安顺市",
+                    73030000: "毕节市",
+                    73040000: "六盘水市",
+                    73050000: "黔东南州",
+                    73060000: "黔南州",
+                    73070000: "黔西南州",
+                    73080000: "铜仁市",
+                    73090000: "遵义市"
+                },
+                74000000: {74010000: "重庆市"},
+                75000000: {
+                    75010000: "拉萨市",
+                    75020000: "阿里地区",
+                    75030000: "昌都市",
+                    75040000: "林芝市",
+                    75050000: "那曲地区",
+                    75060000: "日喀则市",
+                    75070000: "山南市"
+                },
+                81000000: {81010000: "台湾省"},
+                82000000: {82010000: "香港"},
+                83000000: {83010000: "澳门"},
+                84000000: {84010000: "钓鱼岛"}
+            };
+            this.opt = c;
+            this.singleCity = {11000000: "11010000", 12000000: "12010000", 21000000: "21010000", 74000000: "74010000"};
+            this.obj = t;
+            this.init()
+        };
+        i.prototype = {
+            init: function () {
+                var t = this;
+                t.winClose();
+                t.obj.click(function () {
+                    t.bindEvent();
+                    t.obj.addClass("gctCur").parent().addClass("cityShow");
+                    if (t.opt.gc_new) t.opcity(1);
+                    t.winType(true)
+                });
+                t.autoProvince()
+            }, autoProvince: function () {
+                var t = this, c = {};
+                t.cityModel(t.province)
+            }, bindEvent: function () {
+                var c = this;
+                t(c.opt.gc_shw).unbind("click").click(function (t) {
+                    t.preventDefault();
+                    c.cityClick(c.getEvent(t))
+                })
+            }, cityModel: function (c) {
+                var i = this.opt.gc_dat || t.cookie("atgregion");
+                i = i || this.adress;
+                i = i.split("|");
+                if (i.length != 5 || i[4] == "undefined") i[4] = i[0] + "1";
+                this.cache.sid = i[3];
+                this.cache.cid = i[2];
+                this.cache.xid = i[0];
+                this.cache.zid = i[4];
+                this.cityDom(c, 2, 1)
+            }, cityDom: function (c, i, a) {
+                var e = c.citys || c;
+                if (a == 1) {
+                    this.createProvince(e, i)
                 } else {
-                    for (var n = 1; n <= a; n++) {
-                        s += t == n ? this.numStatusHTML(0, n) : this.numStatusHTML(1, n)
+                    this.createOthers(e, a, i)
+                }
+                if (!this.opt.gc_inp && e.length <= 1 && i == 4) this.inpcity();
+                if (this.opt.gc_inp && i == 4) {
+                    this.opt.gc_inp = false;
+                    this.citySlect();
+                    this.cache.chtm = this.fmtAddress();
+                    if (this.opt.gc_ads) t(this.opt.gc_aid).html(this.cache[this.opt.gc_ads]).attr("title", this.cache[this.opt.gc_ads]);
+                    if (this.opt.gc_autofn) this.opt.gc_autofn.apply(this.cache)
+                }
+                this.bindEvent()
+            }, checkData: function (t) {
+                try {
+                    var c = t.result.division, i = c[0].code + c[0].label;
+                    return true
+                } catch (a) {
+                    if (window.console) {
+                        console.log("响应数据异常\r\n" + a)
                     }
+                    return false
                 }
-                s += t == a ? this.showNext(0) : this.showNext(1, t)
-            }
-            return s
-        }, pager: function (t, a) {
-            var s = "";
-            if (a <= 1) {
-                this.p = t;
-                this.pn = a;
-                s = this.showPre(0) + this.numStatusHTML(0, t) + this.showNext(0)
-            }
-            return s
-        }, go: function (t, a) {
-            var s = this.nav(t, a) + this.btnHTML(t, a);
-            return s
-        }, numStatusHTML: function (t, a) {
-            return t == 0 ? "<span class='cur'>" + a + "</span>" : "<a href='javascript:void(0);' onclick='javascript:doPageNumSearch(" + a + ");return false;'>" + a + "</a>"
-        }, showPre: function (t, a) {
-            var s = "<a class='prev disable' href='javascript:void(0);'>&nbsp;" + this.pre + "<s class='icon-prev'></s><i></i></a>";
-            var e = "<a class='prev' href='javascript:void(0);' onclick='javascript:doPageNumSearch(" + (a - 1) + ");return false;'>&nbsp;" + this.pre + "<s class='icon-prev'></s><i></i></a>";
-            return t == 0 ? s : e
-        }, showNext: function (t, a) {
-            var s = "<a class='next disable' href='javascript:void(0);'>" + this.next + "<s class='icon-next'></s><i></i></a>";
-            var e = "<a class='next' href='javascript:void(0);' onclick='javascript:doPageNumSearch(" + (a + 1) + ");return false;'>" + this.next + "<s class='icon-next'></s><i></i></a>";
-            return t == 0 ? s : e
-        }, btnHTML: function (t, a) {
-            var s = "<label for='pagenum' class='txt-wrap'>到<input type='text' id='pNum' class='txt' bNum='" + a + "' value='" + t + "'>页</label>" + "<a href='javascript:void(0)' zdx='nBtn' class='btn'>确定</a>";
-            return s
-        }
-    };
-    t.fn.extend({
-        gPager: function (t) {
-            this.ucPager(t)
-        }, ucPager: function (s) {
-            var e = t.extend({
-                pageClass: "pager",
-                currentPage: 1,
-                totalPage: 0,
-                pageSize: 15,
-                clickCallback: function () {
-                }
-            }, s);
-            return this.each(function () {
-                var s = t(this);
-                if (!s.hasClass(e.pageClass)) {
-                    s.addClass(e.pageClass)
-                }
-                var n = function () {
-                    e.clickCallback(e.currentPage)
-                };
-                s.html(a.go(e.currentPage, e.totalPage));
-                window.doPageNumSearch = function (t) {
-                    e.currentPage = t.toString();
-                    n()
-                };
-                window.doNextPageNum = function (t) {
-                    if (e.currentPage == e.totalPage) {
-                        e.currentPage--
-                    } else {
-                        e.currentPage++
-                    }
-                    doPageNumSearch(e.currentPage)
-                };
-                var i = t("#pNum", s);
-                i.on("keyup", function () {
-                    var a = t(this).val(), s = /^\d+$/gi, e = /\d+/gi;
-                    if (!s.test(a)) {
-                        t(this).val(a.match(e) ? a.match(e)[0] : "")
+            }, createProvince: function (c, i) {
+                var a = this, e = "";
+                t.each(c, function (t, c) {
+                    var s = t, n = c, h = "";
+                    e += a.createSpan(h, n, s, s + "," + i + ",1")
+                });
+                a.cityHtm(e)
+            }, createOthers: function (c, i, a) {
+                var e = this, s = "", n = "", h = "", r = c;
+                var o = ["710103001", "710101001", "710102001", "710104001", "710105001", "110102001", "110103001", "110105001", "110104001", "110115001", "110114001"];
+                t.each(o, function (t, c) {
+                    if (e.cache.zid == c) {
+                        e.cache.zid = (+c + 1).toString()
                     }
                 });
-                t(".btn", s).bind("click", function () {
-                    var a = t.trim(i.val());
-                    if (a < 1) {
-                        i.val(1);
-                        e.currentPage = 1 + ""
-                    } else if (a > e.totalPage) {
-                        i.val(e.totalPage);
-                        e.currentPage = e.totalPage.toString()
-                    } else {
-                        i.val(a);
-                        e.currentPage = a
+                if (a != 2) {
+                    if (!this.checkData(c)) return false;
+                    c = c.result.division
+                }
+                t.each(c, function (t, c) {
+                    var i = c.code ? c.code : t, r = c.label ? c.label : c, o = c.relationCode || null, d = "";
+                    n = i;
+                    h = r;
+                    if (i == e.cache.cid) {
+                        e.cache.cnam = r
                     }
-                    n()
+                    if (i == e.cache.xid && !o || i != e.cache.xid && o && o == e.cache.xid) {
+                        e.cache.xid = i;
+                        e.cache.xnam = e.fmt(r)
+                    }
+                    if (e.cache.zid && e.cache.zid != "" && i == e.cache.zid) {
+                        e.cache.znam = e.fmt(r)
+                    }
+                    s += e.createSpan(d, r, i, i + "," + (parseInt(a) + 1) + "," + a, o)
+                });
+                t("#ctbox_" + a).html(s);
+                var d = 0;
+                if (a == 2) {
+                    d = e.cache.sid;
+                    if (e.opt.gc_inp) e.autoAjax(e.cache.cid, parseInt(a) + 1, a);
+                    if (!e.opt.gc_inp && c.length <= 1) {
+                        e.cache.cid = n;
+                        e.autoAjax(e.cache.cid, parseInt(a) + 1, a)
+                    }
+                }
+                if (a == 3) {
+                    d = e.cache.cid;
+                    if (e.opt.gc_inp) e.autoAjax(e.cache.xid, parseInt(a) + 1, a)
+                }
+                if (a == 4) {
+                    d = e.cache.xid;
+                    if (c.length <= 1) {
+                        e.cache.zid = n;
+                        e.cache.znam = h
+                    }
+                }
+                e.obj.data("data" + d, r)
+            }, autoAjax: function (t, c, i) {
+                var a = this;
+                window.setTimeout(function () {
+                    a.cityajax(t, c, i)
+                }, 1)
+            }, createSpan: function (t, c, i, a, e) {
+                if (e) e = 'data-rid="' + e + '"';
+                return '<span><a href="javascript:;" ' + t + ' title="' + c + '" id="ct' + i + '" data-val="' + a + '" ' + (e ? e : "") + ">" + c + "</a></span>"
+            }, citySlect: function () {
+                t("#pct_1").find("b").html(this.cache.snam);
+                t("#pct_2").find("b").html(this.cache.cnam);
+                t("#pct_3").find("b").html(this.cache.xnam);
+                t("#pct_4").find("b").html(this.cache.znam);
+                if (this.cache.xnam == "" || this.cache.xnam == undefined) {
+                    var c = this;
+                    c.opt.gc_dat = c.adress;
+                    c.opt.gc_inp = true;
+                    window.setTimeout(function () {
+                        c.init()
+                    }, 1);
+                    return false
+                }
+            }, cityHtm: function (c) {
+                var i = this.opt.gc_css, a = "";
+                if (this.opt.gc_slt) {
+                    a = '<div id="citySelect" class="gctSelect clearfix">				<a href="javascript:;" id="pct_1" data-val="1" data-lnk><b></b><i></i></a>				<a href="javascript:;" id="pct_2" data-val="2" data-lnk><b></b><i></i></a>				<a href="javascript:;" id="pct_3" data-val="3" data-lnk><b></b><i></i></a>				<a href="javascript:;" id="pct_4" data-val="4" data-lnk class="cur"><b></b><i></i></a>				<a href="javascript:;" id="cityClose" class="close"></a></div>'
+                }
+                var e = '<div id="cityMBox">				<div class="' + i + '" id="ctbox_1">' + c + '</div>				<div class="' + i + '" id="ctbox_2"></div>				<div class="' + i + '" id="ctbox_3"></div>				<div class="' + i + '" id="ctbox_4"></div></div>';
+                t(this.opt.gc_shw).html(a + e);
+                this.autoAjax(this.cache.sid, 2, 1)
+            }, cityClick: function (c) {
+                var i = t(c), a = i.parent(), e = this, s = true;
+                if (a.attr("data-lnk") || a.attr("data-lnk") == "") {
+                    s = false
+                } else {
+                    if (i.attr("data-lnk") || i.attr("data-lnk") == "") {
+                        s = false
+                    }
+                }
+                if (a.parent().hasClass("gctBox")) a.parent().find("a").removeClass("select");
+                if (s) {
+                    if (i.attr("id") && i.attr("id") == "cityClose") {
+                        e.closeCity();
+                        return false
+                    }
+                    var n = i.attr("data-val"), h = 1;
+                    if (n != undefined) {
+                        t(e.opt.gc_shw).unbind("click");
+                        n = n.split(",");
+                        h = n[2];
+                        var r = n[0], o = e.fmt(t("#ct" + r).html());
+                        if (h == 1) {
+                            e.cache.snam = o;
+                            e.cache.sid = r;
+                            e.setLoading("#ctbox_2,#ctbox_3,#ctbox_4", n);
+                            if (this.getPropertyCount(this.city[r]) == 1) {
+                                this.cityClick(t("#ct" + this.singleCity[r]))
+                            }
+                        }
+                        if (h == 2) {
+                            e.cache.cnam = o;
+                            e.cache.cid = r;
+                            e.setLoading("#ctbox_3,#ctbox_4", n)
+                        }
+                        if (h == 3) {
+                            e.cache.xnam = o;
+                            e.cache.xid = r;
+                            e.setLoading("#ctbox_4", n)
+                        }
+                        if (h == 4) {
+                            e.cache.znam = o;
+                            e.cache.zid = r;
+                            e.inpcity()
+                        }
+                    }
+                } else {
+                    var d = i.attr("data-val");
+                    if (d == undefined) {
+                        e.opcity(i.parent().attr("data-val"))
+                    } else {
+                        e.opcity(d)
+                    }
+                }
+                e.winType(true)
+            }, setLoading: function (c, i) {
+                t(c).html("加载中...");
+                this.cityajax(i[0], i[1], i[2])
+            }, getPropertyCount: function (t) {
+                var c, i = 0;
+                for (c in t) {
+                    if (t.hasOwnProperty(c)) {
+                        i++
+                    }
+                }
+                return i
+            }, winClose: function () {
+                var c = this;
+                t("body:first").click(function (i) {
+                    var a = t(c.opt.gc_shw).attr("cityType");
+                    if (a == "true") {
+                        var e = t(c.getEvent(i)), s = e.attr("id");
+                        if (!e.attr("cityType") && !e.parent().attr("cityType") && !e.parent().parent().attr("cityType") && !e.parent().parent().parent().attr("cityType") && !e.parent().parent().parent().parent().attr("cityType") && s != "stockaddress" && s != "address" && e.parent().attr("id") != "address") {
+                            c.winType(false);
+                            c.closeCity()
+                        }
+                    } else {
+                        c.closeCity()
+                    }
                 })
-            })
-        }
-    })
-})(jQuery);
-$(document).ready(function () {
-    var f = $("#fix_fl").height();
-    var e = $(".ymin_nr > .ynr_fr").height();
-    if (f > e) {
-        $("#fix_fl").removeClass("fix_fl");
-        $("#fix_fl").removeClass("ab").removeAttr("style");
-        $(".ymin_nr > .ynr_fl").css({height: f})
-    }
-    $(window).scroll(function () {
-        var e = $(window).scrollTop();
-        var i = $(".ynr_fl")[0].offsetTop;
-        var r = $("body").height();
-        var s = parseInt($(".ymain").css("padding-top"));
-        var a = parseInt($(".ymain").css("padding-bottom"));
-        var l = $("#gome-foot").height() + $("#gome-help").height();
-        var o = r - f - l - s - a;
-        var t = o - i;
-        if (e > i && e < o) {
-            $("#fix_fl").addClass("fix_fl");
-            $("#fix_fl").removeClass("ab").removeAttr("style")
-        } else if (e > o) {
-            $("#fix_fl").removeClass("fix_fl");
-            $("#fix_fl").addClass("ab").css({top: t})
-        }
-        if (e < i) {
-            $("#fix_fl").removeClass("fix_fl")
-        }
-    })
-});
-var GomeShare_PageUrl = location.href;
-
-function GomeShare_CBG(e, a, s) {
-    var i = document.documentElement.clientWidth;
-    var o = document.documentElement.clientHeight;
-    var t = document.getElementById(e);
-    if (!t) {
-        var r = document.createElement("div");
-        r.id = e;
-        r.className = a;
-        r.style.width = i + "px";
-        r.style.height = Math.max(document.body.clientHeight, o) + "px";
-        r.style.zIndex = s;
-        r.style.display = "none";
-        document.body.appendChild(r)
-    } else {
-        t.style.width = i + "px";
-        t.style.height = Math.max(document.body.clientHeight, o) + "px";
-        t.style.zIndex = s;
-        t.style.display = "none"
-    }
-    $("#" + e).fadeIn("fast")
-}
-
-function GomeShare_CDiv(e, a, s, i, o, t) {
-    if (!document.getElementById(e)) {
-        var r = document.createElement("div");
-        if (t != 0) {
-            r.innerHTML = t
-        }
-        if (e != 0) {
-            r.id = e
-        }
-        if (a != 0) {
-            r.className = a
-        }
-        if (s != 0) {
-            r.zIndex = s
-        }
-        if (i != 0) {
-            r.style.width = i + "px"
-        }
-        if (o != 0) {
-            r.style.height = o + "px"
-        }
-        document.body.appendChild(r)
-    }
-    $("#" + e).fadeIn("slowly")
-}
-
-function GomeShare_Fix(e, a, s, i, o) {
-    $("#" + e).css("position", "fixed");
-    if (a == 1) {
-        $("#" + e).css("left", ($(window).width() - $("#" + e).width()) / 2 + "px")
-    }
-    if (s == 1) {
-        $("#" + e).css("top", ($(window).height() - $("#" + e).height()) / 2 - 0 + "px")
-    }
-    if (o != "") {
-        $("#" + e).css("left", o + "px")
-    }
-    if (i != "") {
-        $("#" + e).css("top", i + "px")
-    }
-}
-
-function GomeShare_QrCode(e, a, s, i) {
-    $(e).html("");
-    var o = "canvas";
-    if (navigator.userAgent.indexOf("MSIE") >= 0) {
-        o = "table"
-    }
-    $(e).qrcode({
-        render: o,
-        width: a,
-        height: s,
-        text: i,
-        correctLevel: QRErrorCorrectLevel.L,
-        background: "#F7F7F7",
-        foreground: "#333333"
-    })
-}
-
-function GomeShare_Frame(e, a, s, i, o) {
-    GomeShare_CBG("gomeshare_plbg", "gomeshare_bg", 999999993);
-    GomeShare_CDiv("gomeshare_pl", "", 0, a, s, "<div class=gomeshare_close onclick=GomeShare_CloseL()></div><iframe src=" + e + ' style="width:' + a + "px;height:" + s + "px;marginwidth:" + o + "px;marginheight:" + i + 'px;" frameborder=0 scrolling=no></iframe>');
-    GomeShare_Fix("gomeshare_pl", 1, 1, "", "")
-}
-
-function GomeShare_LoginFavicon(e, a, s, i) {
-    GomeShare_CloseL();
-    if (a == "1") {
-        $("#gomeshare_" + e).replaceWith("<div id=gomeshare_" + e + " class=gomeshare_back onclick=GomeShare_On(this)><i></i></div>");
-        $("#gomeshare_bx_" + e).replaceWith("<div id=gomeshare_bx_" + e + ' class=gomeshare_icon_on onclick=GomeShare_IconSelect($(this),"gomeshare_icon_on","gomeshare_icon_ot")></div>')
-    } else {
-        GomeShare_Shake("#gomeshare_" + e, 50, 5, 100)
-    }
-}
-
-function GomeOneShare_DealIcon(e, a, s, i) {
-    $(".o-icons ." + e).removeAttr("onclick");
-    $(".o-icons ." + e).attr("class", e + " " + e + "_o");
-    $(".o-icons ." + e + "_o span").replaceWith('<span id="ts_' + e + '">已绑定</span>');
-    $(".o-icons ." + e + "_o span").attr("class", "o-icons-checked");
-    $(".tshare .share_box .n-onebtn-share").css("display", "none")
-}
-
-function GomeShare_OAuthIcon(e, a, s, i, o) {
-    GomeShare_CloseL();
-    if (a == "1") {
-        GomeOneShare_DealIcon(e, "", "", "")
-    }
-}
-
-function GomeShare_On(e) {
-    if ($(e).attr("class") == "gomeshare_back") {
-        $(e).attr("class", "gomeshare_back_gray")
-    } else {
-        $(e).attr("class", "gomeshare_back")
-    }
-}
-
-function GomeShare_CloseL() {
-    $("#gomeshare_plbg").fadeOut("fast", function () {
-        $("#gomeshare_plbg").remove()
-    });
-    $("#gomeshare_pl").fadeOut("fast", function () {
-        $("#gomeshare_pl").remove()
-    })
-}
-
-function GomeShare_SetDomain() {
-    document.domain = "gome.com.cn"
-}
-
-
-function GomeShare_FxbDiv(e, a, s, i, o, t, r, c, n, l, h, d, _, m) {
-    _GmFxb.FxbDiv(e, a, s, i, o, t, r, c, n, l, h, d, _, m)
-}
-
-function GomeShare_Pre(e, a, s, i, o, t, r, c, n, l, h, d) {
-    var _ = $("#share-contents").val();
-    if (_ != "") {
-        _ = _.substring(0, 80);
-        _ = escape(_)
-    } else {
-        alert("请填写分享内容");
-        return
-    }
-    var e = escape(e.split("#")[0]);
-    var m = new Array("qq", "weibo", "renren", "kaixin", "douban", "yixin"), p = "";
-    for (var v = 0; v < m.length; v++) {
-        if ($("#ts_" + m[v]).attr("class") == "o-icons-checked") {
-            p += "_" + m[v]
-        }
-    }
-    var b = $(".redbd img").attr("src");
-    if (b == undefined) {
-        b = ""
-    } else if (b.indexOf("http") < 0) {
-        b = ""
-    }
-    if (p != "") {
-        $(".o_share_f").removeClass("event_alert");
-        GomeShare_Sub(_, p, e, b, "", "", "", o, t, r, c, n, l, h, d)
-    } else {
-        $(".n-onebtn-share").remove();
-        $(".tshare .btn_cont").after("<div class='n-onebtn-share'>你还没有绑定SNS平台账号哦，请绑定后再分享</div>");
-        for (var v = -1; v > -3; v--) {
-            $(".tshare .n-onebtn-share").fadeOut(1500);
-            $(".tshare .n-onebtn-share").fadeIn(1500)
-        }
-        return
-    }
-}
-
-function GomeShare_Sub(e, a, s, i, o, t, r, c, n, l, h, d, _, m, p) {
-
-}
-
-function GomeShare_Select(e, a, s) {
-    $("#gomeshare_text div").click(function () {
-        $(this).removeClass();
-        $(this).siblings().removeClass();
-        $(this).siblings().addClass(e + " " + s);
-        $(this).addClass(e + " " + a)
-    })
-}
-
-function GomeShare_Close() {
-    $("#gomeshare_bg").fadeOut("fast", function () {
-        $("#gomeshare_bg").remove()
-    });
-    $("#gomeshare_div").fadeOut("fast", function () {
-        $("#gomeshare_div").remove()
-    });
-    $("#tshare_div").fadeOut("fast", function () {
-        $("#tshare_div").remove()
-    })
-}
-
-function GomeShare_MoveCoin() {
-    $("#gomeshare_coin").css("display", "block");
-    $("#gomeshare_coin").animate({top: "360px"}, 1500).fadeOut()
-}
-
-function GomeShare_MoveFavicon(e) {
-    $("#gomeshare_" + e).appendTo("#gomeshare_action").fadeOut().fadeIn()
-}
-
-function GomeShare_Opener(e, a, s, i, a, o) {
-    e = unescape(e);
-    var t = (window.screen.availHeight - 30 - i) / 2;
-    var r = (window.screen.availWidth - 10 - s) / 2;
-    window.open(e, a, "width=" + s + ",height=" + i + ",top=" + t + ",left=" + r + ",toolbar=no,menubar=no,scrollbars=no,status=no,location=no,resizable=no")
-}
-
-function GomeShare_CopyNoIE(e, a, s) {
-    window.prompt("请手动复制以下链接地址，按Ctrl+C即可复制", e)
-}
-
-function GomeShare_IconInit(e, a, s) {
-    var i = "", o = new Array("qq", "weibo", "renren");
-    i += '<div class="gomeshare_icon_ot" id="gomeshare_bx_qq" onclick=' + a_qq + "></div>";
-    i += '<div class="gomeshare_icon_ot" id="gomeshare_bx_weibo" onclick=' + a_weibo + "></div>";
-    i += '<div class="gomeshare_icon_ot" id="gomeshare_bx_renren" onclick=' + a_renren + "></div>";
-    $(e).html(i);
-
-}
-
-function GomeShare_IconSelect(e, a, s) {
-    if ($(e).attr("class") == a) {
-        $(e).attr("class", s)
-    } else {
-        $(e).attr("class", a)
-    }
-}
-
-function GomeShare_Shake(e, a, s, i) {
-    for (var o = 0; o < s; o++) {
-        $(e).animate({top: "-" + a * (1 - o / s) + "px"}, i * (1 - o / s)).animate({top: "0px"}, i * (1 - o / s))
-    }
-}
-
-function ImgInAll(e, a, s, i, o, t) {
-    if (a / s >= i / o) {
-        var r = i * s / a;
-        $(e).css("width", i + "px");
-        $(e).css("margin-top", -(r - o) / 2 + "px")
-    } else {
-        var c = o * a / s;
-        $(e).css("height", o + "px");
-        $(e).css("margin-left", -(c - i) / 2 + "px")
-    }
-}
-
-$(document).ready(function () {
-    var e = $(".yin_tm");
-    for (var r = 0; r < e.length; r++) {
-        var a = $(e[r]).attr("arrid");
-        var n = "GomeNews" + a;
-        var o = i * 1 + 1;
-        var i = t(n);
-        if (i != null && i != "") {
-            $(".cookie em").eq(r).html(i);
-            if (i == 0) {
-                $(".cookie").eq(r).css({display: "none"})
-            }
-        }
-    }
-
-    function t(e) {
-        var r = document.cookie.split("; ");
-        for (var a = 0; a < r.length; a++) {
-            var n = r[a].split("=");
-            if (n[0] == e) return unescape(n[1])
-        }
-    }
-});
-$(document).ready(function () {
-    $(".yin_na").find(".left_list").each(function () {
-        var e = $(this).find(".Left_cx").height();
-        if ($(this).find(".left_more").hasClass("left_ma")) {
-            $(this).css("height", e + 30 + "px");
-            $(this).attr("height", "110")
-        } else {
-            $(this).css("height", "30px")
-        }
-    });
-    $(".left_more").on("click", function () {
-        if ($(this).hasClass("left_ma")) {
-            $(this).removeClass("left_ma");
-            $(this).parents(".left_list").stop(true, false).animate({height: 30 + "px"})
-        } else {
-            $(this).addClass("left_ma");
-            var e = $(this).parents(".left_list").find(".Left_cx").height();
-            $(this).parents(".left_list").stop(true, false).animate({height: e + 30 + "px"})
-        }
-    });
-
-    function e() {
-        var e = window.location.href;
-        if (e.indexOf("=") !== -1) {
-            return [e.split("=")[1]]
-        }
-        var t = e.substring(e.lastIndexOf("/") + 1, e.lastIndexOf(".")) || "";
-        return t.split("-")
-    }
-
-    var t = window.location.pathname;
-    var a;
-    var l, i;
-    if (t.indexOf("search") > 0) {
-        var r = e()[0];
-        r = decodeURI(r);
-        s(1, r)
-    } else {
-        if (t.length > 1) {
-            l = t.replace(/.html/, "");
-            l = l.replace("/", "");
-            l = l.split("-");
-            if (l.length == 4) {
-                t = l[0] + "-" + l[1] + "-";
-                a = l.pop()
-            } else {
-                l.pop();
-                t = l.join("-")
-            }
-        } else {
-            l = t
-        }
-        $("#y_page_in").ucPager({
-            currentPage: parseInt(1),
-            totalPage: parseInt(1),
-            pageSize: 20,
-            clickCallback: function (e) {
-                if (l.length == 1) {
-                    window.location.href = newUrl + "3-" + e + ".html"
-                } else if (l.length == 4 || l.length == 3) {
-                    window.location.href = newUrl + t + e + "-" + a + ".html"
-                } else {
-                    window.location.href = newUrl + t + "-" + e + ".html"
+            }, winType: function (c) {
+                t(this.opt.gc_shw).attr("cityType", "" + c)
+            }, cityajax: function (c, i, a) {
+                var e = "", s = 0;
+                this.opcity(i);
+                if (a == 1) {
+                    this.setDataClk("#pct_2", true);
+                    this.setDataClk("#pct_3,#pct_4", false);
+                    e = t("#ct" + this.cache.sid).html();
+                    s = this.cache.sid;
+                    this.cache.snam = e
                 }
+                if (a == 2) {
+                    this.setDataClk("#pct_3", true);
+                    this.setDataClk("#pct_4", false);
+                    e = t("#ct" + this.cache.cid).html();
+                    s = this.cache.cid;
+                    this.cache.cnam = e
+                }
+                if (a == 3) {
+                    this.setDataClk("#pct_4", true);
+                    e = this.fmt(t("#ct" + this.cache.xid).html());
+                    s = this.cache.xid;
+                    this.cache.xnam = e
+                }
+                if (a == 4) {
+                    e = this.fmt(t("#ct" + this.cache.zid).html());
+                    this.cache.znam = e
+                }
+                t("#pct_" + a).find("b").html(e);
+                if (s != 0) this.getDataCache(s, i, c)
+            }, fmt: function (t) {
+                if (t) return t.replace("*", "")
+            }, fmtAddress: function () {
+                try {
+                    return this.cache.snam + this.cache.cnam.replace(this.cache.snam, "") + this.cache.xnam.replace(this.cache.cnam, "").replace(this.cache.snam, "") + this.cache.znam.replace(this.cache.cnam, "").replace(this.cache.snam, "")
+                } catch (t) {
+                    return ""
+                }
+            }, setDataClk: function (c, i) {
+                if (!this.opt.gc_inp) {
+                    if (i) {
+                        t(c).attr("data-clk", i).find("b").html("请选择")
+                    } else {
+                        t(c).hide().attr("data-clk", i).find("b").html("请选择")
+                    }
+                }
+            }, getDataCache: function (t, c, i) {
+                if (this.obj.data("data" + t)) {
+                    this.cityDom(this.obj.data("data" + t), c, t);
+                    return false
+                } else {
+                    var e = "", s = {citycode: i, levelid: c};
+                    if (c == 2) {
+                        this.cityDom(this.city[i], c, i)
+                    } else if (c == 3) {
+                        e = a + s.citycode + "/3/flag/item_web/gcity_callbackarea";
+                        this.getDataAjax(i, c, e)
+                    } else {
+                        e = a + s.citycode + "/4/flag/item_web/gcity_callbackarea";
+                        this.getDataAjax(i, c, e)
+                    }
+                }
+            }, getDataAjax: function (c, i, a) {
+                var e = this;
+
+            }, inpcity: function () {
+                var c = this, i = "";
+                c.cache.chtm = c.fmtAddress();
+                i = c.cache.chtm;
+                if (c.opt.gc_ads) {
+                    i = c.cache[c.opt.gc_ads]
+                }
+                t("#pct_4").find("b").html(c.cache.znam);
+                t(c.opt.gc_aid).html(i).attr("title", i);
+                c.closeCity();
+                if (c.opt.gc_evt) {
+                    var a = c.cache.xid;
+                    if (t("#ct" + c.cache.zid).attr("data-rid")) a = t("#ct" + c.cache.zid).attr("data-rid");
+                    c.opt.gc_evt.apply(t.extend({}, c.cache, {xid: a}))
+                }
+            }, opcity: function (c) {
+                for (var i = 1; i < 5; i++) {
+                    if (i == c) {
+                        t("#ctbox_" + i).show();
+                        t("#pct_" + i).addClass("cur").show()
+                    } else {
+                        t("#ctbox_" + i).hide();
+                        t("#pct_" + i).removeAttr("class")
+                    }
+                }
+            }, getEvent: function (t) {
+                t = t || window.event;
+                return t.target || t.srcElement
+            }, closeCity: function () {
+                this.obj.removeClass("gctCur").parent().removeClass("cityShow")
             }
+        };
+        var a = "";
+        var e = {
+            gc_dat: null,
+            gc_css: "gctBox",
+            gc_shw: ".gCity",
+            gc_aid: "#stockaddress",
+            gc_ads: null,
+            gc_inp: true,
+            gc_upd: true,
+            gc_slt: true,
+            gc_new: false,
+            gc_autofn: null,
+            gc_group: false,
+            gc_groupID: false,
+            gc_evt: null
+        }, c = t.extend(e, c);
+        this.each(function () {
+            new i(t(this), c)
         })
     }
-
-    function s(e, t) {
-
-    }
-
-    $(".yin_pt").keyup(function (e) {
-        var t = $(".yin_pt").attr("value");
-        var a = e.which;
-        if (a == 13) {
-            window.location.href = newUrl + "search?question=" + t
-        }
-    })
-});
+})(jQuery);
 (function (e) {
-    e.fn.textSearch = function (t, a) {
-        var l = {
-            divFlag: true,
-            divStr: " ",
-            markClass: "",
-            markColor: "#cc0000",
-            nullReport: true,
-            callback: function () {
-                return false
+    e.fn.accordion = function (o) {
+        Array.prototype.removeValve = function (e) {
+            for (var o = 0; o < this.length; o++) {
+                if (this[o] == e) {
+                    this.splice(o, 1);
+                    break
+                }
             }
         };
-        var i = e.extend({}, l, a || {}), r;
-        if (i.markClass) {
-            r = "class='" + i.markClass + "'"
-        } else {
-            r = "style='color:" + i.markColor + ";'"
+        var r = {boxStyle: {left: "50%", marginLeft: "-390px"}, obj: ".compare", objStyle: "", domain: ""};
+        var i = e.extend({}, r, o);
+        var a = this;
+        var t = 4;
+        var c = [];
+        var l = "";
+        var p = function () {
+            var o = {};
+            return function (r) {
+                if (!r) {
+                    return false
+                }
+                return e.Deferred(function (a) {
+                    var t = r.replace("/", "");
+                    if (o[t]) {
+                        a.resolve(o[t])
+                    } else {
+                done(function (e) {
+                            o[t] = e;
+                            a.resolve(o[t])
+                        }).fail(function (e) {
+                            a.reject()
+                        })
+                    }
+                }).promise()
+            }
+        }();
+
+        function s(o) {
+            return e.Deferred(function (r) {
+                e.when(p(o[0]), p(o[1]), p(o[2]), p(o[3])).done(function (e, o, i, a) {
+                    var t = [];
+                    t.push(e, o, i, a);
+                    r.resolve(t)
+                })
+            }).promise()
         }
-        e("span[rel='mark']").each(function () {
-            var t = document.createTextNode(e(this).text());
-            e(this).replaceWith(e(t))
-        });
-        e.regTrim = function (e) {
-            var t = /[\^\.\\\|\(\)\*\+\-\$\[\]\?]/g;
+
+        var d = function () {
+            var o = '<div class="gm-compareBox" id="gm-compareBox"><div id="errorTips" class="errorTips">对比栏已满,您可以删除不需要的栏内商品再继续添加哦！</div><ul class="gm-compareBox-hd"><li class="tabs-hide" id="gm-compareBox-hide">隐藏</li><li class="tabs cur">对比栏(<em id="compareNum"></em>)</li></ul><div class="gm-compareBox-bd"><div class="gm-compareBox-opt"><p><a href="javascript:void(0)" class="go-commpare disable" id="go-commpare" target="_blank">对比</a></p><p><a href="javascript:void(0)" class="clear-commpare" id="gm-compareBox-clear">清空对比栏</a></p></div><ul class="gm-compareBox-list" id="gm-compareBox-list"><li class="item-compare"><div class="default"><span>1</span>您还可以继续添加</div><div class="product"></div></li><li class="item-compare"><div class="default"><span>2</span>您还可以继续添加</div><div class="product"></div></li><li class="item-compare"><div class="default"><span>3</span>您还可以继续添加</div><div class="product"></div></li><li class="item-compare"><div class="default"><span>4</span>您还可以继续添加</div><div class="product"></div></li></ul></div></div>';
+            var r = '<style type="text/css">.gm-compareBox{display:none;position:fixed;bottom:0;z-index:30;width:990px;height:142px;background:#fff;box-shadow:0 0 20px rgba(0,0,0,.19)}.gm-compareBox-hd{height:32px;border-bottom:1px solid #e6e6e6;background:#f3f3f3;line-height:32px}.gm-compareBox-hd .tabs-hide{float:right;margin-right:10px;color:#06c;cursor:pointer}.gm-compareBox-hd .tabs{float:left;width:140px;height:32px;text-align:center}.gm-compareBox-hd .cur{position:relative;border-right:1px solid #e6e6e6;border-bottom:1px solid #fff;background-color:#fff;color:#c00;font-weight:700}.gm-compareBox-bd{overflow:hidden;padding-top:25px;padding-right:110px;height:85px}.gm-compareBox-list .item-compare{position:relative;float:left;margin-right:3px;width:215px;height:84px}.gm-compareBox-list .default{padding:0 12px;width:191px;height:80px;border-bottom:4px solid #e6e6e6;color:#ccc}.gm-compareBox-list .default span{float:left;overflow:hidden;margin-right:12px;width:50px;height:50px;border:1px solid #e7e7e7;background:#f6f6f6;text-align:center;font:46px/50px "Microsoft YaHei"}.gm-compareBox-list .product{padding:0 12px 0 70px;width:133px;height:80px;border-bottom:4px solid #c00}.gm-compareBox-list .product .pic{float:left;overflow:hidden;margin-left:-58px;width:50px;height:50px;border:1px solid #e7e7e7;background:#f6f6f6;text-align:center}.gm-compareBox-list .product .pic img{width:50px;height:50px}.gm-compareBox-list .product .name{overflow:hidden;height:36px;word-wrap:break-word;word-brak:break-all}.gm-compareBox-list .product .price{color:#e3101e;display:inline-block;vertical-align:middle;margin-right:2px}.gm-compareBox-list .product .tags{display:inline-block;vertical-align:middle;height:16px;line-height:16px;color:#e3101e;border: 1px solid #e3101e;padding:0 2px}.gm-compareBox-list .product .delete{float:right;visibility:hidden;color:#06c;margin-top:2px}.gm-compareBox-list .product:hover .delete{visibility:visible}.gm-compareBox-opt{float:right;margin-right:-110px;width:110px;text-align:center}.gm-compareBox-opt .go-commpare{display:inline-block;margin-bottom:3px;width:66px;height:28px;line-height:28px;border:1px solid #e3101e;background:#e3101e;color:#fff;text-decoration:none}.gm-compareBox-opt .disable{border:1px solid #e6e6e6;background:#f8f8f8;color:#ccc;cursor:default}.gm-compareBox-opt .clear-commpare{color:#06c}.errorTips{display:none;margin-top:-36px;background:#ffdfe0;border:2px solid #fed2d3;height:32px;text-align:center;color:#cd0001;font:700 12px/32px Arial}</style>';
+            e("body").append(r + o);
+            c = e.cookie("compare") ? e.cookie("compare").replace(/:/g, "/").split("|").splice(0, t) : [];
+            if (e.cookie("g_co") && e.cookie("g_co") == "show" && c.length > 0) {
+                e("#gm-compareBox").css(i.boxStyle).show()
+            }
+            return function () {
+                e.cookie("compare", c.join("|").replace(/\//g, ":"), {expires: 30, path: "/", domain: i.domain});
+                l = e.cookie("atgregion") ? e.cookie("atgregion").split("|")[2] : "11010000";
+                e(i.obj).filter(function () {
+                    e(this).data("isCompared", false).removeAttr("style");
+                    if (e.inArray(e(this).attr("cid"), c) >= 0) {
+                        return true
+                    }
+                    return false
+                }).data("isCompared", true).css(i.objStyle);
+                e("#compareNum").text(c.length);
+                s(c).done(m);
+                return arguments.callee
+            }()
+        }();
+
+        function n(e) {
+            var o = {
+                GOMEPRICE: "normal",
+                SALEPRICE: "normal",
+                AREAPRICE: "normal",
+                AREASALEPRICE: "normal",
+                TUANPRICE: "tuanqiang",
+                RUSHBUYPRICE: "tuanqiang"
+            };
+            var r = "", a = "";
+            switch (o[e.priceType]) {
+                case"normal":
+                    r = "//item" + i.domain + "/" + e.productId + "-" + e.skuId + ".html";
+                    break;
+                case"tuanqiang":
+                    r = "//item" + i.domain + "/" + e.productId + "-" + e.skuId + ".html";
+                    a = '<span class="tags">真划算</span>';
+                    break;
+                default:
+                    break
+            }
+            return {url: r, tags: a}
+        }
+
+        function m(o) {
+            var r = "";
+            var i = [0, 0, 0, 0];
             var a = {};
-            a["^"] = "\\^";
-            a["."] = "\\.";
-            a["\\"] = "\\\\";
-            a["|"] = "\\|";
-            a["("] = "\\(";
-            a[")"] = "\\)";
-            a["*"] = "\\*";
-            a["+"] = "\\+";
-            a["-"] = "\\-";
-            a["$"] = "$";
-            a["["] = "\\[";
-            a["]"] = "\\]";
-            a["?"] = "\\?";
-            e = e.replace(t, function (e) {
-                return a[e]
-            });
-            return e
-        };
-        e(this).each(function () {
-            var a = e(this);
-            t = e.trim(t);
-            if (t === "") {
-                return false
-            } else {
-                var l = [];
-                if (i.divFlag) {
-                    l = t.split(i.divStr)
+            for (var c = 0; c < t; c++) {
+                if (!o[c]) {
+                    r += '<li class="item-compare"><div class="default"><span>' + (c + 1) + "</span>您还可以继续添加</div></li>"
                 } else {
-                    l.push(t)
+                    a = n(o[c].result.searchPrice);
+                    r += '<li class="item-compare"><div class="product"><a href="' + a.url + '" target="_blank" class="pic"><img src="' + o[c].result.img + '" /></a><p class="name"><a href="' + a.url + '" target="_blank">' + o[c].result.displayName + '</a></p><p><a href="javascript:void(0)" class="delete" cid="' + o[c].result.searchPrice.productId + "/" + o[c].result.searchPrice.skuId + '">删除</a><em class="price">' + (o[c].result.searchPrice.price ? "¥" + o[c].result.searchPrice.price.toFixed(2) : "暂无售价") + "</em>" + a.tags + "</p></div></li>";
+                    i[c] = o[c].result.searchPrice.skuId
                 }
             }
-            var s = a.html();
-            s = s.replace(/<!--(?:.*)\-->/g, "");
-            var n = /[^<>]+|<(\/?)([A-Za-z]+)([^<>]*)>/g;
-            var c = s.match(n), h = 0;
-            e.each(c, function (t, a) {
-                if (!/<(?:.|\s)*?>/.test(a)) {
-                    e.each(l, function (t, l) {
-                        if (l === "") {
-                            return
-                        }
-                        var i = new RegExp(e.regTrim(l), "g");
-                        if (i.test(a)) {
-                            a = a.replace(i, "♂" + l + "♀");
-                            h = 1
-                        }
-                    });
-                    a = a.replace(/♂/g, "<span rel='mark' " + r + ">").replace(/♀/g, "</span>");
-                    c[t] = a
-                }
-            });
-            var _ = c.join("");
-            e(this).html(_);
-            if (h === 0 && i.nullReport) {
-                return false
+            e("#gm-compareBox-list").empty().html(r);
+            if (i[1] != 0) {
+                e("#go-commpare").attr("href", "").attr("target", "_blank").removeClass("disable")
+            } else {
+                e("#go-commpare").attr("href", "javascript:void(0)").attr("target", "").addClass("disable")
             }
-            i.callback()
-        })
+        }
+
+        e("#gm-compareBox-hide").on("click", function () {
+            e("#gm-compareBox").fadeOut();
+            e.cookie("g_co", "hide", {expires: 30, path: "/", domain: i.domain})
+        });
+        e("#gm-compareBox-clear").on("click", function () {
+            c = [];
+            d()
+        });
+        e("#gm-compareBox").delegate(".delete", "click", function () {
+            c.removeValve(e(this).attr("cid"));
+            d()
+        });
+        a.delegate(i.obj, "click", function () {
+            var o = e(this);
+            e.cookie("g_co", "show", {expires: 30, path: "/", domain: i.domain});
+            e("#gm-compareBox").css(i.boxStyle).show();
+            c = e.cookie("compare") ? e.cookie("compare").replace(/:/g, "/").split("|").splice(0, t) : [];
+            if (!o.data("isCompared")) {
+                if (c.length >= t) {
+                    e("#errorTips").stop(false, true).show().delay(1500).fadeOut();
+                    d();
+                    return false
+                }
+                c.push(o.attr("cid"))
+            } else {
+                c.removeValve(o.attr("cid"))
+            }
+            d()
+        });
+        return d
     }
 })(jQuery);
-$(function () {
-    var c = $(".shareGold");
-    c.click(function () {
-        _GmFxb.FxbDiv(1, location.href, "", "search_p", "", "", "", "", "", "", "", "", "", "")
-    })
-});

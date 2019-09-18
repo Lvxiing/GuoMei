@@ -827,7 +827,7 @@ customerServiceCall.prototype = {
     initialCall: function () {
         var r = this;
 
-        r.customerCallInit()
+
     }, arr_atgregion: function () {
         var r = ($.cookie("atgregion") || "11010200|北京市朝阳区朝外街道|11010000|11000000|110102002").split("|");
         return [r[3], r[2], r[0], r[4] == undefined ? r[0] + "1" : r[4]]
@@ -842,7 +842,7 @@ customerServiceCall.prototype = {
             r.categoryidArr.push($(this).attr("categoryid") ? $(this).attr("categoryid") : "");
             r.skuIdArr.push($(this).attr("skuId") ? $(this).attr("skuId") : "")
         });
-        r.checkagent();
+
         r.customerJump()
     }, checkagent: function () {
         var r = this, t = {}, i = [], e = "";
@@ -877,43 +877,7 @@ customerServiceCall.prototype = {
         }
         if (r.customerArr.length > 0) {
             var o = Math.random().toString(36).substr(2);
-            $.ajax({
-                type: "get",
-                url: r.serviceUrl + "/open/" + e,
-                data: t,
-                dataType: "jsonp",
-                jsonpName: "ckdataGent" + o,
-                success: function (t) {
-                    if (t.status == "200") {
-                        var i = t.data;
-                        if (r.customerArr.length > 1) {
-                            for (var e = 0; e < i.length; e++) {
-                                if (i[e].show == "1") {
-                                    $("[customer-service-button-id]").eq(e).show();
-                                    $("[customer-service-button-id]").eq(e).attr("orgi", i[e].orgi);
-                                    $("[customer-service-button-id]").eq(e).attr("orgitype", i[e].orgitype);
-                                    i[e].online === 0 && $("[customer-service-button-id]").eq(e).addClass("customerServiceAshes")
-                                } else {
-                                    $("[customer-service-button-id]").eq(e).hide()
-                                }
-                            }
-                        } else {
-                            if (i.show == "1") {
-                                $("[customer-service-button-id]").eq(0).attr("orgi", i.orgi);
-                                $("[customer-service-button-id]").eq(0).attr("orgitype", i.orgitype);
-                                i[e].online === 0 && $("[customer-service-button-id]").eq(0).addClass("customerServiceAshes")
-                            } else {
-                                $("[customer-service-button-id]").eq(0).hide()
-                            }
-                        }
-                        r.customerArr = [];
-                        r.entryArr = [];
-                        r.brandidArr = [];
-                        r.categoryidArr = [];
-                        r.skuIdArr = []
-                    }
-                }
-            })
+
         }
     }, customerJump: function () {
         var r = this;
@@ -937,32 +901,14 @@ customerServiceCall.prototype = {
             i.brandid = c;
             i.area = t.province;
             i.shopid = d;
-            $.ajax({
-                type: "get",
-                url: t.serviceUrl + "/open/checkagentByGet",
-                data: i,
-                dataType: "jsonp",
-                jsonpName: "ckdataGentByGet",
-                success: function (r) {
-                    if (r.status == "200") {
-                        if (r.data.show == "1") {
-                            e.show();
-                            e.attr("orgi", r.data.orgi);
-                            r.data.online === 0 && e.addClass("customerServiceAshes")
-                        } else {
-                            e.hide();
-                            e.attr("orgi", "")
-                        }
-                    }
-                }
-            })
+
         }
     }
 };
 var customerServiceCall = new customerServiceCall;
-if ($("[customer-service-button-id]").length > 0 && $("[customer-service-button-id]").eq(0).attr("isCall") != "prohibit") {
-    customerServiceCall.initialCall()
-}
+// if ($("[customer-service-button-id]").length > 0 && $("[customer-service-button-id]").eq(0).attr("isCall") != "prohibit") {
+//     customerServiceCall.initialCall()
+// }
 $(function () {
     var a = {
         init: function () {
@@ -2050,3 +1996,71 @@ $(function () {
     }
     define("seajs/seajs-combo/1.0.1/seajs-combo", [], {})
 }();
+$(function () {
+        !function (a) {
+            var b = function () {
+                this.init()
+            };
+            b.prototype = {
+                init: function () {
+                    this.ranking(), this.like()
+                }, ranking: function () {
+                    a("#logo").after('<div id="logoright"><a>\u6392\u884c\u699c</a></div>'), a(window).scroll(function () {
+                        var b = a(".ranking_nav_wrap").offset().top;
+                        var c = a(window).scrollTop();
+                        c - b > 0 ? (a(".ranking_nav_wrap").css("z-index", "981"), a(".nav_wrap").addClass("nav_wrap_fixed")) : (a(".ranking_nav_wrap").css("z-index", "100"), a(".nav_wrap").removeClass("nav_wrap_fixed"))
+                    });
+                    var b = new Date;
+                    b.setHours(0), b.setMinutes(0), b.setSeconds(0), b.setMilliseconds(0);
+                    var c = 864e5;
+                    var d = b.getTime() + c;
+                    var e = (new Date).getTime();
+
+                    function f(a) {
+                        return 10 > a ? "0" + a : "" + a
+                    }
+
+                }, like: function () {
+                    var b = a(".nav_one li");
+                    var c = a(".nav_two ul");
+                    var d = a(".nav_two ul li");
+                    e("box84", "cat10000004"), a.each(b, function () {
+                        var b = a(this);
+                        b.on("click", function () {
+                            var b = a(this).index();
+                            var d = a(".nav_two ul").eq(b).find("li:first").attr("data");
+                            a(".nav_two ul").eq(b).find("li:first").addClass("cur").siblings().removeClass("cur"),
+                                a(this).addClass("cur").siblings().removeClass("cur"),
+                                c.eq(b).addClass("active").siblings().removeClass("active"), e("box84", d)
+                        })
+                    }), a.each(d, function () {
+                        var b = a(this);
+                        b.on("click", function () {
+                            var b = a(this).attr("data");
+                            var c = a(this).index();
+                            if (a(this).addClass("cur").siblings().removeClass("cur"), 0 == c) {
+                                var d = a(this).attr("data");
+                                e("box84", d)
+                            } else e("box85", "", b)
+                        })
+                    });
+
+                    function e(b, c, d) {
+                        var e = {
+                            boxid: b,
+                            pid: "",
+                            area: a.cookie("atgregion") ? a.cookie("atgregion").split("|")[0] : "11011400",
+                            cid: a.cookie("__clickidc"),
+                            imagesize: "400",
+                            brid: "",
+                            shopid: "",
+                            c1id: c,
+                            c2id: d,
+                            sid: ""
+                        };
+                    }
+                }
+            }, new b
+        }(jQuery)
+    });
+//2222

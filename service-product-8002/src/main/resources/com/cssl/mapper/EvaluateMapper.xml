@@ -12,6 +12,7 @@
         <result column="evaluate_star" property="star" />
         <result column="evaluate_imgs" property="imgs" />
         <result column="evaluate_time" property="time" />
+        <result column="evaluate_state" property="state" />
     </resultMap>
 
     <select id="evaluateFindAll" resultType="map" parameterType="map">
@@ -30,5 +31,14 @@
                 and e.evaluate_content LIKE concat('%',#{content},'%')
             </if>
         </where>
+    </select>
+
+    <select id="goodsEvaluate" resultType="map">
+        SELECT e.*,u.user_name,u.user_headimg,d.grade_name FROM evaluate e
+        INNER JOIN goods g ON g.`goods_id` = e.goods_id
+        INNER JOIN users u ON u.user_id = e.user_id
+        INNER JOIN growup r ON u.user_id = r.user_id
+        INNER JOIN grade d ON r.growup_sum BETWEEN d.low AND high
+        WHERE g.`goods_id` = #{gid}
     </select>
 </mapper>

@@ -37,4 +37,11 @@ public class EvaluateController {
         return map;
     }
 
+    @RequestMapping("goodsEvaluate")
+    @ResponseBody
+    public PageInfo<Map<String,Object>> goodsEvaluate(@RequestParam("gid") Integer gid,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize){
+
+        return  productFeignInterface.goodsEvaluate(gid,pageIndex,pageSize);
+    }
+
 }
