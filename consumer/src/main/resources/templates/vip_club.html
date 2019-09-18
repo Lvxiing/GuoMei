@@ -449,25 +449,22 @@
                         li=' <li id="gome-user" data-load="user" class="" data-open="true"  > <b id="loginDiv-name">Hi,&nbsp;<a data-code="public01054" href="vip_club.html" target="_blank">  <span  style="display: none;" id="userId">'+json.id+'</span>  <span class="sign-top-member-name" >'+json.userName+'</span></a></b>  </li>  <li  class="gome-link"   >  <a rel="nofollow" data-code="public01035" class="gome-link-logout" href="/users/outUser">退出</a> </li>';
 
                         $("li#gome-entry-link").after(li);
-
-
-                        //显示该会员信息
-                        $.getJSON("/users/findVip",{"userId":json.id},function(result){
-                            for (var i = 0; i < result.length; i++) {
-                                $("#userName").text(result[i].userName);
-                                $("#gradeName").text(result[i].gradeName);
-                                $("#growupSum").text(result[i].growupSum+" / "+result[i].high);
-                                $("#scoreSum").text(result[i].scoreSum);
-                                $("#headImg").attr("src",result[i].headImg);
-                                var balance=result[i].high-result[i].growupSum;
-                                $("#balance").text(balance);
-                                var percent=result[i].growupSum/result[i].high*100;
-                                $("#length").attr("style","width: "+percent.toFixed(0)+"%;");
-                            }
-                        })
-
-
                     });
+
+                    //显示该会员信息
+                    $.getJSON("/users/findVip",function(result){
+                        for (var i = 0; i < result.length; i++) {
+                            $("#userName").text(result[i].userName);
+                            $("#gradeName").text(result[i].gradeName);
+                            $("#growupSum").text(result[i].growupSum+" / "+result[i].high);
+                            $("#scoreSum").text(result[i].scoreSum);
+                            $("#headImg").attr("src",result[i].headImg);
+                            var balance=result[i].high-result[i].growupSum;
+                            $("#balance").text(balance);
+                            var percent=result[i].growupSum/result[i].high*100;
+                            $("#length").attr("style","width: "+percent.toFixed(0)+"%;");
+                        }
+                    })
 
 
                 })
