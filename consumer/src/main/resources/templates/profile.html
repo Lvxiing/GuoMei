@@ -809,6 +809,9 @@ $(function () {
             $("#edit").hide();
             $(".personalInfoMask").hide();
         });
+        $.getJSON("myGuoMei/myOrder",function(json){
+            alert(json);
+        })
     });
 </script>
 <!--编辑头像详情-->
