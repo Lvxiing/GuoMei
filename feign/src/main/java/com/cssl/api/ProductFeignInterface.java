@@ -90,6 +90,9 @@ public interface ProductFeignInterface {
     PageInfo<Map<String,Object>> goodsEvaluate(@RequestParam("gid") Integer gid,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize);
 
 
+    //会员商品
+    @RequestMapping("vip_goods/vipGoodsFindAllQian")
+    PageInfo<Map<String, Object>> vipGoodsFindAllQian(@RequestParam Map<String, Object> map);
 
 
 
