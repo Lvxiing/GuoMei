@@ -195,7 +195,7 @@
                    for (var i = 0; i < json.length; i++) {
                        var id = json[i].id;
                        var gradeName = json[i].gradeName;
-                       if(gid!=null){
+                       if(gid == id){
                            op += "<option selected value=" + id + ">" + gradeName + "</option>";
                        }else{
                            op += "<option value=" + id + ">" + gradeName + "</option>";

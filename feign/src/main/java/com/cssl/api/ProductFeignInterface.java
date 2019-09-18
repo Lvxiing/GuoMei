@@ -175,12 +175,23 @@ public interface ProductFeignInterface {
     @RequestMapping("grade/findAll")
     List<Grade> findGrade();
 
+    @RequestMapping("grade/findGradeById")
+    Grade findGradeById(@RequestParam("id") Integer id);
+
+    @RequestMapping("grade/updateGradeMoney")
+    String updateGradeMoney(@RequestParam("id") Integer id,@RequestParam("money") double money);
+
+
     //修改商品信息
     @RequestMapping("goods/modifyGoods")
     String modifyGoods(@RequestParam Map<String, Object> map);
 
     @RequestMapping("goods/findGoodsById")
     Map findGoodsById(@RequestParam("id") Integer id);
+
+    //会员商品
+    @RequestMapping("/vip_goods/vipGoodsFindAll")
+    PageInfo<Map<String, Object>> vipGoodsFindAll(@RequestParam Map<String,Object> param, @RequestParam("page")int page, @RequestParam("limit")int limit);
 
 
     //---------------------------订单后台模块--------------------------------
