@@ -31,8 +31,6 @@ public class NewsController {
     @RequestMapping("findByNewsId")
     @ResponseBody
     public List<News> findByNewsId(@RequestParam("id") String id){
-        System.out.println("asdasdasdasdsad:"+id);
-        System.out.println(productFeignInterface.findByNewsId(id));
         return productFeignInterface.findByNewsId(id);
     }
     @RequestMapping("findByTitlePage")
@@ -42,8 +40,6 @@ public class NewsController {
             pageIndex =1;
         }
         Integer pageSize = 8;
-        System.out.println("标题:"+title);
-        System.out.println(productFeignInterface.findPageByTitle(pageIndex,pageSize,title).getList());
         return productFeignInterface.findPageByTitle(pageIndex,pageSize,title).getList();
     }
     //-----------------------后台新闻管理模块---------------------------
@@ -51,7 +47,6 @@ public class NewsController {
     @RequestMapping("findByNewsPage")
     @ResponseBody
     public Map<String, Object> findAllNews(@RequestParam("pageIndex") Integer pageIndex) {
-        System.out.println(productFeignInterface.findAllNews(pageIndex));
         return productFeignInterface.findAllNews(pageIndex);
     }
 
@@ -59,7 +54,6 @@ public class NewsController {
     @RequestMapping("findByTitle/{title}")
     @ResponseBody
     public Map<String, Object> findByTitle(@PathVariable("title") String title) {
-        System.out.println("新闻标题:"+title);
         return productFeignInterface.findByTitle(title);
 
     }
@@ -73,8 +67,6 @@ public class NewsController {
         newsVo.setSubtitle(subtitle);
         newsVo.setContext(context);
         newsVo.setSubtime(subtime);
-        System.out.println("新闻名称:t"+title);
-        System.out.println("asdasdasd:"+productFeignInterface.save(newsVo));
         return productFeignInterface.save(newsVo);
 
     }
@@ -96,8 +88,6 @@ public class NewsController {
         news.setSubtime(subtime);
         news.setSubtitle(subtitle);
         news.setContext(context);
-        System.out.println("新闻标题asdasdasd:"+title);
-        System.out.println("ddddddddddddddddddddd:"+productFeignInterface.updateNews(news));
         return productFeignInterface.updateNews(news);
     }
 
@@ -105,8 +95,6 @@ public class NewsController {
     @RequestMapping("findByUpdateId/{id}")
     @ResponseBody
     Map<String, Object> findByUpdateId(@PathVariable("id") String id) {
-        System.out.println("id:"+id);
-        System.out.println(productFeignInterface.findByUpdateId(id));
         return productFeignInterface.findByUpdateId(id);
     }
 }
