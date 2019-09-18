@@ -94,7 +94,7 @@ public interface ProductFeignInterface {
 
     //最近浏览
     @RequestMapping("goods/browseGoods")
-    List<Goods> browseGoods(@RequestBody  String value);
+    List<Goods> browseGoods(@RequestBody(required=false)  String value);
 
     //----------------------------订单前台模块-----------------------------
     //用户订单
@@ -104,6 +104,10 @@ public interface ProductFeignInterface {
     //订单详情
     @RequestMapping("orders/findOrdersDetail")
     List<Map<String,Object>> findOrdersDetail(@RequestParam("oid") Integer oid);
+
+    @RequestMapping("orders/findOrders")
+    Orders findOrders(@RequestParam("oid") Integer oid);
+
 
 
     //--------------------------后台模块----------------------------------
