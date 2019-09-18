@@ -83,6 +83,7 @@ public class CategoryController {
     @RequestMapping("findBrandIsParentCategory")
     @ResponseBody
     public Map findBrandIsParentCategory(@RequestParam("cid")Integer cid){
+        System.out.println("cid = " + cid);
         return productFeignInterface.findBrandIsParentCategory(cid);
     }
 

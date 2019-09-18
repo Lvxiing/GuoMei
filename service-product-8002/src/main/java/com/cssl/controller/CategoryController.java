@@ -106,6 +106,7 @@ public class CategoryController {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("cid", cid);
         paramMap.put("cname", category.getName());
+        paramMap.put("clevel", category.getCLevel());
         return getAllParentInfo(paramMap);
     }
 
@@ -119,6 +120,7 @@ public class CategoryController {
     public Map<String, Object> getAllParentInfo(Map<String, Object> paramMap) {
         String catId = paramMap.get("cid").toString();
         String catName = (String) paramMap.get("cname");
+        String clevel =  paramMap.get("clevel").toString();
         try {
             //根据分类id查询分类信息
             Category goodsCate = categoryService.getOne(new QueryWrapper<Category>().eq("category_id", catId));
@@ -131,9 +133,11 @@ public class CategoryController {
                 //拼接所有分类名称,和分类编号
                 catName = catParentName + ">" + catName;
                 catId = pCategory.getCid() + ">" + catId;
+                clevel = pCategory.getCLevel() +">"+clevel;
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("cname", catName);
                 map.put("cid", catId);
+                map.put("clevel", clevel);
                 return getAllParentInfo(map);
             }
         } catch (Exception e) {
