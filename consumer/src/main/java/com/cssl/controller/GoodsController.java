@@ -91,8 +91,6 @@ public class GoodsController {
                     value += ids[i] + "#";
                 }
             }
-            System.out.println("value = " + value);
-            System.out.println("value = " + value.length());
             value = value.substring(0, value.length());
             value = gid.toString() + "#" + value;//叠加新的值
             String[] idss = value.split("#");
