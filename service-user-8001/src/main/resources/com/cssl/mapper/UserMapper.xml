@@ -36,7 +36,7 @@
 
 
     <resultMap type="map" id="myMap">
-        <result column="user_id" property="id"/>
+        <id column="user_id" property="id"/>
         <result column="user_name" property="userName"/>
         <result column="user_headimg" property="headImg"/>
         <result column="growup_sum" property="growupSum"/>

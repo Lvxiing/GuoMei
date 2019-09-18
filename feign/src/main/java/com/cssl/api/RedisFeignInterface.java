@@ -2,7 +2,10 @@ package com.cssl.api;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Map;
 
 @FeignClient(value = "service-redis")
 public interface RedisFeignInterface {
@@ -16,7 +19,7 @@ public interface RedisFeignInterface {
      * @return
      */
     @RequestMapping("/redis/expire")
-    public boolean expire(@RequestParam("key") String key, @RequestParam("time") long time);
+    boolean expire(@RequestParam("key") String key, @RequestParam("time") long time);
 
     /**
      * 根据key 获取过期时间
@@ -25,7 +28,7 @@ public interface RedisFeignInterface {
      * @return 时间(秒) 返回0代表为永久有效
      */
     @RequestMapping("/redis/getExpire")
-    public long getExpire(@RequestParam("key") String key);
+    long getExpire(@RequestParam("key") String key);
 
     /**
      * 判断key是否存在
@@ -34,7 +37,7 @@ public interface RedisFeignInterface {
      * @return true 存在 false不存在
      */
     @RequestMapping("/redis/hasKey")
-    public boolean hasKey(@RequestParam("key") String key);
+    boolean hasKey(@RequestParam("key") String key);
 
     /**
      * 删除缓存
@@ -42,7 +45,7 @@ public interface RedisFeignInterface {
      * @param key 可以传一个值 或多个
      */
     @RequestMapping("/redis/del")
-    public void del(@RequestParam("key") String[] key);
+    void del(@RequestParam("key") String[] key);
 
 // ============================String=============================
 
@@ -53,13 +56,13 @@ public interface RedisFeignInterface {
      * @return 值
      */
     @RequestMapping("/redis/get")
-    public String get(@RequestParam("key") String key);
+    String get(@RequestParam("key") String key);
 
     @RequestMapping("/redis/getSession")
-    public byte[] getObject(@RequestParam("key") byte[] key);
+    byte[] getObject(@RequestParam("key") byte[] key);
 
     @RequestMapping("/redis/setSession")
-    public void setObject(@RequestParam("key") byte[] key, @RequestParam("value") byte[] value, @RequestParam("time") long time);
+    void setObject(@RequestParam("key") byte[] key, @RequestParam("value") byte[] value, @RequestParam("time") long time);
 
     /**
      * 普通缓存放入并设置时间
@@ -70,7 +73,7 @@ public interface RedisFeignInterface {
      * @return true成功 false 失败
      */
     @RequestMapping("/redis/set")
-    public boolean set(@RequestParam("key") String key, @RequestParam("value") Object value, @RequestParam("time") long time);
+    boolean set(@RequestParam("key") String key, @RequestParam("value") Object value, @RequestParam("time") long time);
 
     /**
      * 递增
@@ -80,7 +83,7 @@ public interface RedisFeignInterface {
      * @paramby 要增加几(大于0)
      */
     @RequestMapping("/redis/incr")
-    public long incr(@RequestParam("key") String key, @RequestParam("delta") long delta);
+    long incr(@RequestParam("key") String key, @RequestParam("delta") long delta);
 
     /**
      * 递减
@@ -90,5 +93,7 @@ public interface RedisFeignInterface {
      * @paramby 要减少几(小于0)
      */
     @RequestMapping("/redis/decr")
-    public long decr(@RequestParam("key") String key, @RequestParam("delta") long delta);
+    long decr(@RequestParam("key") String key, @RequestParam("delta") long delta);
+
+
 }

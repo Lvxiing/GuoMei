@@ -18,9 +18,37 @@
 
 
 
+    <resultMap id="myMap" type="map">
+        <id column="gdetail_id" property="gdetailId" />
+        <result column="type_name" property="typeName" />
+        <result column="type_value" property="typeValue" />
+        <result column="gdetail_time" property="gdetailTime" />
+    </resultMap>
+
+
+    <select id="findGrowupDetail" resultMap="myMap">
+    SELECT   gd.`gdetail_id`,gt.`type_name`,gt.`type_value`,gd.`gdetail_time`  FROM    `growup_detail`   gd
+                                                                           LEFT  JOIN    `growup_type`   gt   ON      gd.`type_id`=gt.`type_id`
+    WHERE   gd.`user_id`=#{userId}
+    ORDER BY    gd.`gdetail_time`  DESC
+                LIMIT     0,20
+</select>
+
+
+    <resultMap id="myDescriptionMap" type="map">
+        <id column="gdetail_id" property="gdetailId" />
+        <result column="gdetail_time" property="gdetailTime" />
+        <result column="user_time" property="userTime" />
+        <result column="user_phone" property="userPhone" />
+    </resultMap>
 
 
 
+    <select id="detailDescription"  resultMap="myDescriptionMap">
+        SELECT    gd.`gdetail_id`,gd.`gdetail_time`,u.`user_time`,u.`user_phone` FROM   `growup_detail`  gd
+                                                                                            LEFT JOIN  `users` u  ON  gd.`user_id`=u.`user_id`
+        WHERE  gd.`gdetail_id`=(SELECT MAX(gdetail_id) FROM  growup_detail)
+    </select>
 
 
 
