@@ -158,10 +158,10 @@ function evaluate(ye,pageNo){
 //相关分类
 function classification (id) {
     $.getJSON("../../category/findCategoryAndChild",{"parentId":id} ,function (json){
-           for(var i=0;i<json.length;i++){
-               var a="<a href='?cid="+json[i].cid+"'  title='"+json[i].name+"' target='_blank'>"+json[i].name+"</a>";
-               $("#clearfix").append(a);
-           }
+        for(var i=0;i<json.length;i++){
+            var a="<a href='categoryList.html?cid="+json[i].cid+"'  title='"+json[i].name+"' target='_blank'>"+json[i].name+"</a>";
+            $("#clearfix").append(a);
+        }
     });
 }
 
@@ -183,11 +183,14 @@ function sellWell(id) {
 //相似商品
 function besimilarGoods(name) {
     $.getJSON("../../Goods/findGoodsNewByCategoryName",{"categoryName":name} ,function (json){
+        var re =GetRequest();
         for(var i=0;i<json.length;i++){
-            var li="<li><a  href='product_details.html?gid="+json[i].id+"' target='_blank' title='"+json[i].title+"' maima_param=''>";
+            if(re.gid!=json[i].id){
+                var li="<li><a  href='product_details.html?gid="+json[i].id+"' target='_blank' title='"+json[i].title+"' maima_param=''>";
                 li+="<img  height='130' width='130' src='"+json[i].mainImg+"'></a> <a  href='product_details.html?gid="+json[i].id+"' target='_blank'title='"+json[i].title+"' maima_param=''>";
-               li+="<h2>"+json[i].title+"</h2></a><p class='yuan colprice fb'>¥<span>"+json[i].price+"</span></p></li>";
-               $("#besimilarGoods").append(li);
+                li+="<h2>"+json[i].title+"</h2></a><p class='yuan colprice fb'>¥<span>"+json[i].price+"</span></p></li>";
+                $("#besimilarGoods").append(li);
+            }
         }
     });
 }
