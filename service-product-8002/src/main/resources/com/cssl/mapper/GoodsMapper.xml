@@ -32,7 +32,7 @@
                 AND g.`goods_title` LIKE concat('%',#{title},'%')
             </if>
         </where>
-        order by goods_state desc
+        order by goods_state desc,g.`goods_create_time` DESC
     </select>
 
     <insert id="addGoods" parameterType="map" useGeneratedKeys="true" keyProperty="id" keyColumn="goods_id">

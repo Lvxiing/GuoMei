@@ -18,4 +18,10 @@ public interface Vip_goodsMapper extends BaseMapper<VipGoods> {
 
     //查询所有会员商品
     List<Map<String,Object>> vipGoodsFindAll(Map<String,Object> map);
+
+    //根据销量显示商品
+    List<Map<String,Object>> vipSaleGoods(Map<String,Object> map);
+
+    //查询所有会员商品
+    List<Map<String,Object>> vipGoodsFindAllqian(Map<String,Object> map);
 }

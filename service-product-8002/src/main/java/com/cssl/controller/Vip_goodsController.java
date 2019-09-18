@@ -12,12 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author lx
@@ -30,17 +31,37 @@ public class Vip_goodsController {
     @Autowired
     private Vip_goodsService vip_goodsService;
 
+    //------------------------------前台---------------------------------
+    //会员商品
+    @RequestMapping("vipGoodsFindAllQian")
+    @ResponseBody
+    public PageInfo<Map<String, Object>> vipGoodsFindAllQian(@RequestParam Map<String, Object> map) {
+        System.out.println("map = " + map);
+        PageInfo<Map<String, Object>> pages = new PageInfo<>();
+        Page<Map<String, Object>> page = vip_goodsService.vipSaleGoods(map);
+        pages.setList(page.getResult());
+        pages.setPageNo(page.getPageNum());
+        pages.setTotalCount((int) page.getTotal());
+        pages.setPageSize(page.getPageSize());
+        pages.setPageCount(page.getPages());
+        return pages;
+    }
+
+
+    //------------------------------后台---------------------------------
     //会员商品
     @RequestMapping("vipGoodsFindAll")
     @ResponseBody
-    public PageInfo<Map<String, Object>> vipGoodsFindAll(@RequestParam Map<String,Object> param, @RequestParam("page")int page, @RequestParam("limit")int limit){
-        PageInfo<Map<String, Object>>pages=new PageInfo<>();
-        Page<Map<String, Object>> maps = vip_goodsService.vipGoodsFindAll(param,page,limit);
+    public PageInfo<Map<String, Object>> vipGoodsFindAll(@RequestParam Map<String, Object> param, @RequestParam("page") int page, @RequestParam("limit") int limit) {
+        PageInfo<Map<String, Object>> pages = new PageInfo<>();
+        Page<Map<String, Object>> maps = vip_goodsService.vipGoodsFindAll(param, page, limit);
         List<Map<String, Object>> result = maps.getResult();
         //封装查询数据
         pages.setList(result);
         //封装总记录数
-        pages.setTotalCount((int)maps.getTotal());
+        pages.setTotalCount((int) maps.getTotal());
         return pages;
     }
+
+
 }
