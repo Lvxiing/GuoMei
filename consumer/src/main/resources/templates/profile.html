@@ -287,9 +287,6 @@
                         <li><a href="">帐户安全</a></li>
                         <li><a href="profile.html">基本资料</a></li>
                         <li><a href="addressPage.html">收货地址</a></li>
-                        <li><a href="">增票认证</a></li>
-                        <li><a href="">我的会员卡</a></li>
-                        <li><a href="">账号绑定</a></li>
                     </ul>
                 </li>
                 <li class="w125 gomeNavList">
@@ -297,29 +294,11 @@
                     <ul class="navList w123">
                         <li><a href="vip_club.html">会员俱乐部</a></li>
                         <li><a href="vipLevel.html">会员等级</a></li>
-                        <li><a href="">会员权益</a></li>
                         <li><a href="" data-code="clubdh-libao">我的礼包</a></li>
-                    </ul>
-                </li>
-                <li class="w107 gomeNavList community ">
-                    <a href="javascript:;">社区<i></i></a>
-                    <ul class="navList w105">
-                        <li><a href="" target="_blank">我的圈子</a></li>
-                        <li><a href="" target="_blank">我的话题</a></li>
                     </ul>
                 </li>
             </ul>
             <div class="gomeTopRight">
-                <div class="top_earch clearfix">
-                    <form id="searchForm" method="get" action="#"
-                          onsubmit="return keyCheck();">
-                        <label id="keyLabel" class="topOvertips" style="display:block;" default=""></label>
-                        <input type="text" id="searchInput" name="question" class="searchInput" value=""
-                               autocomplete="off"
-                               onpropertychange="if(this.value.length>200){this.value=this.value.slice(0,199)}">
-                        <button class="searchBtn" onclick="doSearch();"></button>
-                    </form>
-                </div>
                 <!--搜索结束-->
                 <!--搜索弹框-->
                 <div class="searchtips" id="searchTips" style="display:none;">
@@ -392,6 +371,7 @@
         <div class="side-nav">
             <!--#--模板开始---->
             <div class="sidenav-ul padd-top-10">
+                <!--#--模板开始---->
                 <div class="sideBar-sort">订单中心</div>
                 <ul>
                     <li>
@@ -403,24 +383,9 @@
                     <li>
                         <a href="gm-appraise.html">评价晒单</a><span></span>
                     </li>
-                    <li>
-                        <a href="//www.gomegj.com/order.html" target="_blank">服务单</a><span></span>
-                    </li>
-                    <li>
-                        <a href="//yjhx.gome.com.cn/order.html" target="_blank">以旧换新</a><span></span>
-                    </li>
-                    <li class="">
-                        <a href="//myhome.gome.com.cn/member/myInsureDelay">延保服务</a><span></span>
-                    </li>
                 </ul>
                 <div class="sideBar-sort">资产中心</div>
                 <ul>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/gomeVirtualAcount">国美币余额</a><span></span>
-                    </li>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/gomeVirtualCard">美通卡</a><span></span>
-                    </li>
                     <li>
                         <a href="gm-myMD.html">我的美豆</a><span></span>
                     </li>
@@ -433,41 +398,21 @@
                 </ul>
                 <div class="sideBar-sort">管理中心</div>
                 <ul>
+
                     <li>
                         <a href="gm-shoucang.html">我的收藏</a><span></span>
                     </li>
                     <li>
-                        <a href="//myhome.gome.com.cn/member/myReservation">我的预约</a><span></span>
-                    </li>
-                    <li>
                         <a href="gm-myfoot.html">我的足迹</a><span></span>
-                    </li>
-                    <li>
-                        <a href="myGoodsQuestion.html">我的咨询</a><span></span>
-                    </li>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/myComplaint">投诉管理</a><span></span>
                     </li>
                 </ul>
                 <div class="sideBar-sort">账户设置</div>
                 <ul>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/accountSecurity?atc=atc">账户安全</a><span></span>
-                    </li>
                     <li id="li">
-                        <a href="profile.html" style="color:#f5323f;">基本资料</a><span></span>
+                        <a href="profile.html">基本资料</a><span></span>
                     </li>
                     <li>
                         <a href="addressPage.html">收货地址</a><span></span>
-                    </li>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/myInvoice">增票认证</a><span></span>
-                    </li>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/gomeIntegration">我的会员卡</a><span></span>
-                    </li>
-                    <li>
-                        <a href="//club.gome.com.cn/member/bindChange">账号绑定</a><span></span>
                     </li>
                 </ul>
             </div>
@@ -864,6 +809,9 @@ $(function () {
             $("#edit").hide();
             $(".personalInfoMask").hide();
         });
+        $.getJSON("myGuoMei/myOrder",function(json){
+            alert(json);
+        })
     });
 </script>
 <!--编辑头像详情-->

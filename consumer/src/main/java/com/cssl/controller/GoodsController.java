@@ -91,8 +91,6 @@ public class GoodsController {
                     value += ids[i] + "#";
                 }
             }
-            System.out.println("value = " + value);
-            System.out.println("value = " + value.length());
             value = value.substring(0, value.length());
             value = gid.toString() + "#" + value;//叠加新的值
             String[] idss = value.split("#");
@@ -110,9 +108,14 @@ public class GoodsController {
         return map;
     }
 
+    @ResponseBody
+    @RequestMapping("findBrowseGoods")
+    public List<Goods> findBrowseGoods(HttpServletRequest request, HttpServletResponse response){
+         String s = browseGoods(request, response);
+         return productFeignInterface.browseGoods(s);
+    }
 
-
-
+    //获取最近浏览商品的编号
     public String browseGoods(HttpServletRequest request, HttpServletResponse response){
         Cookie[] cookie = request.getCookies();
         String value = null;
