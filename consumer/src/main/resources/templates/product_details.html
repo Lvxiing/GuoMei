@@ -285,9 +285,9 @@
                 <ul class="clearfix">
                     <li class="nav-item"><a class="nav-item-name" target="_blank" href="index.html">首页</a></li>
                     <li class="nav-item"><a class="nav-item-name" target="_blank" href="javascript:;">热销爆款</a></li>
-                    <li class="nav-item"><a class="nav-item-name" target="_blank" href="javascript:;">新闻资讯</a></li>
-                    <li class="nav-item"><a class="nav-item-name" target="_blank" href="javascript:;">我的订单</a></li>
-                    <li class="nav-item"><a class="nav-item-name" target="_blank" href="javascript:;">会员中心</a></li>
+                    <li class="nav-item"><a class="nav-item-name" target="_blank" href="gm-indexsever.html">新闻资讯</a></li>
+                    <li class="nav-item"><a class="nav-item-name" target="_blank" href="gm-myOrder.html">我的订单</a></li>
+                    <li class="nav-item"><a class="nav-item-name" target="_blank" href="vip_club.html">会员中心</a></li>
                 </ul>
             </div>
         </div>
@@ -557,7 +557,7 @@
             <a href="javascript:;" id="yuyue" class="btn-product btn-appointment hide">立即预约</a>
             <a href="javascript:;" id="qianggou" class="btn-product btn-purchase hide">立即抢购</a>
             <a href="javascript:;" target="_blank" class="btn-product btn-yushou hide">预售</a>
-            <a href="javascript:;" class="btn-product btn-addcart" id="addCart">加入购物车</a>
+            <a href="car_succeed.html" class="btn-product btn-addcart" id="addCart">加入购物车</a>
             <a href="javascript:;" class="btn-product btn-stages dn" id="pay_fenQi">分期购</a>
             <a href="javascript:;" class="btn-product btn-meiyifen dn">国美易卡</a>
             <a href="javascript:;" id="easyShopping" class="btn-product btn-easeshopping dn" data_easy="1">快速购</a>
@@ -691,7 +691,7 @@
                     <li><a href="javascript:;" class="pingjia_header submit_element">商品评价 <span class="c00">（353）</span></a></li>
                </ul>
                 <div class="minichart">
-                    <a href="javascript:;" class="redlink" id="addCartLink">加入购物车</a>
+                    <a class="redlink" id="addCartLink">加入购物车</a>
                     <a class="online-service" href="javascript:;" customer-service-button-id="80017326"
                        customer-entry="product" skuid="pop8012920303" productid="A0006592644"
                        categoryid="cat15985715_cat15985719_cat15985754" brandid="300032545" title="在线客服"><i
@@ -897,7 +897,7 @@
     </div>
     -->
     <!-- 横向排列 -->
-    <div class="recently-viewed clearfix">
+    <div class="recently-viewed clearfix" style="margin-top: 50px">
         <h2 class="dt-titblank">
             <span class="fl">最近浏览</span>
             <span id="btn-recently-change" class="btn-refresh">
@@ -1120,19 +1120,21 @@
                 $("#bz").show();
                 $("#prd_data").show();
             }
-
         });
         $("a#a").attr("href", "car.html");
-        // //显示收藏
-        // $("#collect").click(function () {
-        //     $("#dialogBox").show();
-        //     $("#popLock").show();
-        // });
-        // //关闭收藏
-        // $("#close").click(function () {
-        //     $("#dialogBox").hide();
-        //     $("#popLock").hide();
-        // });
+        //上下加减
+        $(".j-gACbtnA").click(function () {
+            var num=$("#enterQty").val();
+            if(num<100){
+                $("#enterQty").val(parseInt(num)+1);
+            }
+        });
+        $(".j-gACbtn").click(function () {
+            var num=$("#enterQty").val();
+            if(num>1){
+                $("#enterQty").val(parseInt(num)-1);
+            }
+        });
     });
 </script>
 
