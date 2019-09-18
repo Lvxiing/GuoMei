@@ -2,9 +2,7 @@ package com.cssl.api;
 
 import com.cssl.entity.*;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -93,6 +91,10 @@ public interface ProductFeignInterface {
     //会员商品
     @RequestMapping("vip_goods/vipGoodsFindAllQian")
     PageInfo<Map<String, Object>> vipGoodsFindAllQian(@RequestParam Map<String, Object> map);
+
+    //最近浏览
+    @RequestMapping("goods/browseGoods")
+    List<Goods> browseGoods(@RequestBody  String value);
 
 
 

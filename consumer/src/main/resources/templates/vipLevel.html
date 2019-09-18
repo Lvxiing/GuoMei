@@ -445,55 +445,48 @@
             li = ' <li id="gome-user" data-load="user" class="" data-open="true"  > <b id="loginDiv-name">Hi,&nbsp;<a data-code="public01054" href="vip_club.html" target="_blank">  <span  style="display: none;" id="userId">' + json.id + '</span>  <span class="sign-top-member-name" >' + json.userName + '</span></a></b>  </li>  <li  class="gome-link"   >  <a rel="nofollow" data-code="public01035" class="gome-link-logout" href="/users/outUser">退出</a> </li>';
 
             $("li#gome-entry-link").after(li);
+        })
 
-            //显示该会员信息
-            $.getJSON("/users/findVip",{"userId":json.id},function(result){
-                for (var i = 0; i < result.length; i++) {
-                    $("[name=userName]").text(result[i].userName);
-                    $("[name=gradeName]").text(result[i].gradeName);
-                    $("[name=headImg]").attr("src",result[i].headImg);
-                    var balance=result[i].high-result[i].growupSum;
-                    $("#balance").text(balance);
+
+        //显示该会员信息
+        $.getJSON("/users/findVip",function(result){
+            for (var i = 0; i < result.length; i++) {
+                $("[name=userName]").text(result[i].userName);
+                $("[name=gradeName]").text(result[i].gradeName);
+                $("[name=headImg]").attr("src",result[i].headImg);
+                var balance=result[i].high-result[i].growupSum;
+                $("#balance").text(balance);
+            }
+            var level =document.getElementsByName("level");
+            for(var j = 0;j<level.length;j++)
+            {
+                if (level[j].innerText==result[0].gradeName) {
+                    level[j].setAttribute("class", "big-bar");
                 }
-                var level =document.getElementsByName("level");
-                for(var j = 0;j<level.length;j++)
-                {
-                    if (level[j].innerText==result[0].gradeName) {
-                        level[j].setAttribute("class", "big-bar");
+            }
+        })
+
+        //显示该会员获得的成长值明细
+        $.getJSON("/users/findGrowupDetail",function(result){
+            for (var k=0;k<result.length;k++){
+                var gdetailId=result[k].gdetailId;
+                var gdetailTime=formatDate(result[k].gdetailTime);
+                $.ajax({
+                    type : "POST",
+                    async : false,
+                    url : "/users/redisGetgdetailId/"+gdetailId,
+                    dataType : "json",
+                    success : function(det) {
+                        var tr=" <tr class='font'> <td name='typeName' >"+result[k].typeName+"</td>";
+                        tr+="<td>"+det.description+"</td>";
+                        tr+=" <td><b>+"+result[k].typeValue+"</b></td> <td>"+gdetailTime+"</td>";
+                        $("#growupDeatilBox").append(tr);
                     }
-                }
-            })
-
-//显示该会员获得的成长值明细
-$.getJSON("/users/findGrowupDetail/"+json.id,function(result){
-
-    for (var k=0;k<result.length;k++){
-
-        var gdetailId=result[k].gdetailId;
-
-        var gdetailTime=formatDate(result[k].gdetailTime);
-
-        $.ajax({
-            type : "POST",
-            async : false,
-            url : "/users/redisGetgdetailId/"+gdetailId,
-            dataType : "json",
-            success : function(det) {
-                var tr=" <tr class='font'> <td name='typeName' >"+result[k].typeName+"</td>";
-                tr+="<td>"+det.description+"</td>";
-                tr+=" <td><b>+"+result[k].typeValue+"</b></td> <td>"+gdetailTime+"</td>";
-                $("#growupDeatilBox").append(tr);
+                });
             }
         });
 
 
-
-    }
-
-
-});
-
-        })
 
         //时间格式转换
         function  formatDate(time) {
