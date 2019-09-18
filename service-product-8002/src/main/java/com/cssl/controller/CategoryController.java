@@ -95,6 +95,7 @@ public class CategoryController {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("cid", category.getCid());
         paramMap.put("cname", category.getName());
+        paramMap.put("clevel", category.getCLevel());
         return getAllParentInfo(paramMap);
     }
 
