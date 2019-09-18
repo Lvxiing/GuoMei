@@ -24,6 +24,43 @@
             <if test="title != 'null' and title != '' ">
                 AND g.`goods_title` LIKE concat('%',#{title},'%')
             </if>
+            <if test="gid != null and gid != '' ">
+                AND d.grade_id = #{gid}
+            </if>
+        </where>
+        ORDER BY v.vip_time DESC
+    </select>
+
+    <select id="vipSaleGoods" resultType="map" parameterType="map">
+        SELECT g.*,b.`brand_name`,d.grade_name,d.discount_money,d.grade_id
+        FROM goods g
+        INNER JOIN (
+        SELECT goods_id,SUM(detail_num) AS num,order_id AS oid FROM order_detail
+        GROUP BY goods_id
+        ) o ON g.`goods_id` = o.goods_id
+        INNER JOIN brand b ON g.`brand_id` = b.`brand_id`
+        INNER JOIN category c ON c.`category_id` = b.`category_id`
+        INNER JOIN vip_goods v ON v.goods_id = g.`goods_id`
+        INNER JOIN grade d ON d.grade_id = v.grade_id
+        <where>
+            <if test="gid != null and gid != '' ">
+                d.grade_id = #{gid}
+            </if>
+        </where>
+
+    </select>
+
+    <select id="vipGoodsFindAllqian" resultType="map" parameterType="map">
+        SELECT g.*,b.`brand_name`,d.grade_name,d.discount_money,d.grade_id
+        FROM goods g
+        INNER JOIN brand b ON g.`brand_id` = b.`brand_id`
+        INNER JOIN category c ON c.`category_id` = b.`category_id`
+        INNER JOIN vip_goods v ON v.goods_id = g.`goods_id`
+        INNER JOIN grade d ON d.grade_id = v.grade_id
+        <where>
+            <if test="gid != null and gid != '' ">
+                d.grade_id = #{gid}
+            </if>
         </where>
     </select>
 

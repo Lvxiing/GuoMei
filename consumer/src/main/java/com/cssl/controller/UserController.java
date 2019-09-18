@@ -1,6 +1,7 @@
 package com.cssl.controller;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
+import com.cssl.api.RedisFeignInterface;
 import com.cssl.api.UserFeignInterface;
 import com.cssl.entity.*;
 import com.cssl.util.NginxUtil;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -28,6 +30,20 @@ public class UserController {
 
     @Autowired
     private UserFeignInterface userFeignInterface;
+
+@Autowired
+    private  RedisFeignInterface  redisFeignInterface;
+
+//redis中根据gdetailId获取value
+@RequestMapping("/redisGetgdetailId/{gdetailId}")
+@ResponseBody
+public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
+    String str= redisFeignInterface.get(gdetailId);
+    Map map=new HashMap();
+    map.put("description",str);
+    map.put("detailId",gdetailId);
+    return   map;
+}
 
     //给手机号码发验证码
     @RequestMapping("/ajaxNum")
@@ -50,6 +66,7 @@ public class UserController {
             map.put("userId", u.getId());
             final String typeName = "每日登录";
             map.put("typeName", typeName);
+            //时间格式转换
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //用户上次登录时间
             String loginTime = sdf.format(u.getLoginTime());
@@ -62,13 +79,24 @@ public class UserController {
             if (!loginTime.equals(nowDate) || regTime.equals(nowDate)) {
                 int ucount = userFeignInterface.updateGrowupSum(map);
                 int scount = userFeignInterface.saveGrowupdetail(map);
+                //将此次获得的成长值详细说明存入redis中
+                Map desMap = userFeignInterface.detailDescription();
+                Object gdetailId = desMap.get("gdetailId");
+                Object userPhone = desMap.get("userPhone");
+                Object gdetailTime = desMap.get("gdetailTime");
+                try {
+                    Date parse = sdf.parse(gdetailTime.toString());
+                    redisFeignInterface.set(gdetailId.toString(),"登录账户:"+userPhone+",登录时间:"+ sdf.format(parse),-1);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
             u.setLoginTime(new Date());
             boolean b = userFeignInterface.updateLoginTime(u);
             System.out.println("sessionUser:" + session.getAttribute("user"));
             return "redirect:/index.html";
         } else {
-            return "gm-login";
+            return "redirect:/gm-login.html";
         }
     }
 
@@ -104,6 +132,18 @@ public class UserController {
             growup.setGrowupSum(growupType.getValue());
             boolean save = userFeignInterface.saveGrowup(growup);
             int scount = userFeignInterface.saveGrowupdetail(map);
+//将此次获得的成长值详细说明存入redis中
+            Map desMap = userFeignInterface.detailDescription();
+            Object gdetailId = desMap.get("gdetailId");
+            Object userTime = desMap.get("userTime");
+            //时间格式转换
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date parse = sdf.parse(userTime.toString());
+                redisFeignInterface.set(gdetailId.toString(),"注册时间:"+sdf.format(parse),-1);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
         return pd;
     }
@@ -130,6 +170,16 @@ public class UserController {
         return userFeignInterface.findVip(map);
     }
 
+//该会员获得的成长值明细
+    @RequestMapping("/findGrowupDetail/{userId}")
+    @ResponseBody
+  public  List<Map> findGrowupDetail(@PathVariable("userId") Integer userId){
+        return userFeignInterface.findGrowupDetail(userId);
+    }
+
+
+
+
 
     //**************后台*************
 
@@ -138,7 +188,7 @@ public class UserController {
     public String adminLogin(Users users, HttpSession session) {
         Users u = userFeignInterface.adminLogin(users);
         if (u == null) {
-            return "forward:/Manager/login.html";
+            return "redirect:/Manager/login.html";
         } else {
             session.setAttribute("adminUser", u);
             return "redirect:/Manager/frame.html";
@@ -187,6 +237,10 @@ public class UserController {
             int scount = userFeignInterface.saveGrowupdetail(hm);
             String  infoComplete="1";
             map.put("infoComplete",infoComplete);
+            //将此次获得的成长值详细说明存入redis中
+            Map desMap = userFeignInterface.detailDescription();
+            Object gdetailId = desMap.get("gdetailId");
+            redisFeignInterface.set(gdetailId.toString(),"基本资料完善度提升到100%",-1);
         }
         return userFeignInterface.updateUser(map);
     }

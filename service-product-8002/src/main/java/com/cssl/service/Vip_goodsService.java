@@ -17,7 +17,10 @@ import java.util.Map;
  */
 public interface Vip_goodsService extends IService<VipGoods> {
 
-    //查询所有评论
+    //查询所有会员商品
     Page<Map<String,Object>> vipGoodsFindAll(Map<String,Object>map, int pageIndex, int pageSize);
+
+    //查询所有会员商品
+    Page<Map<String,Object>> vipSaleGoods(Map<String, Object> map);
 
 }

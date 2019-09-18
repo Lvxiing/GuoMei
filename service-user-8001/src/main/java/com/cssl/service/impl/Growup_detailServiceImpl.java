@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,5 +29,15 @@ public class Growup_detailServiceImpl extends ServiceImpl<Growup_detailMapper, G
     @Override
     public int saveGrowupdetail(Map map) {
         return growup_detailMapper.saveGrowupdetail(map);
+    }
+
+    @Override
+    public List<Map> findGrowupDetail(Integer userId) {
+        return growup_detailMapper.findGrowupDetail(userId);
+    }
+
+    @Override
+    public Map detailDescription() {
+        return growup_detailMapper.detailDescription();
     }
 }
