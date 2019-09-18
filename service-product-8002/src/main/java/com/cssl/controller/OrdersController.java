@@ -1,6 +1,7 @@
 package com.cssl.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.entity.Orders;
 import com.cssl.entity.PageInfo;
 import com.cssl.mapper.Order_detailMapper;
@@ -49,11 +50,21 @@ public class OrdersController {
         return pages;
     }
 
+    //根据订单编号查询订单明细
     @RequestMapping("findOrdersDetail")
     @ResponseBody
     public List<Map<String,Object>> findOrdersDetail(@RequestParam("oid") Integer oid){
         return ordersService.findOrdersDetail(oid);
     }
+
+    //根据订单编号查询订单信息
+    @RequestMapping("findOrders")
+    @ResponseBody
+    public Orders findOrders(@RequestParam("oid") Integer oid){
+        return ordersService.getOne(new QueryWrapper<Orders>().eq("order_id",oid));
+    }
+
+
      //-----------------------------后台模块----------------------------
      //查询所有订单详情
      @RequestMapping("/orderList/{pageIndex}/{pageSize}/{orderNo}/{name}")
