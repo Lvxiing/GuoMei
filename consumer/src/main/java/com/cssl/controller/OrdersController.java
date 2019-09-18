@@ -19,6 +19,23 @@ public class OrdersController {
     @Autowired
     private ProductFeignInterface productFeignInterface;
 
+    //-------------------------前台------------------------
+    //用户订单
+    @RequestMapping("findOrdersByUserId")
+    @ResponseBody
+    public PageInfo<Map<String, Object>> findOrdersByUserId(@RequestParam Map<String, Object> map) {
+
+        return productFeignInterface.findOrdersByUserId(map);
+    }
+    //订单下的详细信息
+    @RequestMapping("findOrdersDetail")
+    @ResponseBody
+    public List<Map<String,Object>> findOrdersDetail(@RequestParam("oid") Integer oid){
+        return productFeignInterface.findOrdersDetail(oid);
+    }
+
+
+    //-------------------------后台------------------------
     //查询所有和模糊查询和分页
     @RequestMapping("/orderList/{pageIndex}/{pageSize}/{orderNo}/{name}")
     @ResponseBody
