@@ -1,6 +1,8 @@
 package com.cssl.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.api.ProductFeignInterface;
+import com.cssl.entity.Orders;
 import com.cssl.entity.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +26,7 @@ public class OrdersController {
     @RequestMapping("findOrdersByUserId")
     @ResponseBody
     public PageInfo<Map<String, Object>> findOrdersByUserId(@RequestParam Map<String, Object> map) {
-
+        map.put("uid",18);
         return productFeignInterface.findOrdersByUserId(map);
     }
     //订单下的详细信息
@@ -34,6 +36,12 @@ public class OrdersController {
         return productFeignInterface.findOrdersDetail(oid);
     }
 
+    //根据订单编号查询订单信息
+    @RequestMapping("findOrders")
+    @ResponseBody
+    public Orders findOrders(@RequestParam("oid") Integer oid){
+        return productFeignInterface.findOrders(oid);
+    }
 
     //-------------------------后台------------------------
     //查询所有和模糊查询和分页
