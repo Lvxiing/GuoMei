@@ -87,6 +87,14 @@ public class GoodsController {
         return productFeignInterface.goodsInfoSale(cid);
     }
 
+    //会员商品
+    @RequestMapping("vipGoodsFindAllQian")
+    @ResponseBody
+    public PageInfo<Map<String, Object>> vipGoodsFindAllQian(@RequestParam Map<String, Object> map) {
+
+        return productFeignInterface.vipGoodsFindAllQian(map);
+    }
+
 
 
     //--------------------------后台模块-------------------------------
