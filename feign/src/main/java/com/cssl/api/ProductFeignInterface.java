@@ -97,6 +97,7 @@ public interface ProductFeignInterface {
     List<Goods> browseGoods(@RequestBody  String value);
 
 
+
     //--------------------------后台模块----------------------------------
 
     //---------------------------新闻后台模块--------------------------------
