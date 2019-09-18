@@ -1,7 +1,6 @@
 $(function () {
     lunbo();
     findParentCategory();
-    // category();
     //楼层左侧
     floor("#groundKey",26,"#6294f6");
     floor("#secondKey",9,"#3eb8e9");
@@ -16,14 +15,7 @@ $(function () {
     floorTitle("#fourFloor",68,"#41ccb8;","#fourFloor_div");
     floorTitle("#fiveFloor",94," #abce5b","#fiveFloor_div");
     floorTitle("#sixFloor",103,"#829daa","#sixFloor_div");
-    //六楼小标题悬浮
-    // floorDiv("#groundFloor li","rgb(113, 158, 247)","#groundFloor_div");
-    // floorDiv("#secondFloor li","rgb(80, 191, 236)","#secondFloor_div");
-    // floorDiv("#threeFloor li","#7f86ec","#threeFloor_div");
-    // floorDiv("#fourFloor li","#41ccb8","#fourFloor_div");
-    // floorDiv("#fiveFloor li","#abce5b","#fiveFloor_div");
-    // floorDiv("#sixFloor li","#829daa","#sixFloor_div");
-
+    //热销排行榜
     hot();
 
 });
@@ -175,13 +167,10 @@ function floor(key,id,color) {
 function category(cid) {
     $.getJSON("../../category/findCategoryAndChild",{"parentId":cid}, function (json) {
         var div="<div class='fullcategory' style='display: none;' id='cid-"+cid+"'><div class='fullcategory-left'>";
-        div+=" <div class='fullcategory-title'><a href='#' target='_blank' title='潮3C'>潮3C<i></i></a>";
-        div+="<a href='#' target='_blank' title='手机'>手机<i></i></a> <a href='#'target='_blank' title='数码'>数码<i></i></a>";
-        div+=" <a href='#'target='_blank' title='以旧换新' >以旧换新<i></i></a>  <a href='#' target='_blank' title='手机充值'>手机充值<i></i></a> ";
-        div+=" <a href='#' target='_blank' title='延保服务'>延保服务<i></i></a> <a href='#' target='_blank' title='智享生活' >智享生活<i></i></a></div>";
-        div+="<div class='fullcategory-content-box' id='fullcategory-content-box'style='width: 769px;'>";
+        div+=" <div class='fullcategory-title'>";
         var divs="";
         for(var i=0;i<json.length;i++){
+            div+="<a href='#' title='"+json[i].name+"'>"+json[i].name+"<i></i></a>";
             divs+="<div class='fullcategory-content' style='width: 769px;'><ul class='fullcategory-list' style='width: 769px;'>  <div class='title' style='margin-top: -8px;_margin: -8px 0;'>"+json[i].name+"</div> <div class='list' style='width: 700px;'>";
             var list=json[i].categoryChildren;
             var divss="";
@@ -195,6 +184,8 @@ function category(cid) {
             }
             divs+="</div></ul></div>";
         }
+        div+="</div>";
+        div+="<div class='fullcategory-content-box' id='fullcategory-content-box'style='width: 769px;'>";
         div+=divs;
         div+="</div></div></div>";
         $("#loading1-sync").append(div);
