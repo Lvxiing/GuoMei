@@ -287,9 +287,6 @@
                         <li><a href="">帐户安全</a></li>
                         <li><a href="profile.html">基本资料</a></li>
                         <li><a href="addressPage.html">收货地址</a></li>
-                        <li><a href="">增票认证</a></li>
-                        <li><a href="">我的会员卡</a></li>
-                        <li><a href="">账号绑定</a></li>
                     </ul>
                 </li>
                 <li class="w125 gomeNavList">
@@ -297,29 +294,11 @@
                     <ul class="navList w123">
                         <li><a href="vip_club.html">会员俱乐部</a></li>
                         <li><a href="vipLevel.html">会员等级</a></li>
-                        <li><a href="">会员权益</a></li>
                         <li><a href="" data-code="clubdh-libao">我的礼包</a></li>
-                    </ul>
-                </li>
-                <li class="w107 gomeNavList community ">
-                    <a href="javascript:;">社区<i></i></a>
-                    <ul class="navList w105">
-                        <li><a href="" target="_blank">我的圈子</a></li>
-                        <li><a href="" target="_blank">我的话题</a></li>
                     </ul>
                 </li>
             </ul>
             <div class="gomeTopRight">
-                <div class="top_earch clearfix">
-                    <form id="searchForm" method="get" action="#"
-                          onsubmit="return keyCheck();">
-                        <label id="keyLabel" class="topOvertips" style="display:block;" default=""></label>
-                        <input type="text" id="searchInput" name="question" class="searchInput" value=""
-                               autocomplete="off"
-                               onpropertychange="if(this.value.length>200){this.value=this.value.slice(0,199)}">
-                        <button class="searchBtn" onclick="doSearch();"></button>
-                    </form>
-                </div>
                 <!--搜索结束-->
                 <!--搜索弹框-->
                 <div class="searchtips" id="searchTips" style="display:none;">
@@ -830,6 +809,9 @@ $(function () {
             $("#edit").hide();
             $(".personalInfoMask").hide();
         });
+        $.getJSON("myGuoMei/myOrder",function(json){
+            alert(json);
+        })
     });
 </script>
 <!--编辑头像详情-->
