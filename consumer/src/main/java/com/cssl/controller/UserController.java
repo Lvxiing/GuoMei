@@ -41,7 +41,6 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
     String str= redisFeignInterface.get(gdetailId);
     Map map=new HashMap();
     map.put("description",str);
-    map.put("detailId",gdetailId);
     return   map;
 }
 
@@ -166,16 +165,21 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
     //会员俱乐部显示该会员信息
     @RequestMapping("/findVip")
     @ResponseBody
-    public List<Map> findVip(@RequestParam Map map) {
+    public List<Map> findVip(HttpSession session) {
+      Users  users =  (Users) session.getAttribute("user");
+      Map map=new HashMap();
+      map.put("userId",users.getId());
         return userFeignInterface.findVip(map);
     }
 
-//该会员获得的成长值明细
-    @RequestMapping("/findGrowupDetail/{userId}")
+    //该会员获得的成长值明细
+    @RequestMapping("/findGrowupDetail")
     @ResponseBody
-  public  List<Map> findGrowupDetail(@PathVariable("userId") Integer userId){
-        return userFeignInterface.findGrowupDetail(userId);
+    public  List<Map> findGrowupDetail(HttpSession session){
+        Users  users =  (Users) session.getAttribute("user");
+        return userFeignInterface.findGrowupDetail(users.getId());
     }
+
 
 
 
