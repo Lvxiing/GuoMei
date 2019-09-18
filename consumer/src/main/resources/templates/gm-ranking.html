@@ -734,13 +734,11 @@
                     $(".nav_two ul").find("li:first").addClass("cur").siblings().removeClass("cur");
                     $(this).addClass("cur").siblings().removeClass("cur");
                     var index2 = $(this).attr("name");
-                    alert(index2);
-                    var index3 = $(".nav_two ul").attr("name");
-                    alert(index3);
+                    var index3 = $(this).parent().attr("name");
                     if (index2 == index3) {
                         OneGoods(index3);
                     } else {
-                        TwoGoods(index2);
+                       TwoGoods(index2);
                     }
                 });
 
