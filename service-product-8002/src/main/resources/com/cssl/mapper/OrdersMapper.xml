@@ -24,6 +24,38 @@
         <result column="address_detail" property="address"/>
         <result column="address_name" property="userName"/>
     </resultMap>
+    <select id="findOrdersByUserId" resultType="map" parameterType="map">
+        SELECT * FROM orders
+        <where>
+            <if test=" uid!= null and uid!='' ">
+                and user_id = #{uid}
+            </if>
+            <if test=" ono!= null and ono!='' ">
+                and order_no LIKE concat('%',#{ono},'%')
+            </if>
+            <if test=" days!= null and days!='' ">
+                AND TO_DAYS(NOW()) - TO_DAYS(order_time) &lt;= #{days}
+            </if>
+        </where>
+   </select>
+
+    <select id="findOrdersDetail" resultType="map">
+        SELECT o.order_id oid,g.goods_id gid,o.detail_num num,g.`goods_title` title,g.`goods_main_img` img,c.category_id,c.category_level FROM order_detail o
+        INNER JOIN goods g ON g.`goods_id` = o.goods_id
+        INNER JOIN brand b ON g.`brand_id` = b.`brand_id`
+        INNER JOIN category c ON c.category_id = b.`category_id`
+        WHERE o.order_id = #{oid}
+    </select>
+
+
+
+
+
+
+
+
+
+
     <!--后台查看订单详情-->
     <select id="orderDetail" resultType="map" parameterType="string">
         SELECT o.order_no,g.`goods_title`,s.`detail_num`,s.`detail_money`,g.`goods_main_img`

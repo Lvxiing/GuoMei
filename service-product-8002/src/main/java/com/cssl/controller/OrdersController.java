@@ -34,6 +34,26 @@ public class OrdersController {
     private OrdersService ordersService;
     @Autowired
     private Order_detailService orderDetailService;
+    //-----------------------------前台模块----------------------------
+    //用户订单
+    @RequestMapping("findOrdersByUserId")
+    @ResponseBody
+    public PageInfo<Map<String, Object>> findOrdersByUserId(@RequestParam Map<String, Object> map) {
+        PageInfo<Map<String, Object>> pages = new PageInfo<>();
+        Page<Map<String, Object>> page = ordersService.findOrdersByUserId(map);
+        pages.setList(page.getResult());
+        pages.setPageNo(page.getPageNum());
+        pages.setTotalCount((int) page.getTotal());
+        pages.setPageSize(page.getPageSize());
+        pages.setPageCount(page.getPages());
+        return pages;
+    }
+
+    @RequestMapping("findOrdersDetail")
+    @ResponseBody
+    public List<Map<String,Object>> findOrdersDetail(@RequestParam("oid") Integer oid){
+        return ordersService.findOrdersDetail(oid);
+    }
      //-----------------------------后台模块----------------------------
      //查询所有订单详情
      @RequestMapping("/orderList/{pageIndex}/{pageSize}/{orderNo}/{name}")
