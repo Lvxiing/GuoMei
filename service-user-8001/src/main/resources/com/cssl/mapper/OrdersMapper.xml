@@ -11,6 +11,7 @@
         <result column="order_total" property="total" />
         <result column="order_status" property="status" />
         <result column="order_no" property="orderNo" />
+        <result column="user_id" property="userId" />
     </resultMap>
 
 </mapper>

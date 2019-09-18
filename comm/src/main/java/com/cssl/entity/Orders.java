@@ -46,6 +46,9 @@ public class Orders extends Model<Orders> {
     @TableField(value = "order_no")
     private String orderNo;             //订单号
 
+    @TableField(value = "user_id")
+    private Integer  userId;    //用户id
+
     @Override
     protected Serializable pkVal() {
         return this.id;

@@ -99,7 +99,7 @@ public class UsersController {
         //请求失败这里会抛ClientException异常
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
         if(sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
-            //请求成功
+            //请求成功  存储到redis缓存
             redisFeignInterface.set("sms_"+phoneNum,numeric,-300);
             return numeric;
         }else {
@@ -107,7 +107,7 @@ public class UsersController {
             System.out.println("失败原因"+sendSmsResponse.getMessage());
             return "error";
         }
-        //发送成功,存储到缓存
+
     }
 
     @RequestMapping("/verfiy")

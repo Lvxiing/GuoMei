@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -207,12 +208,12 @@ public class RedisController {
      * HashSet
      *
      * @param key 键
-     * @param map 对应多个键值
+     * @param redisMap 对应多个键值
      * @return true 成功 false 失败
      */
-    public boolean hmset(String key, Map<String, Object> map) {
+    public boolean hmset(String key,Map<String, Object> redisMap) {
         try {
-            redisTemplate.opsForHash().putAll(key, map);
+            redisTemplate.opsForHash().putAll(key, redisMap);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

@@ -45,12 +45,11 @@ public interface UserFeignInterface {
     @RequestMapping("/users/findVip")
      List<Map> findVip(@RequestParam  Map map);
 
+    @RequestMapping("/growup_detail/findGrowupDetail/{userId}")
+     List<Map> findGrowupDetail(@PathVariable("userId") Integer userId);
 
-
-
-
-
-
+    @RequestMapping("/growup_detail/detailDescription")
+     Map detailDescription();
 
     //**********后台***********
 
