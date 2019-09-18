@@ -182,22 +182,17 @@
                 var re = GetRequest();
                 var bid = re.bid;
                 if (bid != null && bid != '') {
-                    //  alert(bid);
+                    $.getJSON("../../../Goods/categoryShow", "level=4", function (json) {
+                        if (json != null) {
+                            brandShow(json);
+                        }
+                    });
                     $.getJSON("../../category/findBrandIsParentCategory?cid=" + bid, function (json) {
-                        //  alert(json);
                         $("#brand").find("option[value=" + json.cid + "]").prop("selected", true);
                         categoryShow(json.pid);
                     });
 
                     form.render();  //更新全部
-                }else{
-                    $.getJSON("../../../Goods/categoryShow", "level=4", function (json) {
-                        if (json != null) {
-                            brandShow(json);
-                        }
-                        ;
-
-                    });
                 }
             });
 
