@@ -179,13 +179,26 @@
 
             $(function () {
                 categoryShow(-1);
-                $.getJSON("../../../Goods/categoryShow", "level=4", function (json) {
-                    if (json != null) {
-                        brandShow(json);
-                    }
-                    ;
+                var re = GetRequest();
+                var bid = re.bid;
+                if (bid != null && bid != '') {
+                    //  alert(bid);
+                    $.getJSON("../../category/findBrandIsParentCategory?cid=" + bid, function (json) {
+                        //  alert(json);
+                        $("#brand").find("option[value=" + json.cid + "]").prop("selected", true);
+                        categoryShow(json.pid);
+                    });
 
-                });
+                    form.render();  //更新全部
+                }else{
+                    $.getJSON("../../../Goods/categoryShow", "level=4", function (json) {
+                        if (json != null) {
+                            brandShow(json);
+                        }
+                        ;
+
+                    });
+                }
             });
 
            function gradeShow(gid){
@@ -247,6 +260,8 @@
                         categoryShow(json[0].parentId);
                     }
                 })
+                //重新渲染
+                form.render('select');
             });
 
 
@@ -475,15 +490,7 @@
             });
 
 
-            var bid = GetRequest().bid;
-            if (bid != null && bid != '') {
-                $.getJSON("../../../category/findBrandIsParentCategory?id=" + bid, function (json) {
-                    $("#brand").find("option[value=" + json.cid + "]").prop("selected", true);
-                    categoryShow(json.pid);
-                });
 
-                form.render();  //更新全部
-            }
 
 
             function GetRequest() {
