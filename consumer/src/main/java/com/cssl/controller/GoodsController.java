@@ -1,5 +1,6 @@
 package com.cssl.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.api.ProductFeignInterface;
 import com.cssl.entity.*;
 import com.cssl.util.NginxUtil;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.*;
 
 @Controller
@@ -132,6 +134,20 @@ public class GoodsController {
         return productFeignInterface.findGrade();
     }
 
+
+    @RequestMapping("findGradeById")
+    @ResponseBody
+    public Grade findGradeById(@RequestParam("id") Integer id){
+        return productFeignInterface.findGradeById(id);
+    }
+
+    @RequestMapping("updateGradeMoney")
+    @ResponseBody
+    public String updateGradeMoney(@RequestParam("id") Integer id,@RequestParam("money") double money){
+       return productFeignInterface.updateGradeMoney(id,money);
+    }
+
+
     //新增商品
     @RequestMapping("addGoods")
     @ResponseBody
@@ -221,5 +237,19 @@ public class GoodsController {
         return productFeignInterface.findGoodsById(id);
     }
 
-
+    //会员商品
+    @RequestMapping("/vipGoodsFindAll/{cname}/{title}")
+    @ResponseBody
+    public Map<String,Object> vipGoodsFindAll(@PathVariable("cname") String cname, @PathVariable("title") String title, @RequestParam("page")int page, @RequestParam("limit")int limit){
+        Map<String,Object> param = new HashMap<>();
+        param.put("cname",cname);
+        param.put("title",title);
+        Map<String,Object> map = new HashMap<String,Object>();
+        PageInfo<Map<String, Object>> mapPageInfo = productFeignInterface.vipGoodsFindAll(param,page,limit);
+        map.put("code",0);
+        map.put("msg", "");
+        map.put("data",mapPageInfo.getList());
+        map.put("count",mapPageInfo.getTotalCount());
+        return map;
+    }
 }
