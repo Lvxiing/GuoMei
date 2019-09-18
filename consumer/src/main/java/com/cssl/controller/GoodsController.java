@@ -7,13 +7,12 @@ import com.cssl.util.NginxUtil;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -69,8 +68,63 @@ public class GoodsController {
     //查询商品详情信息
     @RequestMapping("GoodInfoShow")
     @ResponseBody
-    public Map<String,Object> GoodInfoShow(@RequestParam("gid")Integer gid){
-        return productFeignInterface.GoodInfoShow(gid);
+    public Map<String,Object> GoodInfoShow(HttpServletRequest request, HttpServletResponse response,@RequestParam("gid")Integer gid) throws Exception{
+        Cookie cookie = null;
+        String value = null;  //保存新的cookie中的值
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null && cookies.length > 0) {
+            for (Cookie cook : cookies) {
+                if (cook.getName().equals("gid")) {
+                    cookie = cook;
+                    break;
+                }
+            }
+        }
+        if (cookie == null) {
+            cookie = new Cookie("gid", gid.toString());
+        } else { //已存在
+            String pId = cookie.getValue();
+            String[] ids = pId.split("#");
+            value = "";//先清空
+            for (int i = 0; i < ids.length; i++) {
+                if (!ids[i].equals(gid.toString())) {
+                    value += ids[i] + "#";
+                }
+            }
+            System.out.println("value = " + value);
+            System.out.println("value = " + value.length());
+            value = value.substring(0, value.length());
+            value = gid.toString() + "#" + value;//叠加新的值
+            String[] idss = value.split("#");
+            if (idss.length > 10) {
+                value = value.substring(0, value.lastIndexOf("#"));
+            }
+            cookie.setValue(value);
+
+        }
+        cookie.setMaxAge(60 * 60 * 24 * 7);
+        response.addCookie(cookie);
+        Map<String, Object> map = productFeignInterface.GoodInfoShow(gid);
+        List<Goods> goods = productFeignInterface.browseGoods(browseGoods(request, response));
+        map.put("browseGoods", goods);
+        return map;
+    }
+
+
+
+
+    public String browseGoods(HttpServletRequest request, HttpServletResponse response){
+        Cookie[] cookie = request.getCookies();
+        String value = null;
+        if (cookie != null) {
+            for (Cookie c : cookie) {
+                if (c.getName().equals("gid")) {
+                    value = c.getValue();
+                    break;
+                }
+            }
+        }
+        return value;
     }
 
     //首页的商品热销榜
