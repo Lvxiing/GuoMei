@@ -997,7 +997,7 @@
         //传入pageIndex,pageSize分页参数
         function showAllGoodsVip(pageIndex, pageSize, gid, bs) {
             $("ul.club-items-box").empty();
-            $.getJSON("http://localhost:9001/Goods/vipGoodsFindAllQian", {
+            $.getJSON("Goods/vipGoodsFindAllQian", {
                 "pageIndex": pageIndex,
                 "pageSize": pageSize,
                 "gid": gid,
@@ -1037,22 +1037,27 @@
 
         //点击会员等级,查询该会员等级下相对应的会员商品
         $("body").on('click', '.twoVip', function () {
+            $("ul.club-items-box").empty();
             gid = $(this).attr("name");
             showAllGoodsVip(1, pageSize, gid, bs);
         });
         // dian ji fen lei quan bu cha xun suo you vip goods
         $("body").on('click', '#categoryAll', function () {
-            showAllGoodsVip(1, pageSize, gid, bs);
+            $("ul.club-items-box").empty();
+            showAllGoodsVip(1, pageSize);
         });
         //点击会员框全部,显示所有会员商品
         $("body").on('click', '#vipAll', function () {
-            showAllGoodsVip(1, pageSize, gid, bs);
+            $("ul.club-items-box").empty();
+            showAllGoodsVip(1, pageSize);
         });
         $("body").on('click', '#shangxian', function () {
-            showAllGoodsVip(1, pageSize, gid, bs);
+            $("ul.club-items-box").empty();
+            showAllGoodsVip(1, pageSize);
         });
         //点击销量查询会员商品
         $("body").on('click', '#xiaoliang', function () {
+            $("ul.club-items-box").empty();
             bs = $(this).attr("attc");
             gid = $(this).attr("name");
             showAllGoodsVip(1, pageSize, gid, bs);
