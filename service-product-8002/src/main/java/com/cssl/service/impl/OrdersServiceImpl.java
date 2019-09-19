@@ -23,6 +23,22 @@ import java.util.*;
 public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> implements OrdersService {
    @Autowired
    private OrdersMapper ordersMapper;
+
+
+    @Override
+    public Page<Map<String, Object>> findOrdersByUserId(Map<String, Object> map) {
+        Integer pageSize = new Integer(map.get("pageSize").toString());
+        Integer pageIndex = new Integer(map.get("pageIndex").toString());
+        Page<Map<String, Object>> page = PageHelper.startPage(pageIndex, pageSize);
+        ordersMapper.findOrdersByUserId(map);
+        return page;
+    }
+
+    @Override
+    public List<Map<String, Object>> findOrdersDetail(Integer oid) {
+        return ordersMapper.findOrdersDetail(oid);
+    }
+
     @Override
     public Page<Map<String, Object>> orderList(Map<String, Object> map, int pageIndex, int pageSize) {
         Page<Map<String, Object>> page = PageHelper.startPage(pageIndex, pageSize);

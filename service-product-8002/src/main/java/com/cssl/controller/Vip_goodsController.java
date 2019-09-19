@@ -36,7 +36,6 @@ public class Vip_goodsController {
     @RequestMapping("vipGoodsFindAllQian")
     @ResponseBody
     public PageInfo<Map<String, Object>> vipGoodsFindAllQian(@RequestParam Map<String, Object> map) {
-        System.out.println("map = " + map);
         PageInfo<Map<String, Object>> pages = new PageInfo<>();
         Page<Map<String, Object>> page = vip_goodsService.vipSaleGoods(map);
         pages.setList(page.getResult());

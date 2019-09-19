@@ -127,7 +127,7 @@ public class GoodsController {
     //最近浏览商品
     @ResponseBody
     @RequestMapping("browseGoods")
-    public List<Goods> browseGoods(@RequestBody String value) {
+    public List<Goods> browseGoods(@RequestBody(required=false) String value) {
        List<Goods> goods = new ArrayList<>();
         if (value != null) {
             String[] id = value.split("#");

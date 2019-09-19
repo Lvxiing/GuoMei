@@ -15,14 +15,14 @@ public class MyGuoMeiController {
 
     @Autowired
     private ProductFeignInterface productFeignInterface;
-
-    @ResponseBody
-    @RequestMapping("/myOrder")
-    public String myOrder(HttpSession session){
-        Users user = (Users)session.getAttribute("user");
-        Integer uid = user.getId();//测试传死值
-        //System.out.println("user = " + user);
-
-        return user.getUserName();
-    }
+//
+//    @ResponseBody
+//    @RequestMapping("/myOrder")
+//    public String myOrder(HttpSession session){
+//        Users user = (Users)session.getAttribute("user");
+//       // Integer uid = user.getId();//测试传死值
+//        //System.out.println("user = " + user);
+//
+//        return user.getUserName();
+//    }
 }

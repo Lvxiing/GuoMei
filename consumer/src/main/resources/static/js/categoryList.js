@@ -2,22 +2,29 @@ $(function () {
     findParentCategory();
     categoryGoodsShow();
      //按综合,销量,新品查询
+    var sort=0;
     $("#filter-order-box li").click(function () {
-        var sort=$(this).attr("data-sort");
-        if(sort<3){
-            $(this).addClass("cur").siblings().removeClass("cur");
-            searc(sort,1);
+         sort=$(this).attr("data-sort");
+        $(this).addClass("cur").siblings().removeClass("cur");
+        if(sort==0){  //查询全部
+            searc5(sort,1);
+        }else if(sort==1){//按销量
+            searc1(sort,1);
+        }else if(sort==2){  //按新品
+            searc2(sort,1);
         }
     });
     //价格点击
     $("#sort-price").toggle(
         function () {
-            $(this).siblings().removeClass("cur");
-            $(this).addClass("cur price-up").removeClass("price-down");
+            $(this).addClass("price-up").removeClass("price-down");
+            sort=4;
+            searc3(4,1);
         },
         function () {
-            $(this).siblings().removeClass("cur");
-            $(this).addClass("cur price-down").removeClass("price-up");
+            $(this).addClass("price-down").removeClass("price-up");
+              sort=3;
+            searc3(3,1);
         }
     );
     //价格区间
@@ -32,17 +39,64 @@ $(function () {
     //价格区间清除
     $("#fc-btn-cancel").click(
         function () {
-            $(".priceRange-input").val("");
+            $("#fc-lowPrice").val("");
+            $("#fc-highPrice").val("");
         }
     );
     //价格区间的查询
+    var lowPrice;
+    var highPrice;
     $("#fc-btn-ok").click(function () {
-        if($(".priceRange-input").val()!=""){
+        if($("#fc-lowPrice").val()!=""&&$("#fc-highPrice").val()!=""){
+            lowPrice =$("#fc-lowPrice").val();
+            highPrice =$("#fc-highPrice").val();
+            sort=5;
+            searc4(5,1,lowPrice,highPrice);
+        }
+    });
+
+    //上下分页
+    $("#mp-prev").click(function () {
+        var number=$("#min-pager-number").text().split("/");
+        if(number[0]>1){
+            var num=parseInt(number[0])-1;
+            if(sort==0){  //查询全部
+                searc5(sort,num);
+            }else if(sort==1){//按销量
+                searc1(sort,num);
+            }else if(sort==2){  //按新品
+                searc2(sort,num);
+            }else if(sort==3||sort==4){  //按价格
+                searc3(sort,num);
+            }else{//按区间查
+                searc4(5,num,lowPrice,highPrice);
+            }
 
         }
     });
-});
 
+    $("#mp-next").click(function () {
+        var number=$("#min-pager-number").text().split("/");
+        if(number[0]<number[1]){
+            var num=parseInt(number[0])+1;
+            if(sort==0){  //查询全部
+                searc5(sort,num);
+            }else if(sort==1){//按销量
+                searc1(sort,num);
+            }else if(sort==2){  //按新品
+                searc2(sort,num);
+            }else if(sort==3||sort==4){  //按价格
+                searc3(sort,num);
+            }else{  //按区间查
+                searc4(5,num,lowPrice,highPrice);
+            }
+
+        }
+
+    });
+});
+//定义每页数量
+   var pageSize=2;
 //显示商品一级
 function findParentCategory() {
     $.getJSON("../../category/findParentCategory?pid=0", function (json) {
@@ -117,7 +171,7 @@ function GetRequest() {
 //页面一加载显示数据
 function categoryGoodsShow() {
     var re=GetRequest();
-    $.getJSON("../../category/categoryGoodsShow",{"cid":re.cid,"level":re.level,"pageIndex":1,"pageSize":8}, function (json) {
+    $.getJSON("../../category/categoryGoodsShow",{"cid":re.cid,"level":re.level,"pageIndex":1,"pageSize":pageSize}, function (json) {
         classification(json.categoryInfo.name);
         //循环显示商品
         var lists=json.page.list;
@@ -147,7 +201,6 @@ function categoryGoodsShow() {
         var pageCount=json.page.pageCount;
         var pageNo=json.page.pageNo;
         $("#min-pager-number").text(pageNo+"/"+pageCount);
-
         //分类
         var id;
         if(json.categoryInfo.clevel==3){
@@ -165,21 +218,106 @@ function categoryGoodsShow() {
     });
 }
 
-//点击按条件查询
-function searc(bs,pageNo) {
-     var re=GetRequest();
-     if(bs!=0){   //按条件查
-         $.getJSON("../../category/categoryGoodsShow",{"cid":re.cid,"level":re.level,"pageIndex":pageNo,"pageSize":8,"bs":bs}, function (json) {
-             //循环显示商品
-             xunhuan(json,bs);
-         });
-     }else{   //查询全部
-         $.getJSON("../../category/categoryGoodsShow",{"cid":re.cid,"level":re.level,"pageIndex":pageNo,"pageSize":8}, function (json) {
-             //循环显示商品
-             xunhuan(json,bs);
-         });
-     }
+//按销量查询
+function searc1(bs,pageno) {
+    var re=GetRequest();
+    $.getJSON("../../category/categoryGoodsShow",{"cid":re.cid,"level":re.level,"pageIndex":pageno,"pageSize":pageSize,"bs":bs}, function (json) {
+        //显示当前页码和总页面
+        var pageCount=json.page.pageCount;
+        var pageNo=json.page.pageNo;
+        $("#min-pager-number").text(pageNo+"/"+pageCount);
+        if(pageCount==pageNo){
+            $("#mp-next").addClass("mp-disable");
+            $("#mp-prev").removeClass("mp-disable");
+        }
+        if(pageNo==1){
+            $("#mp-next").removeClass("mp-disable");
+            $("#mp-prev").addClass("mp-disable");
+        }
+        //循环显示商品
+        xunhuan(json,bs);
+    });
+}
+//按新品查
+function searc2(bs,pageno) {
+    var re=GetRequest();
+    $.getJSON("../../category/categoryGoodsShow",{"cid":re.cid,"level":re.level,"pageIndex":pageno,"pageSize":pageSize,"bs":bs}, function (json) {
+        //显示当前页码和总页面
+        var pageCount=json.page.pageCount;
+        var pageNo=json.page.pageNo;
+        $("#min-pager-number").text(pageNo+"/"+pageCount);
+        if(pageCount==pageNo){
+            $("#mp-next").addClass("mp-disable");
+            $("#mp-prev").removeClass("mp-disable");
+        }
+        if(pageNo==1){
+            $("#mp-next").removeClass("mp-disable");
+            $("#mp-prev").addClass("mp-disable");
+        }
+        //循环显示商品
+        xunhuan(json,bs);
+    });
+}
+//按价格查
+function searc3(bs,pageno) {
+    var re=GetRequest();
+    $.getJSON("../../category/categoryGoodsShow",{"cid":re.cid,"level":re.level,"pageIndex":pageno,"pageSize":pageSize,"bs":bs}, function (json) {
+        //显示当前页码和总页面
+        var pageCount=json.page.pageCount;
+        var pageNo=json.page.pageNo;
+        $("#min-pager-number").text(pageNo+"/"+pageCount);
+        if(pageCount==pageNo){
+            $("#mp-next").addClass("mp-disable");
+            $("#mp-prev").removeClass("mp-disable");
+        }
+        if(pageNo==1){
+            $("#mp-next").removeClass("mp-disable");
+            $("#mp-prev").addClass("mp-disable");
+        }
+        //循环显示商品
+        xunhuan(json,bs);
+    });
+}
 
+//按区间查
+function searc4(bs,pageno,lowPrice,highPrice) {
+    var re=GetRequest();
+    $.getJSON("../../category/categoryGoodsShow",{"cid":re.cid,"level":re.level,"pageIndex":pageno,"pageSize":pageSize,"low":lowPrice,"high":highPrice}, function (json) {
+        //显示当前页码和总页面
+        var pageCount=json.page.pageCount;
+        var pageNo=json.page.pageNo;
+        $("#min-pager-number").text(pageNo+"/"+pageCount);
+        if(pageCount==pageNo){
+            $("#mp-next").addClass("mp-disable");
+            $("#mp-prev").removeClass("mp-disable");
+        }
+        if(pageNo==1){
+            $("#mp-next").removeClass("mp-disable");
+            $("#mp-prev").addClass("mp-disable");
+        }
+        //循环显示商品
+        xunhuan(json,bs);
+    });
+}
+//查询全部
+function searc5(bs,pageno) {
+    var re=GetRequest();
+    $.getJSON("../../category/categoryGoodsShow",{"cid":re.cid,"level":re.level,"pageIndex":pageno,"pageSize":pageSize}, function (json) {
+        //显示当前页码和总页面
+        var pageCount=json.page.pageCount;
+        var pageNo=json.page.pageNo;
+        $("#min-pager-number").text(pageNo+"/"+pageCount);
+        if(pageCount==pageNo){
+            $("#mp-next").addClass("mp-disable");
+            $("#mp-prev").removeClass("mp-disable");
+        }
+        if(pageNo==1){
+            $("#mp-next").removeClass("mp-disable");
+            $("#mp-prev").addClass("mp-disable");
+        }
+        //循环显示商品
+        xunhuan(json,bs);
+    });
 }
 
 //公共方法
