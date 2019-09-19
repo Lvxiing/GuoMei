@@ -96,6 +96,9 @@ public interface ProductFeignInterface {
     @RequestMapping("goods/browseGoods")
     List<Goods> browseGoods(@RequestBody(required=false)  String value);
 
+    @RequestMapping("vip_goods/vipInfo")
+    Map<String,Object> vipInfo(@RequestParam("gid") Integer gid);
+
     //----------------------------订单前台模块-----------------------------
     //用户订单
     @RequestMapping("orders/findOrdersByUserId")
