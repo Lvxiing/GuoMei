@@ -165,6 +165,12 @@ public class GoodsController {
         return productFeignInterface.vipGoodsFindAllQian(map);
     }
 
+    //根据商品编号查询会员商品详情
+    @RequestMapping("vipInfo")
+    @ResponseBody
+    public Map<String,Object> vipInfo(@RequestParam("gid") Integer gid){
+        return productFeignInterface.vipInfo(gid);
+    }
 
     //--------------------------后台模块-------------------------------
     @RequestMapping("findGoods")
