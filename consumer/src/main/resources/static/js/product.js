@@ -12,7 +12,7 @@ $(function () {
         var pageNo=$(this).attr("pageNo");
         evaluate("gpnext",pageNo);
     });
-
+    findBrowseGoods();
 });
 
 //获取url中"?"符后的字串
@@ -100,12 +100,13 @@ function findCategory(name) {
     $.getJSON("../../category/findCategoryByGoodsId",{"gid":re.gid} ,function (json) {
          var cname=json.cname.split(">");
          var cid=json.cid.split(">");
+         var level=json.clevel.split(">");
         var li="";
          for(var i=0;i<cname.length;i++){
              if(i==0){
-                 li+="<li class='linkBold'><a href='javascript:;' cid='"+cid[i]+"' title='"+cname[i]+"'>"+cname[i]+"</a><i class='icon-crumbs-right'></i></li>";
+                 li+="<li class='linkBold'><a href='categoryList.html?cid="+cid[i]+"&level="+level[i]+"' title='"+cname[i]+"'>"+cname[i]+"</a><i class='icon-crumbs-right'></i></li>";
              }else{
-                 li+="<li><a href='javascript:;' cid='"+cid[i]+"' title='"+cname[i]+"'>"+cname[i]+"</a><i class='icon-crumbs-right'></i></li>";
+                 li+="<li><a  href='categoryList.html?cid="+cid[i]+"&level="+level[i]+"' title='"+cname[i]+"'>"+cname[i]+"</a><i class='icon-crumbs-right'></i></li>";
              }
          }
         li+="<li class='active'><a href='javascript:;' gid='"+re.gid+"' title='"+name+"'>"+name+"</a></li>";
@@ -159,7 +160,7 @@ function evaluate(ye,pageNo){
 function classification (id) {
     $.getJSON("../../category/findCategoryAndChild",{"parentId":id} ,function (json){
         for(var i=0;i<json.length;i++){
-            var a="<a href='categoryList.html?cid="+json[i].cid+"'  title='"+json[i].name+"' target='_blank'>"+json[i].name+"</a>";
+            var a="<a href='categoryList.html?cid="+json[i].cid+"&level="+json[i].clevel+"'  title='"+json[i].name+"' target='_blank'>"+json[i].name+"</a>";
             $("#clearfix").append(a);
         }
     });
@@ -195,3 +196,16 @@ function besimilarGoods(name) {
     });
 }
 
+//最近浏览
+function findBrowseGoods() {
+    $.getJSON("../../Goods/findBrowseGoods" ,function (json){
+        for(var i=0;i<json.length;i++){
+            var li="<li><div class='img-w'> <a href='product_details.html?gid="+json[i].id+"' target='_blank' title=''>";
+            li+="<img src='"+json[i].mainImg+"' alt='"+json[i].title+"'></a></div>";
+            li+="<p class='title'><a href='product_details.html?gid="+json[i].id+"'target='_blank'title='"+json[i].title+"'><span>"+json[i].title+"</span></a></p>";
+            li+="<p class='yuan colprice fb'>¥<span>"+json[i].price+"</span></p>";
+            li+="<p></p></li>";
+           $("#rangedBrowsedProd").append(li);
+        }
+    });
+}
