@@ -16,6 +16,16 @@ import java.util.Map;
  * @since 2019-09-10
  */
 public interface OrdersService extends IService<Orders> {
+
+    //-----------------------前台-----------------------
+    //查询当前用户的订单
+    Page<Map<String,Object>> findOrdersByUserId(Map<String, Object> map);
+
+    //查询当前订单下的明细
+    public List<Map<String,Object>> findOrdersDetail(Integer oid);
+
+
+    //-----------------------后台-----------------------
     /**
      * 查询所有订单详情
      * @return
