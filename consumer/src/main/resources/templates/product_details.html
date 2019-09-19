@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="css/201908261736popcssdianzhao.min.c.css">
     <script src="js/jquery-1.8.3.js"></script>
     <script src="js/product_details/201908261736gmlibunitobserverobs.js"></script>
+
+    <script src="layui/layui.js"></script>
+    <link rel="stylesheet" href="layui/css/layui.css">
 </head>
 <body>
 <div class="gome-top">
@@ -256,12 +259,9 @@
             <li class="shopcartbox"><span class="cartlinkbox">
                 <a data-code="public03004" rel="nofollow" class="menulink cartlink" id="a"><em
                         class="i-cart"><span class="shopnum"><span
-                        id="commerceItemQuantityId">0</span><i></i></span></em><span
-                        id="hdrcarttext">购物车空了</span><b></b></a></span>
-                <div class="menuhide j-overflowy" id="miniShoppingcartLoadId">
-                    <div id="csLoading" class="loding-layer"><span class="g-loading"></span><span class="loading-text">正在加载中…</span>
-                    </div>
-                </div>
+                        id="commerceItemQuantityId" name="num">0</span><i></i></span></em><span
+                        id="hdrcarttext">我的购物车</span></a></span>
+
             </li>
         </ul>
     </div>
@@ -277,7 +277,8 @@
                 <ul class="clearfix">
                     <li class="nav-item"><a class="nav-item-name" target="_blank" href="index.html">首页</a></li>
                     <li class="nav-item"><a class="nav-item-name" target="_blank" href="javascript:;">热销爆款</a></li>
-                    <li class="nav-item"><a class="nav-item-name" target="_blank" href="gm-indexsever.html">新闻资讯</a></li>
+                    <li class="nav-item"><a class="nav-item-name" target="_blank" href="gm-indexsever.html">新闻资讯</a>
+                    </li>
                     <li class="nav-item"><a class="nav-item-name" target="_blank" href="gm-myOrder.html">我的订单</a></li>
                     <li class="nav-item"><a class="nav-item-name" target="_blank" href="vip_club.html">会员中心</a></li>
                 </ul>
@@ -549,7 +550,70 @@
             <a href="javascript:;" id="yuyue" class="btn-product btn-appointment hide">立即预约</a>
             <a href="javascript:;" id="qianggou" class="btn-product btn-purchase hide">立即抢购</a>
             <a href="javascript:;" target="_blank" class="btn-product btn-yushou hide">预售</a>
-            <a href="car_succeed.html" class="btn-product btn-addcart" id="addCart">加入购物车</a>
+            <a href="javascript:void(0);" class="btn-product btn-addcart" id="addCart">加入购物车</a>
+
+
+            <script>
+
+                function GetRequest() {
+                    var url = location.search; //获取url中"?"符后的字串
+                    var theRequest = new Object();
+                    if (url.indexOf("?") != -1) {
+                        var str = url.substr(1);
+                        strs = str.split("&");
+                        for (var i = 0; i < strs.length; i++) {
+                            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                        }
+                    }
+                    return theRequest;
+                }
+
+                $(function () {
+
+                    var re = GetRequest();
+
+                    layui.use(['layer','upload','form'], function() {
+                        var layer = layui.layer,  //弹层
+                            $ = layui.jquery;
+
+//我的购物车中商品的件数
+                    $.getJSON("/cart/cartCount",function(result){
+                        $("[name=num]").text(result);
+                    })   ;
+
+                    //加入购物车
+                    $("#addCart").click(function () {
+                        var num = $("#enterQty").val();
+                        var price = $("#prdPrice>span").text();
+                        var total = num * price;
+                        $.getJSON("/cart/saveCart", {
+                            "goodsId": re.gid,
+                            "num": num,
+                            "price": price,
+                            "total": total
+                        }, function (result) {
+                            layer.msg("加入购物车成功");
+                            if(result.msg=="新增到购物车"){
+                                //如果购物车内没有该商品,则购物车内商品的件数加1
+                                $("[name=num]").text(parseInt($("[name=num]").text())+1);
+                            }
+
+                        });
+                    });
+
+
+
+
+
+
+                    });
+
+                })
+
+
+            </script>
+
+
             <a href="javascript:;" class="btn-product btn-stages dn" id="pay_fenQi">分期购</a>
             <a href="javascript:;" class="btn-product btn-meiyifen dn">国美易卡</a>
             <a href="javascript:;" id="easyShopping" class="btn-product btn-easeshopping dn" data_easy="1">快速购</a>
@@ -680,8 +744,9 @@
             <div id="fixtabox" class="pdtl-tab j-fixtg">
                 <ul class="prdtitbox" id="prd_tbox">
                     <li class="cur"><a href="javascript:;">商品详情</a></li>
-                    <li><a href="javascript:;" class="pingjia_header submit_element">商品评价 <span class="c00">（353）</span></a></li>
-               </ul>
+                    <li><a href="javascript:;" class="pingjia_header submit_element">商品评价 <span class="c00">（353）</span></a>
+                    </li>
+                </ul>
                 <div class="minichart">
                     <a class="redlink" id="addCartLink">加入购物车</a>
                     <a class="online-service" href="javascript:;" customer-service-button-id="80017326"
@@ -763,7 +828,7 @@
                 </li>
             </ul>
         </div>
-        <div  id="bz" class="approbated common-approbated">
+        <div id="bz" class="approbated common-approbated">
             <h2 class="approbated-label">售后保障</h2>
             <ul class="pdtl-shmn">
                 <li>
@@ -824,61 +889,65 @@
                     <div class="sor">
 
                     </div>
-                    </div>
                 </div>
-                <ul class="commentTab dn" id="j-ctTab"></ul>
-                <div class="appraiseType  dn active" all="265" good="264" mid="1" bad="0" validgood="52"
-                     style="display: block;">
-                    <label class="active">
-                        <input type="radio" name="appraiseType" value="cmt1" appraisetypetype="all" checked="checked"><span class="submit_element" id="all">全部评价(265)</span></label>
-                    <label>
-                        <input type="radio" name="appraiseType" value="cmt2" appraisetypetype="good"><span id="good">好评(264)</span></label>
-                    <label>
-                        <input type="radio" name="appraiseType" value="cmt3" appraisetypetype="mid"><span id="cent">中评(1)</span></label>
-                    <label>
-                        <input type="radio" name="appraiseType" value="cmt4" appraisetypetype="bad"><span id="diff">差评(0)</span></label>
-                </div>
-                <div class="cmt-con" style="display: block;">
-                    <div class="product-comment clearfix">
-                        <ul class="ordershow-list" id="singleShow"></ul>
-                        <ul class="comment-list dn" id="j-commentsList"></ul>
-                        <div class="orderShow oh"></div>
-                        <ul class="replyListWrap dn" id="replyListWrap" style="display: block;">
+            </div>
+            <ul class="commentTab dn" id="j-ctTab"></ul>
+            <div class="appraiseType  dn active" all="265" good="264" mid="1" bad="0" validgood="52"
+                 style="display: block;">
+                <label class="active">
+                    <input type="radio" name="appraiseType" value="cmt1" appraisetypetype="all" checked="checked"><span
+                        class="submit_element" id="all">全部评价(265)</span></label>
+                <label>
+                    <input type="radio" name="appraiseType" value="cmt2" appraisetypetype="good"><span
+                        id="good">好评(264)</span></label>
+                <label>
+                    <input type="radio" name="appraiseType" value="cmt3" appraisetypetype="mid"><span
+                        id="cent">中评(1)</span></label>
+                <label>
+                    <input type="radio" name="appraiseType" value="cmt4" appraisetypetype="bad"><span
+                        id="diff">差评(0)</span></label>
+            </div>
+            <div class="cmt-con" style="display: block;">
+                <div class="product-comment clearfix">
+                    <ul class="ordershow-list" id="singleShow"></ul>
+                    <ul class="comment-list dn" id="j-commentsList"></ul>
+                    <div class="orderShow oh"></div>
+                    <ul class="replyListWrap dn" id="replyListWrap" style="display: block;">
 
-                        </ul>
-                        <div class="clearfix">
-                            <div id="j-page" class="page">
-                                <a href="javascript:;" class="gpprev">上一页<b class="pgbdrs"></b></a>
-                                <a href="javascript:;" class="gpnext">下一页<b class="pgbdrsr"></b></a>
-                            </div>
+                    </ul>
+                    <div class="clearfix">
+                        <div id="j-page" class="page">
+                            <a href="javascript:;" class="gpprev">上一页<b class="pgbdrs"></b></a>
+                            <a href="javascript:;" class="gpnext">下一页<b class="pgbdrsr"></b></a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div><!--本店好评商品 start-->
-        <div class="bd-praise-goods"></div>
-    </div>
-    <div class="dt-side imgd" >
-        <div class="dt-sortbox">
-            <h2 class="dt-tit">相关分类</h2>
-            <div class="dt-rcbox clearfix" id="clearfix">
+        </div>
+    </div><!--本店好评商品 start-->
+    <div class="bd-praise-goods"></div>
+</div>
+<div class="dt-side imgd">
+    <div class="dt-sortbox">
+        <h2 class="dt-tit">相关分类</h2>
+        <div class="dt-rcbox clearfix" id="clearfix">
 
+        </div>
+    </div>
+    <div id="paihangbang" class="tonglei_wrap">
+        <h2 class="tonglei_wrap_title">热销排行榜</h2>
+        <div class="margin010">
+            <div class="tonglei_product_wrap" style="min-height: 217px;">
+                <ul class="tonglei_ul" style="display: block;">
+
+                </ul>
             </div>
         </div>
-        <div id="paihangbang" class="tonglei_wrap">
-            <h2 class="tonglei_wrap_title">热销排行榜</h2>
-            <div class="margin010">
-                <div class="tonglei_product_wrap" style="min-height: 217px;">
-                    <ul class="tonglei_ul" style="display: block;">
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div id="mboxDynamicLeft"></div>
-        <div id="buyAndLook"></div>
-        <div id="mboxDynamic"></div>
     </div>
+    <div id="mboxDynamicLeft"></div>
+    <div id="buyAndLook"></div>
+    <div id="mboxDynamic"></div>
+</div>
 </div>
 <div class="wbox">
     <div id="mboxDynamicFoot" class="guess-enjoy clearfix"></div>
@@ -1093,8 +1162,8 @@
 
 <script src="js/product.js"></script>
 <style>
-    .imgd{
-        position:absolute;
+    .imgd {
+        position: absolute;
         top: 1098px;
         left: 160px;
     }
@@ -1107,7 +1176,7 @@
                 $("#j-comment-section").show();
                 $("#bz").hide();
                 $("#prd_data").hide();
-            }else{
+            } else {
                 $("#j-comment-section").hide();
                 $("#bz").show();
                 $("#prd_data").show();
@@ -1116,15 +1185,15 @@
         $("a#a").attr("href", "car.html");
         //上下加减
         $(".j-gACbtnA").click(function () {
-            var num=$("#enterQty").val();
-            if(num<100){
-                $("#enterQty").val(parseInt(num)+1);
+            var num = $("#enterQty").val();
+            if (num < 100) {
+                $("#enterQty").val(parseInt(num) + 1);
             }
         });
         $(".j-gACbtn").click(function () {
-            var num=$("#enterQty").val();
-            if(num>1){
-                $("#enterQty").val(parseInt(num)-1);
+            var num = $("#enterQty").val();
+            if (num > 1) {
+                $("#enterQty").val(parseInt(num) - 1);
             }
         });
     });

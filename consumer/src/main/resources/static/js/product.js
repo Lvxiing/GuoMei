@@ -42,7 +42,7 @@ function info() {
         title+="<h4 id='prdtitcx'>"+json.goodsDes.subTitle+"</h4>";
         $("div.hgroup").append(title);
         //价格
-        $("#prdPrice").html("<em>¥</em>"+json.goodsDes.price);
+        $("#prdPrice").html("<em>¥</em><span>"+json.goodsDes.price+"</span>");
         //好评
         var centCount=0;
         var diffCount=0;
