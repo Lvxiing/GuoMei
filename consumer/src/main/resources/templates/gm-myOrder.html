@@ -20,11 +20,16 @@
     <link rel="shortcut icon" href="font/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/myorder1.css">
     <link rel="stylesheet" href="css/myOrder.css">
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <!--<script type="text/javascript" src="js/jquery.js"></script>-->
+    <!--<script type="text/javascript" src="js/jquery.min.js"></script>-->
+    <!--<script type="text/javascript" src="js/jquery.cookie.js"></script>-->
+    <script src="js/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="js/storeOrderLive.js"></script>
-
+    <!--<script type="text/javascript">-->
+        <!--$.getJSON("../../index/mainImagesData", function (json) {-->
+            <!--alert(json);-->
+        <!--})-->
+    <!--</script>-->
 </head>
 <body data-page="myhome">
 
@@ -420,14 +425,11 @@
                         <!--近三个月的订单-->
                         <div class="order-hd-bottom clearfix">
                             <div class="combox" id="sel_choos" style="width: 118px;">
-                                <div><span class="c-lable" val="1">近三个月的订单</span><i></i></div>
+                                <div><span class="c-lable" id="order" val="1">近三个月的订单</span><i></i></div>
                                 <ul class="c-list-value" style="display: none;">
-                                    <li><a href="javascript:void(0);" val="1">近三个月的订单</a></li>
-                                    <li><a href="javascript:void(0);" val="2019">今年内订单</a></li>
-                                    <li><a href="javascript:void(0);" val="2018">2018年订单</a></li>
-                                    <li><a href="javascript:void(0);" val="2017">2017年订单</a></li>
-                                    <li><a href="javascript:void(0);" val="2016">2016年订单</a></li>
-                                    <li><a href="javascript:void(0);" val="3">2016年以前订单</a></li>
+                                    <li><a href="javascript:void(0);" val="1">近一个月的订单</a></li>
+                                    <li><a href="javascript:void(0);" val="2">近二个月的订单</a></li>
+                                    <li><a href="javascript:void(0);" val="3">近三个月的订单</a></li>
                                 </ul>
                             </div>
                             <div class="ordersRecHrefLine">
@@ -441,13 +443,15 @@
                         <div class="item-col-100" style="width:10%;">金额</div>
                         <div class="item-col-100" style="width:10%;">
                             <div class="combox dn" id="all-status" style="display: block; width: 78px;">
-                                <div style="width:80px;"><span class="c-lable" val="1">订单状态</span><i></i></div>
+                                <div style="width:80px;"><span class="c-lable" val="0" id="status">订单状态</span><i></i></div>
                                 <ul class="c-list-value" style="display: none;">
-                                    <li><a href="javascript:;" val="1">订单状态</a></li>
-                                    <li><a href="javascript:;" val="2">等待付款</a></li>
-                                    <li><a href="javascript:;" val="3">等待收货</a></li>
+                                    <li><a href="javascript:;" val="0">订单状态</a></li>
+                                    <li><a href="javascript:;" val="1">待付款</a></li>
+                                    <li><a href="javascript:;" val="2">待发货</a></li>
+                                    <li><a href="javascript:;" val="3">已发货</a></li>
+                                    <li><a href="javascript:;" val="4">待收货</a></li>
                                     <li><a href="javascript:;" val="5">已完成</a></li>
-                                    <li><a href="javascript:;" val="4">已取消</a></li>
+                                    <li><a href="javascript:;" val="6">已退货</a></li>
                                 </ul>
                             </div>
                             <div class="storeOrder_state dn" style="display: none;">
@@ -508,9 +512,8 @@
                                                                 style="display:block;">
                                                             固体空气清新剂家用厕所香薰除味除臭剂室内芳香剂清香剂鞋柜除臭(颜色随机 2个装) </a>
                                                             <p class="big-same-collocation marg-top-10"><i
-                                                                    class="collocation-icon"></i> <span>找搭配</span></p>
+                                                                    class="collocation-icon"></i> <span>找相似</span></p>
                                                         </div>
-                                                        <div class="findSame-collect-box dn"></div>
                                                     </td>
                                                     <td class="pd-lft-10" style="border-right:none;width:20%;">
                                                         <div class="order-list-num">x<span>1</span></div>
@@ -936,7 +939,58 @@
 }, 700);</script>-->
 
 <!--aside-->
-<script src="//js.gomein.net.cn/??gmlib/jq/1.7.1/jquery.js,sitemonitor/sa-sdk/sa.js,gmlib/cookie/1.0.0/cookie.js,gmpro/1.0.0/public/1.0.0/js/signtop.min.js,gmlib/unit/bigcode/1.0.0/bigcode.min.js,gmlib/unit/serviceEntrance/1.0.0/serviceEntrance.min.js,gmlib/ui/arttemplate/2.0.1/template.min.js,gmpro/1.0.0/public/member/js/searchautopoint.min.js,gmpro/1.0.0/cart/1.0.0/js/head-cart/cart.min.js,gmpro/1.0.0/cart/1.0.0/js/head-cart/mCart.min.js,gmpro/1.0.0/public/member/js/memberHead.min.js,gmpro/1.0.0/public/1.0.0/js/foot.min.js,gmpro/1.0.0/public/1.0.0/js/aside.min.js?v=201908291743,gmlib/unit/g/1.0.0/g.min.js,gmlib/unit/gomelib/1.0.0/gomelib.min.js,gmlib/unit/templatenav/1.0.0/templatenav.min.js,gmlib/ui/form/1.0.0/form.min.js,gmlib/ui/json3/3.3.2/json3.min.js,gmlib/ui/gload/1.0.0/gload.min.js,gmlib/ui/gclickshow/1.0.0/gclickshow.min.js,gmlib/ui/ghover/1.0.0/ghover.min.js,gmlib/ui/ginputfocus/1.0.0/ginputfocus.min.js,gmlib/ui/glaterimg/1.0.0/glaterimg.min.js,gmlib/ui/greplaceimg/1.0.0/greplaceimg.min.js,gmlib/ui/gshowhide/1.0.0/gshowhide.min.js,gmlib/ui/gbacktop/1.0.0/gbacktop.min.js,gmlib/ui/curnav/1.0.0/curnav.min.js,gmpro/2.0.0/member/4.4.4/js/common/gSlider.js,gmlib/ui/gpop/1.0.0/gpop.min.js,gmlib/unit/gcollect/1.0.0/gcollect.min.js,gmlib/unit/live800/1.0.0/live800.min.js,gmlib/unit/cart/1.0.0/addCart.min.js,gmpro/2.0.0/member/4.4.4/js/common/config.js,gmpro/2.0.0/member/4.4.4/js/common/component.js,gmpro/2.0.0/member/4.4.4/js/common/component/navTab.js,gmpro/2.0.0/member/4.4.4/js/common/component/pager.js,gmpro/2.0.0/member/4.4.4/js/common/component/combox.js,gmpro/2.0.0/member/4.4.4/js/common/richTreasure/popBox.js,gmpro/2.0.0/member/4.4.4/js/common/ucleft/ucLeftNavTpl.js,gmpro/2.0.0/member/4.4.4/js/common/ucleft/ucLeftNavLive.js,gmpro/2.0.0/member/4.4.4/js/common/ajaxupload.js,gmpro/2.0.0/member/4.4.4/js/profile/tab.js,gmlib/sea/seajs/3.0.0/sea.js,gmlib/sea/seajs-combo/1.0.0/seajs-combo.js,gmpro/2.0.0/member/4.4.4/js/profile/personalInfoTpl.js,gmpro/2.0.0/member/4.4.4/js/profile/personalInfoLive.js"></script>
+<!--<script src="//js.gomein.net.cn/??gmlib/jq/1.7.1/jquery.js,sitemonitor/sa-sdk/sa.js,gmlib/cookie/1.0.0/cookie.js,gmpro/1.0.0/public/1.0.0/js/signtop.min.js,gmlib/unit/bigcode/1.0.0/bigcode.min.js,gmlib/unit/serviceEntrance/1.0.0/serviceEntrance.min.js,gmlib/ui/arttemplate/2.0.1/template.min.js,gmpro/1.0.0/public/member/js/searchautopoint.min.js,gmpro/1.0.0/cart/1.0.0/js/head-cart/cart.min.js,gmpro/1.0.0/cart/1.0.0/js/head-cart/mCart.min.js,gmpro/1.0.0/public/member/js/memberHead.min.js,gmpro/1.0.0/public/1.0.0/js/foot.min.js,gmpro/1.0.0/public/1.0.0/js/aside.min.js?v=201908291743,gmlib/unit/g/1.0.0/g.min.js,gmlib/unit/gomelib/1.0.0/gomelib.min.js,gmlib/unit/templatenav/1.0.0/templatenav.min.js,gmlib/ui/form/1.0.0/form.min.js,gmlib/ui/json3/3.3.2/json3.min.js,gmlib/ui/gload/1.0.0/gload.min.js,gmlib/ui/gclickshow/1.0.0/gclickshow.min.js,gmlib/ui/ghover/1.0.0/ghover.min.js,gmlib/ui/ginputfocus/1.0.0/ginputfocus.min.js,gmlib/ui/glaterimg/1.0.0/glaterimg.min.js,gmlib/ui/greplaceimg/1.0.0/greplaceimg.min.js,gmlib/ui/gshowhide/1.0.0/gshowhide.min.js,gmlib/ui/gbacktop/1.0.0/gbacktop.min.js,gmlib/ui/curnav/1.0.0/curnav.min.js,gmpro/2.0.0/member/4.4.4/js/common/gSlider.js,gmlib/ui/gpop/1.0.0/gpop.min.js,gmlib/unit/gcollect/1.0.0/gcollect.min.js,gmlib/unit/live800/1.0.0/live800.min.js,gmlib/unit/cart/1.0.0/addCart.min.js,gmpro/2.0.0/member/4.4.4/js/common/config.js,gmpro/2.0.0/member/4.4.4/js/common/component.js,gmpro/2.0.0/member/4.4.4/js/common/component/navTab.js,gmpro/2.0.0/member/4.4.4/js/common/component/pager.js,gmpro/2.0.0/member/4.4.4/js/common/component/combox.js,gmpro/2.0.0/member/4.4.4/js/common/richTreasure/popBox.js,gmpro/2.0.0/member/4.4.4/js/common/ucleft/ucLeftNavTpl.js,gmpro/2.0.0/member/4.4.4/js/common/ucleft/ucLeftNavLive.js,gmpro/2.0.0/member/4.4.4/js/common/ajaxupload.js,gmpro/2.0.0/member/4.4.4/js/profile/tab.js,gmlib/sea/seajs/3.0.0/sea.js,gmlib/sea/seajs-combo/1.0.0/seajs-combo.js,gmpro/2.0.0/member/4.4.4/js/profile/personalInfoTpl.js,gmpro/2.0.0/member/4.4.4/js/profile/personalInfoLive.js"></script>-->
 
+<script type="text/javascript">
+    $(function () {
+        //悬浮字体变色
+        $(".side-nav  div ul li").hover(
+            function () {
+                $(this).addClass("active");
+            },
+            function () {
+                $(this).removeClass("active");
+            }
+        );
+        //悬浮显示头上下拉款
+        $(".gomeNav li").hover(
+            function () {
+                $(this).addClass("navCur").siblings().removeClass("navCur");
+            },function () {
+                $(this).removeClass("navCur");
+            }
+        );
+        //点击显示下拉框
+        $("#order").click(
+          function () {
+              if($("#sel_choos ul").is(':hidden')){
+                  $("#sel_choos ul").show();
+              }else{
+                  $("#sel_choos ul").hide();
+              }
+          }
+        );
+        //下拉框选中
+        $("#sel_choos ul li").click(function () {
+            var text=$(this).find("a").text();
+            $("#order").text(text);
+            $("#sel_choos ul").hide();
+        });
+        //订单的状态
+        $("#status").click(function () {
+            if($("#all-status ul").is(':hidden')){
+                $("#all-status ul").show();
+            }else{
+                $("#all-status ul").hide();
+            }
+        });
+        //订单状态的选中
+        $("#all-status ul li").click(function () {
+            var text=$(this).find("a").text();
+            $("#status").text(text);
+            $("#all-status ul").hide();
+        });
+    });
+</script>
 </body>
 </html>
