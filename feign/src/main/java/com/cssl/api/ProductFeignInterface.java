@@ -95,6 +95,26 @@ public interface ProductFeignInterface {
     @RequestMapping("vip_goods/vipGoodsFindAllQian")
     PageInfo<Map<String, Object>> vipGoodsFindAllQian(@RequestParam Map<String, Object> map);
 
+    //最近浏览
+    @RequestMapping("goods/browseGoods")
+    List<Goods> browseGoods(@RequestBody(required=false)  String value);
+
+    @RequestMapping("vip_goods/vipInfo")
+    Map<String,Object> vipInfo(@RequestParam("gid") Integer gid);
+
+
+    //----------------------------订单前台模块-----------------------------
+    //用户订单
+    @RequestMapping("orders/findOrdersByUserId")
+    PageInfo<Map<String, Object>> findOrdersByUserId(@RequestParam Map<String, Object> map);
+
+    //订单详情
+    @RequestMapping("orders/findOrdersDetail")
+    List<Map<String,Object>> findOrdersDetail(@RequestParam("oid") Integer oid);
+
+    @RequestMapping("orders/findOrders")
+    Orders findOrders(@RequestParam("oid") Integer oid);
+
 
     //--------------------------后台模块----------------------------------
 
