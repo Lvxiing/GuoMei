@@ -53,4 +53,9 @@ public class Vip_goodsServiceImpl extends ServiceImpl<Vip_goodsMapper, VipGoods>
         vip_goodsMapper.vipGoodsFindAllqian(map);
         return page;
     }
+
+    @Override
+    public Map<String, Object> vipInfo(Integer gid) {
+        return vip_goodsMapper.vipInfo(gid);
+    }
 }

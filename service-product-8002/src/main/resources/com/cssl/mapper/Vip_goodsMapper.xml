@@ -64,4 +64,11 @@
         </where>
     </select>
 
+    <select id="vipInfo" resultType="map">
+        SELECT g.`grade_name`,g.`Discount_money`,d.goods_price FROM vip_goods v
+        INNER JOIN grade g ON v.grade_id = g.grade_id
+        INNER JOIN goods d ON v.`goods_id` = d.`goods_id`
+        WHERE v.`goods_id` = #{gid}
+    </select>
+
 </mapper>
