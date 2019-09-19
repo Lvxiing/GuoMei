@@ -200,47 +200,26 @@
         <div class="wbox headBox">
             <div class="myhomeLogo"></div>
             <ul class="gomeNav clearfix">
-                <li class="curArrow gomeNavList"><a class="bgColor"
-                                                    href="//myhome.gome.com.cn/member/profileHome">首页</a></li>
-                <li class="w107 gomeNavList">
+                <li class="gomeNavList">
+                    <a class="bgColor" href="">首页</a></li>
+                <li class="w107 gomeNavList curArrow">
                     <a href="javascript:;">账户设置<i></i></a>
                     <ul class="navList w105">
-                        <li><a href="//myhome.gome.com.cn/member/accountSecurity?atc=atc">帐户安全</a></li>
-                        <li><a href="//myhome.gome.com.cn/member/profile">基本资料</a></li>
-                        <li><a href="//myhome.gome.com.cn/member/addressPage">收货地址</a></li>
-                        <li><a href="//myhome.gome.com.cn/member/myInvoice">增票认证</a></li>
-                        <li><a href="//myhome.gome.com.cn/member/gomeIntegration">我的会员卡</a></li>
-                        <li><a href="//club.gome.com.cn/member/bindChange">账号绑定</a></li>
+                        <li class=""><a href="">帐户安全</a></li>
+                        <li class=""><a href="profile.html">基本资料</a></li>
+                        <li class=""><a href="addressPage.html">收货地址</a></li>
                     </ul>
                 </li>
                 <li class="w125 gomeNavList">
                     <a href="javascript:;" class="club">会员俱乐部<i></i></a>
                     <ul class="navList w123">
-                        <li><a href="//club.gome.com.cn">会员俱乐部</a></li>
-                        <li><a href="//club.gome.com.cn/member/memberLevel">会员等级</a></li>
-                        <li><a href="//quanyi.gome.com.cn">会员权益</a></li>
-                        <li><a href="//club.gome.com.cn/member/memberGiftbag" data-code="clubdh-libao">我的礼包</a></li>
-                    </ul>
-                </li>
-                <li class="w107 gomeNavList community ">
-                    <a href="javascript:;">社区<i></i></a>
-                    <ul class="navList w105">
-                        <li><a href="//myhome.gome.com.cn/group/all" target="_blank">我的圈子</a></li>
-                        <li><a href="//myhome.gome.com.cn/topic/published" target="_blank">我的话题</a></li>
+                        <li class=""><a href="vip_club.html">会员俱乐部</a></li>
+                        <li class=""><a href="vipLevel.html">会员等级</a></li>
+                        <li class=""><a href="" data-code="clubdh-libao">我的礼包</a></li>
                     </ul>
                 </li>
             </ul>
             <div class="gomeTopRight">
-                <div class="top_earch clearfix">
-                    <form id="searchForm" method="get" action="//search.gome.com.cn/search"
-                          onsubmit="return keyCheck();">
-                        <label id="keyLabel" class="topOvertips" style="display:block;" default=""></label>
-                        <input type="text" id="searchInput" name="question" class="searchInput" value=""
-                               autocomplete="off"
-                               onpropertychange="if(this.value.length>200){this.value=this.value.slice(0,199)}">
-                        <button class="searchBtn" onclick="doSearch();"></button>
-                    </form>
-                </div>
                 <!--搜索结束-->
                 <!--搜索弹框-->
                 <div class="searchtips" id="searchTips" style="display:none;">
@@ -248,13 +227,32 @@
                 </div>
                 <!--min 购物车-->
                 <div class="shopcartbox">
-                    <a rel="nofollow" class="shopinglist ucCart" href="//cart.gome.com.cn" target="_blank">
-                        <em>购物车</em><span id="commerceItemQuantityId">0</span>件<i></i>
+                    <a rel="nofollow" class="shopinglist ucCart" target="_blank" id="a" href="car.html">
+                        <em>购物车</em><span>1</span>件<i></i>
                     </a>
                     <!--隐藏的迷你购物车列表-->
                     <div class="menuhide j-overflowy" id="miniShoppingcartLoadId">
-                        <div id="csLoading" class="loding-layer"><span class="g-loading"></span><span
-                                class="loading-text">正在加载中…</span></div>
+                        <div class="mini-products"><h2 class="hdrcartitle">最近加入的商品：</h2>
+                            <ul class="mini-nProductLists">
+                                <li class="mini-list clearfix">
+                                    <dl class="nProduct-huod realMini">
+                                        <dd class="mini-huod-list min-sideline-list clearfix">
+                                            <div class="mini-product-info clearfix">
+                                                <div class="mini-pCol-img">
+                                                    <a style="position: relative;" target="_blank" title="咏竹缘竹纤维大毛巾 福利毛巾 成人毛巾  柔软 竹纤维毛巾礼品" href="product_details.html">
+                                                        <img alt="" src="//gfs17.gomein.net.cn/T1vAY_B4Dv1RCvBVdK_80.jpg" width="50" height="50"></a></div>
+                                                <div class="mini-pCol-name"><p><a target="_blank" class="nMinCartBlue" title="咏竹缘竹纤维大毛巾 福利毛巾 成人毛巾  柔软 竹纤维毛巾礼品" href="product_details.html">咏竹缘竹纤维大毛巾
+                                                    福利毛巾 成人毛巾 柔软 竹纤维毛巾礼品...</a></p></div>
+                                                <div class="mini-pCol-row"><span class="yuan"><b>¥20.80</b></span> <span class="quantity">2</span> <span isclick="" mcart-count="" mcart-count-min="1" mcart-count-change-interval="100" mcart-change-count="" data-cid="5472195259" data-limit="99" class="mcart-count">                                                            <a href="javascript:;" type="down" mcart-count-sub="" class="mcart-count-btn mcart-count-sub   ">-</a>                                                            <a href="javascript:;" type="up" mcart-count-add="" class="   mcart-count-btn mcart-count-add  ">+</a>                                                            <div class="mcart-count-input"><input maxlength="3" name="num" type="text" value="2">                                                            </div>                                                    </span>
+                                                    <a class="nLowLeight miniDel" href="javascript:void(0)" title="删除" data-itemid="5472195259">删除</a></div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </li>
+                            </ul>
+                            <div id="atg_store_csFooter1" class="cartfooter"><h4> 已选 <i><span id="csQuantity">5</span></i> 件 ，共计： <strong><span id="csSubtotal">¥</span>495.60</strong></h4>
+                                <a data-code="cart01002" id="csCheckout" style="text-decoration:none;" class="gocart" href="car.html" title="去购物车"> <span>去购物车</span> </a></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -273,6 +271,7 @@
 
             <!--#--模板开始---->
             <div class="sidenav-ul padd-top-10">
+                <!--#--模板开始---->
                 <div class="sideBar-sort">订单中心</div>
                 <ul>
                     <li>
@@ -284,24 +283,9 @@
                     <li>
                         <a href="gm-appraise.html">评价晒单</a><span></span>
                     </li>
-                    <li>
-                        <a href="//www.gomegj.com/order.html" target="_blank">服务单</a><span></span>
-                    </li>
-                    <li>
-                        <a href="//yjhx.gome.com.cn/order.html" target="_blank">以旧换新</a><span></span>
-                    </li>
-                    <li class="">
-                        <a href="//myhome.gome.com.cn/member/myInsureDelay">延保服务</a><span></span>
-                    </li>
                 </ul>
                 <div class="sideBar-sort">资产中心</div>
                 <ul>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/gomeVirtualAcount">国美币余额</a><span></span>
-                    </li>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/gomeVirtualCard">美通卡</a><span></span>
-                    </li>
                     <li>
                         <a href="gm-myMD.html">我的美豆</a><span></span>
                     </li>
@@ -315,42 +299,22 @@
                 <div class="sideBar-sort">管理中心</div>
                 <ul>
                     <li>
-                        <a href="gm-shoucang.html" style="color:#f5323f;">我的收藏</a><span></span>
-                    </li>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/myReservation">我的预约</a><span></span>
+                        <a href="gm-shoucang.html">我的收藏</a><span></span>
                     </li>
                     <li>
                         <a href="gm-myfoot.html">我的足迹</a><span></span>
                     </li>
-                    <li>
-                        <a href="myGoodsQuestion.html">我的咨询</a><span></span>
-                    </li>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/myComplaint">投诉管理</a><span></span>
-                    </li>
                 </ul>
                 <div class="sideBar-sort">账户设置</div>
                 <ul>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/accountSecurity?atc=atc">账户安全</a><span></span>
-                    </li>
                     <li id="li">
                         <a href="profile.html">基本资料</a><span></span>
                     </li>
                     <li>
                         <a href="addressPage.html">收货地址</a><span></span>
                     </li>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/myInvoice">增票认证</a><span></span>
-                    </li>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/gomeIntegration">我的会员卡</a><span></span>
-                    </li>
-                    <li>
-                        <a href="//club.gome.com.cn/member/bindChange">账号绑定</a><span></span>
-                    </li>
                 </ul>
+
             </div>
         </div>
         <!-- 主体内容 -->
@@ -927,6 +891,26 @@
     <!-- gome-bar-box -->
 </div>
 <!--aside-->
-
+<script type="text/javascript">
+    $(function () {
+        //悬浮字体变色
+        $(".side-nav  div ul li").hover(
+            function () {
+                $(this).addClass("active");
+            },
+            function () {
+                $(this).removeClass("active");
+            }
+        );
+        //悬浮显示头上下拉款
+        $(".gomeNav li").hover(
+            function () {
+                $(this).addClass("navCur").siblings().removeClass("navCur");
+            },function () {
+                $(this).removeClass("navCur");
+            }
+        );
+    });
+</script>
 </body>
 </html>

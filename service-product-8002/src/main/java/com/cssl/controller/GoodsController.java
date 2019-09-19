@@ -9,12 +9,9 @@ import com.cssl.service.GoodsService;
 import com.cssl.service.Vip_goodsService;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -123,61 +120,17 @@ public class GoodsController {
         map.put("diffCount", diffCount);
         map.put("centCount", centCount);
         map.put("count", count);
-
-        Cookie cookie = null;
-        String value = null;  //保存新的cookie中的值
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null && cookies.length > 0) {
-            for (Cookie cook : cookies) {
-                if (cook.getName().equals("gid")) {
-                    cookie = cook;
-                    break;
-                }
-            }
-        }
-        if (cookie == null) {
-            cookie = new Cookie("gid", gid.toString());
-        } else { //已存在
-            String pId = cookie.getValue();
-            String[] ids = pId.split(",");
-            value = "";//先清空
-            for (int i = 0; i < ids.length; i++) {
-                if (!ids[i].equals(gid.toString())) {
-                    value += ids[i] + ",";
-                }
-            }
-            value = value.substring(0, value.length() - 1);
-            value = gid.toString() + "," + value;//叠加新的值
-            String[] idss = value.split(",");
-            if (idss.length > 10) {
-                value = value.substring(0, value.lastIndexOf(","));
-            }
-            cookie.setValue(value);
-
-        }
-        cookie.setMaxAge(60 * 60 * 24 * 7);
-        response.addCookie(cookie);
-        List<Goods> goods = browseGoods(request, response);
-        map.put("browseGoods", goods);
         return map;
     }
 
 
     //最近浏览商品
-    public List<Goods> browseGoods(HttpServletRequest request, HttpServletResponse response) {
-        List<Goods> goods = new ArrayList<Goods>();
-        Cookie[] cookie = request.getCookies();
-        String value = null;
-        if (cookie != null) {
-            for (Cookie c : cookie) {
-                if (c.getName().equals("gid")) {
-                    value = c.getValue();
-                    break;
-                }
-            }
-        }
+    @ResponseBody
+    @RequestMapping("browseGoods")
+    public List<Goods> browseGoods(@RequestBody(required=false) String value) {
+       List<Goods> goods = new ArrayList<>();
         if (value != null) {
-            String[] id = value.split(",");
+            String[] id = value.split("#");
             for (int i = 0; i < id.length; i++) {
                 goods.add(goodsService.getOne(new QueryWrapper<Goods>().eq("goods_id", Integer.valueOf(id[i]))));
             }

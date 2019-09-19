@@ -134,25 +134,25 @@ function floor(key, id, color) {
         var uls = "<ul class='w62' style='width: 85px'>";
         for (var i = 0; i < json.length; i++) {
             if (id == 68 || id == 94) {
-                channelbg += "<li class='edit-mode'><a href='#' target='_blank' data-code='1000060863-1'>" + json[i].name + "</a></li>";
+                channelbg += "<li class='edit-mode'><a href='categoryList.html?cid="+json[i].cid+"&level="+json[i].clevel+"' target='_blank' data-code='1000060863-1'>" + json[i].name + "</a></li>";
             } else {
-                channelbg += " <a href='#' target='_blank' data-code='1000060863-1'>" + json[i].name + "</a><span>/</span>";
+                channelbg += " <a href='categoryList.html?cid="+json[i].cid+"&level="+json[i].clevel+"' target='_blank' data-code='1000060863-1'>" + json[i].name + "</a><span>/</span>";
             }
             var list = json[i].categoryChildren;
             for (var j = 0; j < list.length; j++) {
                 if (id != 68 && id != 94) {
-                    channelbg += "<a href='#' target='_blank' data-code='1000060863-1'>" + list[j].name + "</a><span>/</span>";
+                    channelbg += "<a href='categoryList.html?cid="+json[i].cid+"&level="+json[i].clevel+"' target='_blank' data-code='1000060863-1'>" + list[j].name + "</a><span>/</span>";
                 }
                 var lists = json[i].categoryChildren[j].categoryChildren;
                 if (id != 26) {
-                    ul += "<li><a href='#' target='_blank'>" + list[j].name + "</a></li>";
+                    ul += "<li><a href='categoryList.html?cid="+json[i].cid+"&level="+json[i].clevel+"' target='_blank'>" + list[j].name + "</a></li>";
                 }
                 uls += "<li>";
                 for (var k = 0; k < lists.length; k++) {
                     if (id == 26) {
-                        ul += "<li><a href='#' target='_blank'>" + lists[k].name + "手机</a></li>";
+                        ul += "<li><a href='categoryList.html?cid="+json[i].cid+"&level="+json[i].clevel+"' target='_blank'>" + lists[k].name + "手机</a></li>";
                     } else {
-                        uls += "<a href='#' target='_blank'>" + lists[k].name + "</a>  ";
+                        uls += "<a href='categoryList.html?cid="+json[i].cid+"&level="+json[i].clevel+"' target='_blank'>" + lists[k].name + "</a>  ";
                     }
                 }
                 uls += "</li>";
@@ -167,29 +167,29 @@ function floor(key, id, color) {
 
 //根据分类编号查询子分类
 function category(cid) {
-    $.getJSON("../../category/findCategoryAndChild", {"parentId": cid}, function (json) {
-        var div = "<div class='fullcategory' style='display: none;' id='cid-" + cid + "'><div class='fullcategory-left'>";
-        div += " <div class='fullcategory-title'>";
-        var divs = "";
-        for (var i = 0; i < json.length; i++) {
-            div += "<a href='#' title='" + json[i].name + "'>" + json[i].name + "<i></i></a>";
-            divs += "<div class='fullcategory-content' style='width: 769px;'><ul class='fullcategory-list' style='width: 769px;'>  <div class='title' style='margin-top: -8px;_margin: -8px 0;'>" + json[i].name + "</div> <div class='list' style='width: 700px;'>";
-            var list = json[i].categoryChildren;
-            var divss = "";
-            for (var j = 0; j < list.length; j++) {
-                divss += "<a href='#' target='_blank' class='hot' cid='" + list[j].cid + "' title='" + list[j].name + "'>" + list[j].name + "</a>";
-                var lists = json[i].categoryChildren[j].categoryChildren;
-                for (var k = 0; k < lists.length; k++) {
-                    divss += "<a href='#' target='_blank' cid='" + lists[k].cid + "' title='" + lists[k].name + "'>" + lists[k].name + "</a>";
+    $.getJSON("../../category/findCategoryAndChild",{"parentId":cid}, function (json) {
+        var div="<div class='fullcategory' style='display: none;' id='cid-"+cid+"'><div class='fullcategory-left'>";
+        div+=" <div class='fullcategory-title'>";
+        var divs="";
+        for(var i=0;i<json.length;i++){
+            div+="<a href='#' title='"+json[i].name+"'>"+json[i].name+"<i></i></a>";
+            divs+="<div class='fullcategory-content' style='width: 769px;'><ul class='fullcategory-list' style='width: 769px;'>  <div class='title' style='margin-top: -8px;_margin: -8px 0;'>"+json[i].name+"</div> <div class='list' style='width: 700px;'>";
+            var list=json[i].categoryChildren;
+            var divss="";
+            for(var j=0;j<list.length;j++){
+                divss+="<a href='categoryList.html?cid="+list[j].cid+"&level="+list[j].clevel+"' target='_blank' class='hot'  title='"+list[j].name+"'>"+list[j].name+"</a>";
+                var lists=json[i].categoryChildren[j].categoryChildren;
+                for(var k=0;k<lists.length;k++){
+                    divss+="<a href='categoryList.html?cid="+lists[k].cid+"&level="+lists[k].clevel+"' target='_blank'  title='"+lists[k].name+"'>"+lists[k].name+"</a>";
                 }
-                divs += divss;
+                divs+=divss;
             }
-            divs += "</div></ul></div>";
+            divs+="</div></ul></div>";
         }
-        div += "</div>";
-        div += "<div class='fullcategory-content-box' id='fullcategory-content-box'style='width: 769px;'>";
-        div += divs;
-        div += "</div></div></div>";
+        div+="</div>";
+        div+="<div class='fullcategory-content-box' id='fullcategory-content-box'style='width: 769px;'>";
+        div+=divs;
+        div+="</div></div></div>";
         $("#loading1-sync").append(div);
     });
 }

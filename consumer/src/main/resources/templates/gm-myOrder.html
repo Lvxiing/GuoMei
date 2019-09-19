@@ -20,33 +20,12 @@
     <link rel="shortcut icon" href="font/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/myorder1.css">
     <link rel="stylesheet" href="css/myOrder.css">
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script src="js/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="js/storeOrderLive.js"></script>
-    <!--<script async="" src="https://js.gomein.net.cn/sitemonitor/tjs/sensorsdata/sensorsdata.min.js"-->
-            <!--charset="UTF-8"></script>-->
-    <!--<script type="text/javascript">var dynSite = '//g.gome.com.cn', staSite = '//www.gome.com.cn',
-        gomeplusDomain = '.gome.com.cn', contextPath = '/ec/homeus', cookieDomain = '.gome.com.cn',
-        imgServer = '//app.gomein.net.cn/images', stageJsServer = '//js.gomein.net.cn',
-        stageImageServer = '//img.gomein.net.cn', stageCssServer = '//css.gomein.net.cn',
-        gomeplusCdn = '//js.meixincdn.com/m/pc/', versionData = '1908220612';</script>-->
-
-
-    <!--<script type="text/javascript">var gfeJsCdn = "//js.gomein.net.cn", gfeCssCdn = "//css.gomein.net.cn",
-        gfeProjectPath = "/gmpro/2.0.0/member/4.4.4";</script>-->
-
+    <script type="text/javascript" src="js/myOrder.js"></script>
 </head>
 <body data-page="myhome">
-<!--<script type="text/javascript">
 
-    var pageName = "用户中心:我的国美:我的订单",
-        prop = "用户中心",
-        flag = 0;
-</script>-->
-<!-- 返利的导航 -->
-<!--头部end--><!--newads-->
-<!--newads-->
 <div class="gome-top">
     <div id="gome-top-body" class="wbox">
         <ul>
@@ -58,7 +37,8 @@
 
         </ul>
         <ul id="gome-top-right">
-            <li class="gome-link"><a rel="nofollow" data-code="public01004" href="/gm-myOrder.html/myhome.gome.com.cn/member/myOrder">我的订单</a>
+            <li class="gome-link"><a rel="nofollow" data-code="public01004"
+                                     href="/gm-myOrder.html/myhome.gome.com.cn/member/myOrder">我的订单</a>
             </li>
             <li id="gome-mygome" data-load="mygome">
                 <b><a rel="nofollow" data-code="public01050" href="//myhome.gome.com.cn/member/profileHome"
@@ -115,19 +95,25 @@
                             <ul>
                                 <li><a data-code="1000043234-0" href="//tuan.gome.com.cn/" target="_blank">真划算</a></li>
                                 <li><a data-code="1000043234-1" href="//q.gome.com.cn/" target="_blank">抢购</a></li>
-                                <li><a data-code="1000043234-2" href="//www.gomehome.com/?intcmp=sy-1000037121-2" target="_blank">美家致选</a></li>
+                                <li><a data-code="1000043234-2" href="//www.gomehome.com/?intcmp=sy-1000037121-2"
+                                       target="_blank">美家致选</a></li>
                             </ul>
                             <ul>
-                                <li><a data-code="1000043236-0" href="//jiadian.gome.com.cn/" target="_blank">家电城</a></li>
-                                <li><a data-code="1000043236-1" href="//fashion.gome.com.cn/" target="_blank">服饰城</a></li>
-                                <li><a data-code="1000043236-2" href="//market.gome.com.cn/" target="_blank">国美超市</a></li>
+                                <li><a data-code="1000043236-0" href="//jiadian.gome.com.cn/" target="_blank">家电城</a>
+                                </li>
+                                <li><a data-code="1000043236-1" href="//fashion.gome.com.cn/" target="_blank">服饰城</a>
+                                </li>
+                                <li><a data-code="1000043236-2" href="//market.gome.com.cn/" target="_blank">国美超市</a>
+                                </li>
                                 <li><a data-code="1000043236-3" href="//tehui.gome.com.cn/" target="_blank">品牌街</a></li>
                             </ul>
                             <ul>
                                 <li><a data-code="1000043238-0" href="//smart.gome.com.cn/" target="_blank">智能</a></li>
-                                <li><a data-code="1000043238-1" href="//www.gome.com.cn/bestGome.html" target="_blank">今日特卖</a><i class="hot"></i></li>
+                                <li><a data-code="1000043238-1" href="//www.gome.com.cn/bestGome.html" target="_blank">今日特卖</a><i
+                                        class="hot"></i></li>
                                 <li><a data-code="1000043238-2" href="//new.gome.com.cn/" target="_blank">新品抢先</a></li>
-                                <li><a data-code="1000043238-3" href="//homes.gome.com.cn/?intcmp=sy-1000000378-8" target="_blank">家居家装</a></li>
+                                <li><a data-code="1000043238-3" href="//homes.gome.com.cn/?intcmp=sy-1000000378-8"
+                                       target="_blank">家居家装</a></li>
                             </ul>
                         </dd>
                     </dl>
@@ -135,35 +121,50 @@
                         <dt>特色分类</dt>
                         <dd>
                             <ul>
-                                <li><a data-code="1000043241-0" href="//electronic.gome.com.cn/" target="_blank">电视影音</a></li>
+                                <li><a data-code="1000043241-0" href="//electronic.gome.com.cn/"
+                                       target="_blank">电视影音</a></li>
                                 <li><a data-code="1000043241-1" href="//bx.gome.com.cn/" target="_blank">冰洗</a></li>
                                 <li><a data-code="1000043241-2" href="//xyj.gome.com.cn/" target="_blank">洗衣机</a></li>
                                 <li><a data-code="1000043241-3" href="//kt.gome.com.cn/" target="_blank">空调</a></li>
                                 <li><a data-code="1000043241-4" href="//life.gome.com.cn/" target="_blank">厨卫生活</a></li>
                             </ul>
                             <ul>
-                                <li><a data-code="1000043243-0" href="//tongxun.gome.com.cn/" target="_blank">手机</a></li>
-                                <li><a data-code="1000043243-1" href="//digital.gome.com.cn/" target="_blank">数码</a></li>
-                                <li><a data-code="1000043243-2" href="//computer.gome.com.cn/" target="_blank">电脑办公</a></li>
-                                <li><a data-code="1000043243-3" href="//peijian.gome.com.cn/" target="_blank">精品配件</a></li>
+                                <li><a data-code="1000043243-0" href="//tongxun.gome.com.cn/" target="_blank">手机</a>
+                                </li>
+                                <li><a data-code="1000043243-1" href="//digital.gome.com.cn/" target="_blank">数码</a>
+                                </li>
+                                <li><a data-code="1000043243-2" href="//computer.gome.com.cn/" target="_blank">电脑办公</a>
+                                </li>
+                                <li><a data-code="1000043243-3" href="//peijian.gome.com.cn/" target="_blank">精品配件</a>
+                                </li>
                                 <li><a data-code="1000043243-4" href="//auto.gome.com.cn/" target="_blank">汽车</a></li>
                             </ul>
                             <ul>
-                                <li><a data-code="1000043245-0" href="//furnit.gome.com.cn/" target="_blank">住宅家具</a></li>
-                                <li><a data-code="1000043245-1" href="//decoration.gome.com.cn/" target="_blank">家装建材</a></li>
-                                <li><a data-code="1000043245-2" href="//jiaju.gome.com.cn/" target="_blank">家居日用</a></li>
-                                <li><a data-code="1000043245-3" href="//jiafang.gome.com.cn/" target="_blank">床品家纺</a></li>
+                                <li><a data-code="1000043245-0" href="//furnit.gome.com.cn/" target="_blank">住宅家具</a>
+                                </li>
+                                <li><a data-code="1000043245-1" href="//decoration.gome.com.cn/"
+                                       target="_blank">家装建材</a></li>
+                                <li><a data-code="1000043245-2" href="//jiaju.gome.com.cn/" target="_blank">家居日用</a>
+                                </li>
+                                <li><a data-code="1000043245-3" href="//jiafang.gome.com.cn/" target="_blank">床品家纺</a>
+                                </li>
                             </ul>
                             <ul>
-                                <li><a data-code="1000043247-0" href="//clothing.gome.com.cn/" target="_blank">服饰鞋帽</a></li>
-                                <li><a data-code="1000043247-1" href="//toysgifts.gome.com.cn/" target="_blank">运动户外</a></li>
-                                <li><a data-code="1000043247-2" href="//luxury.gome.com.cn/" target="_blank">箱包奢品</a></li>
-                                <li><a data-code="1000043247-3" href="//watch.gome.com.cn/" target="_blank">钟表首饰</a></li>
+                                <li><a data-code="1000043247-0" href="//clothing.gome.com.cn/" target="_blank">服饰鞋帽</a>
+                                </li>
+                                <li><a data-code="1000043247-1" href="//toysgifts.gome.com.cn/" target="_blank">运动户外</a>
+                                </li>
+                                <li><a data-code="1000043247-2" href="//luxury.gome.com.cn/" target="_blank">箱包奢品</a>
+                                </li>
+                                <li><a data-code="1000043247-3" href="//watch.gome.com.cn/" target="_blank">钟表首饰</a>
+                                </li>
                             </ul>
                             <ul>
-                                <li><a data-code="1000043249-0" href="//alcohol.gome.com.cn/" target="_blank">食品酒水</a></li>
+                                <li><a data-code="1000043249-0" href="//alcohol.gome.com.cn/" target="_blank">食品酒水</a>
+                                </li>
                                 <li><a data-code="1000043249-1" href="//baby.gome.com.cn/" target="_blank">母婴玩具</a></li>
-                                <li><a data-code="1000043249-2" href="//beauty.gome.com.cn/" target="_blank">美妆个护</a></li>
+                                <li><a data-code="1000043249-2" href="//beauty.gome.com.cn/" target="_blank">美妆个护</a>
+                                </li>
                             </ul>
                         </dd>
                     </dl>
@@ -171,12 +172,16 @@
                         <dt>便捷服务</dt>
                         <dd>
                             <ul>
-                                <li><a data-code="1000043255-0" href="//wt.gome.com.cn/recharge" target="_blank">话费充值</a></li>
-                                <li><a data-code="1000043255-1" href="//meidian.gome.com.cn" target="_blank">美店</a><i class="new"></i></li>
+                                <li><a data-code="1000043255-0" href="//wt.gome.com.cn/recharge"
+                                       target="_blank">话费充值</a></li>
+                                <li><a data-code="1000043255-1" href="//meidian.gome.com.cn" target="_blank">美店</a><i
+                                        class="new"></i></li>
                             </ul>
                             <ul>
-                                <li><a data-code="1000043257-0" href="//wt.gome.com.cn/recharge/flowindex.html" target="_blank">流量充值</a></li>
-                                <li><a data-code="1000043257-1" href="//mall.gome.com.cn/80011410" target="_blank">上门服务</a></li>
+                                <li><a data-code="1000043257-0" href="//wt.gome.com.cn/recharge/flowindex.html"
+                                       target="_blank">流量充值</a></li>
+                                <li><a data-code="1000043257-1" href="//mall.gome.com.cn/80011410"
+                                       target="_blank">上门服务</a></li>
                             </ul>
                         </dd>
                     </dl>
@@ -184,9 +189,12 @@
                         <dt>更多热点</dt>
                         <dd>
                             <ul>
-                                <li><a data-code="1000043260-0" href="//www.gome.com.cn/jiameng" target="_blank">加盟国美</a></li>
-                                <li><a data-code="1000043260-1" href="//www.gome.com.cn/join/" target="_blank">商家入驻</a></li>
-                                <li><a data-code="1000043260-2" href="//b.gome.com.cn/" target="_blank">企业采购</a><i class="hot"></i></li>
+                                <li><a data-code="1000043260-0" href="//www.gome.com.cn/jiameng"
+                                       target="_blank">加盟国美</a></li>
+                                <li><a data-code="1000043260-1" href="//www.gome.com.cn/join/" target="_blank">商家入驻</a>
+                                </li>
+                                <li><a data-code="1000043260-2" href="//b.gome.com.cn/" target="_blank">企业采购</a><i
+                                        class="hot"></i></li>
                             </ul>
                         </dd>
                     </dl>
@@ -211,53 +219,31 @@
         </ul>
     </div>
 </div>
-<!--gome_top-->
 <div class="main_header">
     <div class="ucGomeTopic">
         <div class="wbox headBox">
             <div class="myhomeLogo"></div>
             <ul class="gomeNav clearfix">
-                <li class="gomeNavList curArrow"><a class="bgColor"
-                                                    href="//myhome.gome.com.cn/member/profileHome">首页</a></li>
-                <li class="w107 gomeNavList">
+                <li class="gomeNavList">
+                    <a class="bgColor" href="">首页</a></li>
+                <li class="w107 gomeNavList curArrow">
                     <a href="javascript:;">账户设置<i></i></a>
                     <ul class="navList w105">
-                        <li><a href="//myhome.gome.com.cn/member/accountSecurity?atc=atc">帐户安全</a></li>
-                        <li><a href="//myhome.gome.com.cn/member/profile">基本资料</a></li>
-                        <li><a href="//myhome.gome.com.cn/member/addressPage">收货地址</a></li>
-                        <li><a href="//myhome.gome.com.cn/member/myInvoice">增票认证</a></li>
-                        <li><a href="//myhome.gome.com.cn/member/gomeIntegration">我的会员卡</a></li>
-                        <li><a href="//club.gome.com.cn/member/bindChange">账号绑定</a></li>
+                        <li><a href="">帐户安全</a></li>
+                        <li><a href="profile.html">基本资料</a></li>
+                        <li><a href="addressPage.html">收货地址</a></li>
                     </ul>
                 </li>
                 <li class="w125 gomeNavList">
                     <a href="javascript:;" class="club">会员俱乐部<i></i></a>
                     <ul class="navList w123">
-                        <li><a href="//club.gome.com.cn">会员俱乐部</a></li>
-                        <li><a href="//club.gome.com.cn/member/memberLevel">会员等级</a></li>
-                        <li><a href="//quanyi.gome.com.cn">会员权益</a></li>
-                        <li><a href="//club.gome.com.cn/member/memberGiftbag" data-code="clubdh-libao">我的礼包</a></li>
-                    </ul>
-                </li>
-                <li class="w107 gomeNavList community">
-                    <a href="javascript:;">社区<i></i></a>
-                    <ul class="navList w105">
-                        <li><a href="//myhome.gome.com.cn/group/all" target="_blank">我的圈子</a></li>
-                        <li class=""><a href="//myhome.gome.com.cn/topic/published" target="_blank">我的话题</a></li>
+                        <li class=""><a href="vip_club.html">会员俱乐部</a></li>
+                        <li><a href="vipLevel.html">会员等级</a></li>
+                        <li><a href="" data-code="clubdh-libao">我的礼包</a></li>
                     </ul>
                 </li>
             </ul>
             <div class="gomeTopRight">
-                <div class="top_earch clearfix">
-                    <form id="searchForm" method="get" action="//search.gome.com.cn/search"
-                          onsubmit="return keyCheck();">
-                        <label id="keyLabel" class="topOvertips" style="display:block;" default=""></label>
-                        <input type="text" id="searchInput" name="question" class="searchInput" value=""
-                               autocomplete="off"
-                               onpropertychange="if(this.value.length>200){this.value=this.value.slice(0,199)}">
-                        <button class="searchBtn" onclick="doSearch();"></button>
-                    </form>
-                </div>
                 <!--搜索结束-->
                 <!--搜索弹框-->
                 <div class="searchtips" id="searchTips" style="display:none;">
@@ -265,21 +251,61 @@
                 </div>
                 <!--min 购物车-->
                 <div class="shopcartbox">
-                    <a rel="nofollow" class="shopinglist ucCart" href="//cart.gome.com.cn/" target="_blank">
-                        <em>购物车</em><span id="commerceItemQuantityId">0</span>件<i></i>
+                    <a rel="nofollow" class="shopinglist ucCart" target="_blank" id="a" href="car.html">
+                        <em>购物车</em><span>1</span>件<i></i>
                     </a>
                     <!--隐藏的迷你购物车列表-->
-                    <div class="menuhide j-overflowy" id="miniShoppingcartLoadId">
-                        <div id="csLoading" class="loding-layer"><span class="g-loading"></span><span
-                                class="loading-text">正在加载中…</span></div>
+                    <div class="menuhide j-overflowy" id="miniShoppingcartLoadId" carttype="up">
+                        <div class="mini-products"><h2 class="hdrcartitle">最近加入的商品：</h2>
+                            <ul class="mini-nProductLists">
+                                <li class="mini-list clearfix">
+                                    <dl class="nProduct-huod realMini">
+                                        <dd class="mini-huod-list min-sideline-list clearfix">
+                                            <div class="mini-product-info clearfix">
+                                                <div class="mini-pCol-img">
+                                                    <a style="position: relative;" target="_blank"
+                                                       title="咏竹缘竹纤维大毛巾 福利毛巾 成人毛巾  柔软 竹纤维毛巾礼品"
+                                                       href="product_details.html">
+                                                        <img alt=""
+                                                             src="//gfs17.gomein.net.cn/T1vAY_B4Dv1RCvBVdK_80.jpg"
+                                                             width="50" height="50"></a></div>
+                                                <div class="mini-pCol-name"><p><a target="_blank" class="nMinCartBlue"
+                                                                                  title="咏竹缘竹纤维大毛巾 福利毛巾 成人毛巾  柔软 竹纤维毛巾礼品"
+                                                                                  href="product_details.html">咏竹缘竹纤维大毛巾
+                                                    福利毛巾 成人毛巾 柔软 竹纤维毛巾礼品...</a></p></div>
+                                                <div class="mini-pCol-row"><span class="yuan"><b>¥20.80</b></span> <span
+                                                        class="quantity">2</span> <span isclick="" mcart-count=""
+                                                                                        mcart-count-min="1"
+                                                                                        mcart-count-change-interval="100"
+                                                                                        mcart-change-count=""
+                                                                                        data-cid="5472195259"
+                                                                                        data-limit="99"
+                                                                                        class="mcart-count">                                                            <a
+                                                        href="javascript:;" type="down" mcart-count-sub=""
+                                                        class="mcart-count-btn mcart-count-sub   ">-</a>                                                            <a
+                                                        href="javascript:;" type="up" mcart-count-add=""
+                                                        class="   mcart-count-btn mcart-count-add  ">+</a>                                                            <div
+                                                        class="mcart-count-input"><input maxlength="3" name="num"
+                                                                                         type="text" value="2">                                                            </div>                                                    </span>
+                                                    <a class="nLowLeight miniDel" href="javascript:void(0)" title="删除"
+                                                       data-itemid="5472195259">删除</a></div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </li>
+                            </ul>
+                            <div id="atg_store_csFooter1" class="cartfooter"><h4> 已选 <i><span
+                                    id="csQuantity">5</span></i> 件 ，共计： <strong><span
+                                    id="csSubtotal">¥</span>495.60</strong></h4>
+                                <a data-code="cart01002" id="csCheckout" style="text-decoration:none;" class="gocart"
+                                   href="car.html" title="去购物车"> <span>去购物车</span> </a></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!--gome_head -->
-<!--head-->
 
 <div class="wbox">
     <!-- 内容区 -->
@@ -289,10 +315,11 @@
 
             <!--#--模板开始---->
             <div class="sidenav-ul padd-top-10">
+                <!--#--模板开始---->
                 <div class="sideBar-sort">订单中心</div>
                 <ul>
                     <li>
-                        <a href="gm-myOrder.html" style="color:#f5323f;">我的订单</a><span></span>
+                        <a href="gm-myOrder.html">我的订单</a><span></span>
                     </li>
                     <li>
                         <a href="gm-returnPro.html">退换货单</a><span></span>
@@ -300,24 +327,9 @@
                     <li>
                         <a href="gm-appraise.html">评价晒单</a><span></span>
                     </li>
-                    <li>
-                        <a href="//www.gomegj.com/order.html" target="_blank">服务单</a><span></span>
-                    </li>
-                    <li>
-                        <a href="//yjhx.gome.com.cn/order.html" target="_blank">以旧换新</a><span></span>
-                    </li>
-                    <li class="">
-                        <a href="//myhome.gome.com.cn/member/myInsureDelay">延保服务</a><span></span>
-                    </li>
                 </ul>
                 <div class="sideBar-sort">资产中心</div>
                 <ul>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/gomeVirtualAcount">国美币余额</a><span></span>
-                    </li>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/gomeVirtualCard">美通卡</a><span></span>
-                    </li>
                     <li>
                         <a href="gm-myMD.html">我的美豆</a><span></span>
                     </li>
@@ -334,39 +346,19 @@
                         <a href="gm-shoucang.html">我的收藏</a><span></span>
                     </li>
                     <li>
-                        <a href="//myhome.gome.com.cn/member/myReservation">我的预约</a><span></span>
-                    </li>
-                    <li>
                         <a href="gm-myfoot.html">我的足迹</a><span></span>
-                    </li>
-                    <li>
-                        <a href="myGoodsQuestion.html">我的咨询</a><span></span>
-                    </li>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/myComplaint">投诉管理</a><span></span>
                     </li>
                 </ul>
                 <div class="sideBar-sort">账户设置</div>
                 <ul>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/accountSecurity?atc=atc">账户安全</a><span></span>
-                    </li>
                     <li id="li">
-                        <a href="profile.html" >基本资料</a><span></span>
+                        <a href="profile.html">基本资料</a><span></span>
                     </li>
                     <li>
                         <a href="addressPage.html">收货地址</a><span></span>
                     </li>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/myInvoice">增票认证</a><span></span>
-                    </li>
-                    <li>
-                        <a href="//myhome.gome.com.cn/member/gomeIntegration">我的会员卡</a><span></span>
-                    </li>
-                    <li>
-                        <a href="//club.gome.com.cn/member/bindChange">账号绑定</a><span></span>
-                    </li>
                 </ul>
+
             </div>
         </div>
         <!-- 订单内容 -->
@@ -388,43 +380,7 @@
                     <div class="attrV" style="width:650px;">
                         <ul class="clearfix" style="width:600px; float:left;">
                             <li><a href="javascript:;" data-index="0" val="1" class="cur allOrders">全部</a></li>
-                            <li><a href="javascript:;" data-index="0" val="5">预售订单</a></li>
-                            <li><a href="javascript:;" data-index="0" val="6">淘实惠订单</a></li>
-                            <li><a href="javascript:;" data-index="0" val="14">海外购订单</a></li>
-                            <li><a href="javascript:;" data-index="0" val="10">3D订单</a></li>
-                            <li><a href="javascript:;" data-index="0" val="13">家装订单</a></li>
-                            <li><a href="javascript:;" data-index="0" val="7">定向券订单</a></li>
                         </ul>
-                    </div>
-                </div>
-                <!--其他订单：-->
-                <div class="uc-attr">
-                    <div class="attrK">其他订单：</div>
-                    <div class="attrV" style="width:660px;">
-                        <ul class="xuni-order-box clearfix" style="width:610px; float:left;">
-                            <li><a href="javascript:;" data-index="0" val="23">门店</a></li>
-                            <li><a href="javascript:;" data-index="0" val="20">国美+</a></li>
-                            <li><a href="javascript:;" data-index="0" val="8">美通卡</a></li>
-                            <li><a href="javascript:;" data-index="11">白拿</a></li>
-                            <!--<li><a href="javascript:;" data-index="1">机票</a></li>
-                            <li><a href="javascript:;" data-index="16">度假</a></li>
-                            <li><a href="javascript:;" data-index="15">演出票</a></li>
-                            <li><a href="javascript:;" data-index="3">电影票</a></li>-->
-                            <li><a href="javascript:;" data-index="4">话费充值</a></li>
-                            <li><a href="javascript:;" data-index="12">流量充值</a></li>
-                            <!--<li id="storeOrder_btn"><a href="javascript:;" >门店扫码订单</a></li>
-                            <li class="dn"><a href="javascript:;" data-index="2">酒店</a></li>
-                            <li class="dn"><a href="javascript:;" data-index="13">火车票</a></li>
-                            <li class="dn"><a href="javascript:;" data-index="7">竞拍</a></li>-->
-                            <li><a href="javascript:;" data-index="8">游戏</a></li>
-                            <li><a href="javascript:;" data-index="0" val="9">国酷券</a></li>
-                            <li><a href="javascript:;" data-index="5">彩票</a></li>
-                            <li><a href="javascript:;" data-index="17">文化夺宝</a></li>
-                            <!--<li class="dn"><a href="javascript:;" data-index="18">教育</a></li>
-                            <li class="dn"><a href="javascript:;" data-index="19">房产</a></li>-->
-                            <li><a href="javascript:;" data-index="20">油卡充值</a></li>
-                        </ul>
-                        <!--<span class="showMoreBtn" style="float:right;">更多类型</span>-->
                     </div>
                 </div>
             </div>
@@ -434,20 +390,20 @@
                         <div class="bulletin-board clearfix">
                             <div class="bulletin_box_status" style="float:left;">
                                 <div class="pay-box">
-                                    <span class="wait-pickup" id="waitPay_lh" tval="2">待付款</span>
-                                    <span class="pay-num">0</span>
+                                    <span class="wait-pickup" id="waitPay_lh" tval="1">待付款</span>
+                                    <span class="pay-num" id="num1">0</span>
                                 </div>
                                 <span class="line"></span>
                                 <div class="pay-box">
-                                    <span class="wait-pickup" id="waitConfirm_lh" tval="3">待收货</span>
-                                    <span class="pay-num">1</span>
+                                    <span class="wait-pickup" id="waitConfirm_lh" tval="4">待收货</span>
+                                    <span class="pay-num" id="num2">1</span>
                                 </div>
                                 <span class="line"></span>
                                 <div class="pay-box">
-                                    <a class="order-waitPj" href="/member/myGoodsAppraise?orderId&amp;shippingGroupId"
+                                    <a class="order-waitPj" href="gm-appraise.html"
                                        target="_blank">
-                                        <span class="wait-pickup" id="waitPinglun_lh" tval="7">待评价晒单</span>
-                                        <span class="pay-num">0</span>
+                                        <span class="wait-pickup" id="waitPinglun_lh" tval="5">待评价晒单</span>
+                                        <span class="pay-num" id="num3">0</span>
                                     </a>
                                 </div>
                             </div>
@@ -455,27 +411,21 @@
                                     src="image/orderAd.jpg"
                                     style="width:156px;height:32px;"></a>
                             <div class="search-box">
-                                <input type="text" value="订单编号" class="seach_inpt" id="all_order_search">
+                                <input type="text" placeholder="订单编号" class="seach_inpt" id="all_order_search">
                                 <input type="button" value="" class="search-btn" id="js-search-btn" on="false">
                             </div>
                         </div>
                         <!--近三个月的订单-->
                         <div class="order-hd-bottom clearfix">
                             <div class="combox" id="sel_choos" style="width: 118px;">
-                                <div><span class="c-lable" val="1">近三个月的订单</span><i></i></div>
+                                <div><span class="c-lable" id="order" val="1">近三个月的订单</span><i></i></div>
                                 <ul class="c-list-value" style="display: none;">
-                                    <li><a href="javascript:void(0);" val="1">近三个月的订单</a></li>
-                                    <li><a href="javascript:void(0);" val="2019">今年内订单</a></li>
-                                    <li><a href="javascript:void(0);" val="2018">2018年订单</a></li>
-                                    <li><a href="javascript:void(0);" val="2017">2017年订单</a></li>
-                                    <li><a href="javascript:void(0);" val="2016">2016年订单</a></li>
-                                    <li><a href="javascript:void(0);" val="3">2016年以前订单</a></li>
+                                    <li><a href="javascript:void(0);" val="1">近一个月的订单</a></li>
+                                    <li><a href="javascript:void(0);" val="2">近二个月的订单</a></li>
+                                    <li><a href="javascript:void(0);" val="3">近三个月的订单</a></li>
                                 </ul>
                             </div>
                             <div class="ordersRecHrefLine">
-                                 <span class="ordersRecLink">
-                                    <a target="_self" href="profileRecOrdersReal">我的订单回收站</a>
-                                 </span>
                             </div>
                         </div>
                     </div>
@@ -486,13 +436,16 @@
                         <div class="item-col-100" style="width:10%;">金额</div>
                         <div class="item-col-100" style="width:10%;">
                             <div class="combox dn" id="all-status" style="display: block; width: 78px;">
-                                <div style="width:80px;"><span class="c-lable" val="1">订单状态</span><i></i></div>
+                                <div style="width:80px;"><span class="c-lable" val="0" id="status">订单状态</span><i></i>
+                                </div>
                                 <ul class="c-list-value" style="display: none;">
-                                    <li><a href="javascript:;" val="1">订单状态</a></li>
-                                    <li><a href="javascript:;" val="2">等待付款</a></li>
-                                    <li><a href="javascript:;" val="3">等待收货</a></li>
+                                    <li><a href="javascript:;" val="0">订单状态</a></li>
+                                    <li><a href="javascript:;" val="1">待付款</a></li>
+                                    <li><a href="javascript:;" val="2">待发货</a></li>
+                                    <li><a href="javascript:;" val="3">已发货</a></li>
+                                    <li><a href="javascript:;" val="4">待收货</a></li>
                                     <li><a href="javascript:;" val="5">已完成</a></li>
-                                    <li><a href="javascript:;" val="4">已取消</a></li>
+                                    <li><a href="javascript:;" val="6">已退货</a></li>
                                 </ul>
                             </div>
                             <div class="storeOrder_state dn" style="display: none;">
@@ -505,224 +458,18 @@
                     <!--订单显示-->
                     <div class="list-box">
                         <div class="orderContent" style="border-bottom: 1px solid rgb(243, 243, 243);">
-                            <table class="order-list-cont">
-                                <tbody>
-                                <tr class="item-info">
-                                    <td style="width:40%;padding-left:10px;" class="orderTd1_11926392274"><input
-                                            type="checkbox" class="orderNumcheck" disabled=""
-                                            id="combine_btn_11926392274"> <span class="ico-qiang " ordertype="2"
-                                                                                title="普通订单">普</span> <span
-                                            class="order-time">2019-08-23 16:18</span> <span
-                                            class="order-number">订单编号：<a target="_blank"
-                                                                         href="shippingGroupDetailInfo/11926392274/null">11926392274</a></span>
-                                    </td>
-                                    <td style=" width:20%; text-align:right;padding-right:35px;"><span
-                                            class="gome-online">                                                                                            <a
-                                            href="//mall.gome.com.cn/80015919/" title="卓美百尚纸品专营店" target="_blank"
-                                            style="float:left; width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">卓美百尚纸品专营店</a>                                                                                    </span>
-                                        <span class="customzl online" style="margin-left:5px;"
-                                              customer-service-button-id="80015919" shopname="卓美百尚纸品专营店"
-                                              orderid="11926392274" customer-entry="order" orgi="80015919" orgitype="3"><i></i></span>
-                                    </td>
-                                    <td style="width:10%;"></td>
-                                    <td style="width:10%;"></td>
-                                    <td style="width:10%;"></td>
-                                    <td style="width:10%;padding-left:15px;" class="orderIcon_11926392274">
-                                        <div class="order-del-gift"><span class="order-tbody-giftBox dn"
-                                                                          orderid="11926392274">礼物盒子</span> <span
-                                                class="order-delete-btn dn" orderid="11926392274">删除</span></div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                                <tbody class="list-row">
-                                <tr>
-                                    <td colspan="2" style="width:60%;border-right:1px solid #e6e6e6;">
-                                        <div class="no-isSeparate" style="width:100%;" id="orderId_11926392274">
-                                            <table style="width:100%;">
-                                                <tbody>
-                                                <tr class="tr-listProInfo " orderid="11926392274">
-                                                    <td class="pd-lft-10 pd-bottom-10"
-                                                        style="width: 40%; border-right: none; border-bottom: none;">
-                                                        <div class="marg-top-10 order-list-proImg" pid="A0006508839"
-                                                             sid="pop8012377392"><a target="_blank"
-                                                                                    href="//item.gome.com.cn/A0006508839-pop8012377392.html"
-                                                                                    itemtype="0"> <img
-                                                                src="image/T16NVgBvxv1RCvBVdK_80.png"
-                                                                onerror="this.src='picture/grey.gif';"
-                                                                style="width:50px;height:50px;"> </a></div>
-                                                        <div class="pd-lft-10 order-list-proName"><a
-                                                                class="order-list-proName-font" target="_blank"
-                                                                href="//item.gome.com.cn/A0006508839-pop8012377392.html"
-                                                                style="display:block;">
-                                                            【限量2000件】维达抽纸3层3包120抽餐巾纸面巾纸巾卫生纸中规格M码153mmx195mm(V2889抽纸3包) </a>
-                                                            <p class="big-same-collocation marg-top-10"><i
-                                                                    class="collocation-icon"></i> <span>找搭配</span></p>
-                                                        </div>
-                                                        <div class="findSame-collect-box dn"
-                                                             style="display: none;"></div>
-                                                    </td>
-                                                    <td class="pd-lft-10"
-                                                        style="border-right: none; width: 20%; border-bottom: none;">
-                                                        <div class="order-list-num">x<span>1</span></div>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <table></table>
-                                        </div>
-                                    </td>
-                                    <td style="width:10%;text-align:center;padding:0 10px;"><p class="payAmount"
-                                                                                               style="margin-top:10px;">
-                                        <em class="dollar-sign">￥</em><span style="font-family:Arial;">14.30</span></p>
-                                        <p class="pay-method" style="margin:10px 0;">在线支付</p></td>
-                                    <td style="width:10%;text-align:center;" class=""><p class="status">商品出库中</p>
-                                        <p class="car-logistics"><a class="order-list-btn02 trace"
-                                                                    onclick="return false;" href="javascript:;"
-                                                                    orderid="11926392274" shipid="">跟踪<i></i></a></p>
-                                        <div class="pop logistics" style="position:absolute"></div>
-                                        <p class="pd-top-10"><a class="order-list-btn02 v-o" target="_blank"
-                                                                href="gm-orederList.html"
-                                                                title="查看订单" style="color:#006699;">查看订单</a></p></td>
-                                    <td style="width:10%;color:#888;padding-left:15px;" class="name_11926392274">
-                                        <div class="customer-receiver clearfix" orderid="11926392274" shipid=""><i
-                                                class="order-list-consignee"></i><span class="receive-name">吕星</span>
-                                            <div class="pop consignee"
-                                                 style="left: 736px; top: 490px; z-index: 13; display: none;"><h4>
-                                                收货人信息</h4>
-                                                <p class="grayfont">吕星<span class="mobile">176****0790</span></p><h4>
-                                                    配送地址</h4>
-                                                <p class="grayfont">湖南省长沙市开福区望麓园街道蔡锷北路司马里 38号</p></div>
-                                        </div>
-                                    </td>
-                                    <td style="width:10%;">
-                                        <div class="button_11926392274" style="padding-bottom:10px;" ordertype="2"
-                                             orderid="11926392274"><a class="modify v-o" style="display:block;"
-                                                                      target="_blank"
-                                                                      href="//success.gome.com.cn/home/api/cart/againBuy?type=0&amp;orid=11926392274&amp;sid=2839137287"
-                                                                      title="再次购买" buttontype="1">再次购买</a> <a
-                                                class="modify v-o" style="display:block;" title="取消订单" buttontype="1">取消订单</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <table class="order-list-cont">
-                                <tbody>
-                                <tr class="item-info">
-                                    <td style="width:40%;padding-left:10px;" class="orderTd1_11926022189"><input
-                                            type="checkbox" class="orderNumcheck" disabled=""
-                                            id="combine_btn_11926022189"> <span class="ico-qiang " ordertype="2"
-                                                                                title="普通订单">普</span> <span
-                                            class="order-time">2019-08-23 16:10</span> <span
-                                            class="order-number">订单编号：<a target="_blank"
-                                                                         href="shippingGroupDetailInfo/11926022189/null">11926022189</a></span>
-                                    </td>
-                                    <td style=" width:20%; text-align:right;padding-right:35px;"><span
-                                            class="gome-online">                                                                                            <a
-                                            href="//mall.gome.com.cn/80016953/" title="良布DELLBOO官方旗舰店" target="_blank"
-                                            style="float:left; width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">良布DELLBOO官方旗舰店</a>                                                                                    </span>
-                                        <span class="customzl online" style="margin-left:5px;"
-                                              customer-service-button-id="80016953" shopname="良布DELLBOO官方旗舰店"
-                                              orderid="11926022189" customer-entry="order" orgi="80016953" orgitype="3"><i></i></span>
-                                    </td>
-                                    <td style="width:10%;"></td>
-                                    <td style="width:10%;"></td>
-                                    <td style="width:10%;"></td>
-                                    <td style="width:10%;padding-left:15px;" class="orderIcon_11926022189">
-                                        <div class="order-del-gift"><span class="order-tbody-giftBox dn"
-                                                                          orderid="11926022189">礼物盒子</span> <span
-                                                class="order-delete-btn dn isShow" orderid="11926022189"
-                                                style="display: none;">删除</span></div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                                <tbody class="list-row">
-                                <tr>
-                                    <td colspan="2"
-                                        style="width: 60%; border-right: 1px solid rgb(230, 230, 230); position: relative;">
-                                        <div class="no-isSeparate" style="width:100%;" id="orderId_11926022189">
-                                            <table style="width:100%;">
-                                                <tbody>
-                                                <tr class="tr-listProInfo " orderid="11926022189">
-                                                    <td class="pd-lft-10 pd-bottom-10"
-                                                        style="width: 40%; border-right: none; border-bottom: none; position: relative;">
-                                                        <div class="marg-top-10 order-list-proImg" pid="A0006561696"
-                                                             sid="pop8012775797"><a target="_blank"
-                                                                                    href="//item.gome.com.cn/A0006561696-pop8012775797.html"
-                                                                                    itemtype="0"> <img
-                                                                src="image/T1j9AsBydT1RCvBVdK_80.jpg"
-                                                                onerror="this.src='picture/grey.gif';"
-                                                                style="width:50px;height:50px;"> </a></div>
-                                                        <div class="pd-lft-10 order-list-proName"><span
-                                                                class="gomeQiang"></span>
-                                                            <a
-                                                                class="order-list-proName-font" target="_blank"
-                                                                href="//item.gome.com.cn/A0006561696-pop8012775797.html"
-                                                                style="display:block;"> 良布DELLBOO
-                                                            竹韵竹浆本色抽纸18包面巾纸餐厅家用卫生纸巾母婴纸擦手纸 112mm新品 S号便携多功能卸妆食品用(米色) </a>
-                                                            <p class="big-same-collocation marg-top-10"><i
-                                                                    class="same-icon"></i> <span>找相似</span></p></div>
-                                                        <div class="findSame-collect-box dn"></div>
-                                                    </td>
-                                                    <td class="pd-lft-10"
-                                                        style="border-right: none; width: 20%; border-bottom: none;">
-                                                        <div class="order-list-num">x<span>1</span></div>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <table></table>
-                                        </div>
-                                    </td>
-                                    <td style="width:10%;text-align:center;padding:0 10px;"><p class="payAmount"
-                                                                                               style="margin-top:10px;">
-                                        <em class="dollar-sign">￥</em><span style="font-family:Arial;">17.90</span></p>
-                                        <p class="pay-method" style="margin:10px 0;">在线支付</p></td>
-                                    <td style="width:10%;text-align:center;" class=""><p class="status">已取消</p>
-                                        <p class="car-logistics"><a class="order-list-btn02 trace"
-                                                                    onclick="return false;" href="javascript:;"
-                                                                    orderid="11926022189" shipid="">跟踪<i></i></a></p>
-                                        <div class="pop logistics" style="position:absolute"></div>
-                                        <p class="pd-top-10"><a class="order-list-btn02 v-o" target="_blank"
-                                                                href="shippingGroupDetailInfo/11926022189/null"
-                                                                title="查看订单" style="color:#006699;">查看订单</a></p></td>
-                                    <td style="width:10%;color:#888;padding-left:15px;" class="name_11926022189">
-                                        <div class="customer-receiver clearfix" orderid="11926022189" shipid=""><i
-                                                class="order-list-consignee"></i><span class="receive-name">謝森林</span>
-                                            <div class="pop consignee"
-                                                 style="left: 736px; top: 649px; z-index: 13; display: none;"><h4>
-                                                收货人信息</h4>
-                                                <p class="grayfont">寫森林<span class="mobile">15570777263</span></p><h4>
-                                                    配送地址</h4>
-                                                <p class="grayfont">湖南省长沙市开福区望麓园街道蔡锷北路司马里 38号</p></div>
-                                        </div>
-                                    </td>
-                                    <td style="width:10%;">
-                                        <div class="button_11926022189" style="padding-bottom:10px;" ordertype="2"
-                                             orderid="11926022189"><a class="modify v-o" style="display:block;"
-                                                                      target="_blank"
 
-                                                                      href="//success.gome.com.cn/home/api/cart/againBuy?type=0&amp;orid=11926022189&amp;sid=2838955182"
-                                                                      title="再次购买" buttontype="1">再次购买</a></div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <div style="height:30px;"></div>
                         </div>
                     </div>
                     <div class="myGomeGoodsList">
                         <ul id="goodsList" class="clearfix"></ul>
                     </div>
-                    <div class="pager dn" style="display: block;"><a class="prev disable" href="javascript:void(0);">&nbsp;上一页<s
-                            class="icon-prev"></s><i></i></a><span class="cur">1</span><a class="next disable"
-                                                                                          href="javascript:void(0);">下一页<s
-                            class="icon-next"></s><i></i></a><label for="pagenum" class="txt-wrap">到<input type="text"
-                                                                                                           id="pNum"
-                                                                                                           class="txt"
-                                                                                                           bnum="1"
-                                                                                                           value="1">页</label><a
-                            href="javascript:void(0)" zdx="nBtn" class="btn">确定</a></div>
+                    <div class="pager dn" style="display: block;">
+                        <a class="prev disable" href="javascript:void(0);">&nbsp;上一页<s class="icon-prev"></s><i></i></a>
+                        <a class="next" href="javascript:void(0);">下一页<s class="icon-next"></s><i></i></a>
+                        <label for="pagenum" class="txt-wrap">到<input type="text" id="pNum" class="txt" bnum="1"
+                                                                      value="1">页</label>
+                        <a href="javascript:void(0)" zdx="nBtn" class="btn">确定</a></div>
                 </div>
                 <div id="chongzhi_orders" class="c-l-tab" style="display:none;"></div>
                 <div id="liuliang_recharge" class="c-l-tab" style="display:none;"></div>
@@ -991,6 +738,65 @@
     })
 }, 700);</script>-->
 
+<!--aside-->
+<!--<script src="//js.gomein.net.cn/??gmlib/jq/1.7.1/jquery.js,sitemonitor/sa-sdk/sa.js,gmlib/cookie/1.0.0/cookie.js,gmpro/1.0.0/public/1.0.0/js/signtop.min.js,gmlib/unit/bigcode/1.0.0/bigcode.min.js,gmlib/unit/serviceEntrance/1.0.0/serviceEntrance.min.js,gmlib/ui/arttemplate/2.0.1/template.min.js,gmpro/1.0.0/public/member/js/searchautopoint.min.js,gmpro/1.0.0/cart/1.0.0/js/head-cart/cart.min.js,gmpro/1.0.0/cart/1.0.0/js/head-cart/mCart.min.js,gmpro/1.0.0/public/member/js/memberHead.min.js,gmpro/1.0.0/public/1.0.0/js/foot.min.js,gmpro/1.0.0/public/1.0.0/js/aside.min.js?v=201908291743,gmlib/unit/g/1.0.0/g.min.js,gmlib/unit/gomelib/1.0.0/gomelib.min.js,gmlib/unit/templatenav/1.0.0/templatenav.min.js,gmlib/ui/form/1.0.0/form.min.js,gmlib/ui/json3/3.3.2/json3.min.js,gmlib/ui/gload/1.0.0/gload.min.js,gmlib/ui/gclickshow/1.0.0/gclickshow.min.js,gmlib/ui/ghover/1.0.0/ghover.min.js,gmlib/ui/ginputfocus/1.0.0/ginputfocus.min.js,gmlib/ui/glaterimg/1.0.0/glaterimg.min.js,gmlib/ui/greplaceimg/1.0.0/greplaceimg.min.js,gmlib/ui/gshowhide/1.0.0/gshowhide.min.js,gmlib/ui/gbacktop/1.0.0/gbacktop.min.js,gmlib/ui/curnav/1.0.0/curnav.min.js,gmpro/2.0.0/member/4.4.4/js/common/gSlider.js,gmlib/ui/gpop/1.0.0/gpop.min.js,gmlib/unit/gcollect/1.0.0/gcollect.min.js,gmlib/unit/live800/1.0.0/live800.min.js,gmlib/unit/cart/1.0.0/addCart.min.js,gmpro/2.0.0/member/4.4.4/js/common/config.js,gmpro/2.0.0/member/4.4.4/js/common/component.js,gmpro/2.0.0/member/4.4.4/js/common/component/navTab.js,gmpro/2.0.0/member/4.4.4/js/common/component/pager.js,gmpro/2.0.0/member/4.4.4/js/common/component/combox.js,gmpro/2.0.0/member/4.4.4/js/common/richTreasure/popBox.js,gmpro/2.0.0/member/4.4.4/js/common/ucleft/ucLeftNavTpl.js,gmpro/2.0.0/member/4.4.4/js/common/ucleft/ucLeftNavLive.js,gmpro/2.0.0/member/4.4.4/js/common/ajaxupload.js,gmpro/2.0.0/member/4.4.4/js/profile/tab.js,gmlib/sea/seajs/3.0.0/sea.js,gmlib/sea/seajs-combo/1.0.0/seajs-combo.js,gmpro/2.0.0/member/4.4.4/js/profile/personalInfoTpl.js,gmpro/2.0.0/member/4.4.4/js/profile/personalInfoLive.js"></script>-->
 
+<script type="text/javascript">
+    $(function () {
+        //悬浮字体变色
+        $(".side-nav  div ul li").hover(
+            function () {
+                $(this).addClass("active");
+            },
+            function () {
+                $(this).removeClass("active");
+            }
+        );
+        //悬浮显示头上下拉款
+        $(".gomeNav li").hover(
+            function () {
+                $(this).addClass("navCur").siblings().removeClass("navCur");
+            }, function () {
+                $(this).removeClass("navCur");
+            }
+        );
+        //点击显示下拉框
+        $("#order").click(
+            function () {
+                if ($("#sel_choos ul").is(':hidden')) {
+                    $("#sel_choos ul").show();
+                } else {
+                    $("#sel_choos ul").hide();
+                }
+            }
+        );
+        //订单的状态
+        $("#status").click(function () {
+            if ($("#all-status ul").is(':hidden')) {
+                $("#all-status ul").show();
+            } else {
+                $("#all-status ul").hide();
+            }
+        });
+
+        $(".pay-box").hover(
+            function () {
+                $(this).find(".wait-pickup").addClass("active_on");
+            },function () {
+                $(this).find(".wait-pickup").removeClass("active_on");
+            }
+        );
+    });
+</script>
+
+<!--删除订单框-->
+<!--<div class="outer-pop t" style="left: 856.5px; top: 650px; position: absolute;">-->
+    <!--<div class="pop delOrderPop" style="position: absolute; left: 0px; top: 0px;">-->
+        <!--<div class="deleleText"><p>您确定要删除订单吗？</p>-->
+            <!--<p class="grayfont ml2">删除后，您可以在订单回收站找到，或永久删除</p>-->
+            <!--<p class="grayfont mt2 ml2"><a class="brownBtn fl">确定</a> <a href="javascript:;"-->
+                                                                         <!--class="whiteBtn fl ml2">取消</a></p></div>-->
+    <!--</div>-->
+<!--</div>-->
 </body>
 </html>

@@ -23,4 +23,7 @@ public interface Vip_goodsService extends IService<VipGoods> {
     //查询所有会员商品
     Page<Map<String,Object>> vipSaleGoods(Map<String, Object> map);
 
+    //根据商品编号查询会员商品详情
+    Map<String,Object> vipInfo(Integer gid);
+
 }

@@ -6,6 +6,7 @@ import com.cssl.entity.VipGoods;
 import com.cssl.service.Vip_goodsService;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,6 @@ public class Vip_goodsController {
     @RequestMapping("vipGoodsFindAllQian")
     @ResponseBody
     public PageInfo<Map<String, Object>> vipGoodsFindAllQian(@RequestParam Map<String, Object> map) {
-        System.out.println("map = " + map);
         PageInfo<Map<String, Object>> pages = new PageInfo<>();
         Page<Map<String, Object>> page = vip_goodsService.vipSaleGoods(map);
         pages.setList(page.getResult());
@@ -46,7 +46,12 @@ public class Vip_goodsController {
         pages.setPageCount(page.getPages());
         return pages;
     }
-
+    //根据商品编号查询会员商品详情
+    @RequestMapping("vipInfo")
+    @ResponseBody
+    public Map<String,Object> vipInfo(@RequestParam("gid") Integer gid){
+        return vip_goodsService.vipInfo(gid);
+    }
 
     //------------------------------后台---------------------------------
     //会员商品
