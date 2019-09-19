@@ -20,7 +20,7 @@ public class MyGuoMeiController {
     @RequestMapping("/myOrder")
     public String myOrder(HttpSession session){
         Users user = (Users)session.getAttribute("user");
-        Integer uid = user.getId();//测试传死值
+       // Integer uid = user.getId();//测试传死值
         //System.out.println("user = " + user);
 
         return user.getUserName();
