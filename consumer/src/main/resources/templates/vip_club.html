@@ -602,28 +602,28 @@
                 <a href="javascript:void(0)" class="unit-type default" id="shangxian" attc="2">上线时间<i></i></a>
             </div>
         </div>
-        <div class="nPage-nav">
-            <span class="info">
-                <em id="nPage-nav-curPage">1</em>/<em id="nPage-nav-allPage">1</em>
-            </span>
-            <a href="javascript:void(0)" class="" id="nPage-nav-prev">&lt;</a>
-            <a href="javascript:void(0)" class="" id="nPage-nav-next">&gt;</a>
-        </div>
+        <!--<div class="nPage-nav">-->
+            <!--<span class="info">-->
+                <!--<em id="nPage-nav-curPage">1</em>/<em id="nPage-nav-allPage">1</em>-->
+            <!--</span>-->
+            <!--<a href="javascript:void(0)" class="" id="nPage-nav-prev">&lt;</a>-->
+            <!--<a href="javascript:void(0)" class="" id="nPage-nav-next">&gt;</a>-->
+        <!--</div>-->
     </div>
-    <ul class="club-items-box clearfix" id="club-items">
-        <li class="club-item">
-            <a type="1" target="_blank" class="pic" href="">
-                <img width="160" height="160" alt="" src="">
-            </a>
-            <p class="name">
-                <a href="" title="" target="_blank">sa</a>
-            </p>
-            <p class="price"><span class="vipPrice">会员价：<b class="highlight ">¥3989.00</b></span></p>
-            <p class="price"><span class="gmPrice">国美价：<b class="delete">¥3999.00</b></span></p>
-            <p class="conditions clearfix"><i class="ic gmlv1"></i><span class="fl">G1会员专享价</span></p>
-            <span sid="pop8009977165" defcat="cat10000230" class="go-buy" pid="A0005455249" shop_flag="1"
-                  track="添加购物车:9111611586:3698.0">加入购物车</span>
-        </li>
+    <ul class="club-items-box clearfix" id="club-items" style="height: 374px">
+        <!--<li class="club-item">-->
+            <!--<a type="1" target="_blank" class="pic" href="">-->
+                <!--<img width="160" height="160" alt="" src="">-->
+            <!--</a>-->
+            <!--<p class="name">-->
+                <!--<a href="" title="" target="_blank">sa</a>-->
+            <!--</p>-->
+            <!--<p class="price"><span class="vipPrice">会员价：<b class="highlight ">¥3989.00</b></span></p>-->
+            <!--<p class="price"><span class="gmPrice">国美价：<b class="delete">¥3999.00</b></span></p>-->
+            <!--<p class="conditions clearfix"><i class="ic gmlv1"></i><span class="fl">G1会员专享价</span></p>-->
+            <!--<span sid="pop8009977165" defcat="cat10000230" class="go-buy" pid="A0005455249" shop_flag="1"-->
+                  <!--track="添加购物车:9111611586:3698.0">加入购物车</span>-->
+        <!--</li>-->
     </ul>
     <!-- 任务活动 -->
     <div class="activeDiv" style="display:none">
@@ -1063,7 +1063,6 @@
         });
         //点击上一页
         $("body").on('click', '.prev', function () {
-
             var pageIndex = pageno;
             //判断当页码小于等于1时,不得在点击上一页
             if (pageno <= 1) {
