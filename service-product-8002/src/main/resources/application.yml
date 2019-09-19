@@ -35,6 +35,10 @@ spring:
   data:
     mongodb:
       uri: mongodb://47.101.130.148:27017/news
+    solr:
+        #host: http://127.0.0.1:8983/solr/mycore
+        host: http://127.0.0.1:8983/solr  #使用模板
+
   #用于分布式存储
   redis:
     port: 6379
