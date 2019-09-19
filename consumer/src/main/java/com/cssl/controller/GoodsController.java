@@ -80,7 +80,9 @@ public class GoodsController {
                 }
             }
         }
+        boolean bs = true;
         if (cookie == null) {
+            bs = false;
             cookie = new Cookie("gid", gid.toString());
         } else { //已存在
             String pId = cookie.getValue();
@@ -100,11 +102,14 @@ public class GoodsController {
             cookie.setValue(value);
 
         }
+
         cookie.setMaxAge(60 * 60 * 24 * 7);
         response.addCookie(cookie);
         Map<String, Object> map = productFeignInterface.GoodInfoShow(gid);
-        List<Goods> goods = productFeignInterface.browseGoods(browseGoods(request, response));
-        map.put("browseGoods", goods);
+        if(bs){
+            List<Goods> goods = productFeignInterface.browseGoods(browseGoods(request, response));
+            map.put("browseGoods", goods);
+        }
         return map;
     }
 
