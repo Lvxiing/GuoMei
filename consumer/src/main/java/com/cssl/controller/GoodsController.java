@@ -54,21 +54,21 @@ public class GoodsController {
     //根据当前第二级分类编号查询该分类下的所有第三级分类的热销榜
     @RequestMapping("findSaleByCategoryId")
     @ResponseBody
-    public List<Map<String,Object>> findSaleByCategoryId(@RequestParam("cid")Integer cid){
+    public List<Map<String, Object>> findSaleByCategoryId(@RequestParam("cid") Integer cid) {
         return productFeignInterface.findSaleByCategoryId(cid);
     }
 
     //根据当前一级分类编号查询该分类下的所有商品的热销榜
     @RequestMapping("findSaleAll")
     @ResponseBody
-    public List<Map<String,Object>> findSaleAll(@RequestParam("cid")Integer cid){
+    public List<Map<String, Object>> findSaleAll(@RequestParam("cid") Integer cid) {
         return productFeignInterface.findSaleAll(cid);
     }
 
     //查询商品详情信息
     @RequestMapping("GoodInfoShow")
     @ResponseBody
-    public Map<String,Object> GoodInfoShow(HttpServletRequest request, HttpServletResponse response,@RequestParam("gid")Integer gid) throws Exception{
+    public Map<String, Object> GoodInfoShow(HttpServletRequest request, HttpServletResponse response, @RequestParam("gid") Integer gid) throws Exception {
         Cookie cookie = null;
         String value = null;  //保存新的cookie中的值
         Cookie[] cookies = request.getCookies();
@@ -106,7 +106,7 @@ public class GoodsController {
         cookie.setMaxAge(60 * 60 * 24 * 7);
         response.addCookie(cookie);
         Map<String, Object> map = productFeignInterface.GoodInfoShow(gid);
-        if(bs){
+        if (bs) {
             List<Goods> goods = productFeignInterface.browseGoods(browseGoods(request, response));
             map.put("browseGoods", goods);
         }
@@ -115,13 +115,21 @@ public class GoodsController {
 
     @ResponseBody
     @RequestMapping("findBrowseGoods")
-    public List<Goods> findBrowseGoods(HttpServletRequest request, HttpServletResponse response){
-         String s = browseGoods(request, response);
-         return productFeignInterface.browseGoods(s);
+    public Map<String,Object> findBrowseGoods(HttpServletRequest request, HttpServletResponse response) {
+        Map<String,Object> map = new HashMap<>();
+        String s = browseGoods(request, response);
+        if (s != null && s.length()>0) {
+           List<Goods> goods = productFeignInterface.browseGoods(s);
+            map.put("list",goods);
+            map.put("msg","success");
+        }else{
+            map.put("msg","error");
+        }
+        return map;
     }
 
     //获取最近浏览商品的编号
-    public String browseGoods(HttpServletRequest request, HttpServletResponse response){
+    public String browseGoods(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookie = request.getCookies();
         String value = null;
         if (cookie != null) {
@@ -138,14 +146,14 @@ public class GoodsController {
     //首页的商品热销榜
     @RequestMapping("indexSaleGoods")
     @ResponseBody
-    public List<Map<String,Object>> indexSaleGoods(){
+    public List<Map<String, Object>> indexSaleGoods() {
         return productFeignInterface.indexSaleGoods();
     }
 
     //商品详情的热销榜
     @RequestMapping("goodsInfoSale")
     @ResponseBody
-    public List<Goods> goodsInfoSale(@RequestParam("cid") Integer cid){
+    public List<Goods> goodsInfoSale(@RequestParam("cid") Integer cid) {
         return productFeignInterface.goodsInfoSale(cid);
     }
 
@@ -156,7 +164,6 @@ public class GoodsController {
 
         return productFeignInterface.vipGoodsFindAllQian(map);
     }
-
 
 
     //--------------------------后台模块-------------------------------
@@ -207,14 +214,14 @@ public class GoodsController {
 
     @RequestMapping("findGradeById")
     @ResponseBody
-    public Grade findGradeById(@RequestParam("id") Integer id){
+    public Grade findGradeById(@RequestParam("id") Integer id) {
         return productFeignInterface.findGradeById(id);
     }
 
     @RequestMapping("updateGradeMoney")
     @ResponseBody
-    public String updateGradeMoney(@RequestParam("id") Integer id,@RequestParam("money") double money){
-       return productFeignInterface.updateGradeMoney(id,money);
+    public String updateGradeMoney(@RequestParam("id") Integer id, @RequestParam("money") double money) {
+        return productFeignInterface.updateGradeMoney(id, money);
     }
 
 
@@ -310,16 +317,16 @@ public class GoodsController {
     //会员商品
     @RequestMapping("/vipGoodsFindAll/{cname}/{title}")
     @ResponseBody
-    public Map<String,Object> vipGoodsFindAll(@PathVariable("cname") String cname, @PathVariable("title") String title, @RequestParam("page")int page, @RequestParam("limit")int limit){
-        Map<String,Object> param = new HashMap<>();
-        param.put("cname",cname);
-        param.put("title",title);
-        Map<String,Object> map = new HashMap<String,Object>();
-        PageInfo<Map<String, Object>> mapPageInfo = productFeignInterface.vipGoodsFindAll(param,page,limit);
-        map.put("code",0);
+    public Map<String, Object> vipGoodsFindAll(@PathVariable("cname") String cname, @PathVariable("title") String title, @RequestParam("page") int page, @RequestParam("limit") int limit) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("cname", cname);
+        param.put("title", title);
+        Map<String, Object> map = new HashMap<String, Object>();
+        PageInfo<Map<String, Object>> mapPageInfo = productFeignInterface.vipGoodsFindAll(param, page, limit);
+        map.put("code", 0);
         map.put("msg", "");
-        map.put("data",mapPageInfo.getList());
-        map.put("count",mapPageInfo.getTotalCount());
+        map.put("data", mapPageInfo.getList());
+        map.put("count", mapPageInfo.getTotalCount());
         return map;
     }
 }
