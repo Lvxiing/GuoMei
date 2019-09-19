@@ -36,6 +36,9 @@
             <if test=" days!= null and days!='' ">
                 AND TO_DAYS(NOW()) - TO_DAYS(order_time) &lt;= #{days}
             </if>
+            <if test="status!= null">
+                AND order_status=#{status}
+            </if>
         </where>
    </select>
 
