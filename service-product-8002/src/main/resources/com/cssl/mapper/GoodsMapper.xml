@@ -61,6 +61,7 @@
             category_name =#{item}
         </foreach>
         ))
+        and g.goods_state = 1
         LIMIT 10
     </select>
 
@@ -77,6 +78,7 @@
             category_name =#{item}
         </foreach>
         ))
+        and g.goods_state = 1
         ORDER BY g.`goods_create_time` DESC LIMIT 10
     </select>
 
@@ -92,6 +94,7 @@
             category_name =#{item}
         </foreach>
         ))
+        and g.goods_state = 1
         ORDER BY g.`goods_price` ASC LIMIT 10
     </select>
 
@@ -122,7 +125,7 @@
                                 )
                       )
             )
-        )
+        ) and g.goods_state = 1
             LIMIT 12
     </select>
 
@@ -158,7 +161,7 @@
                                 )
                       )
             )
-        )
+        ) and g.goods_state = 1
             LIMIT 12
     </select>
 
@@ -171,8 +174,8 @@
                              ORDER BY num DESC
             ) o ON g.`goods_id` = o.goods_id
                  INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
-             LIMIT
-             5
+             where  g.goods_state = 1
+             LIMIT 5
     </select>
 
     <select id="goodsInfoSale" resultMap="BaseResultMap" parameterType="int">
@@ -188,7 +191,7 @@
             SELECT category_id
             FROM category
             WHERE category_id = #{cid}
-        )
+        )  and g.goods_state = 1
             LIMIT 3
     </select>
 
@@ -203,9 +206,13 @@
             category_id = #{item}
         </foreach>
         )
-        <if test="low!=null and low!= '' and high != null and high!= '' ">
-            and g.`goods_price` BETWEEN #{low} AND #{high}
+        <if test="low!=null and low!= '' ">
+            and g.`goods_price` &gt;= #{low}
         </if>
+        <if test="high!=null and high!= '' ">
+            and g.`goods_price` &lt;= #{high}
+        </if>
+        and g.goods_state = 1
     </select>
 
 
@@ -221,7 +228,7 @@
                <foreach item="item" index="index" collection="list" open="" separator=" OR " close="">
                  category_id = #{item}
                </foreach>
-        )
+        ) and g.goods_state = 1
     </select>
 
     <select id="categorySalaRankingGoods" parameterType="list" resultMap="BaseResultMap">
@@ -240,6 +247,7 @@
                  category_id = #{item}
              </foreach>
         )
+        and g.goods_state = 1
         AND TO_DAYS(NOW())- TO_DAYS(r.order_time)&lt;=7
         ORDER BY num DESC
         LIMIT 6
