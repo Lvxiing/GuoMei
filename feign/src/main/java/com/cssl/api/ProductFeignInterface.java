@@ -108,8 +108,13 @@ public interface ProductFeignInterface {
     @RequestMapping("orders/findOrders")
     Orders findOrders(@RequestParam("oid") Integer oid);
 
+    //查询用户订单的待付款待收货总记录数
+    @RequestMapping("orders/findTotal")
+    List<Map<String,Object>> findTotal(@RequestParam("uid") Integer uid);
 
-
+    //根据订单号查询地址表相关信息
+    @RequestMapping("orders/findAddressByOrder")
+     Map<String,Object> findAddressByOrder(@RequestParam("oid") Integer oid);
     //--------------------------后台模块----------------------------------
 
     //---------------------------新闻后台模块--------------------------------

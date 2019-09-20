@@ -40,6 +40,16 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     }
 
     @Override
+    public List<Map<String, Object>> findTotal(Integer uid) {
+        return ordersMapper.findTotal(uid);
+    }
+
+    @Override
+    public Map<String, Object> findAddressByOrder(Integer oid) {
+        return ordersMapper.findAddressByOrder(oid);
+    }
+
+    @Override
     public Page<Map<String, Object>> orderList(Map<String, Object> map, int pageIndex, int pageSize) {
         Page<Map<String, Object>> page = PageHelper.startPage(pageIndex, pageSize);
         ordersMapper.orderList(map);
