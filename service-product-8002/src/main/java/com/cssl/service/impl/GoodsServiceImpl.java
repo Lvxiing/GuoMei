@@ -1,6 +1,7 @@
 package com.cssl.service.impl;
 
 import com.cssl.entity.Goods;
+import com.cssl.entity.SolrPo;
 import com.cssl.mapper.GoodsMapper;
 import com.cssl.service.GoodsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -128,6 +129,11 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     @Override
     public List<Goods> categorySalaRankingGoods(List list) {
         return goodsMapper.categorySalaRankingGoods(list);
+    }
+
+    @Override
+    public List<SolrPo> findAllSolrData() {
+        return goodsMapper.findAllSolrData();
     }
 
 }

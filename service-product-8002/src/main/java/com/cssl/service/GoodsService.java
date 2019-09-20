@@ -2,6 +2,7 @@ package com.cssl.service;
 
 import com.cssl.entity.Goods;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.cssl.entity.SolrPo;
 import com.github.pagehelper.Page;
 
 import java.util.List;
@@ -55,4 +56,7 @@ public interface GoodsService extends IService<Goods> {
 
     //根据分类显示商品排行榜
     List<Goods> categorySalaRankingGoods(List list);
+
+
+    List<SolrPo> findAllSolrData();
 }
