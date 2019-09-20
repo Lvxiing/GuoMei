@@ -2,6 +2,7 @@ package com.cssl.api;
 
 import com.cssl.entity.*;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,16 @@ import java.util.Map;
 
 @FeignClient("service-product")
 public interface ProductFeignInterface {
+
+    //------------------------------solr模块------------------------------
+    @RequestMapping("goods/findAllSolrData")
+    List<SolrPo> findAllSolrData();
+
+    @RequestMapping("solr/saveData")
+    String saveData();
+
+    @RequestMapping("solr/showAll/{keywords}/{pageIndex}/{pageSize}/{bs}")
+    List<SolrPo> showAll(@PathVariable String keywords, @PathVariable Integer pageIndex, @PathVariable Integer pageSize, @PathVariable Integer bs) throws Exception;
 
     //-----------------------------前台模块-------------------------------
     //首页显示
