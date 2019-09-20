@@ -204,10 +204,30 @@
                 <div class="prd-price-right lanjuan" id="lanjuan"></div>
             </div>
             <!--促销-->
-            <div class="prd-price-other prd-cuxiao-other clearfix dn">
+            <div class="prd-price-other prd-cuxiao-other clearfix" id="vip" style="height: 30px;">
                 <div class="cuxiaobox">
-                    <label class="prd-price-left cuxiao">促&#x3000;&#x3000;销</label>
-                    <div class="prd-price-right prd-promotions "></div>
+                    <label class="prd-price-left cuxiao">促　　销</label>
+                    <div class="prd-price-right prd-promotions ">
+                        <div class="prd-promotions-red J-prom-bvalue" id="shoujizhuanxiang_box" style="display:none">
+                            <label>APP专享</label><span class="h1_red"><em class="h1_red_price" id="savemoney"></em><a
+                                href="javascript:void(0);" id="shoujizhuanxiang_saosao" class="link-scan-firstscreen">扫一扫 <i
+                                class="s-arrow">&gt;</i></a></span></div>
+                        <div id="tuan_prom" class="prd-promotions-red" style="display:none;"><label
+                                class="hl_red_bg">团购</label><em class="h1_red_price">¥3699.00，</em><a href="#"
+                                                                                                      target="_blank">立刻参加
+                            <i class="s-arrow">&gt;</i></a></div>
+                        <div class="promotions-collapse-wrapper">
+                            <div class="promotions-collapse">
+                                <div class="prd-promotions-red">
+                                    <label>会员价</label>
+                                    <span id="showVipPrice">
+                                        <span id="huiYuanDJ">您享受G1会员价</span>
+                                        <span id="Discount_money" style="display: none"></span>
+                                         <em class="huiYuanTeJia_text">¥2789.00 </em>
+                                        <a  href="vip_club.html">更多&nbsp;<i class="s-arrow">&gt;</i></a></span></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -356,38 +376,34 @@
 
                     var re = GetRequest();
 
-                    layui.use(['layer','upload','form'], function() {
+                    layui.use(['layer', 'upload', 'form'], function () {
                         var layer = layui.layer,  //弹层
                             $ = layui.jquery;
 
 //我的购物车中商品的件数
-                    $.getJSON("/cart/cartCount",function(result){
-                        $("[name=num]").text(result);
-                    })   ;
-
-                    //加入购物车
-                    $("#addCart").click(function () {
-                        var num = $("#enterQty").val();
-                        var price = $("#prdPrice>span").text();
-                        var total = num * price;
-                        $.getJSON("/cart/saveCart", {
-                            "goodsId": re.gid,
-                            "num": num,
-                            "price": price,
-                            "total": total
-                        }, function (result) {
-                            layer.msg("加入购物车成功");
-                            if(result.msg=="新增到购物车"){
-                                //如果购物车内没有该商品,则购物车内商品的件数加1
-                                $("[name=num]").text(parseInt($("[name=num]").text())+1);
-                            }
-
+                        $.getJSON("/cart/cartCount", function (result) {
+                            $("[name=num]").text(result);
                         });
-                    });
 
+                        //加入购物车
+                        $("#addCart").click(function () {
+                            var num = $("#enterQty").val();
+                            var price = $("#prdPrice>span").text();
+                            var total = num * price;
+                            $.getJSON("/cart/saveCart", {
+                                "goodsId": re.gid,
+                                "num": num,
+                                "price": price,
+                                "total": total
+                            }, function (result) {
+                                layer.msg("加入购物车成功");
+                                if (result.msg == "新增到购物车") {
+                                    //如果购物车内没有该商品,则购物车内商品的件数加1
+                                    $("[name=num]").text(parseInt($("[name=num]").text()) + 1);
+                                }
 
-
-
+                            });
+                        });
 
 
                     });
@@ -690,7 +706,7 @@
                     <ul class="replyListWrap dn" id="replyListWrap" style="display: block;">
 
                     </ul>
-                    <div class="clearfix">
+                    <div class="clearfix" id="pageNum">
                         <div id="j-page" class="page">
                             <a href="javascript:;" class="gpprev">上一页<b class="pgbdrs"></b></a>
                             <a href="javascript:;" class="gpnext">下一页<b class="pgbdrsr"></b></a>
