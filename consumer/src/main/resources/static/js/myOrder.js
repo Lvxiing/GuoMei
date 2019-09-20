@@ -60,7 +60,7 @@ $(function () {
     });
     $("#waitConfirm_lh").click(function () {
         var sta=$(this).attr("tval");
-        findOrdersByUserId(1,pageSize,"null",status,"null");
+        findOrdersByUserId(1,pageSize,"null",sta,"null");
     });
     //上下页
     $(".prev").click(function () {
@@ -90,6 +90,19 @@ function total() {
         $("#num1").text(json[0].num1);
         $("#num2").text(json[0].num2);
         $("#num3").text(json[0].num3);
+    });
+
+}
+
+//生成唯一的uuid
+function guid() {
+
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+
+        var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+
+        return v.toString(16);
+
     });
 
 }
@@ -192,7 +205,7 @@ function findOrdersDetail(order_id,time,order_no,status,order_total) {
         }
         tr+="<td style='width:10%;text-align:center;'><p class='status'>"+statu+"</p>";
         tr+="<p class='car-logistics'></p> <div class='pop logistics' style='position:absolute'></div>";
-        tr+="<p class='pd-top-10'><a class='order-list-btn02 v-o' target='_blank' href='gm-orederList.html?oid="+data[0].oid+"&ono="+order_no+"' title='查看订单' style='color:#006699;'>查看订单</a></p></td>";
+        tr+="<p class='pd-top-10'><a class='order-list-btn02 v-o' target='_blank' href='gm-orederList.html?oid="+data[0].oid+"&ono="+guid()+order_no+"' title='查看订单' style='color:#006699;'>查看订单</a></p></td>";
         //右侧信息(用户)
         tr+="<td style='width:10%;color:#888;padding-left:15px;' class='name_11926392274'>";
         tr+="<div class='customer-receiver clearfix' orderid='11926392274' shipid=''><i class='order-list-consignee'></i><span class='receive-name'>吕星</span>";
@@ -217,4 +230,6 @@ function noData() {
           data+="<span style='float:left;'> <p class='no-order-words'>您还没有订单哦~<br>给自己定个小目标，先下一单！</p>";
            data+="<p class='no-order-btn'><a style='margin-left:-180px;' href='index.html' target='_blank'>去首页逛逛</a></p></td></tr></tbody></table>";
            $(".orderContent").append(data);
+          $(".prev").addClass("disable");
+           $(".next").addClass("disable");
 }
