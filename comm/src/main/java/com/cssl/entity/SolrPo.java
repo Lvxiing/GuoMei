@@ -19,9 +19,6 @@ public class SolrPo  implements Serializable {
     private String id;
 
     @Field
-    private Integer gid;
-
-    @Field
     private String title;
 
     @Field
