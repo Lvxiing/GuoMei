@@ -50,6 +50,7 @@ public class OrdersController {
         return pages;
     }
 
+
     //根据订单编号查询订单明细
     @RequestMapping("findOrdersDetail")
     @ResponseBody
@@ -64,8 +65,20 @@ public class OrdersController {
         return ordersService.getOne(new QueryWrapper<Orders>().eq("order_id",oid));
     }
 
+    //查询用户订单的待付款待收货总记录数
+    @RequestMapping("findTotal")
+    @ResponseBody
+    public List<Map<String,Object>> findTotal(@RequestParam("uid") Integer uid){
+        return ordersService.findTotal(uid);
+    }
 
-     //-----------------------------后台模块----------------------------
+    //根据订单号查询地址表的相关信息
+    @RequestMapping("findAddressByOrder")
+    @ResponseBody
+    public Map<String,Object> findAddressByOrder(@RequestParam("oid") Integer oid){
+        return ordersService.findAddressByOrder(oid);
+    }
+    //-----------------------------后台模块----------------------------
      //查询所有订单详情
      @RequestMapping("/orderList/{pageIndex}/{pageSize}/{orderNo}/{name}")
      @ResponseBody
@@ -147,5 +160,7 @@ public class OrdersController {
         pages.setTotalCount((int)maps.getTotal());
          return pages;
     }
+
+
 
 }

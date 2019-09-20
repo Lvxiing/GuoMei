@@ -19,11 +19,12 @@ public interface OrdersMapper extends BaseMapper<Orders> {
     //-----------------------前台---------------------------
     //查询当前用户的订单
     public List<Map<String,Object>> findOrdersByUserId(Map<String,Object> map);
-
     //查询当前订单下的明细
     public List<Map<String,Object>> findOrdersDetail(Integer oid);
-
-
+    //查询用户订单的待付款待收货总记录数
+    public List<Map<String,Object>> findTotal(Integer uid);
+    //根据订单号查询地址表的相关信息
+   public Map<String,Object> findAddressByOrder(Integer oid);
     //-----------------------后台---------------------------
     //查询所有订单详情
     public List<Map<String,Object>> orderList(Map<String,Object>map);

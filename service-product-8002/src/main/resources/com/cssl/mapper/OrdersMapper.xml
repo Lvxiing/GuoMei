@@ -30,29 +30,38 @@
             <if test=" uid!= null and uid!='' ">
                 and user_id = #{uid}
             </if>
-            <if test=" ono!= null and ono!='' ">
+            <if test=" ono!= null and ono!=''and ono!='null' ">
                 and order_no LIKE concat('%',#{ono},'%')
             </if>
-            <if test=" days!= null and days!='' ">
+            <if test=" days!= null and days!=''and days!='null' ">
                 AND TO_DAYS(NOW()) - TO_DAYS(order_time) &lt;= #{days}
             </if>
-            <if test="status!= null">
+            <if test="status!= null and status!='null'">
                 AND order_status=#{status}
             </if>
         </where>
    </select>
 
     <select id="findOrdersDetail" resultType="map">
-        SELECT o.order_id oid,g.goods_id gid,o.detail_num num,g.`goods_title` title,g.`goods_main_img` img,c.category_id,c.category_level FROM order_detail o
+        SELECT o.order_id oid,g.goods_id gid,o.detail_num num,g.`goods_title` title,g.`goods_main_img` img,c.category_id,c.category_level,g.goods_price FROM order_detail o
         INNER JOIN goods g ON g.`goods_id` = o.goods_id
         INNER JOIN brand b ON g.`brand_id` = b.`brand_id`
         INNER JOIN category c ON c.category_id = b.`category_id`
         WHERE o.order_id = #{oid}
     </select>
-
-
-
-
+    <!--查询用户订单的待付款待收货总记录-->
+    <select id="findTotal" parameterType="int" resultType="map">
+        SELECT COUNT(CASE WHEN(order_status=1)THEN order_status END) AS num1,
+               COUNT(CASE WHEN(order_status=4)THEN order_status END) AS num2,
+               COUNT(CASE WHEN(order_status=5)THEN order_status END) AS num3
+        FROM orders WHERE user_id =#{uid}
+    </select>
+    <!--根据订单号查询地址表的相关信息-->
+    <select id="findAddressByOrder" parameterType="int" resultType="map">
+        SELECT a.* FROM orders o
+                            INNER JOIN address a ON o.`address_id`=a.`address_id`
+        WHERE o.`order_id`=#{oid}
+    </select>
 
 
 
