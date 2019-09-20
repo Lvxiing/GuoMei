@@ -1,19 +1,23 @@
 package com.cssl.controller;
 
 import com.cssl.entity.Goods;
+import com.cssl.entity.PageInfo;
 import com.cssl.entity.SolrPo;
 import com.cssl.service.GoodsService;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -40,16 +44,22 @@ public class SolrController {
     }
 
 
-    @RequestMapping("/showAll/{keywords}/{pageIndex}/{pageSize}/{bs}")
+    @RequestMapping("/showAll")
     @ResponseBody
-    public List<SolrPo> showAll(@PathVariable String keywords, @PathVariable Integer pageIndex, @PathVariable Integer pageSize, @PathVariable Integer bs) throws Exception {
+    public PageInfo<SolrPo> showAll(@RequestParam Map<String, Object> map) throws Exception {
+        PageInfo<SolrPo> page = new PageInfo<>();
+        Integer bs = 0;
+        if (map.get("bs") != null && !"".equals(map.get("bs"))) {
+            bs = new Integer(map.get("bs").toString());
+        }
+        Integer pageIndex = new Integer(map.get("pageIndex").toString());
+        Integer pageSize = new Integer(map.get("pageSize").toString());
         SolrQuery solrQuery = new SolrQuery();
         // 设置查询关键字
-        solrQuery.setQuery("title:" + keywords + "or sub:" + keywords);
+        solrQuery.setQuery("title:" + map.get("keywords") + "or sub:" + map.get("keywords"));
         //查询条件
         //solrQuery.setQuery(keywords + "*");
         solrQuery.set("df", "keywords");
-        System.out.println("keywords:" + keywords);
         solrQuery.setHighlight(true); // 开启高亮
         solrQuery.addHighlightField("title"); // 高亮字段
         solrQuery.addHighlightField("sub"); // 高亮字段
@@ -64,7 +74,16 @@ public class SolrController {
         if (bs == 3) {//表示低价
             solrQuery.setSort("price", SolrQuery.ORDER.asc);
         }
-
+        //区间查询
+        if (map.get("price") != null && !"".equals(map.get("price"))) {
+            String price = map.get("price").toString();
+            String[] split = price.split("-");           //如果切割后的长度等于2 就说明这是一个价格区间
+            if (split.length == 2) {
+                solrQuery.addFilterQuery("price:[" + split[0] + " TO " + split[1] + "]");
+            } else {
+                solrQuery.addFilterQuery("price:[" + split[0] + " TO *]");
+            }
+        }
         /**
          * hl.snippets
          * hl.snippets参数是返回高亮摘要的段数，因为我们的文本一般都比较长，含有搜索关键字的地方有多处，如果hl.snippets的值大于1的话，
@@ -80,7 +99,6 @@ public class SolrController {
         QueryResponse query = client.query(solrQuery);
         List<SolrPo> articleList = query.getBeans(SolrPo.class);
         Map<String, Map<String, List<String>>> highlightresult = query.getHighlighting();
-        System.out.println(highlightresult);
         for (int i = 0; i < articleList.size(); ++i) {
             String id = articleList.get(i).getId().toString();
             if (highlightresult.get(id) != null && highlightresult.get(id).get("title") != null) {
@@ -89,9 +107,14 @@ public class SolrController {
             if (highlightresult.get(id) != null && highlightresult.get(id).get("sub") != null) {
                 articleList.get(i).setSub(highlightresult.get(id).get("sub").get(0));
             }
-            System.out.println("articleList = " + articleList.get(i));
         }
-        return articleList;
+        int counts = (int) query.getResults().getNumFound();
+        page.setPageNo(pageIndex);
+        page.setPageSize(pageSize);
+        page.setTotalCount(counts);
+        page.setPageCount(counts % pageSize == 0 ? counts / pageSize : (counts / pageSize) + 1);
+        page.setList(articleList);
+        return page;
 
     }
 
