@@ -1,7 +1,105 @@
 $(function () {
+    //定义每页数量
+    var pageSize=2;
     findParentCategory();
-    var pageSize = 4;
-    searchGoods(pageSize);
+    searchGoods(1,pageSize);
+    var _t = getQueryString("content"); //获取地址栏参数
+    var content = decodeURI(_t); //只需要转一次码
+    //设置当前搜索的内容标题
+     $(".nFont14").text(content);
+    //按综合,销量,新品查询
+    var sort=0;
+    $("#filter-order-box li").click(function () {
+        sort=$(this).attr("data-sort");
+        $(this).addClass("cur").siblings().removeClass("cur");
+        if(sort==0){  //查询全部
+            searchGoods(1,pageSize);
+        }else if(sort==2){  //按新品
+             sort=1;
+            searc2(1,1,pageSize);
+        }
+    });
+    //价格点击
+    $("#sort-price").toggle(
+        function () {
+            $(this).addClass("price-up").removeClass("price-down");
+            sort=2;   //高价查询
+            searc3(2,1,pageSize);
+        },
+        function () {
+            $(this).addClass("price-down").removeClass("price-up");
+            sort=3;   //低价查询
+            searc3(3,1,pageSize);
+        }
+    );
+    //价格区间
+    $(".priceRange-input").click(function () {
+        $("#filter").addClass("filter-priceRange-click");
+    });
+    //离开价格区间ul隐藏
+    $("#filter").hover(
+        function () {},
+        function () {$(this).removeClass("filter-priceRange-click");}
+    );
+    //价格区间清除
+    $("#fc-btn-cancel").click(
+        function () {
+            $("#fc-lowPrice").val("");
+            $("#fc-highPrice").val("");
+        }
+    );
+    //价格区间的查询
+    var price;
+    $("#fc-btn-ok").click(function () {
+        var lowPrice =$("#fc-lowPrice").val();
+        var highPrice =$("#fc-highPrice").val();
+        sort=5;    //标识为区间查询(用于上下分页)
+        if(lowPrice!=""&&highPrice!=""){   //判断区间(两个都不为空按条件查,低价不为空按递减查,其他不调用区间查询方法)
+            price=lowPrice+"-"+highPrice;
+            searc4(1,price,pageSize);
+        }else if(lowPrice!=""){
+            price=lowPrice;
+            searc4(1,price,pageSize);
+        }
+        //点击确认隐藏
+        $("#filter").removeClass("filter-priceRange-click")
+    });
+
+    //上下分页
+    $("#mp-prev").click(function () {
+        var number=$("#min-pager-number").text().split("/");
+        if(number[0]>1){
+            var num=parseInt(number[0])-1;
+            if(sort==0){  //查询全部
+                searchGoods(num,pageSize);
+            }else if(sort==1){//按新品
+                searc2(sort,num,pageSize);
+            }else if(sort==2||sort==3){  //按价格
+                searc3(sort,num,pageSize);
+            }else{//按区间查
+                searc4(num,price,pageSize);
+            }
+
+        }
+    });
+
+    $("#mp-next").click(function () {
+        var number=$("#min-pager-number").text().split("/");
+        if(number[0]<number[1]){
+            var num=parseInt(number[0])+1;
+            if(sort==0){  //查询全部
+                searchGoods(num,pageSize);
+            }else if(sort==1){  //按新品
+                searc2(sort,num,pageSize);
+            }else if(sort==2||sort==3){  //按价格
+                searc3(sort,num,pageSize);
+            }else{  //按区间查
+                searc4(num,price,pageSize);
+            }
+
+        }
+
+    });
 });
 
 //显示商品一级
@@ -47,15 +145,90 @@ function category(cid) {
 }
 
 //显示
-function searchGoods(pageSize) {
+function searchGoods(pageIndex,pageSize) {
     var _t = getQueryString("content"); //获取地址栏参数
     var content = decodeURI(_t); //只需要转一次码
-    alert(content);
-    $.getJSON("../../Goods/showAll",{"pageIndex":1,"pageSize":pageSize,"keywords":content}, function () {
-        alert(json);
+    $.getJSON("../../Goods/showAll",{"pageIndex":1,"pageSize":pageSize,"keywords":content}, function (json) {
+        xunhuan(json);
     });
 }
 
+//按销量查询(暂时保留)
+function searc1(bs,pageno,pageSize) {
+    var _t = getQueryString("content"); //获取地址栏参数
+    var content = decodeURI(_t); //只需要转一次码
+    $.getJSON("../../Goods/showAll",{"pageIndex":pageno,"pageSize":pageSize,"keywords":content,"bs":bs}, function (json) {
+        //循环显示商品
+        xunhuan(json);
+    });
+}
+
+//按新品查
+function searc2(bs,pageno,pageSize) {
+    var _t = getQueryString("content"); //获取地址栏参数
+    var content = decodeURI(_t); //只需要转一次码
+    $.getJSON("../../Goods/showAll",{"pageIndex":pageno,"pageSize":pageSize,"keywords":content,"bs":bs}, function (json) {
+        //循环显示商品
+        xunhuan(json);
+    });
+}
+//按价格查
+function searc3(bs,pageno,pageSize) {
+    var _t = getQueryString("content"); //获取地址栏参数
+    var content = decodeURI(_t); //只需要转一次码
+    $.getJSON("../../Goods/showAll",{"pageIndex":pageno,"pageSize":pageSize,"keywords":content,"bs":bs}, function (json) {
+        //循环显示商品
+        xunhuan(json);
+    });
+}
+
+//按区间查
+function searc4(pageno,price,pageSize) {
+    var _t = getQueryString("content"); //获取地址栏参数
+    var content = decodeURI(_t); //只需要转一次码
+    $.getJSON("../../Goods/showAll",{"pageIndex":pageno,"pageSize":pageSize,"keywords":content,"price":price}, function (json) {
+        //循环显示商品
+        xunhuan(json);
+    });
+}
+
+
+//公共方法(循环生产li)
+function xunhuan(json) {
+    $("#product-box").empty();
+    var lists=json.list;
+    for(var i=0;i<lists.length;i++){
+        var li="<li class='product-item'> <ul class='arbitrage clearfix'></ul> ";
+        li+="<div class='item-tab-warp'>";
+        li+="<p class='item-pic'><a class='emcodeItem item-link' target='_blank' track='产品列表图片' href='product_details.html?gid="+lists[i].id+"'title='"+lists[i].title+"'>";
+        li+="<img src='"+lists[i].img+"' alt='"+lists[i].title+"' width='210px' height='210px'></a></p> <div class='item-price-info'> <div class='item-price'>";
+        li+="<span class='price asynPrice'>¥"+lists[i].price+"</span></div></div>";
+        li+="<p class='item-name'> <a class='emcodeItem item-link' href='product_details.html?gid="+lists[i].id+"' title='"+lists[i].title+"'>"+lists[i].title+"</a></p>";
+        li+=" <p class='item-option clearfix' style='margin-left: 53px;'> <span class='add-collection'><i class='icon'></i></span>";
+        li+=" <span class='add-cart addTo-cart'><i class='icon'></i></span> </p> </div> </li>";
+        $("#product-box").append(li);
+    }
+    //显示当前页码和总页面
+    var pageCount=json.pageCount;
+    var pageNo=json.pageNo;
+    $("#min-pager-number").text(pageNo+"/"+pageCount);
+    if(pageCount==pageNo){
+        $("#mp-next").addClass("mp-disable");
+        $("#mp-prev").removeClass("mp-disable");
+    }
+    if(pageNo==1){
+        $("#mp-next").removeClass("mp-disable");
+        $("#mp-prev").addClass("mp-disable");
+    }
+    if(pageCount==1){
+        $("#mp-next").addClass("mp-disable");
+        $("#mp-prev").addClass("mp-disable");
+    }
+
+}
+
+
+//截取地址栏参数
 function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     var r = window.location.search.substr(1).match(reg);
