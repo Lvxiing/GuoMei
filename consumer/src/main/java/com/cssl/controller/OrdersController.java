@@ -43,6 +43,20 @@ public class OrdersController {
         return productFeignInterface.findOrders(oid);
     }
 
+    //查询用户订单的待付款待收货总记录数
+    @RequestMapping("findTotal")
+    @ResponseBody
+    List<Map<String,Object>> findTotal(@RequestParam(value = "uid", required=false) Integer uid){
+
+        return productFeignInterface.findTotal(18);
+    }
+    //根据订单号查询地址表相关信息
+    @RequestMapping("findAddressByOrder")
+    @ResponseBody
+    public Map<String,Object> findAddressByOrder(@RequestParam("oid") Integer oid){
+        return productFeignInterface.findAddressByOrder(oid);
+    }
+
     //-------------------------后台------------------------
     //查询所有和模糊查询和分页
     @RequestMapping("/orderList/{pageIndex}/{pageSize}/{orderNo}/{name}")
