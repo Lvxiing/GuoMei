@@ -33,9 +33,11 @@ function info() {
     var re =GetRequest();
     $.getJSON("../../Goods/GoodInfoShow",{"gid":re.gid} ,function (json) {
         //主图
-        var div="<img width='360'height='360' class='j-bpic-b'  src='"+json.goodsDes.mainImg+"' alt='"+json.goodsDes.title+"'/>";
+        var div="<img width='330.7692308' height='330.7692308' class='j-bpic-b'  src='"+json.goodsDes.mainImg+"' alt='"+json.goodsDes.title+"'/>";
         div+="<a title='"+json.goodsDes.title+"'target='_blank' href='javascript:;'class='pic-l-b'></a>";
         $("div.jqzoom").append(div);
+        $("div.fd>img")
+            .attr("src", json.goodsDes.mainImg);
         //标题
         var title="<h1>"+json.goodsDes.title+"</h1>";
         title+="<h4 id='prdtitcx'>"+json.goodsDes.subTitle+"</h4>";

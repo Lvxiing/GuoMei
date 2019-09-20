@@ -24,11 +24,16 @@
     <meta http-equiv="mobile-agent"
           content="format=html5; url=//item.m.gome.com.cn/product-A0006592644-pop8012920303.html">
     <link rel="stylesheet" href="css/201908261736popcssdianzhao.min.c.css">
-    <script src="js/jquery-1.8.3.js"></script>
+
     <script src="js/product_details/201908261736gmlibunitobserverobs.js"></script>
 
     <script src="layui/layui.js"></script>
     <link rel="stylesheet" href="layui/css/layui.css">
+
+    <script src="js/function.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery.fly.min.js"></script>
+
 </head>
 <body>
 <div class="gome-top">
@@ -54,7 +59,7 @@
         <ul class="topmenu clearfix">
             <li class="shopcartbox"><span class="cartlinkbox">
                 <a data-code="public03004" rel="nofollow" class="menulink cartlink" id="a"><em
-                        class="i-cart"><span class="shopnum"><span
+                        class="i-cart"><span class="shopnum" name="numSpan"><span
                         id="commerceItemQuantityId" name="num">0</span><i></i></span></em><span
                         id="hdrcarttext">我的购物车</span></a></span>
 
@@ -144,10 +149,25 @@
 <div class="gome-container" style="height: 400px" id="gm-main-info">
     <div class="prd-firstscreen-left">
         <div class="magnifier ">
-            <div class="pic-big">
+            <div class="pic-big" style="width: 330.7692308px;height:330.7692308px;">
                 <div class="jqzoom">
 
+
                 </div>
+
+
+                <div id="orig"
+                     style="cursor: move; width: 330.7692308px;height:330.7692308px; position: absolute;margin-top: -358px;margin-left: 0px;">
+                    <div class="blocks"
+                         style="width:254.4378698px; height: 254.4378698px; background: rgba(254, 238, 167, .6); position: absolute; left: 0; top: 0;display: none;"></div>
+                </div>
+                <div class="fd"
+                     style="width: 330.7692308px;height:330.7692308px; position: absolute; left: 364px; top:0px; overflow: hidden;display: none;z-index: 9999;">
+                    <img src="" style="position: absolute;" />
+                </div>
+
+
+
             </div>
 
         </div>
@@ -322,7 +342,7 @@
                 </div>
             </div>
         </div>
-        <div class="prd-buttons" id="btnLink" style="margin-top: 80px;">
+        <div class="prd-buttons" id="btnLink" style="margin-top: 50px;">
             <div class="count-wrapper" id="btnCount">
                 <input type="text" class="quantity j-gACval" id="enterQty" maxlength="5" value="1"
                        onfocus="this.className='j-gACval quantity focus'" onblur="this.className='quantity j-gACval'"
@@ -352,48 +372,149 @@
                     return theRequest;
                 }
 
-                $(function () {
-
-                    var re = GetRequest();
-
-                    layui.use(['layer','upload','form'], function() {
-                        var layer = layui.layer,  //弹层
-                            $ = layui.jquery;
-
-//我的购物车中商品的件数
+                //我的购物车中商品的件数
+                function  showNum(){
                     $.getJSON("/cart/cartCount",function(result){
                         $("[name=num]").text(result);
+                        if(result==0){
+                            $("[name=numSpan]").css({"background-color":" #A5A5A5"});
+                        }else{
+                            $("[name=numSpan]").css({"background-color":"#dd00a7"});
+                        }
                     })   ;
+                }
 
-                    //加入购物车
-                    $("#addCart").click(function () {
-                        var num = $("#enterQty").val();
-                        var price = $("#prdPrice>span").text();
-                        var total = num * price;
-                        $.getJSON("/cart/saveCart", {
-                            "goodsId": re.gid,
-                            "num": num,
-                            "price": price,
-                            "total": total
-                        }, function (result) {
-                            layer.msg("加入购物车成功");
-                            if(result.msg=="新增到购物车"){
-                                //如果购物车内没有该商品,则购物车内商品的件数加1
-                                $("[name=num]").text(parseInt($("[name=num]").text())+1);
-                            }
+                layui.use(['layer','upload','form'], function() {
+                    var layer = layui.layer,  //弹层
+                        $ = layui.jquery;
 
+                $(function () {
+                    var re = GetRequest();
+
+
+                        showNum();
+
+                        //放大镜效果
+
+                        // 绑定鼠标移入原图窗口事件
+                        $("#orig").mouseover(function(e) {
+                            $(".fd").css("display", "block");
+                            $(".blocks").css("display", "block");
                         });
-                    });
+                        //绑定鼠标在原图窗口移动的事件
+                        $("#orig").mousemove(function(e) {
+                            // 获取鼠标当前的位置
+                            var x = e.clientX;
+                            var y = e.clientY;
+                            // 获取原图窗口距离文档的偏移位置
+                            var sX = $("#orig").offset().left;
+                            var sY = $("#orig").offset().top;
+                            // 计算鼠标的相对位置（相对于原图窗口的偏移距离）
+                            var mx = x - sX;
+                            var my = y - sY;
+                            // 让鼠标在小框框的中心
+                            var mw = $(".blocks").width() / 2;
+                            var mh = $(".blocks").height() / 2;
+                            // 鼠标移动后小框框的移动距离
+                            $(".blocks").css({
+                                left : mx - mw + "px",
+                                top : my - mh + "px"
+                            });
+                            // 获取小框框的偏移位置
+                            var lw = $(".blocks").position().left;
+                            var lh = $(".blocks").position().top;
+                            // 判断边界（小框框只能在原图窗口范围内移动）
+                            var maxW = $("#orig").width() - $(".blocks").width();
+                            var maxH = $("#orig").height() - $(".blocks").height();
+                            // 左边界
+                            if (lw <= 0) {
+                                $(".blocks").css("left", "0px");
+                            }
+                            // 右边界
+                            if (lw >= maxW) {
+                                $(".blocks").css("left", maxW + "px");
+                            }
+                            // 上边界
+                            if (lh <= 0) {
+                                $(".blocks").css("top", "0px");
+                            }
+                            // 下边界
+                            if (lh >= maxH) {
+                                $(".blocks").css("top", maxH + "px");
+                            }
+                            // 获取小框框的偏移位置
+                            var lw = $(".blocks").position().left;
+                            var lh = $(".blocks").position().top;
+                            // 1.3是放大的比例
+                            var newX = lw * 1.3;
+                            var newY = lh * 1.3;
+                            $(".fd img").css({
+                                left : -newX + "px",
+                                top : -newY + "px"
+                            });
+                        });
+                        //绑定鼠标离开原图窗口事件
+                        $("#orig").mouseout(function() {
+                            $(".fd").css("display", "none");
+                            $(".blocks").css("display", "none");
+                        });
 
 
+                        //购物车的位置
+                        var offset = $(".shopcartbox").offset();
+                        //点击添加到购物车
+                        //该商品的图片由小圆球形状飞入到购物车内
+                        $("#addCart")
+                            .click(function () {
+                                var num = $("#enterQty").val();
+                                var price = $("#prdPrice>span").text();
+                                var total = num * price;
+
+                                var img = $("div.jqzoom").children("img")
+                                    .attr("src");
+                                var flyer = $("<img style='border-radius:50%;width:80px;heigth:80px;'  src='"
+                                    + img + "' >");
+                                flyer.fly({
+                                    //开始位置
+                                    start : {
+                                        left : event.pageX,
+                                        top : event.pageY,
+                                    },
+                                    //结束位置
+                                    end : {
+                                        left : offset.left,
+                                        top : offset.top,
+                                        width : 0, //结束时高度
+                                        height : 0, //结束时宽度
+                                    },
+                                    speed : 1.7, //速度
+                                    //结束回调
+                                    onEnd : function() {
+                                        //销毁抛物体
+                                        this.destory();
+                                    }
+                                });
+                                //添加该商品到购物车
+                                $.getJSON("/cart/saveCart", {
+                                    "goodsId": re.gid,
+                                    "num": num,
+                                    "price": price,
+                                    "total": total
+                                }, function (result) {
+                                    layer.msg("加入购物车成功");
+                                    if(result.msg=="新增到购物车"){
+                                        //如果购物车内没有该商品,则购物车内商品的件数加1
+                                        $("[name=num]").text(parseInt($("[name=num]").text())+1);
+                                    }
+                                    showNum();
+                                });
+
+                            })
 
 
-
-
-                    });
+                   });
 
                 })
-
 
             </script>
 
