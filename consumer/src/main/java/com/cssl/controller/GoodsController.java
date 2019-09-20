@@ -41,10 +41,10 @@ public class GoodsController {
         return productFeignInterface.saveData();
     }
 
-    @RequestMapping("showAll/{keywords}/{pageIndex}/{pageSize}/{bs}")
+    @RequestMapping("showAll")
     @ResponseBody
-    public List<SolrPo> showAll(@PathVariable String keywords, @PathVariable Integer pageIndex, @PathVariable Integer pageSize, @PathVariable Integer bs) throws Exception {
-        return productFeignInterface.showAll(keywords,pageIndex,pageSize,bs);
+    public PageInfo<SolrPo> showAll(@RequestParam Map<String,Object> map) throws Exception {
+        return productFeignInterface.showAll(map);
     }
 
     //--------------------------前台分类模块----------------------------
