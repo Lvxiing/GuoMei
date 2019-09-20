@@ -132,7 +132,7 @@ function findOrdersDetail(order_id,time,order_no,status,order_total) {
         //转换时间格式
         var dateee = new Date(time).toJSON();
         var times= new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
-        //头部信息
+        //头部信息(标题信息)
         var tr="";
         tr=" <table class='order-list-cont'><tbody><tr class='item-info'> <td style='width:40%;padding-left:10px;' class='orderTd1_11926392274'>";
         tr+=" <input type='checkbox' class='orderNumcheck' disabled='' > <span class='ico-qiang ' ordertype='2'title='普通订单'>普</span> ";

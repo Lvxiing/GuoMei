@@ -72,7 +72,7 @@ public class OrdersController {
         return ordersService.findTotal(uid);
     }
 
-    //根据订单号查询地址表相关信息
+    //根据订单号查询地址表的相关信息
     @RequestMapping("findAddressByOrder")
     @ResponseBody
     public Map<String,Object> findAddressByOrder(@RequestParam("oid") Integer oid){

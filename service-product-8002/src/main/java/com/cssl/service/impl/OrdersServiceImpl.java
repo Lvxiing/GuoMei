@@ -43,7 +43,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     public List<Map<String, Object>> findTotal(Integer uid) {
         return ordersMapper.findTotal(uid);
     }
-
+      //根据订单编号查收货信息
     @Override
     public Map<String, Object> findAddressByOrder(Integer oid) {
         return ordersMapper.findAddressByOrder(oid);

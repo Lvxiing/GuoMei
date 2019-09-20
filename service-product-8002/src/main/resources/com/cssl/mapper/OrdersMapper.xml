@@ -56,7 +56,7 @@
                COUNT(CASE WHEN(order_status=5)THEN order_status END) AS num3
         FROM orders WHERE user_id =#{uid}
     </select>
-    <!--根据订单号查询地址表相关信息-->
+    <!--根据订单号查询地址表的相关信息-->
     <select id="findAddressByOrder" parameterType="int" resultType="map">
         SELECT a.* FROM orders o
                             INNER JOIN address a ON o.`address_id`=a.`address_id`

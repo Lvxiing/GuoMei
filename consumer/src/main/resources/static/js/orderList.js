@@ -107,7 +107,7 @@ function info() {
 }
 
 
-//显示右侧下部分用户收货信息
+//显示右侧下部分用户的收货信息
 function userInfo() {
     var re=GetRequest();
     $.getJSON("../../Orders/findAddressByOrder",{"oid":re.oid},function (json) {

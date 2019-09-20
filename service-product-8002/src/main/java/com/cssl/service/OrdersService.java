@@ -27,7 +27,7 @@ public interface OrdersService extends IService<Orders> {
     //查询用户订单的待付款待收货总记录数
     public List<Map<String,Object>> findTotal(Integer uid);
 
-    //根据订单号查询地址表相关信息
+    //根据订单号查询地址的表相关信息
     public Map<String,Object> findAddressByOrder(Integer oid);
     //-----------------------后台-----------------------
     /**
