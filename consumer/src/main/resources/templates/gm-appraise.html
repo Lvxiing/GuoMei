@@ -21,7 +21,7 @@
     <link rel="shortcut icon" href="font/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/gm-appraise.css">
     <link rel="stylesheet" href="css/gm-appraise1.css">
-    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script type="text/javascript" src="js/gm-appraise.js"></script>
@@ -173,8 +173,7 @@
                         <div class="t1" class="clearfix" style="display:block;">
                             <!-- 说明 -->
                             <div class="uc_appraise_info clearfix">
-                                <a href="//help.gome.com.cn/article/282-0-0.html" title="查看评论规则"
-                                   class="appraisehelp_btn" target="_blank">查看评论规则</a>
+
                                 <div class="uc_appraisehelp_title">说两句吧，您的想法很重要哦~</div>
 
                             </div>
@@ -212,7 +211,8 @@
                                                 style="border-left:1px solid #ccc;border-right:1px solid #ccc;"
                                                 rowspan="1">
                                                 <div class="pos_re"><span><a href="javascript:void(0);" productid=""
-                                                                             id="" shopno="" skuid="pop8012377392"
+                                                                             id="appraise_btn" shopno=""
+                                                                             skuid="pop8012377392"
                                                                              userid="81536874786" orderid="11926392274"
                                                                              shippinggroupid="2839137287"
                                                                              ordersource="0"
@@ -322,8 +322,6 @@
                         <div class="t2" style="display:none;">
                             <!-- 说明 -->
                             <div class="uc_appraise_info clearfix">
-                                <a href="//help.gome.com.cn/article/282-0-0.html" title="查看评论规则"
-                                   class="appraisehelp_btn" target="_blank">查看评论规则</a>
                                 <div class="uc_appraisehelp_title">说两句吧，您的想法很重要哦~</div>
 
                             </div>
@@ -392,6 +390,41 @@
                                                             userid="81536874786" shippinggroupid="2839137287"
                                                             orderid="11926392274" skuid="pop8012377392"
                                                             appraiseid="P187716650" isshowpictures="">追加评论</a></div>
+                                                </td>
+                                            </tr>
+                                            <tr style="display: none"  class="yellow addArea">
+                                                <td colspan="4"
+                                                    style="border-bottom:1px solid #f3dbb6;border-top:1px solid #f3dbb6;">
+                                                    <div class="again_arrows"></div>
+                                                    <div class="again_area"><textarea name="textarea"
+                                                                                      class="again_info ctextarea-info"></textarea>
+                                                        <div class="again_bottom">
+                                                            <div class="explain_upload_btn"
+                                                                 id="explain_upload_btn0"></div>
+                                                            <div class="explain_upload_phone_btn"
+                                                                 id="explain_upload_phone_btn"></div>
+                                                            <div class="errorTxt"></div>
+                                                            <span class="uploat_tip uploat_num"
+                                                                  style="display: none;"><span
+                                                                    class="col5e cur_num">0</span>/5</span> <span
+                                                                class="uploat_tip uploat_limit">限5张</span>
+                                                            <ul class="upload_img"></ul>
+                                                            <span class="uploat_bottom">没图没真相，给小伙伴晒一晒，有机会获得美豆</span>
+                                                        </div>
+                                                        <div class="again_share">
+                                                            <div class="again_grade">
+                                                                <div class="commit-btnlayer clearfix">
+                                                                    <div class="addcommit_tip">描述一下您的心得呗~</div>
+                                                                    <a id="add-commitEvaluate" class="btn-light"
+                                                                       href="javascript:;" onclick="return false;"
+                                                                       style="margin-left:-20px;margin-top: 10px;">提交</a>
+                                                                    <span class="btn_tip"></span> <span
+                                                                        style="float:right;text-align:right;"
+                                                                        class="textarea_explain appraise_gray">0 / 400</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -663,10 +696,27 @@
         $(".gomeNav li").hover(
             function () {
                 $(this).addClass("navCur").siblings().removeClass("navCur");
-            },function () {
+            }, function () {
                 $(this).removeClass("navCur");
             }
         );
+        //点击评价晒单
+        $("#appraise_btn").click(function () {
+            if ($(".appArea").is(":hidden")) {
+                $(".appArea").show();
+            } else {
+                $(".appArea").hide();
+            }
+
+        });
+        //点击追加评论
+        $(".already_again").click(function () {
+            if ($(".addArea").is(":hidden")) {
+                $(".addArea").show();
+            } else {
+                $(".addArea").hide();
+            }
+        });
     });
 </script>
 </body>
