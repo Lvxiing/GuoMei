@@ -278,5 +278,10 @@ public class GoodsController {
         map.put("vipInfo", vip != null ? vip : null);
         return map;
     }
+    @ResponseBody
+    @RequestMapping("findAllSolrData")
+    public List<SolrPo> findAllSolrData(){
+        return goodsService.findAllSolrData();
+    }
 
 }

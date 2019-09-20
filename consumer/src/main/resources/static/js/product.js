@@ -1,17 +1,25 @@
 $(function () {
       info();
       //页面一加载显示第一页评价信息
-    evaluate("all",1);
+    evaluate(1);
     //上一页
     $(".gpprev").click(function () {
         var pageNo=$(this).attr("pageNo");
-        evaluate("gpprev",pageNo);
+        if(pageNo>1){
+            pageNo--;
+        }
+        evaluate(pageNo);
     });
     //下一页
     $(".gpnext").click(function () {
         var pageNo=$(this).attr("pageNo");
-        evaluate("gpnext",pageNo);
+        if(pageNo<pageCount){
+            pageNo++;
+        }
+        evaluate(pageNo);
     });
+
+    vipPrice();
 });
 
 //获取url中"?"符后的字串
@@ -43,11 +51,11 @@ function info() {
         title+="<h4 id='prdtitcx'>"+json.goodsDes.subTitle+"</h4>";
         $("div.hgroup").append(title);
         //价格
-        $("#prdPrice").html("<em>¥</em><span>"+json.goodsDes.price+"</span>");
+        $("#prdPrice").html("<em>¥</em>"+json.goodsDes.price+"");
         //好评
         var centCount=0;
         var diffCount=0;
-        var good=0;
+        var good=100;
         if(json.count!=0){
             centCount=json.centCount/json.count*100;
             diffCount=json.diffCount/json.count*100;
@@ -114,7 +122,9 @@ function findCategory(name) {
         var li="";
          for(var i=0;i<cname.length;i++){
              if(i==0){
-                 li+="<li class='linkBold'><a href='categoryList.html?cid="+cid[i]+"&level="+level[i]+"' title='"+cname[i]+"'>"+cname[i]+"</a><i class='icon-crumbs-right'></i></li>";
+                 li+="<li class='linkBold'><a  title='"+cname[i]+"'>"+cname[i]+"</a><i class='icon-crumbs-right'></i></li>";
+             }else if(i==1){
+                 li+="<li><a title='"+cname[i]+"'>"+cname[i]+"</a><i class='icon-crumbs-right'></i></li>";
              }else{
                  li+="<li><a  href='categoryList.html?cid="+cid[i]+"&level="+level[i]+"' title='"+cname[i]+"'>"+cname[i]+"</a><i class='icon-crumbs-right'></i></li>";
              }
@@ -129,40 +139,41 @@ function findCategory(name) {
         besimilarGoods(cname[2]);
     });
 }
-
+//获取总页面数
+var pageCount=0;
 //评价
-function evaluate(ye,pageNo){
-      if(ye=="gpprev"){  //上一页
-          pageNo--;
-      }else if(ye=="gpnext"){
-          pageNo++;
-      }else{
-          pageNo=1;
-      }
+function evaluate(pageNo){
     var re =GetRequest();
     $.getJSON("../../evaluate/goodsEvaluate",{"gid":re.gid,"pageIndex":pageNo,"pageSize":1} ,function (json) {
          //设置上下页
         $(".gpprev").attr("pageNo",json.pageNo);
         $(".gpnext").attr("pageNo",json.pageNo);
+        pageCount=json.pageCount;
         $("#replyListWrap").empty();
         var list=json.list;
-        for(var i=0;i<list.length;i++){
-            //转换时间格式
-            var dateee = new Date(list[i].evaluate_time).toJSON();
-            var times= new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-            //判断星级
-            var li="<li class='oh'><div class='reply-left'><div class='reply_avatar'>";
-            li+="<img src='"+list[i].user_headimg+"'><span class='reply_avatar_userName'>"+list[i].user_name.substring(0,1)+"***"+list[i].user_name.substring(list[i].user_name.length-1,list[i].user_name.length)+"</span></div>";
-            li+=" <p class='profileGrade'><span class='viplevel'>"+list[i].grade_name+"会员</span></p></div>";
-            li+="<div class='reply-center'> <div class='reply-center-inner'>  <div class='reply-spots'></div>";
-            li+="<span class='detail-star bgiprd'><b style='width: "+list[i].evaluate_star*20+"%;' class='bgiprd'></b> </span>";
-            li+=" <div class='shiyongxinde oh'><em class='ca5'>使用心得：</em>"+list[i].evaluate_content+"</div>";
-            li+=" <div class='info-time'><a target='_blank' href='#'>"+times+"</a>";
-            li+=" <div class='close-arrow'><div class='reply_wrap_sanjiao'></div><div class='reply_wrap_close'>╳</div>";
-            li+="</div></div></div><div class='reply-center-inner replylist_list_inner'></div>";
-            li+=" <div class='reply-center-inner'></div> <div class='reply-center-inner'></div></div> </li>";
-             $("#replyListWrap").append(li);
+        if(list.length>0){
+            for(var i=0;i<list.length;i++){
+                //转换时间格式
+                var dateee = new Date(list[i].evaluate_time).toJSON();
+                var times= new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+                //判断星级
+                var li="<li class='oh'><div class='reply-left'><div class='reply_avatar'>";
+                li+="<img src='"+list[i].user_headimg+"'><span class='reply_avatar_userName'>"+list[i].user_name.substring(0,1)+"***"+list[i].user_name.substring(list[i].user_name.length-1,list[i].user_name.length)+"</span></div>";
+                li+=" <p class='profileGrade'><span class='viplevel'>"+list[i].grade_name+"会员</span></p></div>";
+                li+="<div class='reply-center'> <div class='reply-center-inner'>  <div class='reply-spots'></div>";
+                li+="<span class='detail-star bgiprd'><b style='width: "+list[i].evaluate_star*20+"%;' class='bgiprd'></b> </span>";
+                li+=" <div class='shiyongxinde oh'><em class='ca5'>使用心得：</em>"+list[i].evaluate_content+"</div>";
+                li+=" <div class='info-time'><a target='_blank' href='#'>"+times+"</a>";
+                li+=" <div class='close-arrow'><div class='reply_wrap_sanjiao'></div><div class='reply_wrap_close'>╳</div>";
+                li+="</div></div></div><div class='reply-center-inner replylist_list_inner'></div>";
+                li+=" <div class='reply-center-inner'></div> <div class='reply-center-inner'></div></div> </li>";
+                $("#replyListWrap").append(li);
+            }
+        }else{
+            $("#replyListWrap").append("<li><p class='nocomments-info'>暂无商品评价！</p></li>");
+            $("#pageNum").hide();
         }
+
     });
 }
 
@@ -204,5 +215,23 @@ function besimilarGoods(name) {
             }
         }
     });
+}
+
+
+//显示会员价
+function vipPrice() {
+    var re=GetRequest();
+    if (re.vip!="yes"){
+        $("#vip").hide();
+    }else{
+        $("#vip").show();
+        $.getJSON("../../Goods/vipInfo",{"gid":re.gid},function(json){
+            $("#huiYuanDJ").text("您享受"+json.grade_name+"会员价");
+            var vip_price=json.goods_price-json.Discount_money;
+            $(".huiYuanTeJia_text").text("¥"+vip_price+"  ");
+            $("#Discount_money").text(json.Discount_money);
+            $("#Discount_money").attr("money",json.Discount_money);
+        })
+    }
 }
 

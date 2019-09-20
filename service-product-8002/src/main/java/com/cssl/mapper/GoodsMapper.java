@@ -2,6 +2,7 @@ package com.cssl.mapper;
 
 import com.cssl.entity.Goods;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.cssl.entity.SolrPo;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -55,4 +56,8 @@ public interface GoodsMapper extends BaseMapper<Goods> {
 
     //根据分类显示商品排行榜
     List<Goods> categorySalaRankingGoods(List list);
+
+
+    List<SolrPo> findAllSolrData();
+
 }

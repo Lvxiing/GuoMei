@@ -134,25 +134,26 @@ function floor(key, id, color) {
         var uls = "<ul class='w62' style='width: 85px'>";
         for (var i = 0; i < json.length; i++) {
             if (id == 68 || id == 94) {
-                channelbg += "<li class='edit-mode'><a href='categoryList.html?cid="+json[i].cid+"&level="+json[i].clevel+"' target='_blank' data-code='1000060863-1'>" + json[i].name + "</a></li>";
+                channelbg += "<li class='edit-mode'><a>" + json[i].name + "</a></li>";
             } else {
-                channelbg += " <a href='categoryList.html?cid="+json[i].cid+"&level="+json[i].clevel+"' target='_blank' data-code='1000060863-1'>" + json[i].name + "</a><span>/</span>";
+                channelbg += " <a>" + json[i].name + "</a><span>/</span>";
             }
             var list = json[i].categoryChildren;
             for (var j = 0; j < list.length; j++) {
                 if (id != 68 && id != 94) {
-                    channelbg += "<a href='categoryList.html?cid="+json[i].cid+"&level="+json[i].clevel+"' target='_blank' data-code='1000060863-1'>" + list[j].name + "</a><span>/</span>";
+                    channelbg += "<a href='categoryList.html?cid="+list[j].cid+"&level="+list[j].clevel+"' target='_blank' data-code='1000060863-1'>" + list[j].name + "</a><span>/</span>";
                 }
-                var lists = json[i].categoryChildren[j].categoryChildren;
+
                 if (id != 26) {
-                    ul += "<li><a href='categoryList.html?cid="+json[i].cid+"&level="+json[i].clevel+"' target='_blank'>" + list[j].name + "</a></li>";
+                    ul += "<li><a href='categoryList.html?cid="+list[j].cid+"&level="+list[j].clevel+"' target='_blank'>" + list[j].name + "</a></li>";
                 }
                 uls += "<li>";
+                var lists = json[i].categoryChildren[j].categoryChildren;
                 for (var k = 0; k < lists.length; k++) {
                     if (id == 26) {
-                        ul += "<li><a href='categoryList.html?cid="+json[i].cid+"&level="+json[i].clevel+"' target='_blank'>" + lists[k].name + "手机</a></li>";
+                        ul += "<li><a href='categoryList.html?cid="+lists[k].cid+"&level="+lists[k].clevel+"' target='_blank'>" + lists[k].name + "手机</a></li>";
                     } else {
-                        uls += "<a href='categoryList.html?cid="+json[i].cid+"&level="+json[i].clevel+"' target='_blank'>" + lists[k].name + "</a>  ";
+                        uls += "<a href='categoryList.html?cid="+lists[k].cid+"&level="+lists[k].clevel+"' target='_blank'>" + lists[k].name + "</a>  ";
                     }
                 }
                 uls += "</li>";

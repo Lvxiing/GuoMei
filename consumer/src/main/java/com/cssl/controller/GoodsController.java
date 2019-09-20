@@ -7,6 +7,7 @@ import com.cssl.util.NginxUtil;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +28,26 @@ public class GoodsController {
 
     //--------------------------前台模块-------------------------------
 
+    //--------------------------solr搜索引擎---------------------------
+    @ResponseBody
+    @RequestMapping("findAllSolrData")
+    public List<SolrPo> findAllSolrData(){
+        return productFeignInterface.findAllSolrData();
+    }
+
+    @RequestMapping("saveData")
+    @ResponseBody
+    public String saveData() throws  Exception{
+        return productFeignInterface.saveData();
+    }
+
+    @RequestMapping("showAll")
+    @ResponseBody
+    public PageInfo<SolrPo> showAll(@RequestParam Map<String,Object> map) throws Exception {
+        return productFeignInterface.showAll(map);
+    }
+
+    //--------------------------前台分类模块----------------------------
     //根据分类名称查询该分类下的所有品牌商品的热卖商品
     @RequestMapping("findGoodsByCategoryName")
     @ResponseBody

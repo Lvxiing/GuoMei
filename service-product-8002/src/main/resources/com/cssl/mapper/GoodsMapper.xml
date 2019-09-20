@@ -244,4 +244,10 @@
         ORDER BY num DESC
         LIMIT 6
     </select>
+
+    <select id="findAllSolrData" resultType="SolrPo">
+        SELECT goods_id id,goods_title title,goods_sub_title sub,goods_main_img img,goods_create_time times,goods_price price,c.category_id cid FROM goods g
+        INNER JOIN brand b ON g.`brand_id` = b.`brand_id`
+        INNER JOIN category c ON c.`category_id` = b.`category_id`
+    </select>
 </mapper>
