@@ -245,7 +245,7 @@ function showNewsTitle() {
             span += "<a class='gome_news_sort edit-mode' href='gm-indexsever.html' target='_blank' modeltype='2'>公告</a>";
             span += "<a class='gome_news_text  edit-mode' href='news_details.html?id=" + cate.id + "' target='_blank' modeltype='2'>" + cate.title + "</a>";
             span += "</span>";
-            if (i < 4) {
+            if (i < 7) {
                 $("div.gome_news_content").append(span);
             }
         }
