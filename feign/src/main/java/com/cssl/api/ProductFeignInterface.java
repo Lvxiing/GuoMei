@@ -21,8 +21,8 @@ public interface ProductFeignInterface {
     @RequestMapping("solr/saveData")
     String saveData();
 
-    @RequestMapping("solr/showAll/{keywords}/{pageIndex}/{pageSize}/{bs}")
-    List<SolrPo> showAll(@PathVariable String keywords, @PathVariable Integer pageIndex, @PathVariable Integer pageSize, @PathVariable Integer bs) throws Exception;
+    @RequestMapping("solr/showAll")
+    PageInfo<SolrPo> showAll(@RequestParam Map<String,Object> map) throws Exception;
 
     //-----------------------------前台模块-------------------------------
     //首页显示
