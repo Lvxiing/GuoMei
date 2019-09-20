@@ -62,6 +62,7 @@
         </foreach>
         ))
         and g.goods_state = 1
+        ORDER BY num DESC
         LIMIT 10
     </select>
 
@@ -126,6 +127,7 @@
                       )
             )
         ) and g.goods_state = 1
+        ORDER BY num DESC
             LIMIT 12
     </select>
 
@@ -162,6 +164,7 @@
                       )
             )
         ) and g.goods_state = 1
+        ORDER BY num DESC
             LIMIT 12
     </select>
 
@@ -175,11 +178,12 @@
             ) o ON g.`goods_id` = o.goods_id
                  INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
              where  g.goods_state = 1
+             ORDER BY num DESC
              LIMIT 5
     </select>
 
     <select id="goodsInfoSale" resultMap="BaseResultMap" parameterType="int">
-        SELECT g.*
+        SELECT g.*,num
         FROM goods g
                  INNER JOIN (SELECT goods_id,SUM(detail_num) AS num
                              FROM order_detail
@@ -192,6 +196,7 @@
             FROM category
             WHERE category_id = #{cid}
         )  and g.goods_state = 1
+        ORDER BY num DESC
             LIMIT 3
     </select>
 
@@ -229,6 +234,7 @@
                  category_id = #{item}
                </foreach>
         ) and g.goods_state = 1
+        ORDER BY num DESC
     </select>
 
     <select id="categorySalaRankingGoods" parameterType="list" resultMap="BaseResultMap">
