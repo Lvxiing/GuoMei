@@ -185,12 +185,13 @@
                     $.getJSON("../../../Goods/categoryShow", "level=4", function (json) {
                         if (json != null) {
                             brandShow(json);
+                            $.getJSON("../../category/findBrandIsParentCategory?cid=" + bid, function (json) {
+                                $("#brand").find("option[value=" + json.cid + "]").prop("selected", true);
+                                categoryShow(json.pid);
+                            });
                         }
                     });
-                    $.getJSON("../../category/findBrandIsParentCategory?cid=" + bid, function (json) {
-                        $("#brand").find("option[value=" + json.cid + "]").prop("selected", true);
-                        categoryShow(json.pid);
-                    });
+
 
                     form.render();  //更新全部
                 }
