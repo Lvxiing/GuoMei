@@ -109,7 +109,7 @@
 </p></div>
 <div class="content-bg" style="background:#fff1e8">
     <div class="main clearfix" style="background-image:url(image/T1ruLjBvd_1RCvBVdK.jpg);">
-        <div class="login-box-wrap">
+        <div class="login-box-wrap" style="height: 350px;">
             <div class="loginHead clearfix">
                 <div class="loginTab tabLeft" id="tabLeft"><a href="javascript:void(0)">扫码登录</a></div>
                 <div class="loginTab tabRight" id="tabRight"><a href="javascript:void(0)">账户登录</a></div>
@@ -148,7 +148,7 @@
                         <a href="javascript:;" class="blink" target="_blank" title="国美">国美</a>
                     </p>
                     <p class="smCode">扫一扫登录</p>
-                    <a class="fontBlink fr registerBtn" href="gm-reg.html" target="_blank" title="免费注册" tabindex="7">免费注册</a>
+
                 </div>
                 <div class="login-wrap" style="display:none">
                     <div id="err-tip">
@@ -218,20 +218,8 @@
                                 </div>
                             </div>
                             <div class="remember overflowhide clearfix">
-                                <div class="fl">
-                                    <input type="checkbox" id="autoLoginFlag" name="autoLoginFlag"
-                                           class="ckbx autoLoginFlag" value="radiobutton">
-                                    <label for="autoLoginFlag">自动登录</label>
-                                </div>
-                                <div class="fr" style="width:120px;">
-                                    <a href="javascript:;" class="fl" target="_blank" id="forgetpwdmsg" tabindex="6"
-                                       title="忘记密码">忘记密码</a>
-                                    <span class="fl paddrl10 displayb colorccc">|</span>
-                                    <a class="fontBlink fr" href="gm-reg.html" target="_blank" title="免费注册"
-                                       tabindex="7">免费注册</a>
-                                    <input name="autoLoginMode" id="autoLoginMode" class="autoLoginMode" type="text"
-                                           value="" style="display: none;">
-                                </div>
+
+
                             </div>
                             <input type="hidden" id="chkRememberUsername" name="chkRememberUsername" value="1"
                                    checked="checked">
@@ -255,8 +243,15 @@
                                 <input type="submit" tabindex="5" value="登 录" class="btnnuw" id=toLogin">
                             </div>
 
+                            <div class="fr" style="width:120px;margin-top:30px;">
+                                <a class="fontBlink fr" href="gm-reg.html" target="_blank" title="免费注册"
+                                   tabindex="7">免费注册</a>
+                                <input name="autoLoginMode" id="autoLoginMode" class="autoLoginMode" type="text"
+                                       value="" style="display: none;">
+                            </div>
+
                             <p style="padding: 30px 0 15px;">
-                                <a href="javascript:;" class="fontBlink phoneLoginBtn">手机号快速登录(支持门店预留手机)</a>
+
                             </p>
 
                         </div>
@@ -401,13 +396,7 @@
                                 <span class="default" id="verifyCodeDefault">短信验证码</span>
                             </div>
                             <div class="remember clearfix" style="padding-top:5px;">
-                                <div class="fl">
-                                    <input id="autoLoginFlagNew" name="autoLoginFlagNew" class="ckbx autoLoginFlag"
-                                           value="radiobutton" type="checkbox">
-                                    <label for="autoLoginFlagNew">自动登录</label>
-                                    <input name="autoLoginModeNew" id="autoLoginModeNew" class="autoLoginMode" value=""
-                                           style="display: none;" type="text">
-                                </div>
+
                             </div>
                             <p class="detailContent">未注册的手机号将自动注册，且代表您同意<a href="javascript:;"
                                                                            class="fontBlink">《服务协议》</a></p>
@@ -439,23 +428,7 @@
                 </div>
             </div>
 
-            <dl class="corp-login" id="corp-login">
-                <dd class="play_icon clearfix">
-                    <a href="javascript:;" class="borderLine" title="门店会员卡登录">门店会员卡登录</a>
-                    <a id="corp_qq" href="javascript:;" target="_parent" title="QQ" tabindex="8" class="borderLine"><em>QQ</em></a>
-                    <a id="corp_weixin" href="javascript:;" target="_parent" title="微信" tabindex="18"
-                       class="borderLine">微信</a>
-                    <a id="corp_sina" href="javascript:;" target="_parent" title="新浪微博" tabindex="10"
-                       class="borderLine">微博</a>
-                    <a id="corp_gomezhifu" href="javascript:;" target="_parent" title="美付宝" tabindex="17">美付宝</a>
-                    <a id="corp_jixintong" href="javascript:;" target="_parent" title="极信通" tabindex="16"
-                       class="borderLine hide">极信通</a>
-                    <a id="corp_alipay" href="javascript:;" target="_parent" title="支付宝" tabindex="9"
-                       class="hide">支付宝</a>
 
-                </dd>
-                <dd><a class="more"></a></dd>
-            </dl>
 
         </div>
         <a href="javascript:;" target="_blank" class="survey"><s class="icon"></s>我想对“登录”提意见</a>

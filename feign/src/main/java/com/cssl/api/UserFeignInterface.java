@@ -51,6 +51,37 @@ public interface UserFeignInterface {
     @RequestMapping("/growup_detail/detailDescription")
      Map detailDescription();
 
+
+    //****************** 购物车 ***************
+
+    @RequestMapping("/cart/saveCart")
+    boolean saveCart(Cart cart);
+
+
+    @RequestMapping("/cart/cartAllGoodsByUserId/{userId}")
+    List<Map> cartAllGoodsByUserId(@PathVariable("userId") Integer userId);
+
+
+    @RequestMapping("/cart/cartCount/{userId}")
+     Integer cartCount(@PathVariable("userId") Integer userId);
+
+
+    @RequestMapping("/cart/findGoodsId/{goodsId}")
+     Cart  findGoodsId(@PathVariable("goodsId") Integer goodsId);
+
+    @RequestMapping("/cart/updateCartNum")
+     int updateCartNum(@RequestParam Map map);
+
+    @RequestMapping("/cart/delCartGood")
+     boolean delCartGood(@RequestParam Map map);
+
+    @RequestMapping("/collection/saveCollection")
+     boolean  saveCollection(Collections collections);
+
+    @RequestMapping("/collection/findIfCollected")
+     Collections  findIfCollected(@RequestParam Map map);
+
+
     //**********后台***********
 
     @RequestMapping("/users/adminLogin")

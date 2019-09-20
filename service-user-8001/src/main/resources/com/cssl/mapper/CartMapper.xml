@@ -12,4 +12,62 @@
         <result column="cart_total" property="total" />
     </resultMap>
 
+
+    <resultMap id="myMap" type="map">
+        <id column="goods_id" property="goodsId" />
+        <result column="goods_title" property="goodsTitle" />
+        <result column="goods_main_img" property="goodsMainImg" />
+        <result column="goods_price" property="goodsPrice" />
+        <result column="cart_id" property="cartId" />
+        <result column="cart_num" property="cartNum" />
+         <result column="cart_total" property="cartTotal" />
+    </resultMap>
+
+
+    <select id="cartAllGoodsByUserId" resultMap="myMap">
+        SELECT   g.goods_id,g.goods_title,g.goods_main_img,g.goods_price,c.cart_id,c.cart_num,c.cart_total FROM   cart c
+                                                                                                                      LEFT JOIN   goods  g  ON  c.goods_id=g.goods_id
+        WHERE   c.user_id=#{userId}
+    </select>
+
+
+<select id="cartCount" resultType="Integer">
+    SELECT  COUNT(1) FROM cart
+    WHERE user_id=#{userId}
+</select>
+
+
+
+<update id="updateCartNum">
+    UPDATE   cart   SET    `cart_num`=#{cartNum}
+            ,`cart_total`=#{cartNum}*`cart_money`
+    WHERE  `goods_id`=#{goodsId}
+</update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>

@@ -2,7 +2,10 @@ package com.cssl.api;
 
 import com.cssl.entity.*;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
@@ -96,6 +99,10 @@ public interface ProductFeignInterface {
     @RequestMapping("goods/browseGoods")
     List<Goods> browseGoods(@RequestBody(required=false)  String value);
 
+    @RequestMapping("vip_goods/vipInfo")
+    Map<String,Object> vipInfo(@RequestParam("gid") Integer gid);
+
+
     //----------------------------订单前台模块-----------------------------
     //用户订单
     @RequestMapping("orders/findOrdersByUserId")
@@ -108,13 +115,7 @@ public interface ProductFeignInterface {
     @RequestMapping("orders/findOrders")
     Orders findOrders(@RequestParam("oid") Integer oid);
 
-    //查询用户订单的待付款待收货总记录数
-    @RequestMapping("orders/findTotal")
-    List<Map<String,Object>> findTotal(@RequestParam("uid") Integer uid);
 
-    //根据订单号查询地址表相关信息
-    @RequestMapping("orders/findAddressByOrder")
-     Map<String,Object> findAddressByOrder(@RequestParam("oid") Integer oid);
     //--------------------------后台模块----------------------------------
 
     //---------------------------新闻后台模块--------------------------------

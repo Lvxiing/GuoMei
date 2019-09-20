@@ -146,8 +146,10 @@
                        $.getJSON("/users/userRegister",{"phone":phone,"userName":userName,"passWord":passWord},function (result) {
 
                         if (result==true){
-                            layer.msg("注册成功,请登录!");
-                            location.href="gm-login.html";
+                            layer.msg('注册成功,请登录', {time:4000}, function(){
+                                location.href="gm-login.html";
+                            });
+
                         } else{
                             layer.msg("注册失败,请重试!!");
                         }
