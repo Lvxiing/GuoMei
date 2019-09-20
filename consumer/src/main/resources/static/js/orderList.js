@@ -21,65 +21,71 @@ function GetRequest() {
 //显示基本信息
 function display () {
      var ono=GetRequest().ono;
+       ono=ono.substring(36,ono.length);
+
     $.getJSON("../../Orders/findOrdersByUserId",{"pageIndex":1,"pageSize":3,"order_no":ono},function(json){
         var list=json.list;
-        //显示金额
-        $("#price").html("<em>¥</em>"+list[0].order_total+"");
-        switch (parseInt(list[0].order_status)) {
-            case 1:
-                $("#status").text("商品未付款");
-                $(".rpt").text("您的商品未付款，请您确认付款。");
-                $(".steps li:eq(0)").addClass("cur").find("span").addClass("going");
-                break;
-            case 2:
-                $("#status").text("商品出库中");
-                $(".rpt").text("您的商品出库中,请耐心等待。");
-                $(".steps li:eq(0)").addClass("cur").find("span").addClass("ready");
-                $(".steps li:eq(1)").addClass("cur").find("span").addClass("going");
-                break;
-            case 3:
-                $("#status").text("商品出库成功");
-                $(".rpt").text("您的商品出库成功,请耐心等待。");
-                $(".steps li:eq(0)").addClass("cur").find("span").addClass("ready");
-                $(".steps li:eq(1)").addClass("cur").find("span").addClass("ready");
-                $(".steps li:eq(2)").addClass("cur");
-                break;
-            case 4:
-                $("#status").text("商品待确认");
-                $(".rpt").text("您的商品已送达,请确认收货。");
-                $(".t").show();
-                $(".steps li:eq(0)").addClass("cur").find("span").addClass("ready");
-                $(".steps li:eq(1)").addClass("cur").find("span").addClass("ready");
-                $(".steps li:eq(2)").addClass("cur").find("span").addClass("going");
-                break;
-            case 5:
-                $("#status").text("订单已完成");
-                $(".rpt").text("您的订单已完成,可申请退货退款。");
-                $(".steps li:eq(0)").addClass("cur").find("span").addClass("ready");
-                $(".steps li:eq(1)").addClass("cur").find("span").addClass("ready");
-                $(".steps li:eq(2)").addClass("cur").find("span").addClass("ready");
-                break;
-            case 6:
-                $("#status").text("订单已退货");
-                $(".rpt").text("您的订单已退货,欢迎下次购买。");
-                break;
-            default:
-                statu="已取消";
-                break;
-        }
-        //显示订单编号
-        $("#orderId").text(list[0].order_no);
-        //转换时间格式
-        var dateee = new Date(list[0].pay_date).toJSON();
-        var times= new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
-        var dateee = new Date(list[0].order_time).toJSON();
-        var order_time= new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
-        //显示右侧上部分信息
-        var li="<li class='pt10'> 在线支付</li>";
-        li+="<li>支付时间："+times+"</li><li>订单创建时间："+order_time+"</li><li>订单总额：<em>¥</em> "+list[0].order_total+"</li>";
-        li+="<li class='bd-top'><strong class='bold'>应付金额：</strong> <span class='red-bold'><em>¥</em>"+list[0].order_total+"</span></li>";
-        $(".cont-r-body ul").append(li);
-
+        for(var i=0;i<list.length;i++){
+          if(list[i].order_no==ono){
+              //显示金额
+              $("#price").html("<em>¥</em>"+list[i].order_total+"");
+              switch (parseInt(list[i].order_status)) {
+                  case 1:
+                      $("#status").text("商品未付款");
+                      $(".rpt").text("您的商品未付款，请您确认付款。");
+                      $(".steps li:eq(0)").addClass("cur").find("span").addClass("going");
+                      break;
+                  case 2:
+                      $("#status").text("商品出库中");
+                      $(".rpt").text("您的商品出库中,请耐心等待。");
+                      $(".steps li:eq(0)").addClass("cur").find("span").addClass("ready");
+                      $(".steps li:eq(1)").addClass("cur").find("span").addClass("going");
+                      break;
+                  case 3:
+                      $("#status").text("商品出库成功");
+                      $(".rpt").text("您的商品出库成功,请耐心等待。");
+                      $(".steps li:eq(0)").addClass("cur").find("span").addClass("ready");
+                      $(".steps li:eq(1)").addClass("cur").find("span").addClass("ready");
+                      $(".steps li:eq(2)").addClass("cur");
+                      break;
+                  case 4:
+                      $("#status").text("商品待确认");
+                      $(".rpt").text("您的商品已送达,请确认收货。");
+                      $(".t").show();
+                      $(".steps li:eq(0)").addClass("cur").find("span").addClass("ready");
+                      $(".steps li:eq(1)").addClass("cur").find("span").addClass("ready");
+                      $(".steps li:eq(2)").addClass("cur").find("span").addClass("going");
+                      break;
+                  case 5:
+                      $("#status").text("订单已完成");
+                      $(".rpt").text("您的订单已完成,可申请退货退款。");
+                      $(".steps li:eq(0)").addClass("cur").find("span").addClass("ready");
+                      $(".steps li:eq(1)").addClass("cur").find("span").addClass("ready");
+                      $(".steps li:eq(2)").addClass("cur").find("span").addClass("ready");
+                      break;
+                  case 6:
+                      $("#status").text("订单已退货");
+                      $(".rpt").text("您的订单已退货,欢迎下次购买。");
+                      break;
+                  default:
+                      statu="已取消";
+                      break;
+              }
+              //显示订单编号
+              $("#orderId").text(list[i].order_no);
+              //转换时间格式
+              var dateee = new Date(list[i].pay_date).toJSON();
+              var times= new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+              var dateee = new Date(list[i].order_time).toJSON();
+              var order_time= new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+              //显示右侧上部分信息
+              var li="<li class='pt10'> 在线支付</li>";
+              li+="<li>支付时间："+times+"</li><li>订单创建时间："+order_time+"</li><li>订单总额：<em>¥</em> "+list[i].order_total+"</li>";
+              li+="<li class='bd-top'><strong class='bold'>应付金额：</strong> <span class='red-bold'><em>¥</em>"+list[i].order_total+"</span></li>";
+              $(".cont-r-body ul").append(li);
+              break;
+          }
+       }
     });
 
 }
