@@ -18,7 +18,7 @@ $(function () {
     floorTitle("#sixFloor", 103, "#829daa", "#sixFloor_div");
     //热销排行榜
     hot();
-
+    search();
 });
 
 //热销榜
@@ -251,4 +251,14 @@ function showNewsTitle() {
             }
         }
     })
+}
+
+
+//搜索跳转
+function search() {
+    $(".search-btn").click(function () {
+        var input=$("#searchInput").val();
+        var content = encodeURI(encodeURI(input));
+        window.location.href='categoryLists.html?content='+content;
+    });
 }
