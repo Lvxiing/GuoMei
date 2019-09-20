@@ -86,16 +86,20 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
         Integer pageIndex = new Integer(map.get("pageIndex").toString());
         Integer pageSize = new Integer(map.get("pageSize").toString());
         Integer bs = -1;
-        if(map.get("bs") != null && !"".equals(map.get("bs")) ){
+        if (map.get("bs") != null && !"".equals(map.get("bs"))) {
             bs = new Integer(map.get("bs").toString());
         }
         Map param = new HashMap();
         param.put("list", list);
-        if(map.get("low") != null && !"".equals(map.get("low")) ){
-            param.put("low", map.get("low"));
-        }
-        if(map.get("high") != null && !"".equals(map.get("high")) ){
-            param.put("high", map.get("high"));
+        if (map.get("price") != null && !"".equals(map.get("price"))) {
+            String price = map.get("price").toString();
+            String[] split = price.split("-");           //如果切割后的长度等于2 就说明这是一个价格区间
+            if (split.length == 2) {
+                param.put("low",split[0]);
+                param.put("high",split[1]);
+            } else {
+                param.put("low",split[0]);
+            }
         }
         String sort = null;
         if (bs == 1) { //表示销量
