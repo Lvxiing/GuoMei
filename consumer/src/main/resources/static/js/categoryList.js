@@ -201,6 +201,18 @@ function categoryGoodsShow() {
         var pageCount=json.page.pageCount;
         var pageNo=json.page.pageNo;
         $("#min-pager-number").text(pageNo+"/"+pageCount);
+        if(pageCount==pageNo){
+            $("#mp-next").addClass("mp-disable");
+            $("#mp-prev").removeClass("mp-disable");
+        }
+        if(pageNo==1){
+            $("#mp-next").removeClass("mp-disable");
+            $("#mp-prev").addClass("mp-disable");
+        }
+        if(pageCount==1){
+            $("#mp-next").addClass("mp-disable");
+            $("#mp-prev").addClass("mp-disable");
+        }
         //分类
         var id;
         if(json.categoryInfo.clevel==3){
@@ -234,6 +246,10 @@ function searc1(bs,pageno) {
             $("#mp-next").removeClass("mp-disable");
             $("#mp-prev").addClass("mp-disable");
         }
+        if(pageCount==1){
+            $("#mp-next").addClass("mp-disable");
+            $("#mp-prev").addClass("mp-disable");
+        }
         //循环显示商品
         xunhuan(json,bs);
     });
@@ -254,6 +270,10 @@ function searc2(bs,pageno) {
             $("#mp-next").removeClass("mp-disable");
             $("#mp-prev").addClass("mp-disable");
         }
+        if(pageCount==1){
+            $("#mp-next").addClass("mp-disable");
+            $("#mp-prev").addClass("mp-disable");
+        }
         //循环显示商品
         xunhuan(json,bs);
     });
@@ -272,6 +292,10 @@ function searc3(bs,pageno) {
         }
         if(pageNo==1){
             $("#mp-next").removeClass("mp-disable");
+            $("#mp-prev").addClass("mp-disable");
+        }
+        if(pageCount==1){
+            $("#mp-next").addClass("mp-disable");
             $("#mp-prev").addClass("mp-disable");
         }
         //循环显示商品
@@ -295,6 +319,10 @@ function searc4(bs,pageno,lowPrice,highPrice) {
             $("#mp-next").removeClass("mp-disable");
             $("#mp-prev").addClass("mp-disable");
         }
+        if(pageCount==1){
+            $("#mp-next").addClass("mp-disable");
+            $("#mp-prev").addClass("mp-disable");
+        }
         //循环显示商品
         xunhuan(json,bs);
     });
@@ -313,6 +341,10 @@ function searc5(bs,pageno) {
         }
         if(pageNo==1){
             $("#mp-next").removeClass("mp-disable");
+            $("#mp-prev").addClass("mp-disable");
+        }
+        if(pageCount==1){
+            $("#mp-next").addClass("mp-disable");
             $("#mp-prev").addClass("mp-disable");
         }
         //循环显示商品
