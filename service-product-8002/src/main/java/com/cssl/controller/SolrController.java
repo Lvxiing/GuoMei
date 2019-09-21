@@ -80,7 +80,7 @@ public class SolrController {
                 solrQuery.addFilterQuery("price:[" + split[0] + " TO *]");
             }
         }
-        /**
+        /**s
          * hl.snippets
          * hl.snippets参数是返回高亮摘要的段数，因为我们的文本一般都比较长，含有搜索关键字的地方有多处，如果hl.snippets的值大于1的话，
          * 会返回多个摘要信息，即文本中含有关键字的几段话，默认值为1，返回含关键字最多的一段描述。solr会对多个段进行排序。
@@ -105,7 +105,30 @@ public class SolrController {
             }
         }
         if (bs == 4) { //表示销量
-            return saleGoods(pageIndex, pageSize, articleList);
+            List<Integer> list = new ArrayList<>();
+            for (SolrPo s : articleList) {
+                list.add(s.getCid());
+            }
+            Set<Integer> set = new HashSet<>(list);
+            List<Integer> cList = new ArrayList<>();
+            for (Integer s : set) {
+                cList.add(s);
+            }
+            List<SolrPo> salGoods = goodsService.findSalGoods(cList);
+            Collections.sort(salGoods, new Comparator<SolrPo>() {
+                @Override
+                public int compare(SolrPo o1, SolrPo o2) {
+
+                    return o2.getNum() - o1.getNum(); //降序
+                }
+            });
+            System.out.println("salGoods******** = " + salGoods);
+            page.setPageNo(pageIndex);
+            page.setPageSize(pageSize);
+            page.setTotalCount(salGoods.size());
+            page.setPageCount(salGoods.size() % pageSize == 0 ? salGoods.size() / pageSize : (salGoods.size() / pageSize) + 1);
+            page.setList(salGoods);
+            return page;
         }
 
         int counts = (int) query.getResults().getNumFound();
@@ -117,47 +140,4 @@ public class SolrController {
         return page;
 
     }
-
-    public PageInfo<SolrPo> saleGoods(int pageIndex, int pageSize, List<SolrPo> articleList) {
-        System.out.println("pageIndex = " + pageIndex);
-        System.out.println("pageSize = " + pageSize);
-        int pageNo = (pageIndex - 1) * pageSize;
-        PageInfo<SolrPo> page = new PageInfo<>();
-        List<Integer> list = new ArrayList<>();
-        for (SolrPo s : articleList) {
-            list.add(s.getCid());
-        }
-        Set<Integer> set = new HashSet<>(list);
-        List<Integer> cList = new ArrayList<>();
-        for (Integer s : set) {
-            cList.add(s);
-        }
-        List<SolrPo> salGoods = goodsService.findSalGoods(cList);
-        Collections.sort(salGoods, new Comparator<SolrPo>() {
-            @Override
-            public int compare(SolrPo o1, SolrPo o2) {
-
-                return o2.getNum() - o1.getNum(); //降序
-            }
-        });
-
-        if (pageNo + pageSize > salGoods.size()) {
-
-            salGoods = salGoods.subList(pageNo, salGoods.size());
-
-        } else {
-
-            salGoods = salGoods.subList(pageNo, pageNo + pageSize);
-
-        }
-        System.out.println("salGoods = " + salGoods);
-        page.setPageNo(pageIndex);
-        page.setPageSize(pageSize);
-        page.setTotalCount(salGoods.size());
-        page.setPageCount(salGoods.size() % pageSize == 0 ? salGoods.size() / pageSize : (salGoods.size() / pageSize) + 1);
-        page.setList(salGoods);
-        return page;
-    }
-
-
 }
