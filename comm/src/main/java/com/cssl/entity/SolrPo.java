@@ -14,7 +14,7 @@ import java.util.Date;
 @Getter
 @ToString
 @NoArgsConstructor
-public class SolrPo  implements Serializable {
+public class SolrPo  implements Serializable{
     @Field
     private String id;
 
@@ -35,5 +35,8 @@ public class SolrPo  implements Serializable {
 
     @Field
     private Integer cid;
+
+    private Integer num;
+
 
 }
