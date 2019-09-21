@@ -1,5 +1,6 @@
 $(function () {
       info();
+      search();
       //页面一加载显示第一页评价信息
     evaluate(1);
     //上一页
@@ -20,7 +21,17 @@ $(function () {
     });
 
     vipPrice();
+
 });
+
+//搜索跳转
+function search() {
+    $(".search-btn").click(function () {
+        var input=$("#searchInput").val();
+        var content = encodeURI(encodeURI(input));
+        window.location.href='categoryLists.html?content='+content;
+    });
+}
 
 //获取url中"?"符后的字串
 function GetRequest() {

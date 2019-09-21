@@ -22,9 +22,7 @@
     <link rel="shortcut icon" href="font/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="css/gm-indexsever.css">
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script src="js/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="js/gm-indexsever.js"></script>
 </head>
 <body class="news w990">
@@ -52,7 +50,41 @@
 <div id="gome-head" class="wbox" data-need-slogan-judge="true">
     <div id="logo"><a data-code="public03001" href="index.html">国美</a></div>
     <div id="logo-gif"></div>
+    <div id="topSearch" class="topsearch">
+        <div id="topSearchHover" class="searchbox" data-visitor="hover">
+            <form id="searchForm" method="get" action="//search.gome.com.cn/search">
+                <div id="search-type-dropdown">
+                    <div class="search-type">
+                        <span class="search-type-selected" data-selected="">商品</span>
+                    </div>
+                </div>
+                <input type="text" id="searchInput" name="question" value="" autocomplete="off"
+                       onpropertychange="if(this.value.length>200){this.value=this.value.slice(0,199)}">
+                <button type="button" class="search-btn">搜索</button>
+            </form>
+        </div>
+        <div id="searchTips" class="searchtips">
+            <div id="his_title" class="hisTitle">
+                <p><span>最近搜索</span><a id="hisClear" href="javascript:void(0)">全部清空</a></p>
+            </div>
+            <ul id="searchTipsList" class="searchabout clearfix">
+            </ul>
+        </div>
+        <script type="text/javascript">
+            var environment = 'commerce', targetType = 'Production', contentLabels = 'Catalog', language = 'chinese';
+        </script>
+    </div>
+    <div class="mygome-side" data-cart="mincart">
+        <ul class="topmenu clearfix">
+            <li class="shopcartbox"><span class="cartlinkbox">
+                <a data-code="public03004" rel="nofollow" class="menulink cartlink" id="a"><em
+                        class="i-cart"><span class="shopnum" name="numSpan"><span
+                        id="commerceItemQuantityId" name="num">0</span><i></i></span></em><span
+                        id="hdrcarttext">我的购物车</span></a></span>
 
+            </li>
+        </ul>
+    </div>
 
 </div>
 <!--gome_head -->
@@ -63,610 +95,11 @@
             <div id="navBox" class='lisnav'>
                 <div class="lisbg"></div>
                 <ul class="lisnav-ul" id="lisnav">
-                    <li class="first edit-mode nav-item" data-index="0" modeltype="4" modelid="1000037040">
-                        <h3>
-                            <a data-code="1000037040-0" href="javascript:;" target="_blank">手机</a>
-                            <a data-code="1000037040-1" href="javascript:;" target="_blank">充值</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="1" modeltype="4" modelid="1000037283">
-                        <h3>
-                            <a data-code="1000037283-0" href="javascript:;" target="_blank">相机</a>
-                            <a data-code="1000037283-1" href="javascript:;" target="_blank">智能数码</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="2" modeltype="4" modelid="1000037067">
-                        <h3>
-                            <a data-code="1000037067-0" href="javascript:;" target="_blank">电脑</a>
-                            <a data-code="1000037067-1" href="javascript:;" target="_blank">办公配件</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="3" modeltype="4" modelid="1000036959">
-                        <h3>
-                            <a data-code="1000036959-0" href="javascript:;" target="_blank">电视 影音</a>
-                            <a data-code="1000036959-1" href="javascript:;" target="_blank">智能</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="4" modeltype="4" modelid="1000036986">
-                        <h3>
-                            <a data-code="1000036986-0" href="javascript:;" target="_blank">空调</a>
-                            <a data-code="1000036986-1" href="javascript:;" target="_blank">冰箱</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="5" modeltype="4" modelid="1000037013">
-                        <h3>
-                            <a data-code="1000037013-0" href="javascript:;" target="_blank">厨房卫浴</a>
-                            <a data-code="1000037013-1" href="javascript:;" target="_blank">生活电器</a>
-                            <p class="line"></p>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="6" modeltype="4" modelid="1000037094">
-                        <h3>
-                            <a data-code="1000037094-0" href="javascript:;" target="_blank">家具</a>
-                            <a data-code="1000037094-1" href="javascript:;" target="_blank">建材</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="7" modeltype="4" modelid="1000037121">
-                        <h3>
-                            <a data-code="1000037121-0" href="javascript:;" target="_blank">家居家纺</a>
-                            <a data-code="1000037121-1" href="javascript:;" target="_blank">家居家装</a>
-                            <p class="line"></p>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="8" modeltype="4" modelid="1000037148">
-                        <h3>
-                            <a data-code="1000037148-0" href="javascript:;" target="_blank">食品酒水</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="9" modeltype="4" modelid="1000037310">
-                        <h3>
-                            <a data-code="1000037310-0" href="javascript:;" target="_blank">母婴玩具</a>
-                            <p class="line"></p>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="10" modeltype="4" modelid="1000037175">
-                        <h3>
-                            <a data-code="1000037175-0" href="javascript:;" target="_blank">美妆个护</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="11" modeltype="4" modelid="1000037202">
-                        <h3>
-                            <a data-code="1000037202-0" href="javascript:;" target="_blank">服饰鞋帽</a>
-                            <a data-code="1000037202-1" href="javascript:;" target="_blank">箱包奢品</a>
-                            <p class="line"></p>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="12" modeltype="4" modelid="1000037229">
-                        <h3>
-                            <a data-code="1000037229-0" href="javascript:;" target="_blank">运动户外</a>
-                            <a data-code="1000037229-1" href="javascript:;" target="_blank">钟表首饰</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="13" modeltype="4" modelid="1000037256">
-                        <h3>
-                            <a data-code="1000037256-0" href="javascript:;" target="_blank">汽车整车</a>
-                            <a data-code="1000037256-1" href="javascript:;" target="_blank">汽车用品</a>
-                        </h3>
-                    </li>
-                    <li class="lst edit-mode nav-item" data-index="14" modeltype="4" modelid="1000037337">
-                        <h3>
-                            <a data-code="1000037337-0" href="javascript:;" target="_blank">国美管家</a>
-                        </h3>
-                    </li>
+
                 </ul>
                 <div class="subnav" id="subnav" flag="0">
                     <div class="loading1-sync" id="loading1-sync" style="top: 0px">
-                        <div class="fullcategory" style="display: none;">
-                            <div class="fullcategory-left">
-                                <div class="fullcategory-title"><a href="//3c.gome.com.cn/" target="_blank" title="潮3C"
-                                                                   data-code="1000037041-0">潮3C<i></i></a> <a
-                                        href="//tongxun.gome.com.cn/" target="_blank" title="手机"
-                                        data-code="1000037041-1">手机<i></i></a> <a href="//digital.gome.com.cn/"
-                                                                                  target="_blank" title="数码"
-                                                                                  data-code="1000037041-2">数码<i></i></a>
-                                    <a href="//yjhx.gome.com.cn/" target="_blank" title="以旧换新" data-code="1000037041-3">以旧换新<i></i></a>
-                                    <a href="//wt.gome.com.cn/recharge/" target="_blank" title="手机充值"
-                                       data-code="1000037041-4">手机充值<i></i></a> <a href="//zzfw.gome.com.cn/"
-                                                                                   target="_blank" title="延保服务"
-                                                                                   data-code="1000037041-5">延保服务<i></i></a>
-                                    <a href="//cool.gome.com.cn/" target="_blank" title="智享生活" data-code="1000037041-6">智享生活<i></i></a>
-                                </div>
-                                <div class="fullcategory-content-box" id="fullcategory-content-box"
-                                     style="width: 769px;">
-                                    <div class="fullcategory-content" data-code="1000051970_0" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title" style="margin-top: -8px;_margin: -8px 0;"> 手机通讯</div>
-                                            <div class="list" style="width: 700px;"><a
-                                                    href="//list.gome.com.cn/cat10000070.html" target="_blank"
-                                                    title="手机" data-code="1000051971-0">手机</a></div>
-                                        </ul>
-                                    </div>
-                                    <div class="fullcategory-content" data-code="1000051972_1" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title"> 运营商</div>
-                                            <div class="list" style="width: 700px;">
-                                                <div class="underline"></div>
-                                                <a href="//list.gome.com.cn/cat10000070-00-0-48-0-0-0-0-1-1b8o-0-0-0-0-0-0-0-0.html"
-                                                   target="_blank" title="中国移动" data-code="1000051973-0">中国移动</a> <a
-                                                    href="//list.gome.com.cn/cat10000070.html" target="_blank"
-                                                    title="中国联通" data-code="1000051973-1">中国联通</a></div>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fullcategory" style="display: none;">
-                            <div class="fullcategory-left">
-                                <div class="fullcategory-title"><a href="//3c.gome.com.cn/" target="_blank" title="潮3C"
-                                                                   data-code="1000037284-0">潮3C<i></i></a> <a
-                                        href="//digital.gome.com.cn/" target="_blank" title="数码"
-                                        data-code="1000037284-1">数码<i></i></a> <a href="//yjhx.gome.com.cn/"
-                                                                                  target="_blank" title="以旧换新"
-                                                                                  data-code="1000037284-2">以旧换新<i></i></a>
-                                    <a href="//zzfw.gome.com.cn/" target="_blank" title="延保服务" data-code="1000037284-3">延保服务<i></i></a>
-                                    <a href="//cool.gome.com.cn/" target="_blank" title="智享生活" data-code="1000037284-4">智享生活<i></i></a>
-                                </div>
-                                <div class="fullcategory-content-box" id="fullcategory-content-box"
-                                     style="width: 769px;">
-                                    <div class="fullcategory-content" data-code="1000052896_0" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title" style="margin-top: -8px;_margin: -8px 0;"> 摄影摄像</div>
-                                            <div class="list" style="width: 700px;"><a
-                                                    href="//list.gome.com.cn/cat10000144.html" target="_blank"
-                                                    title="数码相机" data-code="1000052897-0">数码相机</a></div>
-                                        </ul>
-                                    </div>
-                                    <div class="fullcategory-content" data-code="1000052900_1" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title"> 数码配件</div>
-                                            <div class="list" style="width: 700px;">
-                                                <div class="underline"></div>
-                                                <a href="//list.gome.com.cn/cat10000155.html" class="hot"
-                                                   target="_blank" title="" data-code="1000052901-0">存储卡</a></div>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fullcategory" style="display: none;">
-                            <div class="fullcategory-left">
-                                <div class="fullcategory-title"><a href="//3c.gome.com.cn/" target="_blank" title="潮3C"
-                                                                   data-code="1000037068-0">潮3C<i></i></a> <a
-                                        href="//computer.gome.com.cn/" target="_blank" title="电脑办公"
-                                        data-code="1000037068-1">电脑办公<i></i></a> <a href="//peijian.gome.com.cn/"
-                                                                                    target="_blank" title="精品配件"
-                                                                                    data-code="1000037068-2">精品配件<i></i></a>
-                                    <a href="//yjhx.gome.com.cn/" target="_blank" title="以旧换新" data-code="1000037068-3">以旧换新<i></i></a>
-                                    <a href="//card.gome.com.cn/" target="_blank" title="美通卡" data-code="1000037068-4">美通卡<i></i></a>
-                                    <a href="//zzfw.gome.com.cn/" target="_blank" title="延保服务" data-code="1000037068-5">延保服务<i></i></a>
-                                </div>
-                                <div class="fullcategory-content-box" id="fullcategory-content-box"
-                                     style="width: 769px;">
-                                    <div class="fullcategory-content" data-code="1000052079_0" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title" style="margin-top: -8px;_margin: -8px 0;"> 电脑整机</div>
-                                            <div class="list" style="width: 700px;"><a
-                                                    href="//prom.gome.com.cn/html/prodhtml/topics/201908/21/3744068917.html"
-                                                    class="hot" target="_blank" title="" data-code="1000052080-0">【爆品直降1000元】</a>
-                                            </div>
-                                        </ul>
-                                    </div>
-                                    <div class="fullcategory-content" data-code="1000052081_1" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title"> 外设产品</div>
-                                            <div class="list" style="width: 700px;">
-                                                <div class="underline"></div>
-                                                <a href="//list.gome.com.cn/cat10000107.html" class="hot"
-                                                   target="_blank" title="" data-code="1000052082-0">鼠标</a></div>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fullcategory" style="display: none;">
-                            <div class="fullcategory-left">
-                                <div class="fullcategory-title"><a href="//electronic.gome.com.cn/" target="_blank"
-                                                                   title="电视影音" data-code="1000036960-0">电视影音<i></i></a>
-                                    <a href="//card.gome.com.cn/" target="_blank" title="美通卡" data-code="1000036960-1">美通卡<i></i></a>
-                                    <a href="https://yjhx.gome.com.cn" target="_blank" title="以旧换新"
-                                       data-code="1000036960-2">以旧换新<i></i></a> <a href="//zzfw.gome.com.cn/"
-                                                                                   target="_blank" title="延保服务"
-                                                                                   data-code="1000036960-3">延保服务<i></i></a>
-                                    <a href="//cool.gome.com.cn/" target="_blank" title="智享生活" data-code="1000036960-4">智享生活<i></i></a>
-                                </div>
-                                <div class="fullcategory-content-box" id="fullcategory-content-box"
-                                     style="width: 769px;">
-                                    <div class="fullcategory-content" data-code="1000051752_0" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title" style="margin-top: -8px;_margin: -8px 0;"> 电视</div>
-                                            <div class="list" style="width: 700px;"><a
-                                                    href="//list.gome.com.cn/cat10000049-00-0-48-1-0-0-0-1-1egl-0-0-10-0-0-0-0-0.html"
-                                                    class="hot" target="_blank" title=""
-                                                    data-code="1000051753-0">55英寸</a></div>
-                                        </ul>
-                                    </div>
-                                    <div class="fullcategory-content" data-code="1000051754_1" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title"> 电视配件</div>
-                                            <div class="list" style="width: 700px;">
-                                                <div class="underline"></div>
-                                                <a href="//list.gome.com.cn/cat10000325.html" target="_blank"
-                                                   title="3D电视配件" data-code="1000051755-0">3D电视配件</a></div>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fullcategory" style="display: none;">
-                            <div class="fullcategory-left">
-                                <div class="fullcategory-title"><a href="//kt.gome.com.cn/" target="_blank" title="空调"
-                                                                   data-code="1000036987-0">空调<i></i></a> <a
-                                        href="//list.gome.com.cn/cat10000054-00-0-48-1-0-0-0-1-0-0-1-10-0-0-0-0-0.html"
-                                        target="_blank" title="冰箱" data-code="1000036987-1">冰箱<i></i></a> <a
-                                        href="//list.gome.com.cn/cat10000058-00-0-48-1-0-0-0-1-0-0-1-10-0-0-0-0-0.html"
-                                        target="_blank" title="洗衣机" data-code="1000036987-2">洗衣机<i></i></a> <a
-                                        href="//prom.gome.com.cn/html/prodhtml/topics/201901/31/1115313062.html"
-                                        target="_blank" title="家电节能专区" data-code="1000036987-3">家电节能专区<i></i></a> <a
-                                        href="//card.gome.com.cn/" target="_blank" title="美通卡" data-code="1000036987-4">美通卡<i></i></a>
-                                    <a href="https://yjhx.gome.com.cn" target="_blank" title="以旧换新"
-                                       data-code="1000036987-5">以旧换新<i></i></a> <a href="//zzfw.gome.com.cn/"
-                                                                                   target="_blank" title="延保服务"
-                                                                                   data-code="1000036987-6">延保服务<i></i></a>
-                                    <a href="//mall.gome.com.cn/80011410/" target="_blank" title="家电清洗服务"
-                                       data-code="1000036987-7">家电清洗服务<i></i></a></div>
-                                <div class="fullcategory-content-box" id="fullcategory-content-box"
-                                     style="width: 769px;">
-                                    <div class="fullcategory-content" data-code="1000051865_0" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title" style="margin-top: -8px;_margin: -8px 0;"> 空调/商用</div>
-                                            <div class="list" style="width: 700px;"><a
-                                                    href="//list.gome.com.cn/cat10000062.html" class="hot"
-                                                    target="_blank" title="" data-code="1000051866-0">家用空调</a>
-                                            </div>
-                                        </ul>
-                                    </div>
-                                    <div class="fullcategory-content" data-code="1000051861_1" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title"> 冰箱/冷柜</div>
-                                            <div class="list" style="width: 700px;">
-                                                <div class="underline"></div>
-                                                <a href="//list.gome.com.cn/cat10000054.html" class="hot"
-                                                   target="_blank" title="" data-code="1000051862-0">冰箱</a></div>
-                                        </ul>
-                                    </div>
-                                    <div class="fullcategory-content" data-code="1000051863_2" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title"> 洗衣机/干衣机</div>
-                                            <div class="list" style="width: 700px;">
-                                                <div class="underline"></div>
-                                                <a href="//list.gome.com.cn/cat10000058-00-0-48-1-0-0-0-1-1b6g-0-0-0-0-0-0-0-0.html"
-                                                   class="hot" target="_blank" title=""
-                                                   data-code="1000051864-0">滚筒洗衣机</a></div>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fullcategory" style="display: none;">
-                            <div class="fullcategory-left">
-                                <div class="fullcategory-title"><a href="//life.gome.com.cn/" target="_blank"
-                                                                   title="烟灶卫浴馆"
-                                                                   data-code="1000037014-0">烟灶卫浴馆<i></i></a> <a
-                                        href="//prom.gome.com.cn/html/prodhtml/topics/201601/11/2615035889.html"
-                                        target="_blank" title="厨卫新活馆" data-code="1000037014-1">厨卫新活馆<i></i></a> <a
-                                        href="//prom.gome.com.cn/html/prodhtml/topics/201601/18/gmjhg.html"
-                                        target="_blank" title="净化器" data-code="1000037014-2">净化器<i></i></a> <a
-                                        href="//xiaojiadian.gome.com.cn/" target="_blank" title="小家电"
-                                        data-code="1000037014-3">小家电<i></i></a> <a
-                                        href="//prom.gome.com.cn/html/prodhtml/topics/201809/18/shjdqnqx.html"
-                                        target="_blank" title="取暖器" data-code="1000037014-4">取暖器<i></i></a> <a
-                                        href="//card.gome.com.cn/" target="_blank" title="美通卡" data-code="1000037014-5">美通卡<i></i></a>
-                                    <a href="//zzfw.gome.com.cn/" target="_blank" title="延保服务" data-code="1000037014-6">延保服务<i></i></a>
-                                    <a href="//mall.gome.com.cn/80011410/" target="_blank" title="家电清洗服务"
-                                       data-code="1000037014-7">家电清洗服务<i></i></a></div>
-                                <div class="fullcategory-content-box" id="fullcategory-content-box"
-                                     style="width: 769px;">
-                                    <div class="fullcategory-content" data-code="1000053147_0" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title" style="margin-top: -8px;_margin: -8px 0;"> 厨卫大电</div>
-                                            <div class="list" style="width: 700px;"><a
-                                                    href="//list.gome.com.cn/cat10000199.html" class="hot"
-                                                    target="_blank" title="" data-code="1000053149-0">油烟机</a></div>
-                                        </ul>
-                                    </div>
-                                    <div class="fullcategory-content" data-code="1000053150_1" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title"> 厨房小电</div>
-                                            <div class="list" style="width: 700px;">
-                                                <div class="underline"></div>
-                                                <a href="//list.gome.com.cn/cat10000203.html" class="hot"
-                                                   target="_blank" title="" data-code="1000053151-0">微波炉</a></div>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fullcategory" style="display: none;">
-                            <div class="fullcategory-left">
-                                <div class="fullcategory-title"><a href="//furnit.gome.com.cn/" target="_blank"
-                                                                   title="住宅家具" data-code="1000037095-0">住宅家具<i></i></a>
-                                    <a href="//decoration.gome.com.cn/" target="_blank" title="家装建材"
-                                       data-code="1000037095-1">家装建材<i></i></a> <a href="//homes.gome.com.cn/"
-                                                                                   target="_blank" title="家装馆"
-                                                                                   data-code="1000037095-2">家装馆<i></i></a>
-                                    <a href="//tuan.gome.com.cn/groupon/cat18486726.html" target="_blank" title="精品家具"
-                                       data-code="1000037095-3">精品家具<i></i></a> <a href="//home.gome.com.cn/"
-                                                                                   target="_blank" title="家装服务"
-                                                                                   data-code="1000037095-4">家装服务<i></i></a>
-                                </div>
-                                <div class="fullcategory-content-box" id="fullcategory-content-box"
-                                     style="width: 769px;">
-                                    <div class="fullcategory-content" data-code="1000052188_0" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title" style="margin-top: -8px;_margin: -8px 0;"> 客厅家具</div>
-                                            <div class="list" style="width: 700px;"><a
-                                                    href="//list.gome.com.cn/cat21445766.html" class="hot"
-                                                    target="_blank" title="" data-code="1000052189-0">沙发</a></div>
-                                        </ul>
-                                    </div>
-                                    <div class="fullcategory-content" data-code="1000052190_1" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title"> 卧室家具</div>
-                                            <div class="list" style="width: 700px;">
-                                                <div class="underline"></div>
-                                                <a href="//list.gome.com.cn/cat21445693.html" target="_blank"
-                                                   title="床头柜" data-code="1000052191-0">床头柜</a></div>
-                                        </ul>
-                                    </div>
-                                    <div class="fullcategory-content" data-code="1000052192_2" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title"> 餐厅家具</div>
-                                            <div class="list" style="width: 700px;">
-                                                <div class="underline"></div>
-                                                <a href="//list.gome.com.cn/cat21445792.html" target="_blank" title="餐桌"
-                                                   data-code="1000052193-0">餐桌</a></div>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fullcategory" style="display: none;">
-                            <div class="fullcategory-left">
-                                <div class="fullcategory-title"><a href="//jiaju.gome.com.cn/" target="_blank"
-                                                                   title="家居日用" data-code="1000037122-0">家居日用<i></i></a>
-                                    <a href="//tuan.gome.com.cn/groupon/cat22355570.html" target="_blank" title="家居特卖惠"
-                                       data-code="1000037122-1">家居特卖惠<i></i></a> <a href="//www.gomehome.com/"
-                                                                                    target="_blank" title="美家致选"
-                                                                                    data-code="1000037122-2">美家致选<i></i></a>
-                                </div>
-                                <div class="fullcategory-content-box" id="fullcategory-content-box"
-                                     style="width: 769px;">
-                                    <div class="fullcategory-content" data-code="1000052315_0" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title" style="margin-top: -8px;_margin: -8px 0;"> 清洁用品</div>
-                                            <div class="list" style="width: 700px;"><a
-                                                    href="//list.gome.com.cn/cat15985545.html" target="_blank"
-                                                    title="居室清洁" data-code="1000052316-0">居室清洁</a></div>
-                                        </ul>
-                                    </div>
-                                    <div class="fullcategory-content" data-code="1000052313_1" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title"> 生活日用</div>
-                                            <div class="list" style="width: 700px;">
-                                                <div class="underline"></div>
-                                                <a href="//list.gome.com.cn/cat15965721.html" target="_blank"
-                                                   title="缝纫用品" data-code="1000052314-0">缝纫用品</a></div>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fullcategory" style="display: none;">
-                            <div class="fullcategory-left">
-                                <div class="fullcategory-title"><a href="//alcohol.gome.com.cn/" target="_blank"
-                                                                   title="食品酒水" data-code="1000037149-0">食品酒水<i></i></a>
-                                    <a href="//tuan.gome.com.cn/groupon/cat18486720.html" target="_blank" title="食品酒水盛宴"
-                                       data-code="1000037149-1">食品酒水盛宴<i></i></a></div>
-                                <div class="fullcategory-content-box" id="fullcategory-content-box"
-                                     style="width: 769px;">
-                                    <div class="fullcategory-content" data-code="1000052351_0" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title" style="margin-top: -8px;_margin: -8px 0;"> 休闲零食</div>
-                                            <div class="list" style="width: 700px;"><a
-                                                    href="//list.gome.com.cn/cat16035545.html" class="hot"
-                                                    target="_blank" title="" data-code="1000052352-0">坚果炒货</a></div>
-                                        </ul>
-                                    </div>
-                                    <div class="fullcategory-content" data-code="1000052353_1" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title"> 粮油生鲜</div>
-                                            <div class="list" style="width: 700px;">
-                                                <div class="underline"></div>
-                                                <a href="//list.gome.com.cn/cat16035587.html" class="hot"
-                                                   target="_blank" title="" data-code="1000052354-0">食用油</a></div>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fullcategory" style="display: none;">
-                            <div class="fullcategory-left">
-                                <div class="fullcategory-title"><a href="//baby.gome.com.cn/" target="_blank"
-                                                                   title="母婴玩具" data-code="1000037311-0">母婴玩具<i></i></a>
-                                </div>
-                                <div class="fullcategory-content-box" id="fullcategory-content-box"
-                                     style="width: 769px;">
-                                    <div class="fullcategory-content" data-code="1000081948_0" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title" style="margin-top: -8px;_margin: -8px 0;"> 奶粉</div>
-                                            <div class="list" style="width: 700px;"><a
-                                                    href="//list.gome.com.cn/cat10000124.html" target="_blank"
-                                                    title="1段奶粉" data-code="1000081949-0">1段奶粉</a></div>
-                                        </ul>
-                                    </div>
-                                    <div class="fullcategory-content" data-code="1000081950_1" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title"> 童车童床</div>
-                                            <div class="list" style="width: 700px;">
-                                                <div class="underline"></div>
-                                                <a href="//list.gome.com.cn/cat15985799.html" target="_blank"
-                                                   title="婴儿推车" data-code="1000081951-0">婴儿推车</a></div>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fullcategory" style="display: none;">
-                            <div class="fullcategory-left">
-                                <div class="fullcategory-title"><a href="//beauty.gome.com.cn/" target="_blank"
-                                                                   title="美妆个护" data-code="1000037176-0">美妆个护<i></i></a>
-                                    <a href="//tuan.gome.com.cn/groupon/cat18486724.html" target="_blank" title="名品个护"
-                                       data-code="1000037176-1">名品个护<i></i></a></div>
-                                <div class="fullcategory-content-box" id="fullcategory-content-box"
-                                     style="width: 769px;">
-                                    <div class="fullcategory-content" data-code="1000052470_0" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title" style="margin-top: -8px;_margin: -8px 0;"> 面部护理</div>
-                                            <div class="list" style="width: 700px;"><a
-                                                    href="//list.gome.com.cn/cat15555775.html" class="hot"
-                                                    target="_blank" title="" data-code="1000052471-0">洁面</a></div>
-                                        </ul>
-                                    </div>
-                                    <div class="fullcategory-content" data-code="1000052472_1" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title"> 身体护理</div>
-                                            <div class="list" style="width: 700px;">
-                                                <div class="underline"></div>
-                                                <a href="//list.gome.com.cn/cat15555744.html" class="hot"
-                                                   target="_blank" title="" data-code="1000052473-0">洗发护发</a></div>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fullcategory" style="display: none;">
-                            <div class="fullcategory-left">
-                                <div class="fullcategory-title"><a href="//clothing.gome.com.cn/" target="_blank"
-                                                                   title="服饰鞋帽" data-code="1000037203-0">服饰鞋帽<i></i></a>
-                                    <a href="//luxury.gome.com.cn/" target="_blank" title="箱包奢品"
-                                       data-code="1000037203-1">箱包奢品<i></i></a> <a href="//fashion.gome.com.cn/"
-                                                                                   target="_blank" title="服装城"
-                                                                                   data-code="1000037203-2">服装城<i></i></a>
-                                    <a href="//tuan.gome.com.cn/groupon/cat19065543.html" target="_blank" title="潮流服饰"
-                                       data-code="1000037203-3">潮流服饰<i></i></a></div>
-                                <div class="fullcategory-content-box" id="fullcategory-content-box"
-                                     style="width: 769px;">
-                                    <div class="fullcategory-content" data-code="1000052569_0" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title" style="margin-top: -8px;_margin: -8px 0;"> 品质男装</div>
-                                            <div class="list" style="width: 700px;"><a
-                                                    href="//list.gome.com.cn/cat15985574.html" class="hot"
-                                                    target="_blank" title="" data-code="1000052570-0">卫衣</a></div>
-                                        </ul>
-                                    </div>
-                                    <div class="fullcategory-content" data-code="1000052571_1" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title"> 时尚女装</div>
-                                            <div class="list" style="width: 700px;">
-                                                <div class="underline"></div>
-                                                <a href="//list.gome.com.cn/cat15985551.html" target="_blank"
-                                                   title="羽绒服" data-code="1000052572-0">羽绒服</a></div>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fullcategory" style="display: none;">
-                            <div class="fullcategory-left">
-                                <div class="fullcategory-title"><a href="//toysgifts.gome.com.cn/" target="_blank"
-                                                                   title="运动户外" data-code="1000037230-0">运动户外<i></i></a>
-                                    <a href="//watch.gome.com.cn/" target="_blank" title="钟表首饰"
-                                       data-code="1000037230-1">钟表首饰<i></i></a> <a
-                                            href="//tuan.gome.com.cn/groupon/cat18486725.html" target="_blank"
-                                            title="大牌便宜购" data-code="1000037230-2">大牌便宜购<i></i></a></div>
-                                <div class="fullcategory-content-box" id="fullcategory-content-box"
-                                     style="width: 769px;">
-                                    <div class="fullcategory-content" data-code="1000052678_0" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title" style="margin-top: -8px;_margin: -8px 0;"> 运动鞋服</div>
-                                            <div class="list" style="width: 700px;"><a
-                                                    href="//list.gome.com.cn/cat21655574.html" class="hot"
-                                                    target="_blank" title="" data-code="1000052679-0">跑步鞋</a></div>
-                                        </ul>
-                                    </div>
-                                    <div class="fullcategory-content" data-code="1000052680_1" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title"> 运动器械</div>
-                                            <div class="list" style="width: 700px;">
-                                                <div class="underline"></div>
-                                                <a href="//list.gome.com.cn/cat21655605.html" target="_blank"
-                                                   title="自行车" data-code="1000052681-0">自行车</a></div>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fullcategory" style="display: none;">
-                            <div class="fullcategory-left">
-                                <div class="fullcategory-title"><a href="//auto.gome.com.cn/" target="_blank"
-                                                                   title="国美汽车" data-code="1000037257-0">国美汽车<i></i></a>
-                                    <a href="//tuan.gome.com.cn/groupon/cat18486721.html" target="_blank" title="车品真划算"
-                                       data-code="1000037257-1">车品真划算<i></i></a> <a href="//mall.gome.com.cn/80008887/"
-                                                                                    target="_blank" title="轮胎满千减百"
-                                                                                    data-code="1000037257-2">轮胎满千减百<i></i></a>
-                                    <a href="//mall.gome.com.cn/80006393/" target="_blank" title="9.9元免运费"
-                                       data-code="1000037257-3">9.9元免运费<i></i></a></div>
-                                <div class="fullcategory-content-box" id="fullcategory-content-box"
-                                     style="width: 769px;">
-                                    <div class="fullcategory-content" data-code="1000052787_0" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title" style="margin-top: -8px;_margin: -8px 0;"> 整车服务</div>
-                                            <div class="list" style="width: 700px;"><a
-                                                    href="//list.gome.com.cn/cat32897452.html" target="_blank"
-                                                    title="新车定金" data-code="1000052788-0">新车定金</a></div>
-                                        </ul>
-                                    </div>
-                                    <div class="fullcategory-content" data-code="1000052789_1" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title"> 车载电器</div>
-                                            <div class="list" style="width: 700px;">
-                                                <div class="underline"></div>
-                                                <a href="//list.gome.com.cn/cat12495647.html" class="hot"
-                                                   target="_blank" title="" data-code="1000052790-0">行车记录仪</a></div>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fullcategory" style="display: none;">
-                            <div class="fullcategory-left">
-                                <div class="fullcategory-title"><a href="//yjhx.gome.com.cn" target="_blank"
-                                                                   title="以旧换新" data-code="1000037338-0">以旧换新<i></i></a>
-                                    <a href="//zzfw.gome.com.cn/" target="_blank" title="延保服务" data-code="1000037338-1">延保服务<i></i></a>
-                                </div>
-                                <div class="fullcategory-content-box" id="fullcategory-content-box"
-                                     style="width: 769px;">
-                                    <div class="fullcategory-content" data-code="1000081595_0" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title" style="margin-top: -8px;_margin: -8px 0;"> 以旧换新</div>
-                                            <div class="list" style="width: 700px;"><a href="//yjhx.gome.com.cn/"
-                                                                                       target="_blank" title="手机回收"
-                                                                                       data-code="1000081596-0">手机回收</a>
-                                            </div>
-                                        </ul>
-                                    </div>
-                                    <div class="fullcategory-content" data-code="1000081597_1" style="width: 769px;">
-                                        <ul class="fullcategory-list" style="width: 769px;">
-                                            <div class="title"> 清洗保养</div>
-                                            <div class="list" style="width: 700px;">
-                                                <div class="underline"></div>
-                                                <a href="//mall.gome.com.cn/80011410/2-B00306927-1-0.html"
-                                                   target="_blank" title="家电清洗" data-code="1000081598-0">家电清洗</a></div>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -993,7 +426,8 @@
 <script type="text/javascript">
     $(function () {
         loadDate(1);
-
+        findParentCategory();
+        search();
         var text = "";
         var total = "";
 
@@ -1029,8 +463,78 @@
         $("#yin_search").click(function () {
             pageNo = 1;
             loadDate(pageNo);
+        });
+
+        //--------------------悬浮商品分类特效-------------------------
+        $("#lisnav li").live("hover",this,
+            function () {
+                $(this).addClass("bgw").siblings().removeClass("bgw");
+                $("#subnav").show();
+                var index = $(this).attr("cid");
+                $("#cid-" +index).show().siblings().hide();
+                // $("#loading1-sync>div").eq(index);
+            }
+        );
+        //分类框失去焦点事件
+        $("#navBox,#subnav").hover(
+            function () {
+            },
+            function () {
+                $("#subnav").hide();
+                $("#lisnav li").removeClass("bgw");
+            }
+        );
+
+    });
+    //搜索跳转
+    function search() {
+        $(".search-btn").click(function () {
+            var input=$("#searchInput").val();
+            var content = encodeURI(encodeURI(input));
+            window.location.href='categoryLists.html?content='+content;
+        });
+    }
+    //显示商品一级
+    function findParentCategory() {
+        $.getJSON("../../category/findParentCategory?pid=0", function (json) {
+            for (var i = 0; i < json.length; i++) {
+                category(json[i].cid);
+                var li = "<li class='first edit-mode nav-item' data-index='" + i + "' cid='" + json[i].cid + "'> <h3>"
+                li += " <a href='javascript:;' target='_blank' >" + json[i].name + "</a>";
+                li += " </h3></li>";
+                $("#lisnav").append(li);
+            }
+
         })
-    })
+    }
+    //根据分类编号查询子分类
+    function category(cid) {
+        $.getJSON("../../category/findCategoryAndChild",{"parentId":cid}, function (json) {
+            var div="<div class='fullcategory' style='display: none;' id='cid-"+cid+"'><div class='fullcategory-left'>";
+            div+=" <div class='fullcategory-title'>";
+            var divs="";
+            for(var i=0;i<json.length;i++){
+                div+="<a href='#' title='"+json[i].name+"'>"+json[i].name+"<i></i></a>";
+                divs+="<div class='fullcategory-content' style='width: 769px;'><ul class='fullcategory-list' style='width: 769px;'>  <div class='title' style='margin-top: -8px;_margin: -8px 0;'>"+json[i].name+"</div> <div class='list' style='width: 700px;'>";
+                var list=json[i].categoryChildren;
+                var divss="";
+                for(var j=0;j<list.length;j++){
+                    divss+="<a href='categoryList.html?cid="+list[j].cid+"&level="+list[j].clevel+"' target='_blank' class='hot'  title='"+list[j].name+"'>"+list[j].name+"</a>";
+                    var lists=json[i].categoryChildren[j].categoryChildren;
+                    for(var k=0;k<lists.length;k++){
+                        divss+="<a href='categoryList.html?cid="+lists[k].cid+"&level="+lists[k].clevel+"' target='_blank'  title='"+lists[k].name+"'>"+lists[k].name+"</a>";
+                    }
+                    divs+=divss;
+                }
+                divs+="</div></ul></div>";
+            }
+            div+="</div>";
+            div+="<div class='fullcategory-content-box' id='fullcategory-content-box'style='width: 769px;'>";
+            div+=divs;
+            div+="</div></div></div>";
+            $("#loading1-sync").append(div);
+        });
+    }
 </script>
 </body>
 </html>

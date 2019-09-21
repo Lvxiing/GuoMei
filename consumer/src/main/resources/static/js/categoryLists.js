@@ -2,11 +2,13 @@ $(function () {
     //定义每页数量
     var pageSize=2;
     findParentCategory();
+    search();
     searchGoods(1,pageSize);
     var _t = getQueryString("content"); //获取地址栏参数
     var content = decodeURI(_t); //只需要转一次码
     //设置当前搜索的内容标题
      $(".nFont14").text(content);
+     $("#searchInput").val(content);
     //按综合,销量,新品查询
     var sort=0;
     $("#filter-order-box li").click(function () {
@@ -87,6 +89,7 @@ $(function () {
         var number=$("#min-pager-number").text().split("/");
         if(number[0]<number[1]){
             var num=parseInt(number[0])+1;
+            alert(num);
             if(sort==0){  //查询全部
                 searchGoods(num,pageSize);
             }else if(sort==1){  //按新品
@@ -148,7 +151,7 @@ function category(cid) {
 function searchGoods(pageIndex,pageSize) {
     var _t = getQueryString("content"); //获取地址栏参数
     var content = decodeURI(_t); //只需要转一次码
-    $.getJSON("../../Goods/showAll",{"pageIndex":1,"pageSize":pageSize,"keywords":content}, function (json) {
+    $.getJSON("../../Goods/showAll",{"pageIndex":pageIndex,"pageSize":pageSize,"keywords":content}, function (json) {
         xunhuan(json);
     });
 }
@@ -198,16 +201,18 @@ function xunhuan(json) {
     $("#product-box").empty();
     var lists=json.list;
     for(var i=0;i<lists.length;i++){
+        // alert(lists[i].title);
         var li="<li class='product-item'> <ul class='arbitrage clearfix'></ul> ";
         li+="<div class='item-tab-warp'>";
-        li+="<p class='item-pic'><a class='emcodeItem item-link' target='_blank' track='产品列表图片' href='product_details.html?gid="+lists[i].id+"'title='"+lists[i].title+"'>";
-        li+="<img src='"+lists[i].img+"' alt='"+lists[i].title+"' width='210px' height='210px'></a></p> <div class='item-price-info'> <div class='item-price'>";
+        li+="<p class='item-pic'><a class='emcodeItem item-link' target='_blank' track='产品列表图片' href='product_details.html?gid="+lists[i].id+"'>";
+        li+="<img src='"+lists[i].img+"' width='210px' height='210px'></a></p> <div class='item-price-info'> <div class='item-price'>";
         li+="<span class='price asynPrice'>¥"+lists[i].price+"</span></div></div>";
-        li+="<p class='item-name'> <a class='emcodeItem item-link' href='product_details.html?gid="+lists[i].id+"' title='"+lists[i].title+"'>"+lists[i].title+"</a></p>";
+        li+="<p class='item-name'> <a class='emcodeItem item-link' href='product_details.html?gid="+lists[i].id+"'>"+lists[i].title+"</a></p>";
         li+=" <p class='item-option clearfix' style='margin-left: 53px;'> <span class='add-collection'><i class='icon'></i></span>";
         li+=" <span class='add-cart addTo-cart'><i class='icon'></i></span> </p> </div> </li>";
         $("#product-box").append(li);
     }
+
     //显示当前页码和总页面
     var pageCount=json.pageCount;
     var pageNo=json.pageNo;
@@ -238,3 +243,11 @@ function getQueryString(name) {
 
 
 
+//搜索跳转
+function search() {
+    $(".search-btn").click(function () {
+        var input=$("#searchInput").val();
+        var content = encodeURI(encodeURI(input));
+        window.location.href='categoryLists.html?content='+content;
+    });
+}

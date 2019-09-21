@@ -65,6 +65,38 @@
 <div id="gome-head" class="wbox" data-need-slogan-judge="true">
     <div id="logo"><a data-code="public03001" href="javascript:;">国美</a></div>
     <div id="logo-gif"></div>
+    <div id="topSearch" class="topsearch">
+        <div id="topSearchHover" class="searchbox" data-visitor="hover">
+            <form id="searchForm" method="get" action="//search.gome.com.cn/search">
+                <div id="search-type-dropdown">
+                    <div class="search-type">
+                        <span class="search-type-selected" data-selected="">商品</span>
+                    </div>
+                </div>
+                <input type="text" id="searchInput" name="question" value="" autocomplete="off"
+                       onpropertychange="if(this.value.length>200){this.value=this.value.slice(0,199)}">
+                <button type="button" class="search-btn">搜索</button>
+            </form>
+        </div>
+        <div id="searchTips" class="searchtips">
+            <div id="his_title" class="hisTitle">
+                <p><span>最近搜索</span><a id="hisClear" href="javascript:void(0)">全部清空</a></p>
+            </div>
+            <ul id="searchTipsList" class="searchabout clearfix">
+            </ul>
+        </div>
+        <script type="text/javascript">
+            var environment = 'commerce', targetType = 'Production', contentLabels = 'Catalog', language = 'chinese';
+        </script>
+    </div>
+
+    <div class="mygome-side" data-cart="mincart">
+        <ul class="topmenu clearfix">
+            <li class="shopcartbox"><span class="cartlinkbox"><a data-code="public03004" rel="nofollow" class="menulink cartlink" href="//cart.gome.com.cn/"><em class="i-cart"><span class="shopnum"><span id="commerceItemQuantityId">0</span><i></i></span></em><span id="hdrcarttext">我的购物车</span><b></b></a></span>
+                <div class="menuhide j-overflowy" id="miniShoppingcartLoadId" carttype="up"><div carttype="asidecart" id="csEmptyMessage" class="noshop">                                                    <a data-code="cart01002" href="//cart.gome.com.cn/home/cart" title="去购物车" style="text-decoration:underline;">购物车</a>                                                中还没有商品，赶紧选购吧！</div></div>
+            </li>
+        </ul>
+    </div>
 
 </div>
 <!--gome_head -->
