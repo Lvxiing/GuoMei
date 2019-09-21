@@ -59,4 +59,7 @@ public interface GoodsService extends IService<Goods> {
 
 
     List<SolrPo> findAllSolrData();
+
+
+    List<SolrPo> findSalGoods(List list);
 }

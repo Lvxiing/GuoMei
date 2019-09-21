@@ -140,4 +140,9 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
         return goodsMapper.findAllSolrData();
     }
 
+    @Override
+    public List<SolrPo> findSalGoods(List list) {
+        return goodsMapper.findSalGoods(list);
+    }
+
 }

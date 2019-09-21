@@ -16,9 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("solr")
@@ -71,6 +69,7 @@ public class SolrController {
         if (bs == 3) {//表示低价
             solrQuery.setSort("price", SolrQuery.ORDER.asc);
         }
+
         //区间查询
         if (map.get("price") != null && !"".equals(map.get("price"))) {
             String price = map.get("price").toString();
@@ -105,6 +104,10 @@ public class SolrController {
                 articleList.get(i).setSub(highlightresult.get(id).get("sub").get(0));
             }
         }
+        if (bs == 4) { //表示销量
+            return saleGoods(pageIndex, pageSize, articleList);
+        }
+
         int counts = (int) query.getResults().getNumFound();
         page.setPageNo(pageIndex);
         page.setPageSize(pageSize);
@@ -113,6 +116,47 @@ public class SolrController {
         page.setList(articleList);
         return page;
 
+    }
+
+    public PageInfo<SolrPo> saleGoods(int pageIndex, int pageSize, List<SolrPo> articleList) {
+        System.out.println("pageIndex = " + pageIndex);
+        System.out.println("pageSize = " + pageSize);
+        int pageNo = (pageIndex - 1) * pageSize;
+        PageInfo<SolrPo> page = new PageInfo<>();
+        List<Integer> list = new ArrayList<>();
+        for (SolrPo s : articleList) {
+            list.add(s.getCid());
+        }
+        Set<Integer> set = new HashSet<>(list);
+        List<Integer> cList = new ArrayList<>();
+        for (Integer s : set) {
+            cList.add(s);
+        }
+        List<SolrPo> salGoods = goodsService.findSalGoods(cList);
+        Collections.sort(salGoods, new Comparator<SolrPo>() {
+            @Override
+            public int compare(SolrPo o1, SolrPo o2) {
+
+                return o2.getNum() - o1.getNum(); //降序
+            }
+        });
+
+        if (pageNo + pageSize > salGoods.size()) {
+
+            salGoods = salGoods.subList(pageNo, salGoods.size());
+
+        } else {
+
+            salGoods = salGoods.subList(pageNo, pageNo + pageSize);
+
+        }
+        System.out.println("salGoods = " + salGoods);
+        page.setPageNo(pageIndex);
+        page.setPageSize(pageSize);
+        page.setTotalCount(salGoods.size());
+        page.setPageCount(salGoods.size() % pageSize == 0 ? salGoods.size() / pageSize : (salGoods.size() / pageSize) + 1);
+        page.setList(salGoods);
+        return page;
     }
 
 

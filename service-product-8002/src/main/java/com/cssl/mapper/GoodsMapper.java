@@ -60,4 +60,6 @@ public interface GoodsMapper extends BaseMapper<Goods> {
 
     List<SolrPo> findAllSolrData();
 
+    List<SolrPo> findSalGoods(List list);
+
 }
