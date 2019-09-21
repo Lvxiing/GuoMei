@@ -28,6 +28,7 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script type="text/javascript" src="js/ranking.js"></script>
+    <script type="text/javascript" src="js/menu.js"></script>
 </head>
 <body class="ranking">
 
@@ -37,43 +38,28 @@
 </div>
 <!--gome_topad-->
 <div class="gome-top">
-    <div id="gome-top-body" class="wbox">
-        <ul>
-            <li id="gome-entry-link">
-                <a data-code="public01001" href="index.html" target="_blank"><i
-                        class="icon-gome-logo"></i>国美首页</a></li>
-            <li class="gome-spacer"></li>
-
-
-        </ul>
-
-    </div>
-
-
-</div><!--gome_top-->
+    <script>
+        $(function () {
+            //加载公共头部
+            $(".gome-top").load("gome-top.html");
+        })
+    </script>
+</div>
 
 <div id="gome-head" class="wbox" data-need-slogan-judge="true">
     <div id="logo"><a data-code="public03001" href="javascript:;">国美</a></div>
     <div id="logo-gif"></div>
     <div id="topSearch" class="topsearch">
         <div id="topSearchHover" class="searchbox" data-visitor="hover">
-            <form id="searchForm" method="get" action="//search.gome.com.cn/search" onsubmit="return doSearch();">
+            <form id="searchForm" method="get" action="//search.gome.com.cn/search">
                 <div id="search-type-dropdown">
                     <div class="search-type">
                         <span class="search-type-selected" data-selected="">商品</span>
-                        <i></i>
                     </div>
-                    <ul class="search-type-list">
-                        <li class="search-type-item" data-selector="goods">商品</li>
-                        <li class="search-type-item" data-selector="shop">店铺</li>
-                        <li class="search-type-item" data-selector="topic">话题</li>
-                        <li class="search-type-item" data-selector="group">圈子</li>
-                    </ul>
                 </div>
-                <label id="keyLabel" default="香肠派对,1;空调,1;冰箱,1;手机,1;洗衣机,1"></label>
                 <input type="text" id="searchInput" name="question" value="" autocomplete="off"
                        onpropertychange="if(this.value.length>200){this.value=this.value.slice(0,199)}">
-                <button type="button" class="search-btn" onclick="doSearch();">搜索</button>
+                <button type="button" class="search-btn">搜索</button>
             </form>
         </div>
         <div id="searchTips" class="searchtips">
@@ -87,6 +73,7 @@
             var environment = 'commerce', targetType = 'Production', contentLabels = 'Catalog', language = 'chinese';
         </script>
     </div>
+
 
 </div>
 <!--gome_head -->
@@ -303,118 +290,11 @@
     </div>
 </div>
 <!--foot-->
-<!--尾部结束-->
-<div id="gome-bar">
-    <div class="gome-aside">
-        <ul>
-            <li id="gome-aside-cart" class="lang">
-                <b></b><a href="javascript:void(0)" class="lang"><i class="caricon"></i><b class="car_num car_num_0"><s>0</s><span
-                    class="point"></span></b><span class="text">购物车</span></a>
-            </li>
-            <li id="gome-aside-coupon">
-                <b></b><a href="javascript:void(0)"><i></i></a>
-                <div><a>我的优惠券</a></div>
-            </li>
-            <li id="gome-aside-app">
-                <b></b><a data-code="1000043134" href="javascript:;" target="_blank"><i></i></a>
-                <div></div>
-            </li>
-            <li id="gome-aside-survey">
-                <b></b><a rel="nofollow" data-code="1000043132" href="javascript:;" target="_blank"><i></i></a>
-                <div><p><a rel="nofollow" data-code="1000043132" href="javascript:;" target="_blank">有奖调研</a></p></div>
-            </li>
-            <li id="gome-aside-service">
-                <b></b><a class="live800-service" customer-entry="composite" customer-service-button-id=""><i></i></a>
-                <div><p><a class="live800-service" customer-entry="composite" customer-service-button-id="">在线客服</a></p>
-                </div>
-            </li>
-            <li id="gome-aside-backtop">
-                <b></b><a href="javascript:void(0)"><i></i></a>
-                <div><p><a>返回顶部</a></p></div>
-            </li>
-        </ul>
-    </div>
-    <!-- gome-aside -->
-    <div id="gome-aside-app-code">
-        <a data-code="1000043134" href="javascript:;" target="_blank">
-            <img src="picture/grey.gif" gome-src="picture/T1uBW_B5hv1RCvBVdK.png">
-            <strong>moren</strong></a>
-    </div>
-    <!-- gome-aside-app-code -->
-    <div id="gome-bar-border">
-        <ul id="gome-bar-border-tab">
-            <li class="gome-bar-btn-member" data-open="member"><b></b><i class="membericon"></i><a
-                    class="gome-bar-btn-tip" rel="nofollow" href="javascript:void(0);">国美会员</a></li>
-            <li class="gome-bar-btn-cart" data-open="cart" id="gome-bar-btn-cart"><b class="car_arrow"></b><i
-                    class="caricon"></i><b class="car_num car_num_0"><s>0</s><span class="point"></span></b><span
-                    class="text">购物车</span></li>
-            <li class="gome-bar-btn-coupon" data-open="coupon"><b></b><i class="caricon"></i></li>
-            <li class="gome-bar-btn-favorites" data-open="favorites" id="gome-bar-btn-favorites"><b></b><i
-                    class="favorites-icon"></i><a class="gome-bar-btn-tip" href="javascript:void(0);">我的收藏</a></li>
-        </ul>
-    </div>
-    <!-- gome-bar-border -->
-    <div id="gome-bar-box">
-        <div id="gome-bar-member" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="member-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif"
-                         gome-src="image/loading.gif">
-                </div>
-            </div>
-        </div>
-        <div id="gome-bar-cart" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="cart-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif"
-                         gome-src="image/loading.gif">
-                </div>
-            </div>
-        </div>
-        <div id="gome-bar-coupon" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="coupon-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif"
-                         gome-src="image/loading.gif">
-                </div>
-            </div>
-        </div>
-        <div id="gome-bar-favorites" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span><span class="gome-bar-title">我的收藏</span></h3>
-            <ul class="favorites-tab">
-                <li class="tab-item tab-item-goods selected">商品</li>
-                <li class="tab-item tab-item-shop">店铺</li>
-                <li class="tab-item tab-item-brand">品牌</li>
-            </ul>
-            <div id="favorites-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif"
-                         gome-src="image/loading.gif">
-                </div>
-
-                <div id="favorites-main-scrool" class="favorites-main">
-                    <div class="main-item main-item-goods">
-                    </div>
-                    <div class="main-item main-item-shop">
-                    </div>
-                    <div class="main-item main-item-brand">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- gome-bar-coupon -->
-    </div>
-    <!-- gome-bar-box -->
-</div>
 <!--底部JS代码实现-->
 <script type="text/javascript">
     $(function () {
 
         OneCategory();
-        search();
         function TwoGoods(id) {
             $("div.main_box ul").empty();
             $.getJSON('Goods/findSaleByCategoryId?cid=' + id, function (json) {
@@ -514,7 +394,7 @@
                     if (index2 == index3) {
                         OneGoods(index3);
                     } else {
-                        TwoGoods(index2);
+                       TwoGoods(index2);
                     }
                 });
 
@@ -576,15 +456,6 @@
 
 
     });
-
-    //搜索跳转
-    function search() {
-        $(".search-btn").click(function () {
-            var input=$("#searchInput").val();
-            var content = encodeURI(encodeURI(input));
-            window.location.href='categoryLists.html?content='+content;
-        });
-    }
 </script>
 </body>
 </html>

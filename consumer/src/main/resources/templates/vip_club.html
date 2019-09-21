@@ -46,42 +46,36 @@
 <!-- 返利的导航 -->
 <!--头部end--><!--newads-->
 <!--newads-->
+
+
 <div class="gome-top">
-    <div id="gome-top-body" class="wbox">
-        <ul>
-            <li id="gome-entry-link">
-                <a data-code="public01001" href="index.html" target="_blank"><i
-                        class="icon-gome-logo"></i>国美首页</a></li>
-            <li class="gome-spacer"></li>
-
-
-        </ul>
-
-    </div>
+    <script>
+        $(function () {
+            //加载公共头部
+            $(".gome-top").load("gome-top.html");
+        })
+    </script>
 </div>
+
 <!--gome_top-->
 <div class="main_header">
     <div class="ucGomeTopic">
         <div class="wbox headBox">
             <div class="myhomeLogo"></div>
+
+
+
+
             <ul class="gomeNav clearfix">
-                <li class="gomeNavList">
-                    <a class="bgColor" href="">首页</a></li>
-                <li class="w107 gomeNavList curArrow">
-                    <a href="javascript:;">账户设置<i></i></a>
-                    <ul class="navList w105">
-                        <li class=""><a href="profile.html">基本资料</a></li>
-                        <li class=""><a href="addressPage.html">收货地址</a></li>
-                    </ul>
-                </li>
-                <li class="w125 gomeNavList">
-                    <a href="javascript:;" class="club">会员俱乐部<i></i></a>
-                    <ul class="navList w123">
-                        <li class=""><a href="vipLevel.html">会员等级</a></li>
-                        <li class=""><a href="vip_club.html">会员俱乐部</a></li>
-                    </ul>
-                </li>
+                <script>
+                    $(function () {
+                        //加载公共会员模块导航
+                        $(".gomeNav clearfix").load("gomeNav.html");
+                    })
+                </script>
             </ul>
+
+
 
         </div>
     </div>

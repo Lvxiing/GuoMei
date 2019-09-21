@@ -55,30 +55,6 @@
 <div id="gome-head" class="wbox" data-need-slogan-judge="true">
     <div id="logo"><a data-code="public03001" href="javascript:;">国美</a></div>
     <div id="logo-gif"></div>
-    <div id="topSearch" class="topsearch">
-        <div id="topSearchHover" class="searchbox" data-visitor="hover">
-            <form id="searchForm" method="get" action="//search.gome.com.cn/search">
-                <div id="search-type-dropdown">
-                    <div class="search-type">
-                        <span class="search-type-selected" data-selected="">商品</span>
-                    </div>
-                </div>
-                <input type="text" id="searchInput" name="question" value="" autocomplete="off"
-                       onpropertychange="if(this.value.length>200){this.value=this.value.slice(0,199)}">
-                <button type="button" class="search-btn">搜索</button>
-            </form>
-        </div>
-        <div id="searchTips" class="searchtips">
-            <div id="his_title" class="hisTitle">
-                <p><span>最近搜索</span><a id="hisClear" href="javascript:void(0)">全部清空</a></p>
-            </div>
-            <ul id="searchTipsList" class="searchabout clearfix">
-            </ul>
-        </div>
-        <script type="text/javascript">
-            var environment = 'commerce', targetType = 'Production', contentLabels = 'Catalog', language = 'chinese';
-        </script>
-    </div>
     <div class="mygome-side" data-cart="mincart">
         <ul class="topmenu clearfix">
             <li class="shopcartbox"><span class="cartlinkbox">
@@ -101,6 +77,7 @@
             <div class="nav990" style="text-align: center;">
                 <ul class="clearfix">
                     <li class="nav-item"><a class="nav-item-name" target="_blank" href="index.html">首页</a></li>
+                    <li class="nav-item"><a class="nav-item-name" target="_blank" href="javascript:;">热销爆款</a></li>
                     <li class="nav-item"><a class="nav-item-name" target="_blank" href="gm-indexsever.html">新闻资讯</a>
                     </li>
                     <li class="nav-item"><a class="nav-item-name" target="_blank" href="gm-myOrder.html">我的订单</a></li>
@@ -230,7 +207,7 @@
             <div class="prd-price-other line33 p20  clearfix">
                 <label class="prd-price-left">国&nbsp;&nbsp;美&nbsp;&nbsp;价</label>
                 <div class="unitprice prd-price-right">
-                    <span id="prdPrice" class="price" >00</span>
+                    <span id="prdPrice" class="price">00</span>
                 </div>
                 <div class="prd-price-flr">
                     <div class="prd-price-line">|</div>
@@ -490,7 +467,7 @@
                         $("#addCart")
                             .click(function () {
                                 var num = $("#enterQty").val();
-                                var price = $("#prdPrice span[name=price]").text();
+                                var price = $("#prdPrice span[name='price']").text();
                                 var total = num * price;
 
                                 var img = $("div.jqzoom").children("img")
