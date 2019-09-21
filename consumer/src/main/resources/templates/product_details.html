@@ -101,7 +101,6 @@
             <div class="nav990" style="text-align: center;">
                 <ul class="clearfix">
                     <li class="nav-item"><a class="nav-item-name" target="_blank" href="index.html">首页</a></li>
-                    <li class="nav-item"><a class="nav-item-name" target="_blank" href="javascript:;">热销爆款</a></li>
                     <li class="nav-item"><a class="nav-item-name" target="_blank" href="gm-indexsever.html">新闻资讯</a>
                     </li>
                     <li class="nav-item"><a class="nav-item-name" target="_blank" href="gm-myOrder.html">我的订单</a></li>
@@ -231,7 +230,7 @@
             <div class="prd-price-other line33 p20  clearfix">
                 <label class="prd-price-left">国&nbsp;&nbsp;美&nbsp;&nbsp;价</label>
                 <div class="unitprice prd-price-right">
-                    <span id="prdPrice" class="price">00</span>
+                    <span id="prdPrice" class="price" >00</span>
                 </div>
                 <div class="prd-price-flr">
                     <div class="prd-price-line">|</div>
@@ -491,7 +490,7 @@
                         $("#addCart")
                             .click(function () {
                                 var num = $("#enterQty").val();
-                                var price = $("#prdPrice>span").text();
+                                var price = $("#prdPrice span[name=price]").text();
                                 var total = num * price;
 
                                 var img = $("div.jqzoom").children("img")

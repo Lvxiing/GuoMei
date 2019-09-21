@@ -49,7 +49,21 @@
 
         <script type="text/javascript">
 
+            //我的购物车中商品的件数
+            function  showNum(){
+                $.getJSON("/cart/cartCount",function(result){
+                    $("[name=num]").text(result);
+                    if(result==0){
+                        $("[name=numSpan]").css({"background-color":" #A5A5A5"});
+                    }else{
+                        $("[name=numSpan]").css({"background-color":"#dd00a7"});
+                    }
+                })   ;
+            }
+
             $(function(){
+
+                showNum();
 
                 //一加载就得到session中的用户
                 $.getJSON("/users/getSessionUser",function(json){
@@ -100,6 +114,15 @@
         </script>
     </div>
 
+    <div class="mygome-side" data-cart="mincart">
+        <ul class="topmenu clearfix">
+            <li class="shopcartbox"><span class="cartlinkbox">
+                <a data-code="public03004" rel="nofollow" class="menulink cartlink" id="a" href="car.html"><em class="i-cart"><span class="shopnum" name="numSpan" style="background-color: rgb(221, 0, 167);"><span id="commerceItemQuantityId" name="num">2</span><i></i></span></em><span id="hdrcarttext">我的购物车</span></a></span>
+
+            </li>
+        </ul>
+    </div>
+
 </div>
 <!--gome_head -->
 <div class="category-box">
@@ -119,7 +142,9 @@
             </div>
         </div>
         <ul class="mainnav">
-
+            <li><a class="" data-code="1000000378-2" href="gm-indexsever.html" target="_blank"><span>新闻资讯</span></a></li>
+            <li><a class="" data-code="1000000378-3" href="gm-myOrder.html" target="_blank"><span>我的订单</span></a></li>
+            <li><a class="" data-code="1000000378-4" href="vip_club.html" target="_blank"><span>会员俱乐部</span></a></li>
         </ul>
         <!--nav-->
         <div class="hdrsideRoll">
