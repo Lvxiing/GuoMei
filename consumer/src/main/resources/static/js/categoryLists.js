@@ -89,7 +89,6 @@ $(function () {
         var number=$("#min-pager-number").text().split("/");
         if(number[0]<number[1]){
             var num=parseInt(number[0])+1;
-            alert(num);
             if(sort==0){  //查询全部
                 searchGoods(num,pageSize);
             }else if(sort==1){  //按新品
