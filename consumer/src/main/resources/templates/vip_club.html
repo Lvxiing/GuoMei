@@ -67,12 +67,22 @@
 
 
             <ul class="gomeNav clearfix">
-                <script>
-                    $(function () {
-                        //加载公共会员模块导航
-                        $(".gomeNav clearfix").load("gomeNav.html");
-                    })
-                </script>
+                <li class="gomeNavList">
+                    <a class="bgColor" href="">首页</a></li>
+                <li class="w107 gomeNavList curArrow">
+                    <a href="javascript:;">账户设置<i></i></a>
+                    <ul class="navList w105">
+                        <li class=""><a href="profile.html">基本资料</a></li>
+                        <li class=""><a href="addressPage.html">收货地址</a></li>
+                    </ul>
+                </li>
+                <li class="w125 gomeNavList">
+                    <a href="javascript:;" class="club">会员俱乐部<i></i></a>
+                    <ul class="navList w123">
+                        <li class=""><a href="vipLevel.html">会员等级</a></li>
+                        <li class=""><a href="vip_club.html">会员俱乐部</a></li>
+                    </ul>
+                </li>
             </ul>
 
 

@@ -37,7 +37,6 @@
 
 
 
-
 <div class="gome-top">
     <script>
         $(function () {
@@ -46,7 +45,6 @@
         })
     </script>
 </div>
-
 
 
 
@@ -82,13 +80,36 @@
 
 
     <div class="mygome-side" data-cart="mincart">
-        <script>
-            $(function () {
-                //加载公共购物车
-                $(".mygome-side").load("mygome-side.html");
-            })
-        </script>
+        <ul class="topmenu clearfix">
+            <li class="shopcartbox"><span class="cartlinkbox">
+                <a data-code="public03004" rel="nofollow" class="menulink cartlink" id="a" href="car.html"><em
+                        class="i-cart"><span class="shopnum" name="numSpan"><span
+                        id="commerceItemQuantityId" name="num">0</span><i></i></span></em><span
+                        id="hdrcarttext">我的购物车</span></a></span>
+
+            </li>
+        </ul>
     </div>
+
+    <script type="text/javascript">
+
+        //我的购物车中商品的件数
+        function  showNum(){
+            $.getJSON("/cart/cartCount",function(result){
+                $("[name=num]").text(result);
+                if(result==0){
+                    $("[name=numSpan]").css({"background-color":" #A5A5A5"});
+                }else{
+                    $("[name=numSpan]").css({"background-color":"#dd00a7"});
+                }
+            })   ;
+        }
+
+        $(function() {
+            showNum();
+        });
+
+    </script>
 
 
 
