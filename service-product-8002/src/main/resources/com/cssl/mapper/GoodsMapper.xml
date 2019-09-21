@@ -264,4 +264,22 @@
         INNER JOIN brand b ON g.`brand_id` = b.`brand_id`
         INNER JOIN category c ON c.`category_id` = b.`category_id`
     </select>
+
+    <select id="findSalGoods" resultType="SolrPo" parameterType="list">
+
+
+        SELECT g.goods_id id,goods_title title,goods_sub_title sub,goods_main_img img,goods_create_time times,goods_price price,num FROM goods g INNER JOIN (SELECT goods_id,SUM(detail_num) AS num FROM order_detail
+                                                                                                                                                             GROUP BY goods_id ORDER BY num DESC
+        ) o ON g.`goods_id` = o.goods_id
+                                                                                                                                                 INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
+        WHERE b.`category_id` IN (
+            SELECT category_id
+            FROM category
+            WHERE
+        <foreach item="item" index="index" collection="list" open="" separator=" OR " close="">
+            category_id = #{item}
+        </foreach>
+       )
+        ORDER BY num DESC
+    </select>
 </mapper>
