@@ -103,7 +103,7 @@ public class CartController {
         return userFeignInterface.saveCollection(collections);
     }
 
-//判断该用户是否已收藏该商品
+    //判断该用户是否已收藏该商品
     @RequestMapping("/findIfCollected/{goodsId}")
     @ResponseBody
     public Collections  findIfCollected(@PathVariable("goodsId") Integer goodsId, HttpSession session){
