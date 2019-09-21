@@ -28,7 +28,6 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script type="text/javascript" src="js/ranking.js"></script>
-    <script type="text/javascript" src="js/menu.js"></script>
 </head>
 <body class="ranking">
 
@@ -293,7 +292,7 @@
 <!--底部JS代码实现-->
 <script type="text/javascript">
     $(function () {
-
+        search();
         OneCategory();
         function TwoGoods(id) {
             $("div.main_box ul").empty();
@@ -456,6 +455,14 @@
 
 
     });
+    //搜索跳转
+    function search() {
+        $(".search-btn").click(function () {
+            var input=$("#searchInput").val();
+            var content = encodeURI(encodeURI(input));
+            window.location.href='categoryLists.html?content='+content;
+        });
+    }
 </script>
 </body>
 </html>

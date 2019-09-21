@@ -115,6 +115,10 @@ public interface ProductFeignInterface {
 
 
     //----------------------------订单前台模块-----------------------------
+    //用户下单信息
+    @RequestMapping("orders/orderInfo")
+    Map<String,Object> orderInfo(@RequestParam("uid") Integer uid,@RequestParam Map<String,Object> map);
+
     //用户订单
     @RequestMapping("orders/findOrdersByUserId")
     PageInfo<Map<String, Object>> findOrdersByUserId(@RequestParam Map<String, Object> map);
