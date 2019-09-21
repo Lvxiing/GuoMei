@@ -23,6 +23,7 @@ import java.util.*;
 @RequestMapping("/Goods")
 public class GoodsController {
 
+
     @Autowired
     private ProductFeignInterface productFeignInterface;
 

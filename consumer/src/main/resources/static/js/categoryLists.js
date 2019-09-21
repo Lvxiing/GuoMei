@@ -89,7 +89,6 @@ $(function () {
         var number=$("#min-pager-number").text().split("/");
         if(number[0]<number[1]){
             var num=parseInt(number[0])+1;
-            alert(num);
             if(sort==0){  //查询全部
                 searchGoods(num,pageSize);
             }else if(sort==1){  //按新品
@@ -152,6 +151,7 @@ function searchGoods(pageIndex,pageSize) {
     var _t = getQueryString("content"); //获取地址栏参数
     var content = decodeURI(_t); //只需要转一次码
     $.getJSON("../../Goods/showAll",{"pageIndex":pageIndex,"pageSize":pageSize,"keywords":content}, function (json) {
+        $("#searchTotalNumber").text(json.totalCount);
         xunhuan(json);
     });
 }

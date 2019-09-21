@@ -3,10 +3,8 @@ package com.cssl.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.entity.*;
-import com.cssl.service.CategoryService;
-import com.cssl.service.EvaluateService;
-import com.cssl.service.GoodsService;
-import com.cssl.service.Vip_goodsService;
+import com.cssl.service.*;
+import com.cssl.util.SolrUtils;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +40,9 @@ public class GoodsController {
 
     @Autowired
     private EvaluateService evaluateService;
+
+    @Autowired
+    private BrandService brandService;
 
 
     //--------------------------前台模块-------------------------------
@@ -148,7 +149,7 @@ public class GoodsController {
     //--------------------------后台模块-------------------------------
     @RequestMapping("findGoods")
     @ResponseBody
-    public PageInfo<Map<String, Object>> findGoods(@RequestParam Map<String, Object> param) {
+    public PageInfo<Map<String, Object>> findGoods(@RequestParam Map<String, Object> param)throws Exception {
         Map<String, Object> map = new HashMap<>();
         map.put("cname", param.get("cname"));
         map.put("title", param.get("title"));
@@ -168,7 +169,7 @@ public class GoodsController {
 
     @RequestMapping("addGoods")
     @ResponseBody
-    public String addGoods(@RequestParam Map<String, Object> map) {
+    public String addGoods(@RequestParam Map<String, Object> map) throws Exception {
         Integer vip = new Integer(map.get("vip").toString());
         Integer ms = new Integer(map.get("ms").toString());
         Integer cid = new Integer(map.get("brand").toString());
@@ -193,6 +194,19 @@ public class GoodsController {
         goods.setBid(brandid);
         goods.setSeckill(ms);
         res = goodsService.addGoods(goods);
+
+        Brand brand_id = brandService.getOne(new QueryWrapper<Brand>().eq("brand_id", brandid));
+        //添加到solr中
+        SolrPo solrPo = new SolrPo();
+        solrPo.setId(goods.getId().toString());
+        solrPo.setSub(goods.getSubTitle());
+        solrPo.setTitle(goods.getTitle());
+        solrPo.setImg(goods.getMainImg());
+        solrPo.setPrice(goods.getPrice().doubleValue());
+        solrPo.setTimes(goods.getTime());
+        solrPo.setCid(brand_id.getCid());
+        SolrUtils solrUtils = new SolrUtils();
+        solrUtils.addDoc(solrPo);
         if (vip == 1) { //新增到会员商品中
             VipGoods vipGoods = new VipGoods();
             vipGoods.setGradeId(grade);
@@ -210,7 +224,7 @@ public class GoodsController {
     //修改商品
     @RequestMapping("modifyGoods")
     @ResponseBody
-    public String modifyGoods(@RequestParam Map<String, Object> map) {
+    public String modifyGoods(@RequestParam Map<String, Object> map) throws Exception {
         Integer vip = new Integer(map.get("vip").toString());
         System.out.println("vip = " + vip);
         Integer id = new Integer(map.get("gid").toString());
@@ -236,6 +250,20 @@ public class GoodsController {
         goods.setState(state);
         goods.setSeckill(ms);
         goods.setBid(bid);
+
+        Brand brand_id = brandService.getOne(new QueryWrapper<Brand>().eq("brand_id", bid));
+        //修改solr中的数据
+        SolrPo solrPo = new SolrPo();
+        solrPo.setId(goods.getId().toString());
+        solrPo.setSub(goods.getSubTitle());
+        solrPo.setTitle(goods.getTitle());
+        solrPo.setImg(goods.getMainImg());
+        solrPo.setPrice(goods.getPrice().doubleValue());
+        solrPo.setTimes(goods.getTime());
+        solrPo.setCid(brand_id.getCid());
+        SolrUtils solrUtils = new SolrUtils();
+        solrUtils.addDoc(solrPo);
+
         if (vip == 1) { //新增到会员商品中
             VipGoods vipGoods = new VipGoods();
             vipGoods.setGradeId(grade);
