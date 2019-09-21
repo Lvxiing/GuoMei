@@ -81,6 +81,8 @@ public interface UserFeignInterface {
     @RequestMapping("/collection/findIfCollected")
      Collections  findIfCollected(@RequestParam Map map);
 
+    @RequestMapping("/vip_goods/ifVipGoods/{goodsId}")
+     VipGoods   ifVipGoods(@PathVariable("goodsId") Integer goodsId);
 
     //**********后台***********
 
