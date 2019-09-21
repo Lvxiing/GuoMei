@@ -414,6 +414,7 @@
     $(function () {
 
         OneCategory();
+        search();
         function TwoGoods(id) {
             $("div.main_box ul").empty();
             $.getJSON('Goods/findSaleByCategoryId?cid=' + id, function (json) {
@@ -575,6 +576,15 @@
 
 
     });
+
+    //搜索跳转
+    function search() {
+        $(".search-btn").click(function () {
+            var input=$("#searchInput").val();
+            var content = encodeURI(encodeURI(input));
+            window.location.href='categoryLists.html?content='+content;
+        });
+    }
 </script>
 </body>
 </html>
