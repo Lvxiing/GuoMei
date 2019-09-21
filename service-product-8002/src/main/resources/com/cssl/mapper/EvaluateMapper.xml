@@ -39,6 +39,6 @@
         INNER JOIN users u ON u.user_id = e.user_id
         INNER JOIN growup r ON u.user_id = r.user_id
         INNER JOIN grade d ON r.growup_sum BETWEEN d.low AND high
-        WHERE g.`goods_id` = #{gid}
+        WHERE g.`goods_id` = #{gid} AND  e.evaluate_state = 1
     </select>
 </mapper>
