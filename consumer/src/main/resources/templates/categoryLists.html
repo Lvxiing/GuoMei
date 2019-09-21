@@ -48,22 +48,19 @@
 
 </div>
 <!--gome_topad-->
+
 <div class="gome-top">
-    <div id="gome-top-body" class="wbox">
-        <ul>
-            <li id="gome-entry-link">
-                <a data-code="public01001" href="index.html" target="_blank"><i
-                        class="icon-gome-logo"></i>国美首页</a></li>
-            <li class="gome-spacer"></li>
-
-
-        </ul>
-
-    </div>
+    <script>
+        $(function () {
+            //加载公共头部
+            $(".gome-top").load("gome-top.html");
+        })
+    </script>
 </div>
-<!--gome_top-->
+
+
 <div id="gome-head" class="wbox" data-need-slogan-judge="true">
-    <div id="logo"><a data-code="public03001" href="javascript:;">国美</a></div>
+    <div id="logo"><a data-code="public03001" href="index.html">国美</a></div>
     <div id="logo-gif"></div>
     <div id="topSearch" class="topsearch">
         <div id="topSearchHover" class="searchbox" data-visitor="hover">
@@ -90,15 +87,22 @@
         </script>
     </div>
 
+
+
     <div class="mygome-side" data-cart="mincart">
-        <ul class="topmenu clearfix">
-            <li class="shopcartbox"><span class="cartlinkbox"><a data-code="public03004" rel="nofollow" class="menulink cartlink" href="//cart.gome.com.cn/"><em class="i-cart"><span class="shopnum"><span id="commerceItemQuantityId">0</span><i></i></span></em><span id="hdrcarttext">我的购物车</span><b></b></a></span>
-                <div class="menuhide j-overflowy" id="miniShoppingcartLoadId" carttype="up"><div carttype="asidecart" id="csEmptyMessage" class="noshop">                                                    <a data-code="cart01002" href="//cart.gome.com.cn/home/cart" title="去购物车" style="text-decoration:underline;">购物车</a>                                                中还没有商品，赶紧选购吧！</div></div>
-            </li>
-        </ul>
+        <script>
+            $(function () {
+                //加载公共购物车
+                $(".mygome-side").load("mygome-side.html");
+            })
+        </script>
     </div>
 
 </div>
+
+
+
+
 <!--gome_head -->
 <div class="category-box">
     <div class="category wbox">
@@ -116,12 +120,7 @@
             </div>
         </div>
         <ul class="mainnav">
-            <li><a data-code="public04001" href="javascript:;" target="_blank"><span>首页</span></a></li>
-            <li><a class="" data-code="1000000378-1" href="javascript:;" target="_blank"><span>热销爆款</span></a></li>
-            <li><a class="" data-code="1000000378-2" href="javascript:;" target="_blank"><span>新闻资讯</span></a><span
-                    class="tag_line"></span></li>
-            <li><a class="" data-code="1000000378-3" href="javascript:;" target="_blank"><span>我的订单</span></a></li>
-            <li><a class="" data-code="1000000378-4" href="javascript:;" target="_blank"><span>会员俱乐部</span></a></li>
+
         </ul>
     </div>
 </div>
