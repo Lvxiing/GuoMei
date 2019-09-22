@@ -52,24 +52,24 @@ public class OrdersController {
     @ResponseBody
     public Map<String, Object> orderInfo(@RequestParam("uid") Integer uid, @RequestParam Map<String, Object> map) {
         Map<String, Object> data = new HashMap<>();
-        data.put("goods",packData(map.get("goodsId").toString(),map.get("num").toString()));
-        data.put("uid",uid);
+        data.put("goods", packData(map.get("goodsId").toString(), map.get("num").toString()));
+        data.put("uid", uid);
         return data;
     }
 
     //封装数据
-    public List<Map<String,Object>> packData(String goodsId,String nums){
+    public List<Map<String, Object>> packData(String goodsId, String nums) {
         List<Map<String, Object>> goodsList = new ArrayList<>();
         String[] gid = goodsId.split(",");
         String[] num = nums.split(",");
         for (int i = 0; i < gid.length; i++) {
-            Goods goods = goodsService.getOne(new QueryWrapper<Goods>().eq("goods_id",gid[i]));
-            Map<String,Object> param = new HashMap<>();
-            param.put("gid",goods.getId());
-            param.put("title",goods.getTitle());
-            param.put("img",goods.getMainImg());
-            param.put("price",goods.getPrice());
-            param.put("num",num[i]);
+            Goods goods = goodsService.getOne(new QueryWrapper<Goods>().eq("goods_id", gid[i]));
+            Map<String, Object> param = new HashMap<>();
+            param.put("gid", goods.getId());
+            param.put("title", goods.getTitle());
+            param.put("img", goods.getMainImg());
+            param.put("price", goods.getPrice());
+            param.put("num", num[i]);
             goodsList.add(param);
         }
         return goodsList;
@@ -78,16 +78,17 @@ public class OrdersController {
     //用户下单
     @RequestMapping("addOrders")
     @ResponseBody
-    public String addOrders(@RequestParam Map<String,Object> map){
+    public Map<String, Object> addOrders(@RequestParam Map<String, Object> map) {
         List<Map<String, Object>> list = packData(map.get("goodsId").toString(), map.get("num").toString());
-        map.put("list",list);
-        String b =ordersService.addOrder(map);
-        String json ;
-        if(b!=null){
-            json = "{\"code\":\"yes\",\"orderNo\":1}";
-            return  json;
+        map.put("list", list);
+        String b = ordersService.addOrder(map);
+        Map<String, Object> param = new HashMap<>();
+        if (b != null) {
+            param.put("code", "yes");
+            param.put("orderNo", b);
         }
-        return "{\"code\":\"no\"}";
+        param.put("code", "no");
+        return param;
     }
 
     //用户订单
@@ -162,15 +163,15 @@ public class OrdersController {
     @RequestMapping("/updateStatus")
     @ResponseBody
     public int updateStatus(@RequestParam("orderNo") String orderNo, @RequestParam("status") int status) {
-        Orders orders=new Orders();
+        Orders orders = new Orders();
         orders.setStatus(status);
         orders.setOrderNo(orderNo);
         //判断修改状态试是否是5已完成(如果是将引入评价表状态改为0为未评价)
-        if(Integer.valueOf(status)==5){  //查询订单中得商品
+        if (Integer.valueOf(status) == 5) {  //查询订单中得商品
             List<Map<String, Object>> maps = ordersService.byGoodId(orderNo);
             //循环写入评价表
-            for(Map<String, Object> list:maps){
-                Evaluate evaluate=new Evaluate();
+            for (Map<String, Object> list : maps) {
+                Evaluate evaluate = new Evaluate();
                 evaluate.setGoodsId(Integer.valueOf(list.get("goods_id").toString()));
                 evaluate.setUserId(Integer.valueOf(list.get("user_id").toString()));
                 evaluate.setOid(Integer.valueOf(list.get("order_id").toString()));
@@ -179,22 +180,22 @@ public class OrdersController {
                 evaluateService.save(evaluate);
             }
         }
-        return  ordersService.updateStatus(orders);
+        return ordersService.updateStatus(orders);
 
     }
 
     //删除订单
     @RequestMapping("/deleteOrders")
     @ResponseBody
-    public int deleteOrders(@RequestParam("orderId") Integer orderId,@RequestParam("status")Integer status) {
+    public int deleteOrders(@RequestParam("orderId") Integer orderId, @RequestParam("status") Integer status) {
         //先删除订单详情表
         int i = orderDetailService.deletOrderDetail(orderId);
         //删除订单时判断是否时已完成状态如果是删除评价表相关信息(因为评价表信息是通过订单状态添加进去)
-         if(status==5){
-          //删除评价表信息
-        Map<String,Object>map=new HashMap<String,Object>();
-        map.put("order_id",orderId);
-        evaluateService.removeByMap(map);
+        if (status == 5) {
+            //删除评价表信息
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("order_id", orderId);
+            evaluateService.removeByMap(map);
         }
         int num = 0;
         if (i > 0) {
