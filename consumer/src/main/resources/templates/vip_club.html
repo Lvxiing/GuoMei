@@ -795,17 +795,6 @@
 
 //点击按钮加入购物车
         $("ul.club-items-box").on("click",".go-buy",function() {
-          var gradeName=  $("#gradeName").text();
-          var grade=  $(this).parents("li.club-item").find("[name='gradeName']").text();
-            var goodsId=  $(this).parents("li.club-item").find("[name='goodsId']").text();
-if (gradeName!=grade){
-    layer.msg("您的会员等级不匹配享受此等级的会员价哦", { btn: ['知道了','国美价购买']
-        ,btn2: function(){
-          location.href="product_details.html?gid="+goodsId;
-        }
-    });
-    return false;
-}else{
     var goodsId = $(this).parents("li.club-item").find("[name='goodsId']").text();
     var vipPrice = $(this).parents("li.club-item").find("[name='vipPrice']").text();
 //默认加入数量为1
@@ -826,24 +815,12 @@ if (gradeName!=grade){
         }
         showNum();
     });
-}
         });
 
             //a链接加入购物车
             $("ul.club-items-box").on("click","a",function() {
                 var goodsId=  $(this).parents("li.club-item").find("[name='goodsId']").text();
-                var gradeName=  $("#gradeName").text();
-                var grade=  $(this).parents("li.club-item").find("[name='gradeName']").text();
-                if (gradeName!=grade){
-                    layer.msg("您的会员等级不匹配享受此等级的会员价哦", { btn: ['知道了','国美价购买']
-                        ,btn2: function(){
-                            location.href="product_details.html?gid="+goodsId;
-                        }
-                    });
-                    return false;
-                }else{
                     location.href="product_details.html?gid="+goodsId+"&vip=yes";
-                }
             });
 
 
