@@ -4,8 +4,6 @@ $(function () {
     var days =90;  //默认三个月
     var order_no="null";
     var status="null";
-    //查询所有订单
-    findOrdersByUserId(1,pageSize,days,status,order_no);
       //按月份查询
     $("#sel_choos ul li").click(function () {
         var ono=$("#all_order_search").val();
@@ -80,8 +78,22 @@ $(function () {
         findOrdersByUserId(pageNo,pageSize,days,status,order_no);
     });
 
+    //会员首页跳转过来
+    var re=GetRequest();
+     if(re.Identification==1){  //待付款
+         $("#waitPay_lh").addClass("active_on");
+         findOrdersByUserId(1,pageSize,"null",1,"null");
+     }else if(re.Identification==2){  //待收货
+         $("#waitConfirm_lh").addClass("active_on");
+         findOrdersByUserId(1,pageSize,"null",4,"null");
+     }else{
+         //判断是否是按条件跳转过来的不是加载全部
+         findOrdersByUserId(1,pageSize,days,status,order_no);
+     }
     total();
 });
+
+
 //获取总页面数
 var pageCount=0;
 //查询用户订单的待付款待收货总记录数
@@ -89,9 +101,10 @@ function total() {
     $.getJSON("../../Orders/findTotal",function (json) {
         $("#num1").text(json[0].num1);
         $("#num2").text(json[0].num2);
-        $("#num3").text(json[0].num3);
     });
-
+    $.getJSON("../../evaluate/evaluateInfo",{"evaluate_state":0,"pageIndex":0,"pageSize":0},function (data) {
+        $("#num3").text(data.length);
+    });
 }
 
 //生成唯一的uuid
@@ -232,4 +245,19 @@ function noData() {
            $(".orderContent").append(data);
           $(".prev").addClass("disable");
            $(".next").addClass("disable");
+}
+
+
+//获取url中"?"符后的字串
+function GetRequest() {
+    var url = location.search; //获取url中"?"符后的字串
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+        }
+    }
+    return theRequest;
 }

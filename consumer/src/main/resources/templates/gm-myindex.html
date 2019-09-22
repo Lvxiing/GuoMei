@@ -62,7 +62,7 @@
             <div class="myhomeLogo"></div>
             <ul class="gomeNav clearfix">
                 <li class="curArrow gomeNavList"><a class="bgColor"
-                                                    href="//myhome.gome.com.cn/member/profileHome">首页</a></li>
+                                                    href="gm-myindex.html">首页</a></li>
                 <li class="w107 gomeNavList">
                     <a href="javascript:;">账户设置<i></i></a>
                     <ul class="navList w105">
@@ -179,28 +179,14 @@
                                 class="fl"></span><i></i>我的资产<span class="fr"></span></h2>
 
                             <div class="userAssets-box">
-                                <div class="myGome-gomeb clearfix"><span class="myGom-titl">国美币余额：</span> <a
-                                        href="gomeVirtualAcount" target="_blank" class="myGome-gomeb-num">¥<em>0.00</em></a>
-                                    <span class="gomeb-btn clearfix">  <a href="gomeVirtualAcount"
-                                                                          target="_blank">充值</a> </span></div>
+                                <div class="myGome-gomeb clearfix"></div>
                                 <div class="clearfix" style="padding:10px 0;">
-                                    <div class="myGome-fanli fl"><p class="clearfix"><span>返&nbsp;&nbsp;&nbsp;利：</span>
-                                        <span class="myGome-fanli-totl">¥<em>0.00</em></span></p>
-                                        <p class="clearfix"><span>待入账：</span> <span
-                                                class="myGome-fanli-num moreZeroNum"> ¥<em>0.00</em></span></p>
-                                        <p class="clearfix"><span>已失效：</span> <span
-                                                class="myGome-fanli-num moreZeroNum"> ¥<em>0.00</em></span></p></div>
-                                    <div class="myGome-QMK fl"><p class="clearfix"><span>优惠券：</span> <span
-                                            class="gomefavourable"> <a href="gomeMyCoupon" target="_blank"
-                                                                       class="myGome-fanli-num moreZeroNum">0</a> 张 </span>
-                                    </p>
-                                        <p class="clearfix"><span>美&nbsp;&nbsp;&nbsp;豆：</span> <span
-                                                class="gomefavourable"> <a href="pointConvert" target="_blank"
-                                                                           class="myGome-fanli-num moreZeroNum">0</a> </span>
-                                        </p>
-                                        <p class="clearfix"><span>美通卡：</span> <span class="gomefavourable"> <a
-                                                href="gomeVirtualCard" target="_blank"
-                                                class="myGome-fanli-num moreZeroNum">0</a> 张 </span></p></div>
+                                    <div class="myGome-fanli fl">
+                                        <p class="clearfix"><span>美&nbsp;&nbsp;&nbsp;豆：</span> <span class="gomefavourable"> <a href="gm-myMD.html" target="_blank" class="myGome-fanli-num moreZeroNum">0</a> </span></p>
+                                    </div>
+                                    <div class="myGome-QMK fl">
+                                        <p class="clearfix"><span>优惠券：</span> <span class="gomefavourable"> <a href="gomeMyCoupon.html" target="_blank" class="myGome-fanli-num moreZeroNum">0</a> 张 </span></p>
+                                       </div>
                                 </div>
                             </div>
                         </div>
@@ -210,22 +196,30 @@
                 <div class="myGomeSort_lateOrder">
                     <div class="homeLeft-order">
                         <div class="order-title"><h3>近三个月订单</h3>
-                            <ul>
-                                <li><a href="myOrder?waitPay">待付款</a> <span>0</span></li>
-                                <li><a href="myOrder?waitConfirm">待收货</a> <span>0</span></li>
-                                <li><i></i> <a href="myGoodsAppraise?orderId&amp;shippingGroupId">待评价晒单</a>
+                            <ul id="orders">
+                                <li><a href="gm-myOrder.html?Identification=1">待付款</a> <span>0</span></li>
+                                <li><a href="gm-myOrder.html?Identification=2">待收货</a> <span>0</span></li>
+                                <li><i></i> <a href="gm-appraise.html">待评价晒单</a>
                                     <span>0</span></li>
                             </ul>
-                            <a href="myOrder" style="float:right;line-height:30px;">查看更多订单</a></div>
-                        <p class="myGome-empty-order">您还没有订单记录，快<a target="_blank" href="//www.gome.com.cn">去逛逛</a>吧</p>
+                            <a href="gm-myOrder.html" style="float:right;line-height:30px;">查看更多订单</a>
+                        </div>
                     </div>
                 </div>
             </div>
             <!--右侧导航-->
-
+            <div class="myGome_rightBox fr">
+                <!--我的优惠券-->
+                <div class="myGome_myCoupon"><div class="homeRight-Coupon"> <h3 class="homeRight-title">我的优惠券<a class="homeRight-myCoupon" href="gomeMyCoupon.html" target="_blank">查看全部 <i>&gt;</i> </a><a href="libao.html" data-code="clubdh-libao" class="homeRight-package"><i></i>礼包<span>...</span></a></h3>  <ul class="Coupon-list clearfix">   <li class="couponLis"> <ul class="coupon-style styleLeft">  <li></li>  <li style="margin-right: 0px;"></li>  <li></li>  <li style="margin-right: 0px;"></li>  <li></li>  <li style="margin-right: 0px;"></li>  <li></li>  </ul> <ul class="coupon-style styleRight">  <li></li>  <li style="margin-right: 0px;"></li>  <li></li>  <li style="margin-right: 0px;"></li>  <li></li>  <li style="margin-right: 0px;"></li>  <li></li>  </ul> <p class="couponList-title">vivo100券</p> <h5>   <span>¥</span>100.00  </h5> <p class="couponList-type">线上专享</p> <div class="couponList-time">2019.09.03 - 2019.09.30</div>  <div class="couponList-btn" style="display: none;"> <a href="//quan.gome.com.cn/?P16388983   " target="_blank">立即使用</a> </div>  </li>   </ul>  </div> </div>
+                <!--领券入口-->
+                <!--会员推荐-->
+                <div class="myGome_memberRecommend"><div class="homeRight-recommend"> <h3 class="homeRight-title">会员推荐<a href=" vip_club.html" data-code="home01001-01" target="_blank">会员俱乐部 <i>&gt;</i></a></h3>  <ul>  <li> <a class="member-recommend-ad" id="14898" href="//prom.gome.com.cn/html/prodhtml/topics/201710/19/4380775275.html?intcmp=myhome-home02001-01" data-code="home02001-01" target="_blank"> <img src="//gfs11.gomein.net.cn/T1Y7DbBvKT1RCvBVdK.jpg" alt=""> </a> </li>  </ul>  </div></div>
+                <!--我的足迹-->
+                <div class="myGome_footprint clearfix"><h3 class="homeRight-title" style="border-bottom:none;">我的足迹<a href="gm-myfoot.html" target="_blank">查看更多 <i>&gt;</i></a></h3>  <ul class="myFootprint-box">  <li> <div class="myFootprint-img"><a href="//item.gome.com.cn/A0006581316-pop8012882467.html" target="_blank"><img src="//gfs17.gomein.net.cn/T1mAhsB_hv1RCvBVdK_160.jpg" alt=""></a></div> <p class="myFootprint-areaPrice">¥4366.00</p> </li>  <li> <div class="myFootprint-img"><a href="//item.gome.com.cn/A0005400044-pop8006567508.html" target="_blank"><img src="//gfs17.gomein.net.cn/T1nLCTB5bv1RCvBVdK_160.jpg" alt=""></a></div> <p class="myFootprint-areaPrice">¥488.00</p> </li>  <li> <div class="myFootprint-img"><a href="//item.gome.com.cn/9140145037-1130644789.html" target="_blank"><img src="//gfs17.gomein.net.cn/T1BadXBTVv1RCvBVdK_160.jpg" alt=""></a></div> <p class="myFootprint-areaPrice">¥3799.00</p> </li>  <li> <div class="myFootprint-img"><a href="//item.gome.com.cn/9140157642-1130688689.html" target="_blank"><img src="//gfs17.gomein.net.cn/T1FdEXBsEv1RCvBVdK_160.jpg" alt=""></a></div> <p class="myFootprint-areaPrice">¥6599.00</p> </li>  <li> <div class="myFootprint-img"><a href="//item.gome.com.cn/A0006580708-pop8012879796.html" target="_blank"><img src="//gfs17.gomein.net.cn/T1oWKjBQW_1RCvBVdK_160.jpg" alt=""></a></div> <p class="myFootprint-areaPrice">¥2799.00</p> </li>  <li> <div class="myFootprint-img"><a href="//item.gome.com.cn/9140143039-1130634596.html" target="_blank"><img src="//gfs17.gomein.net.cn/T1gKLsB_AT1RCvBVdK_160.jpg" alt=""></a></div> <p class="myFootprint-areaPrice">¥2199.00</p> </li>  </ul>  </div>
+                <!--我的收藏-->
+                <div class="myGome_myCollection"><div class="homeRight-service clearfix"> <h3 class="homeRight-title">我的收藏<a href="gm-shoucang.html" target="_blank">查看更多 <i>&gt;</i></a></h3>   <dl> <dt> <a class="myCollect-img" href="//item.gome.com.cn/A0006533167-pop8012621469.html" target="_blank"> <img src="//gfs17.gomein.net.cn/T1EYEbB5K_1RCvBVdK_100.jpg" alt="Dettol滴露 健康抑菌洗手液500g送300g 滋润双手 抑菌率99.9% 适合全家长期使用(自然清新500g送300g)"> </a> </dt> <dd>¥18.90</dd> </dl>  <dl> <dt> <a class="myCollect-img" href="//item.gome.com.cn/9140150028-1130650788.html" target="_blank"> <img src="//gfs17.gomein.net.cn/T1J4dXBjbT1RCvBVdK_100.jpg" alt="宏碁(acer)蜂鸟SF714 全面屏便携超轻薄触摸屏14英寸笔记本电脑(i7-8500Y 16G 512G PCIe SSD IPS win10 指纹识别 堂纸白 )"> </a> </dt> <dd>¥12999.00</dd> </dl>   </div> </div>
+            </div>
             <!--热门圈子-->
-
-
             <!--底部广告-->
             <div class="myGome_BottomAd"></div>
         </div>
@@ -426,8 +420,29 @@
 </div>
 <!--aside-->
 
-<script src="//js.gomein.net.cn/??gmlib/jq/1.7.1/jquery.js,sitemonitor/sa-sdk/sa.js,gmlib/cookie/1.0.0/cookie.js,gmpro/1.0.0/public/1.0.0/js/signtop.min.js,gmlib/unit/bigcode/1.0.0/bigcode.min.js,gmlib/unit/serviceEntrance/1.0.0/serviceEntrance.min.js,gmlib/ui/arttemplate/2.0.1/template.min.js,gmpro/1.0.0/public/member/js/searchautopoint.min.js,gmpro/1.0.0/cart/1.0.0/js/head-cart/cart.min.js,gmpro/1.0.0/cart/1.0.0/js/head-cart/mCart.min.js,gmpro/1.0.0/public/member/js/memberHead.min.js,gmpro/1.0.0/public/1.0.0/js/foot.min.js,gmpro/1.0.0/public/1.0.0/js/aside.min.js?v=201909171745,gmlib/unit/g/1.0.0/g.min.js,gmlib/unit/gomelib/1.0.0/gomelib.min.js,gmlib/unit/templatenav/1.0.0/templatenav.min.js,gmlib/ui/form/1.0.0/form.min.js,gmlib/ui/json3/3.3.2/json3.min.js,gmlib/ui/gload/1.0.0/gload.min.js,gmlib/ui/gclickshow/1.0.0/gclickshow.min.js,gmlib/ui/ghover/1.0.0/ghover.min.js,gmlib/ui/ginputfocus/1.0.0/ginputfocus.min.js,gmlib/ui/glaterimg/1.0.0/glaterimg.min.js,gmlib/ui/greplaceimg/1.0.0/greplaceimg.min.js,gmlib/ui/gshowhide/1.0.0/gshowhide.min.js,gmlib/ui/gbacktop/1.0.0/gbacktop.min.js,gmlib/ui/curnav/1.0.0/curnav.min.js,gmlib/ui/gslider/1.0.2/gslider.min.js,gmlib/ui/gpop/1.0.0/gpop.min.js,gmlib/unit/gcollect/1.0.0/gcollect.min.js,gmlib/unit/live800/1.0.0/live800.min.js,gmlib/unit/cart/1.0.0/addCart.min.js,gmpro/2.0.0/member/4.4.5/js/common/config.js,gmpro/2.0.0/member/4.4.5/js/common/component.js,gmpro/2.0.0/member/4.4.5/js/common/component/navTab.js,gmpro/2.0.0/member/4.4.5/js/common/component/pager.js,gmpro/2.0.0/member/4.4.5/js/common/component/combox.js,gmpro/2.0.0/member/4.4.5/js/common/richTreasure/popBox.js,gmpro/2.0.0/member/4.4.5/js/common/ucleft/ucLeftNavTpl.js,gmpro/2.0.0/member/4.4.5/js/common/ucleft/ucLeftNavLive.js,gmpro/2.0.0/member/4.4.5/js/common/include/hwgDialog.js,gmpro/2.0.0/member/4.4.5/js/common/ajaxPop.js,gmpro/2.0.0/member/4.4.5/js/common/selectNav.js,gmpro/2.0.0/member/4.4.5/js/profileHome/profileHomeTpl.js,gmpro/2.0.0/member/4.4.5/js/profileHome/profileHomeLive.js,gmpro/2.0.0/member/4.4.5/js/common/publicjs.js"></script>
+<!--<script src="//js.gomein.net.cn/??gmlib/jq/1.7.1/jquery.js,sitemonitor/sa-sdk/sa.js,gmlib/cookie/1.0.0/cookie.js,gmpro/1.0.0/public/1.0.0/js/signtop.min.js,gmlib/unit/bigcode/1.0.0/bigcode.min.js,gmlib/unit/serviceEntrance/1.0.0/serviceEntrance.min.js,gmlib/ui/arttemplate/2.0.1/template.min.js,gmpro/1.0.0/public/member/js/searchautopoint.min.js,gmpro/1.0.0/cart/1.0.0/js/head-cart/cart.min.js,gmpro/1.0.0/cart/1.0.0/js/head-cart/mCart.min.js,gmpro/1.0.0/public/member/js/memberHead.min.js,gmpro/1.0.0/public/1.0.0/js/foot.min.js,gmpro/1.0.0/public/1.0.0/js/aside.min.js?v=201909171745,gmlib/unit/g/1.0.0/g.min.js,gmlib/unit/gomelib/1.0.0/gomelib.min.js,gmlib/unit/templatenav/1.0.0/templatenav.min.js,gmlib/ui/form/1.0.0/form.min.js,gmlib/ui/json3/3.3.2/json3.min.js,gmlib/ui/gload/1.0.0/gload.min.js,gmlib/ui/gclickshow/1.0.0/gclickshow.min.js,gmlib/ui/ghover/1.0.0/ghover.min.js,gmlib/ui/ginputfocus/1.0.0/ginputfocus.min.js,gmlib/ui/glaterimg/1.0.0/glaterimg.min.js,gmlib/ui/greplaceimg/1.0.0/greplaceimg.min.js,gmlib/ui/gshowhide/1.0.0/gshowhide.min.js,gmlib/ui/gbacktop/1.0.0/gbacktop.min.js,gmlib/ui/curnav/1.0.0/curnav.min.js,gmlib/ui/gslider/1.0.2/gslider.min.js,gmlib/ui/gpop/1.0.0/gpop.min.js,gmlib/unit/gcollect/1.0.0/gcollect.min.js,gmlib/unit/live800/1.0.0/live800.min.js,gmlib/unit/cart/1.0.0/addCart.min.js,gmpro/2.0.0/member/4.4.5/js/common/config.js,gmpro/2.0.0/member/4.4.5/js/common/component.js,gmpro/2.0.0/member/4.4.5/js/common/component/navTab.js,gmpro/2.0.0/member/4.4.5/js/common/component/pager.js,gmpro/2.0.0/member/4.4.5/js/common/component/combox.js,gmpro/2.0.0/member/4.4.5/js/common/richTreasure/popBox.js,gmpro/2.0.0/member/4.4.5/js/common/ucleft/ucLeftNavTpl.js,gmpro/2.0.0/member/4.4.5/js/common/ucleft/ucLeftNavLive.js,gmpro/2.0.0/member/4.4.5/js/common/include/hwgDialog.js,gmpro/2.0.0/member/4.4.5/js/common/ajaxPop.js,gmpro/2.0.0/member/4.4.5/js/common/selectNav.js,gmpro/2.0.0/member/4.4.5/js/profileHome/profileHomeTpl.js,gmpro/2.0.0/member/4.4.5/js/profileHome/profileHomeLive.js,gmpro/2.0.0/member/4.4.5/js/common/publicjs.js"></script>-->
 
-
+<script src="js/myindex.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //悬浮字体变色
+        $(".side-nav  div ul li").hover(
+            function () {
+                $(this).addClass("active");
+            },
+            function () {
+                $(this).removeClass("active");
+            }
+        );
+        //悬浮显示头上下拉款
+        $(".gomeNav li").hover(
+            function () {
+                $(this).addClass("navCur").siblings().removeClass("navCur");
+            }, function () {
+                $(this).removeClass("navCur");
+            }
+        );
+    });
+</script>
 </body>
 </html>
