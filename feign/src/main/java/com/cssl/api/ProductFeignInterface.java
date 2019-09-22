@@ -146,6 +146,8 @@ public interface ProductFeignInterface {
     //根据订单号查询地址表相关信息
     @RequestMapping("orders/findAddressByOrder")
      Map<String,Object> findAddressByOrder(@RequestParam("oid") Integer oid);
+
+
     //--------------------------后台模块----------------------------------
 
     //---------------------------新闻后台模块--------------------------------
