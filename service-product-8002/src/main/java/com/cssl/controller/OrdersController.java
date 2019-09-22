@@ -55,7 +55,6 @@ public class OrdersController {
         Map<String, Object> data = new HashMap<>();
         List<Map<String, Object>> goodsList = new ArrayList<>();
         String[] gid = map.get("goodsId").toString().split(",");
-        System.out.println("gid = " + gid);
         String[] num = map.get("num").toString().split(",");
         for (int i = 0; i < gid.length; i++) {
             Goods goods = goodsService.getOne(new QueryWrapper<Goods>().eq("goods_id",gid[i]));
