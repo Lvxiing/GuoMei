@@ -535,7 +535,6 @@
                                                                       id="stockaddress">请选择收货地点</span>
                                         <i class="c-i select_arrowup ml10 mt10"></i></a></span>
                                     <div class="pr add_out hide" style="display: none;" id="adrss">
-                                        <em class="pabs c-i arrowup add_up2"></em>
                                         <div class="gCity clearfix" id="address-details"
                                              style="margin-top: -20px; margin-left: 1px; display: block;">
                                             <div id="citySelect" class="gctSelect clearfix">
@@ -998,7 +997,7 @@
         $("#id_commit").click(function(){
             var url = GetRequest();
             var aid=$("#aid").val(); //收获地址id
-
+            alert(aid);
         });
     });
 
@@ -1024,7 +1023,7 @@
                         div += " <div class='cart-col-8'> <div class='cart-good-pro'> <div class='cart-saleprops-text'></div> </div> </div> <div class='cart-col-4 cart-price-height47'> <div class='cart-good-real-price '>  ¥&nbsp;" + g.price + "</div>";
                         div += " <div class='red'></div> </div> </div> </div> <div class='cart-col-7'> <div class='cart-good-fun delfixed' style='width: 100px;height: 30px'> <span class='fontGray mr20 ml5'> x " + g.num + " </span> <span class='fontGray mr10'>有货</span> </div> </div> </div> </div> </div>";
                         money += g.num * g.price;
-                        num+=g.num;
+                        num+=parseInt(g.num);
                         $("div.infoH").append(div);
                     }
                     $("#num").text(num);
