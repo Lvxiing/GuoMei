@@ -417,8 +417,7 @@
         </div>
     </div>
     <div class="pagelist name1">
-        <a class="prev disable" href="javascript:void(0);">&nbsp;上一页<s class="icon-prev"></s><i></i></a>
-        <span class="cur">1</span>
+        <a class="prev" href="javascript:void(0);">&nbsp;上一页<s class="icon-prev"></s><i></i></a>
         <a class="next" href="javascript:void(0);">下一页<s class="icon-next"></s><i></i></a>
         <!--<label class="txt-wrap">到<input type="text" id="pNum" class="txt" bnum="1" value="1">页</label>-->
         <!--<a href="javascript:void(0)" zdx="nBtn" class="btn">确定</a>-->
@@ -715,13 +714,10 @@
                 $("#length").attr("style", "width: " + percent.toFixed(0) + "%;");
             }
             vipGood();
-        })
+        });
 
         time();
-
-
-
-        var pageSize = 2;
+        var pageSize = 1;
         var gid;
         var bs;
         var pageno = "";//显示第几页
@@ -734,24 +730,29 @@
         //显示所有会员商品,点击G1会员传入会员gid参数,点击销量传入参数bs不传入默认查询所有会员商品
         //传入pageIndex,pageSize分页参数
         function showAllGoodsVip(pageIndex, pageSize, gid, bs) {
-            $("ul.club-items-box").empty();
+
             $.getJSON("Goods/vipGoodsFindAllQian", {
                 "pageIndex": pageIndex,
                 "pageSize": pageSize,
                 "gid": gid,
                 "bs": bs
             }, function (data) {
+                $("ul.club-items-box").empty();
                 pageno = data.pageNo;
-                total = data.totalCount;
+                total = data.pageCount;
                 var json = data.list;
-                //查询页码前,先把div下的页码清空掉
-                $("div.pagelist span").remove();
-                var span = "";
-                for (var i = 0; i < total; i++) {
-                    // var cls = (i +1) ==data.pageNo ? "class = 'cur'":"";
-                    span += "<span class='cur' id='getPage'>" + (i + 1) + "</span>";
+                //判断 当页面为1时 上一页标签将disable
+                if (pageno == 1) {
+                    $('.prev').addClass("disable");
+                } else {
+                    $('.prev').removeClass("disable");
                 }
-                $("div.pagelist a:first").after(span);
+                //判断当页码为总页码时,下一页标签为disable
+                if (pageno == total) {
+                    $('.next').addClass("disable");
+                } else {
+                    $('.next').removeClass("disable");
+                }
                 for (var i = 0; i < json.length; i++) {
                     var cate = json[i];
                     var li = "";
@@ -891,67 +892,25 @@ if (gradeName!=grade){
             gid = $(this).attr("name");
             showAllGoodsVip(1, pageSize, gid, bs);
         });
-
         //分页显示,点击页码跳转
         $("body").on('click', '#getPage', function () {
+            $("ul.club-items-box").empty();
             var pageIndex = $(this).text();
             showAllGoodsVip(pageIndex, pageSize,gid,bs);
-            //判断 当页面为1时 上一页标签将disable
-            if (pageno == 1) {
-                $('.prev').addClass("disable");
-            } else {
-                $('.prev').removeClass("disable");
-            }
-            //判断当页码为总页码时,下一页标签为disable
-            if (pageno == total) {
-                $('.next').addClass("disable");
-            } else {
-                $('.next').removeClass("disable");
-            }
         });
         //点击上一页
         $("body").on('click', '.prev', function () {
             var pageIndex = pageno;
             //判断当页码小于等于1时,不得在点击上一页
-            if (pageno <= 1) {
-                $('.prev').addClass("disable");
-            } else {
-                $('.prev').removeClass("disable");
+            if (pageno > 1) {
                 showAllGoodsVip(pageIndex - 1, pageSize,gid,bs);
-            }
-            //判断 当页面为1时 上一页标签将disable
-            if (pageno == 1) {
-                $('.prev').addClass("disable");
-            } else {
-                $('.prev').removeClass("disable");
-            }
-            //判断当页码为总页码时,下一页标签为disable
-            if (pageno == total) {
-                $('.next').addClass("disable");
-            } else {
-                $('.next').removeClass("disable");
             }
         });
         //点击下一页
         $("body").on('click', '.next', function () {
             var pageIndex = pageno;
-            if (pageno >= total) {
-                $(this).addClass("disable");
-            } else {
-                $(this).removeClass("disable");
+            if (pageno < total) {
                 showAllGoodsVip(pageIndex + 1, pageSize,gid,bs);
-            }
-            //判断 当页面为1时 上一页标签将disable
-            if (pageno == 1) {
-                $('.prev').addClass("disable");
-            } else {
-                $('.prev').removeClass("disable");
-            }
-            //判断当页码为总页码时,下一页标签为disable
-            if (pageno == total) {
-                $('.next').addClass("disable");
-            } else {
-                $('.next').removeClass("disable");
             }
         });
     })
