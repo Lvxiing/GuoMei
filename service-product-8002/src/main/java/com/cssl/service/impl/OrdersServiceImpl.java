@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -64,13 +65,19 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         Orders orders = new Orders();
         orders.setUserId(Integer.valueOf(map.get("uid").toString()));
         orders.setAddressId(Integer.valueOf(map.get("aid").toString()));
-        orders.setOrderTime(new Date());
+        Date day = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(df.format(day));
+        orders.setOrderTime(day);
         orders.setStatus(1);
         orders.setOrderNo(GenerateNum.getInstance().GenerateOrder());
         double totalMoney = 0;
         List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("list");
         for (Map m : list) {
-            totalMoney += (double) m.get("price") * (int) m.get("num");
+            String str = m.get("price").toString();
+            Double price = Double.parseDouble(str);
+            Integer num = new Integer(m.get("num").toString());
+            totalMoney += price * num;
         }
         BigDecimal decimal = new BigDecimal(totalMoney);
         orders.setTotal(decimal.setScale(2, BigDecimal.ROUND_HALF_UP));

@@ -167,7 +167,7 @@
 
 
     <insert id="addOrder" useGeneratedKeys="true" keyProperty="id" keyColumn="order_id">
-        INSERT INTO address(user_id,address_id,order_time,order_total,order_status,order_no) VALUES (#{userId},#{addressId},#{orderTime},#{total},#{status},#{orderNo})
+        INSERT INTO orders(user_id,address_id,order_time,order_total,order_status,order_no) VALUES (#{userId},#{addressId},#{orderTime},#{total},#{status},#{orderNo})
     </insert>
 
 </mapper>
