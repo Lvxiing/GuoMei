@@ -171,7 +171,7 @@ public interface ProductFeignInterface {
     Map<String,Object> orderInfo(@RequestParam("uid") Integer uid,@RequestParam Map<String,Object> map);
 
     @RequestMapping("orders/addOrders")
-    String addOrders(@RequestParam Map<String,Object> map);
+    Map<String, Object>  addOrders(@RequestParam Map<String,Object> map);
 
     //用户订单
     @RequestMapping("orders/findOrdersByUserId")
