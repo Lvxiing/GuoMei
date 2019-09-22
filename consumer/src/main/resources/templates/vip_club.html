@@ -757,11 +757,11 @@
                     var li = "";
                     li += "<li class='club-item'>";
                     li+="<span name='goodsId' style='display:none;'>"+cate.goods_id+"</span>";
-                    li += "<a type='1' target='_blank' class='pic' href='product_details.html?gid=" + cate.goods_id + "&vip=yes' >";
+                    li += "<a type='1' target='_blank' class='pic' href='javascript:void(0);' >";
                     li += "<img width='160' height='160' alt='" + cate.goods_title + "' src='" + cate.goods_main_img + "'>";
                     li += "</a>";
                     li += "<p class='name'>";
-                    li += "<a href='product_details.html?gid=" + cate.goods_id + "&vip=yes' title='" + cate.goods_title + "' target='_blank'>" + cate.goods_title + "</a>";
+                    li += "<a href='javascript:void(0);' " + cate.goods_title + "' target='_blank'>" + cate.goods_title + "</a>";
                     li += "<p class='price'><span class='vipPrice'>会员价：<b class='highlight '>¥<span  name='vipPrice'>" + (cate.goods_price - cate.discount_money) + "</span></b></span></p>";
                     li += "<p class='price'><span class='gmPrice'>国美价：<b class='delete'>¥" + cate.goods_price + "</b></span></p>";
                     li += "<p class='conditions clearfix'>";
@@ -827,6 +827,41 @@ if (gradeName!=grade){
     });
 }
         });
+
+
+            $("ul.club-items-box").on("click","a",function() {
+                var goodsId=  $(this).parents("li.club-item").find("[name='goodsId']").text();
+                var gradeName=  $("#gradeName").text();
+                var grade=  $(this).parents("li.club-item").find("[name='gradeName']").text();
+                if (gradeName!=grade){
+                    layer.msg("您的会员等级不匹配享受此等级的会员价哦", { btn: ['知道了','国美价购买']
+                        ,btn2: function(){
+                            location.href="product_details.html?gid="+goodsId;
+                        }
+                    });
+                    return false;
+                }else{
+                    location.href="product_details.html?gid="+goodsId+"&vip=yes";
+                }
+
+
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -946,7 +981,6 @@ if (gradeName!=grade){
     function vipGood() {
         //获取等级id
         var gid=parseInt($("[name=gradeId]").text());
-        alert(gid);
         $.getJSON("Goods/vipGoodsFindAllQian", {"pageIndex":1,"pageSize":2,"gid":gid},function (data) {
             var json=data.list;
             //显示轮播图下的前两条数据
