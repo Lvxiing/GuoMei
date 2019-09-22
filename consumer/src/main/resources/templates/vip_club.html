@@ -167,7 +167,7 @@
                              src="" id="headImg">
                     </li>
                     <li class="name" js-data="userName" id="userName"></li>
-                    <li class="level" js-data="userLevel"><i class="io" id="gradeName"></i><s></s><a
+                    <li class="level" js-data="userLevel"> <span name="gradeId" style="display: none;"></span><i class="io" id="gradeName"></i><s></s><a
                             data-code="club-lbrk" href="libao.html"><span>礼包</span></a></li>
                     <li class="integral" js-data="userIntegral">
                         <div class="gradeAmount" style="width: 150px;"><em class="cod" id="growupSum"></em><span
@@ -187,31 +187,6 @@
             </div>
 
 
-            <script type="text/javascript">
-
-
-                $(function () {
-
-                    //显示该会员信息
-                    $.getJSON("/users/findVip", function (result) {
-                        for (var i = 0; i < result.length; i++) {
-                            $("#userName").text(result[i].userName);
-                            $("#gradeName").text(result[i].gradeName);
-                            $("#growupSum").text(result[i].growupSum + " / " + result[i].high);
-                            $("#scoreSum").text(result[i].scoreSum);
-                            $("#headImg").attr("src", result[i].headImg);
-                            var balance = result[i].high - result[i].growupSum;
-                            $("#balance").text(balance);
-                            var percent = result[i].growupSum / result[i].high * 100;
-                            $("#length").attr("style", "width: " + percent.toFixed(0) + "%;");
-                        }
-                    })
-
-
-                })
-
-
-            </script>
 
 
             <dl class="club-info-privilege">
@@ -723,6 +698,29 @@
 <script type="text/javascript">
 
     $(function () {
+
+
+        //显示该会员信息
+        $.getJSON("/users/findVip", function (result) {
+            for (var i = 0; i < result.length; i++) {
+                $("#userName").text(result[i].userName);
+                $("[name=gradeId]").text(result[i].gradeId);
+                $("#gradeName").text(result[i].gradeName);
+                $("#growupSum").text(result[i].growupSum + " / " + result[i].high);
+                $("#scoreSum").text(result[i].scoreSum);
+                $("#headImg").attr("src", result[i].headImg);
+                var balance = result[i].high - result[i].growupSum;
+                $("#balance").text(balance);
+                var percent = result[i].growupSum / result[i].high * 100;
+                $("#length").attr("style", "width: " + percent.toFixed(0) + "%;");
+            }
+            vipGood();
+        })
+
+
+
+
+
         var pageSize = 2;
         var gid;
         var bs;
@@ -731,6 +729,7 @@
         //显示会员等级
         vipShow();
         showAllGoodsVip(1, pageSize, gid, bs);
+
 
         //显示所有会员商品,点击G1会员传入会员gid参数,点击销量传入参数bs不传入默认查询所有会员商品
         //传入pageIndex,pageSize分页参数
@@ -967,7 +966,8 @@ if (gradeName!=grade){
     //显示轮播下的
     function vipGood() {
         //获取等级id
-        var gid=parseInt();
+        var gid=parseInt($("[name=gradeId]").text());
+        alert(gid);
         $.getJSON("Goods/vipGoodsFindAllQian", {"pageIndex":1,"pageSize":2,"gid":gid},function (data) {
             var json=data.list;
             //显示轮播图下的前两条数据
