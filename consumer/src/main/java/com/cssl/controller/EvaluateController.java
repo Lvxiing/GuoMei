@@ -2,6 +2,8 @@ package com.cssl.controller;
 
 import com.cssl.api.ProductFeignInterface;
 import com.cssl.entity.PageInfo;
+import com.cssl.entity.Users;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,8 +70,9 @@ public class EvaluateController {
     @RequestMapping("evaluateInfo")
     @ResponseBody
     //根据用户查询评价商品信息(可以是未评价0 评价1)
-    public  Object evaluateInfo(@RequestParam Map<String,Object> map,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize){
-        map.put("user_id",31);
+    public  Object evaluateInfo(HttpSession session, @RequestParam Map<String,Object> map, @RequestParam("pageIndex") Integer pageIndex, @RequestParam("pageSize") Integer pageSize){
+        Users users = (Users)session.getAttribute("user");
+        map.put("user_id",users.getId());
         return productFeignInterface.evaluateInfo(map,pageIndex,pageSize);
     }
 }
