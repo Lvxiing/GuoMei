@@ -72,11 +72,9 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
             String loginTime = sdf.format(u.getLoginTime());
             //当前系统时间
             String nowDate = sdf.format(System.currentTimeMillis());
-            //用户注册时间
-            String regTime = sdf.format(u.getTime());
             //用户当日注册当日登录
             //每日首次登录加成长值
-            if (!loginTime.equals(nowDate) || regTime.equals(nowDate)) {
+            if (!loginTime.equals(nowDate)) {
                 int ucount = userFeignInterface.updateGrowupSum(map);
                 int scount = userFeignInterface.saveGrowupdetail(map);
                 //将此次获得的成长值详细说明存入redis中
