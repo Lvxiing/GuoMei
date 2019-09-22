@@ -859,13 +859,15 @@
                     $("input[name=detailAddress]").val("");//详细地址
                     $("input[name=phone]").val("");//电话号码
                     $("input[name=email]").val("");
-                    $("div.add_table input[type=checkbox]").remove(":checked");
+                    $("div.add_table input[type=checkbox]").removeAttr("checked");
                     $("#stockaddress").text("请选择收货地址");
                     $("#stockaddress").attr("title","");
                     $("div#citySelect a b").text("请选择");
                     //显示选择收货地址信息
                     $("body").on('click', '#adrs', function () {
                         $("#address-details").css("display","block");
+                        $(".provin1").addClass("cur").siblings().removeClass("cur");
+                        $("div#ctbox_4").empty();
                     });
                 } else {
                     $(".icon-box-error").css("display", "inline");

@@ -20,7 +20,7 @@ $(function () {
         evaluate(pageNo);
     });
 
-    vipPrice();
+    good();
 
 });
 
@@ -228,20 +228,42 @@ function besimilarGoods(name) {
     });
 }
 
+//判断点击商品是否低于会员等级
+function good() {
+    var re=GetRequest();
+    $.getJSON("../../Goods/vipInfo",{"gid":re.gid},function(json){
+        var id=parseInt(json.grade_name.substring(1));
+        if(re.leven>id){
+            var vipprice=json.goods_price-json.Discount_money;
+            vipPrice(json.goods_price,json.grade_name,vipprice);
+        }else{
+            vipPrice(json.goods_price,"","");
+        }
+    });
+}
+
 
 //显示会员价
-function vipPrice() {
+function vipPrice(price,gradeName,vipprice) {
     var re=GetRequest();
     if (re.vip!="yes"){
         $("#vip").hide();
     }else{
         $("#vip").show();
-        $.getJSON("../../Goods/vipInfo",{"gid":re.gid},function(json){
-            $("#huiYuanDJ").text("您享受"+json.grade_name+"会员价");
-            var vip_price=json.goods_price-json.Discount_money;
-            $(".huiYuanTeJia_text").html("¥<span name=vipPrice>"+vip_price+"</span>").css("color","#e3101e");
-            $("#Discount_money").attr("money",json.Discount_money);
-        })
+        $.getJSON("../../Goods/findGradeById",{"id":re.leven},function(json){
+            //判断
+            if(gradeName!=""&&vipprice!=""){
+                $("#huiYuanDJ").text("此商品为"+gradeName+"会员价");
+                $(".huiYuanTeJia_text").html("¥<span name=vipPrice>"+vipprice+"</span>").css("color","#e3101e");
+            }else{
+                $("#huiYuanDJ").text("您享受"+json.gradeName+"会员价");
+                var vip_price=price-json.money;
+                $(".huiYuanTeJia_text").html("¥<span name=vipPrice>"+vip_price+"</span>").css("color","#e3101e");
+            }
+
+        });
     }
 }
+
+
 

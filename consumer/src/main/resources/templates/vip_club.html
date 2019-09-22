@@ -819,8 +819,9 @@
 
             //a链接加入购物车
             $("ul.club-items-box").on("click","a",function() {
+                var leven=parseInt($("[name=gradeId]").text());
                 var goodsId=  $(this).parents("li.club-item").find("[name='goodsId']").text();
-                    location.href="product_details.html?gid="+goodsId+"&vip=yes";
+                    location.href="product_details.html?gid="+goodsId+"&vip=yes&leven="+leven;;
             });
 
 
@@ -900,7 +901,7 @@
             var json=data.list;
             //显示轮播图下的前两条数据
             for(var k=0;k<2;k++){
-                var vipLi="<li class='item'> <a href='product_details.html?gid="+json[k].goods_id+"&vip=yes'class='img' title='"+json[k].goods_title+"'target='_blank'> ";
+                var vipLi="<li class='item'> <a href='product_details.html?gid="+json[k].goods_id+"&vip=yes&leven="+gid+"'class='img' title='"+json[k].goods_title+"'target='_blank'> ";
                 vipLi+="<img width='130' height='130' alt='"+json[k].goods_title+"'src='"+json[k].goods_main_img+"'></a> <p class='name'><a href='product_details.html?gid="+json[k].goods_id+"&vip=yes' title='"+json[k].goods_title+"'target='_blank'>"+json[k].goods_title+"</a></p>";
                 vipLi+="<p class='price'><span class='vipPrice'>会员价：<b class='highlight '>¥"+(json[k].goods_price - json[k].discount_money)+"</b></span></p>";
                 vipLi+="<p class='price'><span class='gmPrice'>国美价：<b class='delete'>¥"+json[k].goods_price+"</b></span></p>";
