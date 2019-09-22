@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -34,7 +35,8 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
     }
 
     @Override
-    public List<Address> showAddress(Integer uId) {
-        return addressMapper.showAddress(uId);
+    public List<Address> showAddress(Map<String, Object> map) {
+        return addressMapper.showAddress(map);
     }
+
 }

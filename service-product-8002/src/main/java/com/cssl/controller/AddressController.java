@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -43,8 +44,8 @@ public class AddressController {
     }
     @RequestMapping("showAddress")
     @ResponseBody
-    public List<Address> showAddress(@RequestParam(value = "userid")  Integer uId){
-        return addressService.showAddress(uId);
+    public List<Address> showAddress(@RequestParam Map<String,Object>map){
+        return addressService.showAddress(map);
     }
 
     //查询当前用户是否有收获地址

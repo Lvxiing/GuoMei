@@ -4,6 +4,7 @@ import com.cssl.entity.Address;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -19,5 +20,5 @@ public interface AddressService extends IService<Address> {
     //查询我的所有收货地址
     List<Address> findAddress();
     //查询我的收货地址
-    List<Address> showAddress(Integer uId);
+    List<Address> showAddress(Map<String,Object> map);
 }
