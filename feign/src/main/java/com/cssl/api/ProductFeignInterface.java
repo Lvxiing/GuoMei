@@ -64,7 +64,7 @@ public interface ProductFeignInterface {
     public String findNameByStreetId(@RequestParam Integer street_id);
     //回显省市级地址
     @RequestMapping("address/showAddress")
-    List<Address> showAddress(@RequestParam(value = "userid") Integer uId);
+    List<Address> showAddress(@RequestParam Map<String,Object>map);
 
     @RequestMapping("address/selectAddressExist")
     String selectAddressExist(@RequestParam("uid") Integer uid);

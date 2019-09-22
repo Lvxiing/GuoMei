@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/myGuoMei")
@@ -115,8 +116,8 @@ public class MyGuoMeiController {
     }
     @RequestMapping("showAddress")
     @ResponseBody
-    public List<Address> showAddress(@RequestParam(value = "userid") Integer uId){
-        return productFeignInterface.showAddress(uId);
+    public List<Address> showAddress(@RequestParam Map<String,Object> map){
+        return productFeignInterface.showAddress(map);
     }
 
     //查询当前用户是否有收获地址
