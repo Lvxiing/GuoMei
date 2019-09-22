@@ -41,6 +41,7 @@
         <result column="user_headimg" property="headImg"/>
         <result column="growup_sum" property="growupSum"/>
         <result column="score_sum" property="scoreSum"/>
+        <result column="grade_id" property="gradeId"/>
         <result column="grade_name" property="gradeName"/>
         <result column="low" property="low"/>
         <result column="high" property="high"/>
@@ -48,7 +49,7 @@
 
 
     <select id="findVip" resultMap="myMap">
-        SELECT     u.user_id,u.user_name,u.user_headimg ,IFNULL(g.growup_sum,0) AS growup_sum   ,IFNULL(gr.grade_name,'G1')  AS grade_name  ,
+        SELECT     u.user_id,u.user_name,u.user_headimg ,IFNULL(g.growup_sum,0) AS growup_sum   ,gr.`grade_id` ,IFNULL(gr.grade_name,'G1')  AS grade_name  ,
         IFNULL(gr.low,0) AS  low ,
         IFNULL(gr.high,100) AS  high  ,
                IFNULL(s.score_sum,0)  AS score_sum  FROM  `users`  u
