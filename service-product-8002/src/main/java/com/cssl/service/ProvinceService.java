@@ -3,6 +3,8 @@ package com.cssl.service;
 import com.cssl.entity.Province;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ProvinceService extends IService<Province> {
 
+    //查询所有省份
+    List<Province> findProvince();
+    //根据省Id查询省名称
+    String findNameByProvinceId(Integer province_id);
 }

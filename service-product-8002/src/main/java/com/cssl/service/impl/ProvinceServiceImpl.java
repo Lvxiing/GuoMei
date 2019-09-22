@@ -4,7 +4,10 @@ import com.cssl.entity.Province;
 import com.cssl.mapper.ProvinceMapper;
 import com.cssl.service.ProvinceService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProvinceServiceImpl extends ServiceImpl<ProvinceMapper, Province> implements ProvinceService {
 
+    @Autowired
+    private ProvinceMapper provinceMapper;
+
+    @Override
+    public List<Province> findProvince() {
+        return provinceMapper.findProvince();
+    }
+
+    @Override
+    public String findNameByProvinceId(Integer province_id) {
+        return provinceMapper.findNameByProvinceId(province_id);
+    }
 }

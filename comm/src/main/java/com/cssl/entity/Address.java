@@ -51,6 +51,8 @@ public class Address extends Model<Address> {
 
     @TableField(value = "address_isdefault")
     private Integer isdefault;    //是否默认
+    //省市街区
+    private ProvinceAddress provinceAddress;
 
     @Override
     protected Serializable pkVal() {

@@ -31,6 +31,43 @@ public interface ProductFeignInterface {
     public List<ImagesInfo> mainImagesData();
 
 
+    //--------------------前台收货地址-------------------------
+    //查询所有省份
+    @RequestMapping("province/findProvince")
+    List<Province> findProVince();
+    //根据省份id查询所有城市
+    @RequestMapping("city/findCityByProvince")
+    List<City> findCityByProvince(@RequestParam Integer province_id);
+    //根据城市Id查询区
+    @RequestMapping("district/findAreaByCity")
+    List<District> findAreaByCity(@RequestParam Integer city_id);
+    //根据区id查询所有街道
+    @RequestMapping("street/findStreetByArea")
+    List<Street> findStreetByArea(@RequestParam Integer district_id);
+    //心怎收货地址
+    @RequestMapping("address/addAddressPage")
+    int addAddressPage(@RequestBody Address address1);
+    //查询所有的收货地址
+    @RequestMapping("address/findAddress")
+    List<Address> findAddress();
+    //根据城市id回显城市名称
+    @RequestMapping("city/findNameByCityId")
+    String findNameByCityId(@RequestParam Integer city_id);
+    //根据省份id查询省名称
+    @RequestMapping("province/findNameByProvinceId")
+    String findNameByProvinceId(@RequestParam Integer province_id);
+    //根据区id查询区名称
+    @RequestMapping("district/findNameByDistrictId")
+    String findNameByDistrictId(@RequestParam Integer district_id);
+    //根据街id查询街名称
+    @RequestMapping("street/findNameByStreetId")
+    public String findNameByStreetId(@RequestParam Integer street_id);
+    //回显省市级地址
+    @RequestMapping("address/showAddress")
+    List<Address> showAddress(@RequestParam(value = "userid") Integer uId);
+    //---------------------收货地址----------------------------
+
+
     //---------------------------新闻前台模块--------------------------------
     //查询所有新闻
     @RequestMapping("news/findAllNews")

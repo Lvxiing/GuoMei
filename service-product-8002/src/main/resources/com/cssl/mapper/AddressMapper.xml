@@ -4,17 +4,71 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cssl.entity.Address">
-        <id column="address_id" property="id" />
-        <result column="province_id" property="provinceId" />
-        <result column="city_id" property="cityId" />
-        <result column="district_id" property="districtId" />
-        <result column="street_id" property="streetId" />
-        <result column="user_id" property="userId" />
-        <result column="address_name" property="userName" />
-        <result column="address_detail" property="address" />
-        <result column="user_phone" property="phone" />
-        <result column="user_email" property="email" />
-        <result column="address_isdefault" property="isdefault" />
+        <id column="address_id" property="id"/>
+        <result column="province_id" property="provinceId"/>
+        <result column="city_id" property="cityId"/>
+        <result column="district_id" property="districtId"/>
+        <result column="street_id" property="streetId"/>
+        <result column="user_id" property="userId"/>
+        <result column="address_name" property="userName"/>
+        <result column="address_detail" property="address"/>
+        <result column="user_phone" property="phone"/>
+        <result column="user_email" property="email"/>
+        <result column="address_isdefault" property="isdefault"/>
+    </resultMap>
+    <insert id="addAddressPage" parameterType="address">
+        INSERT INTO `address`(`province_id`, `city_id`, `district_id`, `street_id`, `user_id`, `address_name`,
+                              `address_detail`, `user_phone`, `user_email`, `address_isdefault`)
+        VALUES (#{provinceId}, #{cityId}, #{districtId}, #{streetId}, #{userId}, #{userName},
+                #{address}, #{phone}, #{email}, #{isdefault})
+    </insert>
+
+    <select id="findAddress" resultMap="BaseResultMap">
+        SELECT *
+        FROM `address`
+    </select>
+
+    <resultMap id="provinceAddressMap" type="com.cssl.entity.Address">
+        <id column="address_id" property="id"></id>
+        <result column="province_id" property="provinceId"/>
+        <result column="city_id" property="cityId"/>
+        <result column="district_id" property="districtId"/>
+        <result column="street_id" property="streetId"/>
+        <result column="user_id" property="userId"/>
+        <result column="address_name" property="userName"/>
+        <result column="address_detail" property="address"/>
+        <result column="user_phone" property="phone"/>
+        <result column="user_email" property="email"/>
+        <result column="address_isdefault" property="isdefault"/>
+        <association property="provinceAddress" javaType="com.cssl.entity.ProvinceAddress">
+            <result column="province_id" property="provinceId"></result>
+            <result column="provinceName" property="provinceName"></result>
+            <result column="city_id" property="cityId"></result>
+            <result column="cityName" property="cityName"></result>
+            <result column="district_id" property="districtId"></result>
+            <result column="districtName" property="districtName"></result>
+            <result column="street_id" property="streetId"></result>
+            <result column="streetName" property="streetName"></result>
+        </association>
     </resultMap>
 
+    <select id="showAddress" resultMap="provinceAddressMap" parameterType="Integer">
+        SELECT address_id,
+               province_id,
+               (SELECT province_name FROM province p WHERE a.province_id = p.province_id) AS provinceName,
+               city_id,
+               (SELECT city_name FROM city c WHERE a.city_id = c.city_id)                 AS cityName,
+               district_id,
+               (SELECT district_name FROM district d WHERE a.district_id = d.district_id) AS districtName,
+               street_id,
+               (SELECT street_name FROM street s WHERE a.street_id = s.street_id)         AS streetName,
+               user_id,
+               address_name,
+               address_detail,
+               user_phone,
+               user_email,
+               address_isdefault
+        FROM address a
+        WHERE user_id = #{uId}
+    </select>
 </mapper>
