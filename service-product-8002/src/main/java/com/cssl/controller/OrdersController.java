@@ -169,13 +169,16 @@ public class OrdersController {
     //删除订单
     @RequestMapping("/deleteOrders")
     @ResponseBody
-    public int deleteOrders(@RequestParam("orderId") Integer orderId) {
+    public int deleteOrders(@RequestParam("orderId") Integer orderId,@RequestParam("status")Integer status) {
         //先删除订单详情表
         int i = orderDetailService.deletOrderDetail(orderId);
-        //删除评价表信息
-//        Map<String,Object>map=new HashMap<String,Object>();
-//        map.put("order_id",orderId);
-//        evaluateService.removeByMap(map);
+        //删除订单时判断是否时已完成状态如果是删除评价表相关信息(因为评价表信息是通过订单状态添加进去)
+         if(status==5){
+          //删除评价表信息
+        Map<String,Object>map=new HashMap<String,Object>();
+        map.put("order_id",orderId);
+        evaluateService.removeByMap(map);
+        }
         int num = 0;
         if (i > 0) {
             num = ordersService.deleteOrder(orderId);

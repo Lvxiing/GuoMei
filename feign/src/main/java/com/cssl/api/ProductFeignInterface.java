@@ -259,7 +259,7 @@ public interface ProductFeignInterface {
     int updateStatus(@RequestParam("orderNo") String orderNo, @RequestParam("status") int status);
     //删除
     @RequestMapping("/orders/deleteOrders")
-    int deleteOrders(@RequestParam("orderId")Integer orderId);
+    int deleteOrders(@RequestParam("orderId")Integer orderId,@RequestParam("status")Integer status);
     //计算本月退单数量,订单数量和金额,本月订单实际金额,本月未付款金额
     @RequestMapping("/orders/inquiryAmount")
     Map<String,Object> inquiryAmount();

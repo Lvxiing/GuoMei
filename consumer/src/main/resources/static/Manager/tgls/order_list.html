@@ -142,6 +142,7 @@
                         {field: "userName", title: "收货人"},
                         {field: "total", title: "金额"},
                         {field: "address", title: "收货地址"},
+                        {field: "status", title: "status",hide:true},
                         {field: "orderTime", title: "订单时间",
                             templet: function(d){
                                 return util.toDateString(d.orderTime, "yyyy-MM-dd HH:mm:ss");
@@ -176,7 +177,7 @@
                     //删除
                     if(layEvent === 'del'){
                         layer.confirm('真的删除行么?', function(index){
-                            $.getJSON("/Orders/deleteOrders?orderId="+data.id,
+                            $.getJSON("/Orders/deleteOrders",{"orderId":data.id,"status":data.status},
                                 function(result) {
                                     if(result>0){
                                         obj.del(); //删除对应行（tr）的DOM结构，并更新缓

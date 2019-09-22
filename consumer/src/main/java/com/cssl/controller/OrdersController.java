@@ -88,8 +88,9 @@ public class OrdersController {
     //删除订单
     @RequestMapping("/deleteOrders")
     @ResponseBody
-    public int deleteOrders(@RequestParam("orderId")Integer orderId){
-        return productFeignInterface.deleteOrders(orderId);
+    public int deleteOrders(@RequestParam("orderId")Integer orderId,@RequestParam("status")Integer status){
+        System.out.println("status"+status);
+        return productFeignInterface.deleteOrders(orderId,status);
     }
     //计算本月退单数量,订单数量和金额,本月订单实际金额,本月未付款金额
     @RequestMapping("/inquiryAmount")
