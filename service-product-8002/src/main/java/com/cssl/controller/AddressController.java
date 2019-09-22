@@ -54,7 +54,7 @@ public class AddressController {
         System.out.println("uid = " + uid);
         int count = addressService.count(new QueryWrapper<Address>().eq("user_id", uid));
         String json ;
-        if(count<=1){
+        if(count==0){
             json = "{\"code\":\"no\"}";
             return  json;
         }
