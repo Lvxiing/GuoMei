@@ -54,36 +54,6 @@
     <div class="nInfos pr ">
         <div class="consignee_boxs">
             <ul class="addname" g-scroll="">
-                <!--<li class="addr-box" g-sbtn-path="list,0" g-hover-up="">-->
-                <!--<div class="addr-box-content active">-->
-                <!--<div class="addr-header">-->
-                <!--<span>默认地址</span>-->
-                <!--</div>-->
-                <!--<div class="addr-hd">-->
-                <!--<span class="name" title="刘君">刘君</span>-->
-                <!--<span>湖南省</span>-->
-                <!--</div>-->
-                <!--<div class="addr-hd hd-detail" title="长沙市 开福区 望麓园街道 北大青鸟实力校区 "><span class="">长沙市</span>-->
-                <!--<span class="">开福区</span><span class="">望麓园街道</span><span class="">北大青鸟实力校区</span><span-->
-                <!--class=""> 130****2754</span>-->
-                <!--</div>-->
-                <!--<div class="addr-manage">-->
-                <!--<span class="addr-btn  hide" g-hover="" g-modify-path="list,0" tpmmtag="选择地址|100|5"-->
-                <!--style="display: none;">修改</span>-->
-                <!--</div>-->
-                <!--<div class="addr-footer">-->
-                <!--<i class="c-i big_chose_icon"></i>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</li>-->
-                <!--<li class="addr-box addr-box-add" new-address="" id="addAddress">-->
-                <!--<div class="addr-box-content">-->
-                <!--<div class="add-content">-->
-                <!--<div class="add-add">+</div>-->
-                <!--<div class="add-title">添加新地址</div>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</li>-->
             </ul>
         </div>
     </div>
@@ -102,22 +72,6 @@
                        style="display: none;"></b>
                     <i class="c-i chose_icon"></i>
                 </a>
-                <!--<div class="tips_detail pabs hide box-sd1" g-hover-tip="onlinePayment">-->
-                <!--<div class="white-arrow" style="top: -9px;left: 86px;font-size:15px;">◆</div>-->
-                <!--支持大部分储蓄卡、信用卡及第三方平台支付 <br>-->
-                <!--<a href="//help.gome.com.cn/article/233-0-0.html" target="_blank">查看全部银行及限额</a>-->
-                <!--</div>-->
-            </div>
-            <div class="fl pr mr15" hoverup>
-                <a href="javascript:void(0)" class="btn pr btn-check btn-disabled mw84"><span class="name">货到付款</span>
-                    <b class="c-i pabs payway_tips hide tips_icon" hover="" g-hoverup-tip="cashOnDelivery"
-                       style="display: none;"></b>
-                </a>
-                <div class="tips_detail pabs hide box-sd1" g-hover-tip="cashOnDelivery" style="display: none;">
-                    <div class="white-arrow" style="top: -9px;left: 86px;font-size:15px;">◆</div>
-                    支持现金、POS机刷卡&nbsp;&nbsp; <a href="//help.gome.com.cn/article/232-0-0.html" target="_blank">
-                    查看运费及配送范围</a>
-                </div>
             </div>
         </div>
     </div>
@@ -879,12 +833,12 @@
                 }
                 var li1 = "<li class='addr-box addr-box-add' new-address='' id='addAddress'> <div class='addr-box-content'> <div class='add-content'><div class='add-add'>+</div><div class='add-title'>添加新地址</div></div></div></li>";
                 $("ul.addname").append(li1);
-                orderAddress(json[0]);//默认加载第一个
+                orderAddress(json[0],json[0].id);//默认加载第一个
             });
 
         }
 
-        function orderAddress(json){
+        function orderAddress(json,id){
             //加载页面后,提交订单显示默认地址
             $("div.ds_address ").empty();
             var add = "";
@@ -894,7 +848,7 @@
             add +="</div>";
             add +="<div class='text-right mb15 mr8'>";
             add +="<span class='name_over3'>收货人："+json.userName+"</span>&nbsp;";
-            add +="<span class='mr10 name_over4'>"+json.phone+"</span>";
+            add +="<span class='mr10 name_over4'>"+json.phone+"</span><input id='aid'  type='hidden' value='"+id+"'>";
             add +="</div>";
             $("div.ds_address ").append(add);
         }
@@ -905,9 +859,8 @@
             $(this).find(".addr-box-content").addClass("active");
             $(this).siblings().find(".addr-box-content").removeClass("active");
             var aid = $(this).attr("aid");
-
             $.getJSON("myGuoMei/showAddress?aid="+aid,function(json){
-                orderAddress(json[0]);
+                orderAddress(json[0],aid);
             });
 
         });
@@ -949,6 +902,11 @@
 <script type="text/javascript">
     $(function () {
         goodsList();
+        $("#id_commit").click(function(){
+            var url = GetRequest();
+            var aid=$("#aid").val(); //收获地址id
+
+        });
     });
 
     function goodsList() {
@@ -966,14 +924,14 @@
                         var g = result.goods[i];
                         var div = " <div class='info-bd clearfix' style='margin-left: 264px'>";
                         div += "<div class='backStyle'>";
-                        div += " <span class='hcon'>商品信息</span> </div>";
+                        div += " <span class='hcon'>商品信息</span><input type='hidden' value='"+g.gid+"'> </div>";
                         div += " <div class='dilivery clearfix'> <div class='cart-shop-good      clearfix      cart-shop-good-common ' data-good='true' data-sid='1122490798' data-pid='9133744812' bigdata-pid='9133744812'>";
                         div += " <div class='cart-col-2' style='height: 82px;'><a href='product_details.html?gid=" + g.gid + "' target='_blank' class='g-img'> <img src='" + g.img + "' alt=''> </a></div>";
                         div += " <div class='fl'> <div class='clearfix'> <div class='cart-col-3'> <div class='cart-good-name' style='width: 198px;height: 50px'> <a href='product_details.html?gid=" + g.gid + " target='_blank title='" + g.title + "'> " + g.title + "</a> </div> </div>";
                         div += " <div class='cart-col-8'> <div class='cart-good-pro'> <div class='cart-saleprops-text'></div> </div> </div> <div class='cart-col-4 cart-price-height47'> <div class='cart-good-real-price '>  ¥&nbsp;" + g.price + "</div>";
                         div += " <div class='red'></div> </div> </div> </div> <div class='cart-col-7'> <div class='cart-good-fun delfixed' style='width: 100px;height: 30px'> <span class='fontGray mr20 ml5'> x " + g.num + " </span> <span class='fontGray mr10'>有货</span> </div> </div> </div> </div> </div>";
                         money += g.num * g.price;
-                        num+=g.num;
+                        num+=parseInt(g.num);
                         $("div.infoH").append(div);
                     }
                     $("#num").text(num);

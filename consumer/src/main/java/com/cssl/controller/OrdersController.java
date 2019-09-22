@@ -30,6 +30,12 @@ public class OrdersController {
         Users users =(Users) session.getAttribute("user");
         return productFeignInterface.orderInfo(users.getId(),map);
     }
+    //用户下单
+    @RequestMapping("addOrders")
+    @ResponseBody
+    public String addOrders(@RequestParam Map<String,Object> map){
+        return productFeignInterface.addOrders(map);
+    }
 
 
     //用户订单
