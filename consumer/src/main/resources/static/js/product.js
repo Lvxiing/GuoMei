@@ -62,7 +62,7 @@ function info() {
         title+="<h4 id='prdtitcx'>"+json.goodsDes.subTitle+"</h4>";
         $("div.hgroup").append(title);
         //价格
-        $("#prdPrice").html("<em>¥</em><span name='price' style='color: #e3101e;'>"+json.goodsDes.price+".00</span>");
+        $("#prdPrice").html("<em>¥</em><span name='price' style='color: #e3101e;'>"+json.goodsDes.price+"</span>");
         //好评
         var centCount=0;
         var diffCount=0;
@@ -239,7 +239,7 @@ function vipPrice() {
         $.getJSON("../../Goods/vipInfo",{"gid":re.gid},function(json){
             $("#huiYuanDJ").text("您享受"+json.grade_name+"会员价");
             var vip_price=json.goods_price-json.Discount_money;
-            $(".huiYuanTeJia_text").text("¥"+vip_price+"  ");
+            $(".huiYuanTeJia_text").html("¥<span name=vipPrice>"+vip_price+".00</span>").css("color","#e3101e");
             $("#Discount_money").attr("money",json.Discount_money);
         })
     }

@@ -33,7 +33,12 @@
     <script src="js/function.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/jquery.fly.min.js"></script>
-
+    <style>
+        #nav li{
+            float: left;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <div class="gome-top">
@@ -65,11 +70,17 @@
 <div style='width:100%;' class='marginauto'>
 </div>
 <div style='width:100%;' class='marginauto'>
+
     <div class='marginBotom'>
         <div class="topnav nav-color">
             <div class="nav990" style="text-align: center;">
                 <ul class="clearfix">
-
+                    <li class="nav-item"><a class="nav-item-name" target="_blank" href="index.html">首页</a></li>
+                    <li class="nav-item"><a class="nav-item-name" target="_blank" href="gm-myOrder.html">我的订单</a></li>
+                    <li class="nav-item"><a class="nav-item-name" target="_blank" href="gm-myindex.html">我的国美</a></li>
+                    <li class="nav-item"><a class="nav-item-name" target="_blank" href="gm-indexsever.html">新闻资讯</a></li>
+                    <li class="nav-item"><a class="nav-item-name" target="_blank" href="vip_club.html">会员俱乐部</a></li>
+                    <li class="nav-item"><a class="nav-item-name" target="_blank" href="gm-ranking.html">热销排行榜</a></li>
                 </ul>
             </div>
         </div>
@@ -220,7 +231,7 @@
                                 <div class="prd-promotions-red"><label>会员价</label>
                                        <span id="showVipPrice"><span  id="huiYuanDJ" ></span> 
                                         <em class="huiYuanTeJia_text"></em>
-                                        <a href="vip_club.html">更多&nbsp;<i id="Discount_money"class="s-arrow">&gt;</i></a></span></div>
+                                       </span></div>
                             </div>
                         </div>
                     </div>
@@ -456,41 +467,21 @@
                         });
 
 
-                        //购物车的位置
-                        var offset = $(".shopcartbox").offset();
+
                         //点击添加到购物车
-                        //该商品的图片由小圆球形状飞入到购物车内
                         $("#addCart")
                             .click(function () {
 
                                 var num = $("#enterQty").val();
-                                var price = $("#prdPrice span[name='price']").text();
-                                var total = num * price;
+                                var price;
+                              var  vipPrice= $("[name=vipPrice]").text();
 
-                                var img = $("div.jqzoom").children("img")
-                                    .attr("src");
-                                var flyer = $("<img style='border-radius:50%;width:80px;heigth:80px;'  src='"
-                                    + img + "' >");
-                                /*    flyer.fly({
-                                        //开始位置
-                                        start : {
-                                            left : event.pageX,
-                                            top : event.pageY,
-                                        },
-                                        //结束位置
-                                        end : {
-                                            left : offset.left,
-                                            top : offset.top,
-                                            width : 0, //结束时高度
-                                            height : 0, //结束时宽度
-                                        },
-                                        speed : 1.7, //速度
-                                        //结束回调
-                                        onEnd : function() {
-                                            //销毁抛物体
-                                            this.destory();
-                                        }
-                                    });  */
+if(vipPrice==''){
+    price = $("#prdPrice span[name='price']").text();
+}else{
+    price= vipPrice;
+}
+                                var total = num * price;
 
                                 //添加该商品到购物车
                                 $.getJSON("/cart/saveCart", {
@@ -499,7 +490,7 @@
                                     "price": price,
                                     "total": total
                                 }, function (result) {
-                                    layer.msg("加入购物车成功");
+                                    layer.msg("加入购物车成功",{icon:1});
                                     if (result.msg == "新增到购物车") {
                                         //如果购物车内没有该商品,则购物车内商品的件数加1
                                         $("[name=num]").text(parseInt($("[name=num]").text()) + 1);

@@ -4,13 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.api.ProductFeignInterface;
 import com.cssl.entity.Orders;
 import com.cssl.entity.PageInfo;
+import com.cssl.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,15 @@ public class OrdersController {
     private ProductFeignInterface productFeignInterface;
 
     //-------------------------前台------------------------
+    //用户下单信息
+    @RequestMapping("orderInfo")
+    @ResponseBody
+    public Map<String,Object> orderInfo(HttpSession session, @RequestParam Map<String,Object> map){
+        Users users =(Users) session.getAttribute("user");
+        return productFeignInterface.orderInfo(users.getId(),map);
+    }
+
+
     //用户订单
     @RequestMapping("findOrdersByUserId")
     @ResponseBody

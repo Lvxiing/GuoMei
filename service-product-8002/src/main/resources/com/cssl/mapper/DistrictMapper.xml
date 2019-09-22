@@ -9,4 +9,11 @@
         <result column="district_name" property="dname" />
     </resultMap>
 
+    <select id="findAreaByCity" resultMap="BaseResultMap" parameterType="Integer">
+        SELECT * FROM `district` WHERE `city_id` = #{city_id}
+    </select>
+
+    <select id="findNameByDistrictId" resultType="string" parameterType="Integer">
+        SELECT district_name FROM `district` WHERE district_id = #{district_id}
+    </select>
 </mapper>

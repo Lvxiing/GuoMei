@@ -51,7 +51,6 @@ public class OrdersController {
     @RequestMapping("orderInfo")
     @ResponseBody
     public Map<String, Object> orderInfo(@RequestParam("uid") Integer uid, @RequestParam Map<String, Object> map) {
-        System.out.println("uid**************** = " + uid);
         Map<String, Object> data = new HashMap<>();
         List<Map<String, Object>> goodsList = new ArrayList<>();
         String[] gid = map.get("goodsId").toString().split(",");
@@ -62,12 +61,12 @@ public class OrdersController {
             param.put("gid",goods.getId());
             param.put("title",goods.getTitle());
             param.put("img",goods.getMainImg());
-            double price = goods.getPrice().doubleValue() * Double.valueOf(num[i]);
-            param.put("price",price);
+            param.put("price",goods.getPrice());
             param.put("num",num[i]);
             goodsList.add(param);
         }
         data.put("goods",goodsList);
+        data.put("uid",uid);
         return data;
     }
 

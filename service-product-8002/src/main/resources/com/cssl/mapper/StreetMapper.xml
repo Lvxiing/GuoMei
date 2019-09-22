@@ -8,5 +8,11 @@
         <result column="district_id" property="did" />
         <result column="street_name" property="sname" />
     </resultMap>
+    <select id="findStreetByArea" resultMap="BaseResultMap" parameterType="Integer">
+        SELECT * FROM `street` WHERE `district_id` = #{district_id}
+    </select>
 
+    <select id="findNameByStreetId" resultType="string" parameterType="Integer">
+        SELECT street_name FROM `street` WHERE street_id = #{street_id};
+    </select>
 </mapper>

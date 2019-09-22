@@ -25,6 +25,8 @@
     <!--<script src="js/category.js"></script>-->
     <script src="js/category.bundle.js"></script>
     <script src="js/categoryList.js"></script>
+    <script src="layui/layui.js"></script>
+    <link rel="stylesheet" href="layui/css/layui.css">
 </head>
 <body data-page="list">
 <!--<div id="delscript">
@@ -233,6 +235,112 @@
                 <ul class="product-lists clearfix" id="product-box">
 
                 </ul>
+
+
+
+              <script>
+
+                  layui.use(['layer','upload','form'], function() {
+                      var layer = layui.layer,  //弹层
+                          $ = layui.jquery;
+
+
+                      $(function(){
+
+//加入购物车
+                      $("#product-box").on("click","[name=toCart]",function() {
+
+                          var goodsId=  $(this).parents("li.product-item").find("[name='goodsId']").text();
+                          var price = $(this).parents("li.product-item").find("[name='price']").text();
+//默认加入数量为1
+                          var num = 1;
+                          var total = parseInt(num) * price;
+
+                          //添加商品到购物车
+                          $.getJSON("/cart/saveCart", {
+                              "goodsId": goodsId,
+                              "num": num,
+                              "price": price,
+                              "total": total
+                          }, function (result) {
+                              layer.msg("加入购物车成功",{icon:1});
+                              if (result.msg == "新增到购物车") {
+                                  //如果购物车内没有该商品,则购物车内商品的件数加1
+                                  $("[name=num]").text(parseInt($("[name=num]").text()) + 1);
+                              }
+                              showNum();
+                          });
+                      });
+
+
+                      //加入收藏夹
+                          $("#product-box").on("click","[name=toCollection]",function() {
+
+                              var goodsId=  $(this).parents("li.product-item").find("[name='goodsId']").text();
+                              $.getJSON("/cart/findIfCollected/"+goodsId,function (json) {
+                                  if (json !=null){
+                                      layer.alert("你的收藏夹中已有此商品", { btn: ['知道了','查看收藏夹']
+                                          ,btn2: function(){
+                                              location.href="gm-shoucang.html";
+                                          }
+                                      }
+                                      );
+                                  }else{
+                                      $.getJSON("/cart/saveCollection/"+goodsId,function (result) {
+                                          if (result ==true){
+                                              layer.alert("加入收藏夹成功",{ btn: ['知道了','查看收藏夹']
+                                                  ,btn2: function(){
+                                                      location.href="gm-shoucang.html";
+                                                  }
+                                              }
+                                              );
+                                          } else {
+                                              layer.msg("加入收藏夹失败,请重试",{icon:2});
+                                          }
+                                      });
+                                  }
+                              })
+
+                          });
+
+
+
+
+
+
+
+                  })
+
+
+                  });
+
+
+
+
+
+
+              </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <div class="clearfix" id="product-pager">
                     <div class="pager" id="j-page"></div>
                 </div>

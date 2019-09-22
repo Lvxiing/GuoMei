@@ -8,4 +8,10 @@
         <result column="province_name" property="name" />
     </resultMap>
 
+    <select id="findProvince" resultMap="BaseResultMap">
+        SELECT * FROM `province`
+    </select>
+    <select id="findNameByProvinceId" resultType="string" parameterType="Integer">
+        SELECT province_name FROM `province` WHERE province_id = #{province_id};
+    </select>
 </mapper>

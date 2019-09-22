@@ -9,4 +9,11 @@
         <result column="city_name" property="cname" />
     </resultMap>
 
+    <select id="findCityByProvince" resultMap="BaseResultMap" parameterType="Integer">
+        SELECT * FROM `city` WHERE `province_id` =  #{province_id}
+    </select>
+
+    <select id="findNameByCityId" resultType="string" parameterType="Integer">
+        SELECT city_name FROM `city` WHERE city_id = #{city_id}
+    </select>
 </mapper>

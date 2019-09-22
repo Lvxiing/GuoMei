@@ -155,10 +155,10 @@
                                 if(result==true){
                                     obj.del(); //删除对应行（tr）的DOM结构，并更新缓
                                     layer.close(index);
-                                    layer.msg("删除成功!");
+                                    layer.msg("删除成功!",{icon:1});
                                 }
                                 else{
-                                    layer.msg("删除失败,请重试!");
+                                    layer.msg("删除失败,请重试!",{icon:2});
                                 }
                             });
                         layer.close(index);
