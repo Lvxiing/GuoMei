@@ -81,10 +81,10 @@ public class OrdersController {
     public String addOrders(@RequestParam Map<String,Object> map){
         List<Map<String, Object>> list = packData(map.get("goodsId").toString(), map.get("num").toString());
         map.put("list",list);
-        boolean b =ordersService.addOrder(map);
+        String b =ordersService.addOrder(map);
         String json ;
-        if(b){
-            json = "{\"code\":\"yes\"}";
+        if(b!=null){
+            json = "{\"code\":\"yes\",\"orderNo\":1}";
             return  json;
         }
         return "{\"code\":\"no\"}";

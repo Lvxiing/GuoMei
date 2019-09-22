@@ -60,7 +60,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     }
 
     @Override
-    public boolean addOrder(Map<String, Object> map) {
+    public String addOrder(Map<String, Object> map) {
         boolean res = false;
         Orders orders = new Orders();
         orders.setUserId(Integer.valueOf(map.get("uid").toString()));
@@ -96,7 +96,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             }
             res = true;
         }
-        return res;
+        return orders.getOrderNo();
     }
 
 
