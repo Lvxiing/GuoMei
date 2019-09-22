@@ -60,10 +60,24 @@ public interface ProductFeignInterface {
     @RequestMapping("category/findCategoryParent")
     Map<String, Object> findCategoryParent(@RequestParam("cid") Integer cid);
 
+
+
     //根据分类显示商品
     @RequestMapping("category/categoryGoodsShow")
     Map<String, Object> categoryGoodsShow(@RequestParam Map<String, Object> map);
-
+    //---------------------------评价前台模块--------------------------------
+    //商品评价
+    @RequestMapping("evaluate/goodsEvaluate")
+    PageInfo<Map<String,Object>> goodsEvaluate(@RequestParam("gid") Integer gid,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize);
+    //新增商品评价(追加评论)
+    @RequestMapping("evaluate/addEvaluate")
+    boolean addEvaluate(@RequestParam Map<String,Object> map);
+    //修改评价根据评价id(评论晒单)
+    @RequestMapping("evaluate/updateEvaluate")
+    boolean updateEvaluate(@RequestParam Map<String,Object> map);
+    //查询未评价也可查询已评价
+    @RequestMapping("evaluate/evaluateInfo")
+    Object evaluateInfo(@RequestParam Map<String,Object> map,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize);
     //---------------------------商品前台模块--------------------------------
     //根据分类名称查询该分类下的所有品牌商品的热卖商品
     @RequestMapping("goods/findGoodsByCategoryName")
@@ -96,10 +110,6 @@ public interface ProductFeignInterface {
     //商品详情的热销榜
     @RequestMapping("goods/goodsInfoSale")
     List<Goods> goodsInfoSale(@RequestParam("cid") Integer cid);
-
-    //商品评价
-    @RequestMapping("evaluate/goodsEvaluate")
-    PageInfo<Map<String,Object>> goodsEvaluate(@RequestParam("gid") Integer gid,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize);
 
 
     //会员商品

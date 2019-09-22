@@ -41,4 +41,21 @@
         INNER JOIN grade d ON r.growup_sum BETWEEN d.low AND high
         WHERE g.`goods_id` = #{gid} AND  e.evaluate_state = 1
     </select>
+
+    <!--根据用户查询评价商品信息(可以是未评价0 评价1)-->
+    <select id="evaluateInfo" parameterType="map" resultType="map">
+        SELECT e.`evaluate_star`,e.`evaluate_id`,
+               e.`evaluate_content`,
+               e.`evaluate_time`,
+               g.`goods_main_img`,
+               g.`goods_id`,
+               g.`goods_title`,
+               o.`pay_date`,o.`order_no`
+                ,o.`order_id`,e.`user_id`
+        FROM evaluate e
+                 INNER JOIN goods g ON e.`goods_id` = g.`goods_id`
+                 INNER JOIN orders o ON e.`order_id` = o.order_id
+        WHERE e.user_id = #{user_id}
+          AND e.evaluate_state = #{evaluate_state}
+    </select>
 </mapper>

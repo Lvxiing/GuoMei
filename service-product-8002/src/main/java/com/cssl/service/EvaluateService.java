@@ -22,5 +22,6 @@ public interface EvaluateService extends IService<Evaluate> {
 
     //查询所有商品
     Page<Map<String,Object>> goodsEvaluate(Integer gid,int pageIndex,int pageSize);
-
+    //根据用户查询评价商品信息(可以是未评价0 评价1)
+    Object evaluateInfo(Map<String,Object> map, int pageIndex, int pageSize);
 }

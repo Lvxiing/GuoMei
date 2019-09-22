@@ -50,6 +50,11 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     }
 
     @Override
+    public List<Map<String, Object>> byGoodId(String order_no) {
+        return ordersMapper.byGoodId(order_no);
+    }
+
+    @Override
     public Page<Map<String, Object>> orderList(Map<String, Object> map, int pageIndex, int pageSize) {
         Page<Map<String, Object>> page = PageHelper.startPage(pageIndex, pageSize);
         ordersMapper.orderList(map);

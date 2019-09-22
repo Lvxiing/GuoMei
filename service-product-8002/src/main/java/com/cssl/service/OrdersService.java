@@ -30,6 +30,8 @@ public interface OrdersService extends IService<Orders> {
     //根据订单号查询地址的表相关信息
     public Map<String,Object> findAddressByOrder(Integer oid);
     //-----------------------后台-----------------------
+    //根据订单编号查询用户id，商品id,订单id
+    public List<Map<String,Object>>byGoodId(String order_no);
     /**
      * 查询所有订单详情
      * @return
