@@ -65,8 +65,9 @@ public interface ProductFeignInterface {
     //回显省市级地址
     @RequestMapping("address/showAddress")
     List<Address> showAddress(@RequestParam(value = "userid") Integer uId);
-    //---------------------收货地址----------------------------
 
+    @RequestMapping("address/selectAddressExist")
+    String selectAddressExist(@RequestParam("uid") Integer uid);
 
     //---------------------------新闻前台模块--------------------------------
     //查询所有新闻
