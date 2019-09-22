@@ -86,6 +86,7 @@ public class OrdersController {
         if (b != null) {
             param.put("code", "yes");
             param.put("orderNo", b);
+            return param;
         }
         param.put("code", "no");
         return param;
