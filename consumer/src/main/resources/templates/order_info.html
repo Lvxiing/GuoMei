@@ -595,7 +595,7 @@
                         </tr>
                         <tr class="ntelEmail">
                             <td width="110" align="right"><i class="fontRed">* </i>手机号码：</td>
-                            <td width="245"><input type="" name="phone" g-validate="phone" style="width:209px"
+                            <td width="245"><input type="text" name="phone" g-validate="phone" style="width:209px"
                                                    class="form-control fl"></td>
                         </tr>
                         <tr>
@@ -665,17 +665,28 @@
             $(this).addClass("cur").siblings().removeClass("cur");
             $("div#ctbox_1").css("display", "block");
             // var index1 = $(this).attr()
-            findProvince();
-
+            //当选完地点后,再次重新点击收货地址重新选择,点击省时清除其他数据,只保留省数据,避免二次数据显示
             //点击省显示市
+            //当选完地址重新点击的时候,清空所有数据,防止数据再次添加一下同理,下面再运行方法查询数据
+            $("div#ctbox_1").empty();
+            $("div#ctbox_2").empty();
+            $("div#ctbox_3").empty();
+            $("div#ctbox_4").empty();
+            findProvince();
             $("body").on('click', '.province', function () {
                 $('.provin2').addClass("cur").siblings().removeClass("cur");
                 index1 = $(this).attr("code");
                 title1 = $(this).attr("title");
                 $("#province_title").text(title1);
+                //当选完地址重新点击的时候,清空所有数据,防止数据再次添加一下同理,下面再运行方法查询数据
+                $("div#ctbox_1").empty();
+                $("div#ctbox_2").empty();
+                $("div#ctbox_3").empty();
+                $("div#ctbox_4").empty();
                 findCityByPro(index1);
                 $("div#ctbox_1").css("display", "none");
                 $("div#ctbox_2").css("display", "block");
+                //
             });
             //点击市显示区
             $("body").on('click', '.cityId', function () {
@@ -683,9 +694,15 @@
                 index2 = $(this).attr("code");
                 title2 = $(this).attr("title");
                 $("#city_title").text(title2);
+                //当选完地址重新点击的时候,清空所有数据,防止数据再次添加一下同理,下面再运行方法查询数据
+                $("div#ctbox_1").empty();
+                $("div#ctbox_2").empty();
+                $("div#ctbox_3").empty();
+                $("div#ctbox_4").empty();
                 findAreaByCity(index2);
                 $("div#ctbox_2").css("display", "none");
                 $("div#ctbox_3").css("display", "block");
+                //
             });
             //点击区显示街道
             $("body").on('click', '.areaId', function () {
@@ -693,6 +710,11 @@
                 index3 = $(this).attr("code");
                 title3 = $(this).attr("title");
                 $("#area_title").text(title3);
+                //当选完地址重新点击的时候,清空所有数据,防止数据再次添加一下同理,下面再运行方法查询数据
+                $("div#ctbox_1").empty();
+                $("div#ctbox_2").empty();
+                $("div#ctbox_3").empty();
+                $("div#ctbox_4").empty();
                 findStreetByArea(index3);
                 $("div#ctbox_3").css("display", "none");
                 $("div#ctbox_4").css("display", "block");
@@ -706,6 +728,7 @@
                 $("#address-details").hide();
                 $("#stockaddress").attr("title", title1 + title2 + title3 + title4);
                 $("#stockaddress").text(title1 + title2 + title3 + title4);
+
             });
             $("body").on('click', '.provin2', function () {
                 $(this).addClass("cur").siblings().removeClass("cur");
@@ -739,8 +762,8 @@
 
         //查询所有省份
         function findProvince() {
-            $("div#ctbox_1").empty();
             $.getJSON('myGuoMei/findProvince', function (json) {
+                $("div#ctbox_1").empty();
                 for (var i = 0; i < json.length; i++) {
                     var span = "";
                     var cate = json[i];
@@ -756,8 +779,8 @@
         //根据省份id查询城市
         function findCityByPro(id) {
             //根据省份id查询城市
-            $("div#ctbox_2").empty();
             $.getJSON('myGuoMei/findCityByProvince?province_id=' + id, function (json) {
+                $("div#ctbox_2").empty();
                 for (var i = 0; i < json.length; i++) {
                     var span = "";
                     var cate = json[i];
@@ -772,8 +795,8 @@
         //根据城市id查询区
         function findAreaByCity(id) {
 
-            $("div#ctbox_3").empty();
             $.getJSON('myGuoMei/findAreaByCity?city_id=' + id, function (json) {
+                $("div#ctbox_3").empty();
                 for (var i = 0; i < json.length; i++) {
                     var span = "";
                     var cate = json[i];
@@ -788,8 +811,9 @@
         //根据区id查询街
         function findStreetByArea(id) {
             //根据区id查询街
-            $("div#ctbox_4").empty();
             $.getJSON('myGuoMei/findStreetByArea?district_id=' + id, function (json) {
+                $("div#ctbox_4").empty();
+
                 for (var i = 0; i < json.length; i++) {
                     var span = "";
                     var cate = json[i];
@@ -830,13 +854,27 @@
                 if (json == 1) {
                     $(".icon-box-suc").css("display", "inline");
                     $("#infos").hide();
+                    $(".gui-modal").hide();
                     findAllAddress(userid);
+                    $("input[name=consignee]").val("");//收货人
+                    $("input[name=detailAddress]").val("");//详细地址
+                    $("input[name=phone]").val("");//电话号码
+                    $("input[name=email]").val("");
+                    $("div.add_table input[type=checkbox]").remove(":checked");
+                    $("#stockaddress").text("请选择收货地址");
+                    $("#stockaddress").attr("title","");
+                    $("div#citySelect a b").text("请选择");
+                    //显示选择收货地址信息
+                    $("body").on('click', '#adrs', function () {
+                        $("#address-details").css("display","block");
+                    });
                 } else {
                     $(".icon-box-error").css("display", "inline");
                 }
             })
         });
 
+        var reg = /^(\d{3})(\d*)(\d{4})$/;//电话号码中间4位为*
 
         //显示所有地址
         function findAllAddress(userid) {
@@ -846,7 +884,11 @@
                 for (var i = 0; i < json.length; i++) {
                     var li = "";
                     var subCate = json[i];
-                    li += "<li class='addr-box' aid='"+subCate.id+"'>";
+                    var myPhone = subCate.phone;
+                    myPhone = myPhone.replace(reg, function(a, b, c, d) {
+                        return b + c.replace(/\d/g, "*") + d;
+                    });
+                    li += "<li class='addr-box addr-boos' aid='"+subCate.id+"'>";
                     li += "<input type='hidden' value='" + subCate.id + "' name='address_id'>";
                     if (i == 0) {
                         li += "<div class='addr-box-content active' >";
@@ -865,7 +907,7 @@
                     li += "</div>";
                     li += "<div class='addr-hd hd-detail' title=''><span class=''>" + subCate.provinceAddress.cityName + "</span>";
                     li += "<span class=''>" + subCate.provinceAddress.districtName + "</span><span class=''>" + subCate.provinceAddress.streetName + "</span><span class=''>" + subCate.address + "</span><br/>";
-                    li += "<span class=''> " + subCate.phone + "</span>";
+                    li += "<span class=''> " + myPhone + "</span>";
                     li += "</div>";
                     li += "<div class='addr-manage'>";
                     li += "<span class='addr-btn  hide' g-hover='' g-modify-path='list,0' tpmmtag='选择地址|100|5' style='display: none;'>修改</span>";
@@ -886,6 +928,10 @@
 
         function orderAddress(json){
             //加载页面后,提交订单显示默认地址
+            var myPhone = json.phone;
+            myPhone = myPhone.replace(reg, function(a, b, c, d) {
+                return b + c.replace(/\d/g, "*") + d;
+            });
             $("div.ds_address ").empty();
             var add = "";
             add +="<div class='text-right mr8' style='margin-bottom: -8px;'>";
@@ -894,14 +940,11 @@
             add +="</div>";
             add +="<div class='text-right mb15 mr8'>";
             add +="<span class='name_over3'>收货人："+json.userName+"</span>&nbsp;";
-            add +="<span class='mr10 name_over4'>"+json.phone+"</span>";
+            add +="<span class='mr10 name_over4'>"+myPhone+"</span>";
             add +="</div>";
             $("div.ds_address ").append(add);
         }
-
-
-
-        $("body").on('click', '.addr-box', function () {
+        $("body").on('click', '.addr-boos', function () {
             $(this).find(".addr-box-content").addClass("active");
             $(this).siblings().find(".addr-box-content").removeClass("active");
             var aid = $(this).attr("aid");
@@ -909,7 +952,10 @@
             $.getJSON("myGuoMei/showAddress?aid="+aid,function(json){
                 orderAddress(json[0]);
             });
-
+        });
+        $("body").on('click', '.addr-box-add', function (){
+            $(this).find(".addr-box-content").addClass("active");
+            $(this).siblings().find(".addr-box-content").removeClass("active");
         });
         //点击新增收货地址
         $("body").on('click', '#addAddress', function () {
