@@ -903,7 +903,7 @@
                     }
                     li += "</div>";
                     li += "<div class='addr-hd'>";
-                    li += "<span class='name' title='刘君'>" + subCate.userName + "</span>";
+                    li += "<span class='name'>" + subCate.userName + "</span>";
                     li += "<span>" + subCate.provinceAddress.provinceName + "</span>";
                     li += "</div>";
                     li += "<div class='addr-hd hd-detail' title=''><span class=''>" + subCate.provinceAddress.cityName + "</span>";
@@ -911,7 +911,7 @@
                     li += "<span class=''> " + myPhone + "</span>";
                     li += "</div>";
                     li += "<div class='addr-manage'>";
-                    li += "<span class='addr-btn  hide' g-hover='' g-modify-path='list,0' tpmmtag='选择地址|100|5' style='display: none;'>修改</span>";
+                    li += "<span class='addr-btn  hide' g-hover='' g-modify-path='list,0'  style='display: none;'>修改</span>";
                     li += "</div>";
                     li += "<div class='addr-footer'>";
                     li += "<i class='c-i big_chose_icon'></i>";
@@ -999,7 +999,9 @@
         $("#id_commit").click(function(){
             var url = GetRequest();
             var aid=$("#aid").val(); //收获地址id
-            alert(aid);
+            $.getJSON("Orders/addOrders",{"aid":aid,"goodsId": url.goodsId, "num": url.num},function(data){
+                alert(data);
+            })
         });
     });
 
