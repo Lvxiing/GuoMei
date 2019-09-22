@@ -41,5 +41,18 @@ public class EvaluateServiceImpl extends ServiceImpl<EvaluateMapper, Evaluate> i
         return page;
     }
 
+    @Override
+    public Object evaluateInfo(Map<String, Object> map, int pageIndex, int pageSize) {
+        //判断是否分页查询
+        if(pageIndex!=0&&pageSize!=0){
+            Page<Map<String, Object>> page = PageHelper.startPage(pageIndex, pageSize);
+            evaluateMapper.evaluateInfo(map);
+            return page;
+        }else{
+            return  evaluateMapper.evaluateInfo(map);
+        }
+
+    }
+
 
 }

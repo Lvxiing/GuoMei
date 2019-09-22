@@ -43,5 +43,32 @@ public class EvaluateController {
 
         return  productFeignInterface.goodsEvaluate(gid,pageIndex,pageSize);
     }
-
+    //新增评价
+    @RequestMapping("addEvaluate")
+    @ResponseBody
+    public  String addEvaluate(@RequestParam Map<String,Object> map){
+        boolean b = productFeignInterface.addEvaluate(map);
+        String json="{\"abc\":\"false\"}";
+        if(b){
+            json="{\"abc\":\"true\"}";
+        }
+        return json;
+    }
+    @RequestMapping("updateEvaluate")
+    @ResponseBody
+    public  String  updateEvaluate(@RequestParam Map<String,Object> map){
+        boolean b = productFeignInterface.updateEvaluate(map);
+        String json="{\"abc\":\"false\"}";
+        if(b){
+            json="{\"abc\":\"true\"}";
+        }
+        return json;
+    }
+    @RequestMapping("evaluateInfo")
+    @ResponseBody
+    //根据用户查询评价商品信息(可以是未评价0 评价1)
+    public  Object evaluateInfo(@RequestParam Map<String,Object> map,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize){
+        map.put("user_id",31);
+        return productFeignInterface.evaluateInfo(map,pageIndex,pageSize);
+    }
 }

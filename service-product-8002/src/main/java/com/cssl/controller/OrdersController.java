@@ -2,11 +2,9 @@ package com.cssl.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.cssl.entity.Goods;
-import com.cssl.entity.Orders;
-import com.cssl.entity.PageInfo;
-import com.cssl.entity.Users;
+import com.cssl.entity.*;
 import com.cssl.mapper.Order_detailMapper;
+import com.cssl.service.EvaluateService;
 import com.cssl.service.GoodsService;
 import com.cssl.service.Order_detailService;
 import com.cssl.service.OrdersService;
@@ -22,10 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.rmi.server.UID;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -47,6 +42,9 @@ public class OrdersController {
 
     @Autowired
     private GoodsService goodsService;
+
+    @Autowired
+    private EvaluateService evaluateService;
 
     //-----------------------------前台模块----------------------------
     //用户下单信息
@@ -147,10 +145,24 @@ public class OrdersController {
     @RequestMapping("/updateStatus")
     @ResponseBody
     public int updateStatus(@RequestParam("orderNo") String orderNo, @RequestParam("status") int status) {
-        Orders orders = new Orders();
+        Orders orders=new Orders();
         orders.setStatus(status);
         orders.setOrderNo(orderNo);
-        return ordersService.updateStatus(orders);
+        //判断修改状态试是否是5已完成(如果是将引入评价表状态改为0为未评价)
+        if(Integer.valueOf(status)==5){  //查询订单中得商品
+            List<Map<String, Object>> maps = ordersService.byGoodId(orderNo);
+            //循环写入评价表
+            for(Map<String, Object> list:maps){
+                Evaluate evaluate=new Evaluate();
+                evaluate.setGoodsId(Integer.valueOf(list.get("goods_id").toString()));
+                evaluate.setUserId(Integer.valueOf(list.get("user_id").toString()));
+                evaluate.setOid(Integer.valueOf(list.get("order_id").toString()));
+                evaluate.setTime(new Date());
+                evaluate.setState(0);   //未评价
+                evaluateService.save(evaluate);
+            }
+        }
+        return  ordersService.updateStatus(orders);
 
     }
 
@@ -160,6 +172,10 @@ public class OrdersController {
     public int deleteOrders(@RequestParam("orderId") Integer orderId) {
         //先删除订单详情表
         int i = orderDetailService.deletOrderDetail(orderId);
+        //删除评价表信息
+//        Map<String,Object>map=new HashMap<String,Object>();
+//        map.put("order_id",orderId);
+//        evaluateService.removeByMap(map);
         int num = 0;
         if (i > 0) {
             num = ordersService.deleteOrder(orderId);

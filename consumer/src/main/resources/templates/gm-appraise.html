@@ -21,20 +21,10 @@
     <link rel="shortcut icon" href="font/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/gm-appraise.css">
     <link rel="stylesheet" href="css/gm-appraise1.css">
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script src="js/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="js/gm-appraise.js"></script>
+    <script src="js/appraise.js"></script>
 
-    <!--<script type="text/javascript">var dynSite = '//g.gome.com.cn', staSite = '//www.gome.com.cn',
-        gomeplusDomain = '.gome.com.cn', contextPath = '/ec/homeus', cookieDomain = '.gome.com.cn',
-        imgServer = '//app.gomein.net.cn/images', stageJsServer = '//js.gomein.net.cn',
-        stageImageServer = '//img.gomein.net.cn', stageCssServer = '//css.gomein.net.cn',
-        gomeplusCdn = '//js.meixincdn.com/m/pc/', versionData = '1908290545';</script>
-
-
-    <script type="text/javascript">var gfeJsCdn = "//js.gomein.net.cn", gfeCssCdn = "//css.gomein.net.cn",
-        gfeProjectPath = "/gmpro/2.0.0/member/4.4.4";</script>-->
 
 </head>
 <body>
@@ -48,12 +38,17 @@
 <!--头部end--><!--newads-->
 <!--newads-->
 <div class="gome-top">
-    <script>
-        $(function () {
-            //加载公共头部
-            $(".gome-top").load("gome-top.html");
-        })
-    </script>
+    <div id="gome-top-body" class="wbox">
+        <ul>
+            <li id="gome-entry-link">
+                <a data-code="public01001" href="index.html" target="_blank"><i
+                        class="icon-gome-logo"></i>国美首页</a></li>
+            <li class="gome-spacer"></li>
+
+
+        </ul>
+
+    </div>
 </div>
 <!--gome_top-->
 <div class="main_header">
@@ -185,118 +180,9 @@
                                     </tr>
                                 </table>
                                 <div class="dataBox">
-                                    <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                                    <table id="table" border="0" cellpadding="0" cellspacing="0" width="100%"
                                            class="unAppraiseList appraiseContent_table">
-                                        <tbody>
-                                        <tr class="un_appraise">
-                                            <td width="10%" class="text_center">
-                                                <div class="pos_re"><a
-                                                        href="//item.gome.com.cn/A0006508839-pop8012377392.html"
-                                                        title="【限量2000件】维达抽纸3层3包120抽餐巾纸面巾纸巾卫生纸中规格M码153mmx195mm(V2889抽纸3包)"
-                                                        target="_blank"><img width="50px" height="50px"
-                                                                             src="image/T16NVgBvxv1RCvBVdK_80.png"
-                                                                             title="【限量2000件】维达抽纸3层3包120抽餐巾纸面巾纸巾卫生纸中规格M码153mmx195mm(V2889抽纸3包)"
-                                                                             onerror="this.src='picture/grey.gif';"></a>
-                                                </div>
-                                            </td>
-                                            <td width="50%" class="appraise_over">
-                                                【限量2000件】维达抽纸3层3包120抽餐巾纸面巾纸巾卫生纸中规格M码153mmx195mm(V2889抽纸3包)
-                                            </td>
-                                            <td width="20%" class="text_center"
-                                                style="border-left:1px solid #ccc;border-right:1px solid #ccc;"
-                                                rowspan="1">
-                                                <div class="pos_re"><span><a href="javascript:void(0);" productid=""
-                                                                             id="appraise_btn" shopno=""
-                                                                             skuid="pop8012377392"
-                                                                             userid="81536874786" orderid="11926392274"
-                                                                             shippinggroupid="2839137287"
-                                                                             ordersource="0"
-                                                                             class="appraise_blue appraise_btn">评价晒单<br></a></span><span
-                                                        class="appraise_down"></span></div>
-                                            </td>
-                                            <td width="20%" class="text_center" rowspan="1">
-                                                <div>配送编号：2839137287</div>
-                                                <div>2019-08-30 10:12</div>
-                                            </td>
-                                        </tr>
-                                        <!--点击评价晒单,下方显示评价框-->
-                                        <tr class="yellow appArea" style="display: none">
-                                            <td colspan="4"
-                                                style="border-bottom:1px solid #f3dbb6;border-top:1px solid #f3dbb6;">
-                                                <div class="border_arrows"></div>
-                                                <div class="appraise_area">
-                                                    <div class="appraise_info">
-                                                        <dl class="appraise_grade">
-                                                            <dt><span class="gotta">*</span>评分：</dt>
-                                                            <dd class="score_choose">
-                                                                <div class="score_star"></div>
-                                                                <div class="score_star"></div>
-                                                                <div class="score_star"></div>
-                                                                <div class="score_star"></div>
-                                                                <div class="score_star"></div>
-                                                                <span class="appraise_gray score_title">非常喜欢</span></dd>
-                                                            <dt><span class="gotta">&nbsp;</span>买家印象：</dt>
-                                                            <dd class="clearfix" style="padding-bottom:25px;">
-                                                                <div class="label_card" id="j-recoPoints"
-                                                                     style="padding-bottom:1px;"></div>
-                                                                <div class="clearfix label_content"
-                                                                     style="position:relative;">
-                                                                    <div class="label_custom"><a
-                                                                            href="javascript:void(0);"
-                                                                            class="label_icon"></a> <input type="text"
-                                                                                                           class="recocontent_input"
-                                                                                                           id="j-recocontent-input"
-                                                                                                           autocomplete="off">
-                                                                        <input id="h-recocontent-input"
-                                                                               class="h-recocontent-input"
-                                                                               name="/com/gome/commerce/catalog/ProductCommentFormHandler.recocontent"
-                                                                               value="" type="hidden"><input
-                                                                                name="_D:/com/gome/commerce/catalog/ProductCommentFormHandler.recocontent"
-                                                                                value=" " type="hidden"> <i
-                                                                                class="custom_btn">提交</i></div>
-                                                                    <span id="rec-info"
-                                                                          class="custom_explain">自定义推荐每条<span>不超过7个</span>中文字符</span>
-                                                                </div>
-                                                                <div style="overflow:hidden;"><span class="rec-error"
-                                                                                                    style="height:18px;line-height:18px;margin:7px 0 0;"></span>
-                                                                </div>
-                                                            </dd>
-                                                            <dt><span class="gotta">*</span>使用心得：</dt>
-                                                            <dd class="clearfix">
-                                                                <div class="long_area"><input name="_" value=" "
-                                                                                              type="hidden"><textarea
-                                                                        id="j-eva-textarea" name="textarea"
-                                                                        class="textarea textarea-info ctextarea-info"></textarea>
-                                                                    <div class="explain_bottom">
-                                                                        <div class="explain_upload_btn"
-                                                                             id="explain_upload_btn0"></div>
-                                                                        <div class="explain_upload_phone_btn"
-                                                                             id="explain_upload_phone_btn"></div>
-                                                                        <div class="errorTxt"></div>
-                                                                        <span class="uploat_tip uploat_num"
-                                                                              style="display:none;"><span
-                                                                                class="col5e cur_num">0</span>/5</span>
-                                                                        <span class="uploat_tip uploat_limit">本次最多上传5张，单日上传不超过30张</span>
-                                                                        <ul class="upload_img"
-                                                                            style="display:inline-block"></ul>
-                                                                        <span class="uploat_bottom"></span></div>
-                                                                </div>
-                                                                <span class="textarea_explain appraise_gray">0 / 400</span>
-                                                                <span class="meidouPrompt"
-                                                                      style="float: left;display: block;margin-top: 39px;margin-left: -118px;color: #a5a5a5;">（评论多于10个字，有机会奖励美豆哦~）</span>
-                                                            </dd>
-                                                            <dd class="commit-btnlayer">
-                                                                <div class="commit_tip">描述一下您的心得呗~</div>
-                                                                <input id="commitbtn" style="display:none" name=""
-                                                                       value="提交" type="submit"> <input
-                                                                    name="_D:/com/gome/commerce/catalog/ProductCommentFormHandler.createproductcomment"
-                                                                    value=" " type="hidden"></dd>
-                                                        </dl>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
+
                                     </table>
                                 </div>
                             </div>
@@ -325,113 +211,25 @@
                                 <div>
                                     <table border="0" cellpadding="0" cellspacing="0" width="100%" class="pTable">
                                         <tr>
-                                            <td width="15%" class="text_center">
-                                                <div class="select_choos active">
-                                                    <span class="levelpoint" changeId="">评价分数</span>
-                                                    <div class="level_menu">
-                                                        <ul class="level_menu_ul">
-                                                            <li><a href="javascript:void(0);"
-                                                                   style="padding-left: 10px;" changeId="Hao">好评</a>
-                                                            </li>
-                                                            <li><a href="javascript:void(0);"
-                                                                   style="padding-left: 10px;" changeId="Zhong">中评</a>
-                                                            </li>
-                                                            <li><a href="javascript:void(0);"
-                                                                   style="padding-left: 10px;" changeId="Cha">差评</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </td>
+                                            <td width="15%" class="text_center">评价星级</td>
                                             <td width="45%" class="text_center">评论内容</td>
                                             <td width="20%" class="text_center">商品信息</td>
                                             <td width="40%" class="text_center">操作</td>
                                         </tr>
                                     </table>
                                     <!--以评论-->
-                                    <div class="dataBox">
+                                    <div >
                                         <table border="0" cellpadding="0" cellspacing="0" width="100%"
-                                               class="unAppraiseList appraiseContent_table">
-                                            <tbody>
-                                            <tr class="appraise">
-                                                <td width="20%" class="text_center" style="padding-right:30px;">
-                                                    <div class="already_score clearfix">
-                                                        <div class="score_star"></div>
-                                                        <div class="score_star"></div>
-                                                        <div class="score_star"></div>
-                                                        <div class="score_star"></div>
-                                                        <div class="score_star"></div>
-                                                    </div>
-                                                </td>
-                                                <td class="already_content appraise_cc">
-                                                    <div><span class="floatl">初评：</span> <span
-                                                            class="appraise_5e already_name">这个小家伙有点东西!!!!!!!!</span>
-                                                        <span class="padl35">2019-08-30 10:42:04</span> <span
-                                                                class="morezl">查看更多</span></div>
-                                                </td>
-                                                <td width="20%" class="text_center">
-                                                    <div class="pos_re"><a
-                                                            href="//item.gome.com.cn/A0006508839-pop8012377392.html"
-                                                            title="【限量2000件】维达抽纸3层3包120抽餐巾纸面巾纸巾卫生纸中规格M码153mmx195mm(V2889抽纸3包)"><img
-                                                            width="50px" height="50px"
-                                                            src="image/T16NVgBvxv1RCvBVdK_80.png"
-                                                            title="【限量2000件】维达抽纸3层3包120抽餐巾纸面巾纸巾卫生纸中规格M码153mmx195mm(V2889抽纸3包)"
-                                                            onerror="this.src='picture/grey.gif';"></a>
-                                                    </div>
-                                                </td>
-                                                <td width="20%" class="text_center already_operate"> &nbsp;
-                                                    <div><a href="javascript:void(0);" ordertype="0"
-                                                            class="already_again padl50" productid="A0006508839"
-                                                            userid="81536874786" shippinggroupid="2839137287"
-                                                            orderid="11926392274" skuid="pop8012377392"
-                                                            appraiseid="P187716650" isshowpictures="">追加评论</a></div>
-                                                </td>
-                                            </tr>
-                                            <tr style="display: none"  class="yellow addArea">
-                                                <td colspan="4"
-                                                    style="border-bottom:1px solid #f3dbb6;border-top:1px solid #f3dbb6;">
-                                                    <div class="again_arrows"></div>
-                                                    <div class="again_area"><textarea name="textarea"
-                                                                                      class="again_info ctextarea-info"></textarea>
-                                                        <div class="again_bottom">
-                                                            <div class="explain_upload_btn"
-                                                                 id="explain_upload_btn0"></div>
-                                                            <div class="explain_upload_phone_btn"
-                                                                 id="explain_upload_phone_btn"></div>
-                                                            <div class="errorTxt"></div>
-                                                            <span class="uploat_tip uploat_num"
-                                                                  style="display: none;"><span
-                                                                    class="col5e cur_num">0</span>/5</span> <span
-                                                                class="uploat_tip uploat_limit">限5张</span>
-                                                            <ul class="upload_img"></ul>
-                                                            <span class="uploat_bottom">没图没真相，给小伙伴晒一晒，有机会获得美豆</span>
-                                                        </div>
-                                                        <div class="again_share">
-                                                            <div class="again_grade">
-                                                                <div class="commit-btnlayer clearfix">
-                                                                    <div class="addcommit_tip">描述一下您的心得呗~</div>
-                                                                    <a id="add-commitEvaluate" class="btn-light"
-                                                                       href="javascript:;" onclick="return false;"
-                                                                       style="margin-left:-20px;margin-top: 10px;">提交</a>
-                                                                    <span class="btn_tip"></span> <span
-                                                                        style="float:right;text-align:right;"
-                                                                        class="textarea_explain appraise_gray">0 / 400</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            </tbody>
+                                               class="unAppraiseList appraiseContent_table" id="table2">
+
                                         </table>
                                     </div>
                                 </div>
-                                <div class="pager"><a class="prev disable" href="javascript:void(0);">&nbsp;上一页<s
-                                        class="icon-prev"></s><i></i></a><span class="cur">1</span><a
-                                        class="next disable" href="javascript:void(0);">下一页<s
-                                        class="icon-next"></s><i></i></a><label for="pagenum" class="txt-wrap">到<input
-                                        type="text" id="pNum" class="txt" bnum="1" value="1">页</label><a
-                                        href="javascript:void(0)" zdx="nBtn" class="btn">确定</a></div>
+                                <div class="pager">
+                                    <a class="prev disable" href="javascript:void(0);">&nbsp;上一页<s class="icon-prev"></s><i></i></a>
+                                    <a class="next " href="javascript:void(0);">下一页<s class="icon-next"></s><i></i></a>
+                                    <label for="pagenum" class="txt-wrap">到<input type="text" id="pNum" class="txt" bnum="1" value="1">页</label>
+                                    <a  href="javascript:void(0)" zdx="nBtn" id="sure" class="btn">确定</a></div>
                                 <!-- 改为好评 -->
                                 <div class="change_area">
 
@@ -696,20 +494,61 @@
             }
         );
         //点击评价晒单
-        $("#appraise_btn").click(function () {
-            if ($(".appArea").is(":hidden")) {
-                $(".appArea").show();
+        $("#appraise_btn").live("click",this,function () {
+            var i=$(this).attr("evaluate");
+            if ($("#evaluate-"+i).is(":hidden")) {
+                $("#evaluate-"+i).show();
             } else {
-                $(".appArea").hide();
+                $("#evaluate-"+i).hide();
             }
-
         });
+        //星级特效
+        $(".score_choose div").live("click",this,function () {
+            $(this).toggle(function () {
+                // $(this).addClass("score_star");
+                //判断是不是隔星点击
+                var num=parseInt($(this).attr("num"));
+                for(var i=0;i<num;i++){
+                    $(".score_choose div").eq(i).addClass("score_star");
+                    $(".score_choose div").eq(i).removeClass("gray_star");
+                }
+                var len= $(".score_choose .score_star").length;
+                if(len>2){
+                    //判断是不是隔星点击
+                    var num=parseInt($(this).attr("num"));
+                    for(var i=num;i<5;i++){
+                        $(".score_choose div").eq(i).addClass("gray_star");
+                        $(".score_choose div").eq(i).removeClass("score_star");
+                    }
+                }
+            },function () {
+                $(this).addClass("gray_star");
+                $(this).removeClass("score_star");
+            });
+
+            //先触发click，不然第一次失效
+            $(this).trigger("click");
+            var len= $(".score_choose .score_star").length;
+            if(len==1){
+                $(this).siblings("span").text("非常差");
+            }else if(len==2){
+                $(this).siblings("span").text("差");
+            }else if(len==3){
+                $(this).siblings("span").text("一般");
+            }else if(len==4){
+                $(this).siblings("span").text("好");
+            }else{
+                $(this).siblings("span").text("非常好");
+            }
+        });
+
         //点击追加评论
-        $(".already_again").click(function () {
-            if ($(".addArea").is(":hidden")) {
-                $(".addArea").show();
+        $(".already_again").live("click",this,function () {
+            var i=$(this).attr("addevaluate");
+            if ($("#addevaluate-"+i).is(":hidden")) {
+                $("#addevaluate-"+i).show();
             } else {
-                $(".addArea").hide();
+                $("#addevaluate-"+i).hide();
             }
         });
     });

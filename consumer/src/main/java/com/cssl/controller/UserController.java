@@ -34,6 +34,7 @@ public class UserController {
 @Autowired
     private  RedisFeignInterface  redisFeignInterface;
 
+
 //redis中根据gdetailId获取value
 @RequestMapping("/redisGetgdetailId/{gdetailId}")
 @ResponseBody

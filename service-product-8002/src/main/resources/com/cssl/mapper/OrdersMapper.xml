@@ -76,6 +76,15 @@
                  INNER JOIN   goods g ON g.`goods_id`=s.`goods_id`
         WHERE o.`order_no`=#{order_no}
     </select>
+    <!--用于插入评价表-->
+    <select id="byGoodId" parameterType="string" resultType="map">
+        SELECT g.`goods_id`,o.`order_id`,o.`user_id`
+        FROM orders o
+                 INNER JOIN order_detail s ON s.`order_id`=o.order_id
+                 INNER JOIN   goods g ON g.`goods_id`=s.`goods_id`
+        WHERE o.`order_no`=#{order_no}
+    </select>
+
     <!--查询订单信息-->
     <select id="orderList" resultMap="maps" parameterType="map">
         SELECT  o.`order_id`,
