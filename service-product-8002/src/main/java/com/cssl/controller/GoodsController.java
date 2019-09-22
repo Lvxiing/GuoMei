@@ -244,7 +244,8 @@ public class GoodsController {
         goods.setMainImg(map.get("imgmain").toString());
         goods.setDesImg(map.get("imginfo").toString());
         goods.setId(id);
-        goods.setPrice(BigDecimal.valueOf(price));
+        BigDecimal decimal = new BigDecimal(price);
+        goods.setPrice(decimal.setScale(2,BigDecimal.ROUND_HALF_UP));
         goods.setStock(stock);
         goods.setDes(map.get("desc").toString());
         goods.setState(state);

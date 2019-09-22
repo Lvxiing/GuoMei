@@ -51,7 +51,6 @@ public class OrdersController {
     @RequestMapping("orderInfo")
     @ResponseBody
     public Map<String, Object> orderInfo(@RequestParam("uid") Integer uid, @RequestParam Map<String, Object> map) {
-        System.out.println("uid**************** = " + uid);
         Map<String, Object> data = new HashMap<>();
         List<Map<String, Object>> goodsList = new ArrayList<>();
         String[] gid = map.get("goodsId").toString().split(",");
@@ -68,6 +67,7 @@ public class OrdersController {
             goodsList.add(param);
         }
         data.put("goods",goodsList);
+        data.put("uid",uid);
         return data;
     }
 
