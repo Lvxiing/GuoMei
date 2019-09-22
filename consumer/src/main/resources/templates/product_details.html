@@ -467,10 +467,8 @@
                         });
 
 
-                        //购物车的位置
-                        var offset = $(".shopcartbox").offset();
+
                         //点击添加到购物车
-                        //该商品的图片由小圆球形状飞入到购物车内
                         $("#addCart")
                             .click(function () {
 
@@ -485,31 +483,6 @@ if(vipPrice==''){
 }
                                 var total = num * price;
 
-                                var img = $("div.jqzoom").children("img")
-                                    .attr("src");
-                                var flyer = $("<img style='border-radius:50%;width:80px;heigth:80px;'  src='"
-                                    + img + "' >");
-                                /*    flyer.fly({
-                                        //开始位置
-                                        start : {
-                                            left : event.pageX,
-                                            top : event.pageY,
-                                        },
-                                        //结束位置
-                                        end : {
-                                            left : offset.left,
-                                            top : offset.top,
-                                            width : 0, //结束时高度
-                                            height : 0, //结束时宽度
-                                        },
-                                        speed : 1.7, //速度
-                                        //结束回调
-                                        onEnd : function() {
-                                            //销毁抛物体
-                                            this.destory();
-                                        }
-                                    });  */
-
                                 //添加该商品到购物车
                                 $.getJSON("/cart/saveCart", {
                                     "goodsId": re.gid,
@@ -517,7 +490,7 @@ if(vipPrice==''){
                                     "price": price,
                                     "total": total
                                 }, function (result) {
-                                    layer.msg("加入购物车成功");
+                                    layer.msg("加入购物车成功",{icon:1});
                                     if (result.msg == "新增到购物车") {
                                         //如果购物车内没有该商品,则购物车内商品的件数加1
                                         $("[name=num]").text(parseInt($("[name=num]").text()) + 1);
