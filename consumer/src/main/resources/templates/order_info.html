@@ -1000,13 +1000,15 @@
             var url = GetRequest();
             var aid=$("#aid").val(); //收获地址id
             $.getJSON("Orders/addOrders",{"aid":aid,"goodsId": url.goodsId, "num": url.num},function(data){
-                alert(data);
+                alert(data.code);
+                alert(data.orderNo);
             })
         });
     });
 
     function goodsList() {
         var url = GetRequest();
+        alert(url.vipIdArr);
         var money = 0;
         var num = 0;
         $.ajax(
