@@ -321,15 +321,15 @@
             <span class="fr mt15 mb5">     应付款总金额：<em id="sum" class="fontRed strong font20">¥35.80</em></span>
         </div>
         <div class="commitOrder-ds">
-            <div class="fr">
-                <div class="text-right mr8" style="margin-bottom: -8px;">
-                    <div class="i-block">送货地址：湖南省&nbsp;&nbsp;长沙市&nbsp;&nbsp;开福区&nbsp;&nbsp;望麓园街道</div>
-                    <div class="mr10 i-block name_over2 " title="北大青鸟实力校区">北大青鸟实力校区</div>
-                </div>
-                <div class="text-right mb15 mr8">
-                    <span class="">收货人：刘君</span>&nbsp;
-                    <span class="mr10">130****2754</span>
-                </div>
+            <div class="fr ds_address">
+                <!--<div class="text-right mr8" style="margin-bottom: -8px;">-->
+                    <!--<div class="i-block">送货地址：湖南省&nbsp;&nbsp;长沙市&nbsp;&nbsp;开福区&nbsp;&nbsp;望麓园街道</div>-->
+                    <!--<div class="mr10 i-block name_over2 " title="北大青鸟实力校区">北大青鸟实力校区</div>-->
+                <!--</div>-->
+                <!--<div class="text-right mb15 mr8">-->
+                    <!--<span class="">收货人：刘君</span>&nbsp;-->
+                    <!--<span class="mr10">130****2754</span>-->
+                <!--</div>-->
             </div>
         </div>
         <div class="text-right play clearfix" style="background: #fff;margin-bottom: 30px;">
@@ -608,9 +608,8 @@
                         <tr>
                             <td align="right"></td>
                             <td colspan="4"><span class="default_address">
-                                <b class="c-i checkboxs fl">
-                                    <input type="checkbox" class="checkbox checkText" id="inputCeckbox">
-                                </b><em class="fl">设置默认地址</em></span>
+                                    <input type="checkbox" class="c-i checkboxs fl" id="inputCeckbox" style="height: 22px">
+                                <em class="fl">设置默认地址</em></span>
                             </td>
                         </tr>
                         </tbody>
@@ -847,12 +846,12 @@
                 for (var i = 0; i < json.length; i++) {
                     var li = "";
                     var subCate = json[i];
-                    li += "<li class='addr-box'>";
+                    li += "<li class='addr-box' aid='"+subCate.id+"'>";
                     li += "<input type='hidden' value='" + subCate.id + "' name='address_id'>";
-                    if (subCate.isdefault == 1) {
-                        li += "<div class='addr-box-content active'>";
+                    if (i == 0) {
+                        li += "<div class='addr-box-content active' >";
                     } else {
-                        li += "<div class='addr-box-content'>";
+                        li += "<div class='addr-box-content' >";
                     }
 
                     li += "<div class='addr-header'>";
@@ -865,7 +864,7 @@
                     li += "<span>" + subCate.provinceAddress.provinceName + "</span>";
                     li += "</div>";
                     li += "<div class='addr-hd hd-detail' title=''><span class=''>" + subCate.provinceAddress.cityName + "</span>";
-                    li += "<span class=''>" + subCate.provinceAddress.districtName + "</span><span class=''>" + subCate.provinceAddress.streetName + "</span><span class=''>" + subCate.address + "</span>";
+                    li += "<span class=''>" + subCate.provinceAddress.districtName + "</span><span class=''>" + subCate.provinceAddress.streetName + "</span><span class=''>" + subCate.address + "</span><br/>";
                     li += "<span class=''> " + subCate.phone + "</span>";
                     li += "</div>";
                     li += "<div class='addr-manage'>";
@@ -880,12 +879,37 @@
                 }
                 var li1 = "<li class='addr-box addr-box-add' new-address='' id='addAddress'> <div class='addr-box-content'> <div class='add-content'><div class='add-add'>+</div><div class='add-title'>添加新地址</div></div></div></li>";
                 $("ul.addname").append(li1);
+                orderAddress(json[0]);//默认加载第一个
             });
+
         }
+
+        function orderAddress(json){
+            //加载页面后,提交订单显示默认地址
+            $("div.ds_address ").empty();
+            var add = "";
+            add +="<div class='text-right mr8' style='margin-bottom: -8px;'>";
+            add +="<div class='i-block name_over1'>送货地址："+json.provinceAddress.provinceName+"&nbsp;&nbsp;"+json.provinceAddress.cityName+"&nbsp;&nbsp;"+json.provinceAddress.districtName+"&nbsp;&nbsp;"+json.provinceAddress.streetName+"</div>&nbsp;";
+            add +="<div class='mr10 i-block name_over2 ' title='"+json.address+"'>"+json.address+"</div>";
+            add +="</div>";
+            add +="<div class='text-right mb15 mr8'>";
+            add +="<span class='name_over3'>收货人："+json.userName+"</span>&nbsp;";
+            add +="<span class='mr10 name_over4'>"+json.phone+"</span>";
+            add +="</div>";
+            $("div.ds_address ").append(add);
+        }
+
+
 
         $("body").on('click', '.addr-box', function () {
             $(this).find(".addr-box-content").addClass("active");
             $(this).siblings().find(".addr-box-content").removeClass("active");
+            var aid = $(this).attr("aid");
+
+            $.getJSON("myGuoMei/showAddress?aid="+aid,function(json){
+                orderAddress(json[0]);
+            });
+
         });
         //点击新增收货地址
         $("body").on('click', '#addAddress', function () {
