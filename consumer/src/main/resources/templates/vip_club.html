@@ -966,7 +966,9 @@ if (gradeName!=grade){
 
     //显示轮播下的
     function vipGood() {
-        $.getJSON("Goods/vipGoodsFindAllQian", {"pageIndex":1,"pageSize":2},function (data) {
+        //获取等级
+        var gid=parseInt($(".gradeName").text());
+        $.getJSON("Goods/vipGoodsFindAllQian", {"pageIndex":1,"pageSize":2,"gid":gid},function (data) {
             var json=data.list;
             //显示轮播图下的前两条数据
             for(var k=0;k<2;k++){
