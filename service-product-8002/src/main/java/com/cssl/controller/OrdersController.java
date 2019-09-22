@@ -61,8 +61,7 @@ public class OrdersController {
             param.put("gid",goods.getId());
             param.put("title",goods.getTitle());
             param.put("img",goods.getMainImg());
-            double price = goods.getPrice().doubleValue() * Double.valueOf(num[i]);
-            param.put("price",price);
+            param.put("price",goods.getPrice());
             param.put("num",num[i]);
             goodsList.add(param);
         }

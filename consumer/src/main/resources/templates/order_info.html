@@ -315,7 +315,8 @@
     <div class="clearfix commitOrderBody">
         <p class="text-right  clearfix"><span class="w185 fr pr20" id="totalMoney">¥20.80</span><span class="fr"><em
                 class="fontRed" id="num">1</em>件商品，总金额：</span></p>
-        <p class="text-right  clearfix"><span class="w185 fr pr20">-¥0.00</span><span class="fr">优惠券：</span></p><div style="height:28px;"></div>
+        <p class="text-right  clearfix"><span class="w185 fr pr20">-¥0.00</span><span class="fr">优惠券：</span></p>
+        <div style="height:28px;"></div>
         <div class="text-right play pr18 border-no-bootom clearfix">
             <span class="fr mt15 mb5">     应付款总金额：<em id="sum" class="fontRed strong font20">¥35.80</em></span>
         </div>
@@ -504,7 +505,7 @@
 <div class="gui-modal"
      style="width: 1349px; height: 640px; position: fixed; left: 0px; top: 0px; background-color: rgb(0, 0, 0); opacity: 0.2; display: none; z-index: 1000;"
      id="info"></div>
-<div id="infos" style="position: fixed; display: none; z-index: 1000; left: 244.5px; top: 128px;">
+<div id="infos" style="position: fixed; display: none; z-index: 1000; left: 337.5px; top: 128px;">
     <div class="addpop addpopwarp pr bgwhite box-sd2" id="id_newAddress">
         <div class="addInput popbd pr">
             <a id="closeaddress" class="closed c-i pabs closebtn-new" href="javascript:void(0)"></a>
@@ -530,16 +531,22 @@
                                 <div style="float:left;" class="pr" id="id_address_select">
                                     <span style="border-color:#e5e5e5;">
                                     <a href="javascript:void(0)" name="address" g-validate="address" id="adrs"
-                                       class="add_select error"><span show-label="" class="fl" id="stockaddress">请选择收货地点</span>
+                                       class="add_select error"><span show-label="" class="fl"
+                                                                      id="stockaddress">请选择收货地点</span>
                                         <i class="c-i select_arrowup ml10 mt10"></i></a></span>
                                     <div class="pr add_out hide" style="display: none;" id="adrss">
                                         <em class="pabs c-i arrowup add_up2"></em>
-                                        <div class="gCity clearfix" id="address-details" style="margin-top: -20px; margin-left: 1px; display: block;">
+                                        <div class="gCity clearfix" id="address-details"
+                                             style="margin-top: -20px; margin-left: 1px; display: block;">
                                             <div id="citySelect" class="gctSelect clearfix">
-                                                <a href="javascript:;" class="provin1 cur" id="pct_1" data-val="1" data-lnk=""><b id="province_title">请选择</b><i></i></a>
-                                                <a href="javascript:;" class="provin2" id="pct_2" data-val="2" data-lnk=""><b id="city_title">请选择</b><i></i></a>
-                                                <a href="javascript:;" class="provin3" id="pct_3" data-val="3" data-lnk=""><b id="area_title">请选择</b><i></i></a>
-                                                <a href="javascript:;" class="provin4" id="pct_4" data-val="4" data-lnk=""><b id="street_title">请选择</b><i></i></a>
+                                                <a href="javascript:;" class="provin1 cur" id="pct_1" data-val="1"
+                                                   data-lnk=""><b id="province_title">请选择</b><i></i></a>
+                                                <a href="javascript:;" class="provin2" id="pct_2" data-val="2"
+                                                   data-lnk=""><b id="city_title">请选择</b><i></i></a>
+                                                <a href="javascript:;" class="provin3" id="pct_3" data-val="3"
+                                                   data-lnk=""><b id="area_title">请选择</b><i></i></a>
+                                                <a href="javascript:;" class="provin4" id="pct_4" data-val="4"
+                                                   data-lnk=""><b id="street_title">请选择</b><i></i></a>
                                                 <a href="javascript:;" id="cityClose" class="close"></a>
                                             </div>
                                             <div id="cityMBox">
@@ -617,317 +624,338 @@
         </div>
     </div>
 </div>
-    <script type="text/javascript">
-        $(function () {
-            var userid = 18;//用户userid写死通过session
-            findAllAddress(userid);
-
-            var index1 = "";//省Id
-            var index2 = "";//市id
-            var index3 = "";//区id
-            var index4 = "";//街id
-            var title1 = "";//省名称
-            var title2 = "";//市
-            var title3 = "";//区
-            var title4 = "";//街
-
-            //选中省市区街联动
-            $("body").on('click', '.provin1', function () {
-                $(this).addClass("cur").siblings().removeClass("cur");
-                $("div#ctbox_1").css("display", "block");
-                // var index1 = $(this).attr()
-                findProvince();
-
-                //点击省显示市
-                $("body").on('click', '.province', function () {
-                    $('.provin2').addClass("cur").siblings().removeClass("cur");
-                    index1 = $(this).attr("code");
-                    title1 = $(this).attr("title");
-                    $("#province_title").text(title1);
-                    findCityByPro(index1);
-                    $("div#ctbox_1").css("display", "none");
-                    $("div#ctbox_2").css("display", "block");
-                });
-                //点击市显示区
-                $("body").on('click', '.cityId', function () {
-                    $('.provin3').addClass("cur").siblings().removeClass("cur");
-                    index2 = $(this).attr("code");
-                    title2 = $(this).attr("title");
-                    $("#city_title").text(title2);
-                    findAreaByCity(index2);
-                    $("div#ctbox_2").css("display", "none");
-                    $("div#ctbox_3").css("display", "block");
-                });
-                //点击区显示街道
-                $("body").on('click', '.areaId', function () {
-                    $('.provin4').addClass("cur").siblings().removeClass("cur");
-                    index3 = $(this).attr("code");
-                    title3 = $(this).attr("title");
-                    $("#area_title").text(title3);
-                    findStreetByArea(index3);
-                    $("div#ctbox_3").css("display", "none");
-                    $("div#ctbox_4").css("display", "block");
-                });
-                //点击街道,关闭窗口 吧所有数据显示出来
-                $("body").on('click', '.streetId', function () {
-                    index4 = $(this).attr("code");
-                    title4 = $(this).attr("title");
-                    $("#street_title").text(title4);
-                    $("#address").removeClass("gctCur");
-                    $("#address-details").hide();
-                    $("#stockaddress").attr("title", title1 + title2 + title3 + title4);
-                    $("#stockaddress").text(title1 + title2 + title3 + title4);
-                });
-                $("body").on('click', '.provin2', function () {
-                    $(this).addClass("cur").siblings().removeClass("cur");
-                    $("div#ctbox_1").empty();
-                    $("div#ctbox_3").empty();
-                    $("div#ctbox_4").empty();
-                    $("div#ctbox_1").css("display", "none");
-                    $("div#ctbox_2").css("display", "block");
-                    findCityByPro(index1);
-                });
-                $("body").on('click', '.provin3', function () {
-                    $("div#ctbox_1").empty();
-                    $("div#ctbox_2").empty();
-                    $("div#ctbox_4").empty();
-                    $(this).addClass("cur").siblings().removeClass("cur");
-                    $("div#ctbox_2").css("display", "none");
-                    $("div#ctbox_3").css("display", "block");
-                    findAreaByCity(index2);
-                });
-                $("body").on('click', '.provin4', function () {
-                    $("div#ctbox_1").empty();
-                    $("div#ctbox_2").empty();
-                    $("div#ctbox_3").empty();
-                    $(this).addClass("cur").siblings().removeClass("cur");
-                    $("div#ctbox_3").css("display", "none");
-                    $("div#ctbox_4").css("display", "block");
-                    findStreetByArea(index3);
-                });
-            });
-
-
-            //查询所有省份
-            function findProvince() {
-                $("div#ctbox_1").empty();
-                $.getJSON('myGuoMei/findProvince', function (json) {
-                    for (var i = 0; i < json.length; i++) {
-                        var span = "";
-                        var cate = json[i];
-                        span += "<span>";
-                        span += "<a href='javascript:;' title='" + cate.name + "' code='" + cate.id + "' class='province' >" + cate.name + "</a>";
-                        span += "</span>";
-                        $("div#ctbox_1").append(span);
-                    }
-                });
-
-            }
-
-            //根据省份id查询城市
-            function findCityByPro(id) {
-                //根据省份id查询城市
-                $("div#ctbox_2").empty();
-                $.getJSON('myGuoMei/findCityByProvince?province_id=' + id, function (json) {
-                    for (var i = 0; i < json.length; i++) {
-                        var span = "";
-                        var cate = json[i];
-                        span += "<span>";
-                        span += "<a href='javascript:;' title='" + cate.cname + "' code='" + cate.id + "' class='cityId' >" + cate.cname + "</a>";
-                        span += "</span>";
-                        $("div#ctbox_2").append(span);
-                    }
-                });
-            }
-
-            //根据城市id查询区
-            function findAreaByCity(id) {
-
-                $("div#ctbox_3").empty();
-                $.getJSON('myGuoMei/findAreaByCity?city_id=' + id, function (json) {
-                    for (var i = 0; i < json.length; i++) {
-                        var span = "";
-                        var cate = json[i];
-                        span += "<span>";
-                        span += "<a href='javascript:;' title='" + cate.dname + "' code='" + cate.id + "' class='areaId' >" + cate.dname + "</a>";
-                        span += "</span>";
-                        $("div#ctbox_3").append(span);
-                    }
-                })
-            }
-            //根据区id查询街
-            function findStreetByArea(id) {
-                //根据区id查询街
-                $("div#ctbox_4").empty();
-                $.getJSON('myGuoMei/findStreetByArea?district_id=' + id, function (json) {
-                    for (var i = 0; i < json.length; i++) {
-                        var span = "";
-                        var cate = json[i];
-                        span += "<span>";
-                        span += "<a href='javascript:;' title='" + cate.sname + "' code='" + cate.id + "' class='streetId' >" + cate.sname + "</a>";
-                        span += "</span>";
-                        $("div#ctbox_4").append(span);
-                    }
-                });
-            }
-
-
-            //新增收货人地址ajax方法
-            $("body").on('click', '#saveAddress', function () {
-                //新增收货人地址
-                var userName = $("input[name=consignee]").val();//收货人
-                var address = $("input[name=detailAddress]").val();//详细地址
-                var phone = $("input[name=phone]").val();//电话号码
-                var email = $("input[name=email]").val();
-                var isdefault = "";//是否为默认地址 1为默认地址 2为普通地址
-                if ($("#inputCeckbox").is(":checked")) {
-                    isdefault = 1;
-                } else {
-                    isdefault = 2;
+<script type="text/javascript">
+    $(function () {
+        var userid;
+        //从服务器拿到session
+        $.ajax(
+            {
+                type: "post",
+                url: "users/getSessionUser",
+                async: false,
+                success: function (data) {
+                    userid = data.id;
                 }
-                $.getJSON('myGuoMei/addAddressPage', {
-                    "province_id": index1,
-                    "city_id": index2,
-                    "district_id": index3,
-                    "street_id": index4,
-                    "user_id": userid,
-                    "address_name": userName,
-                    "address_detail": address,
-                    "user_phone": phone,
-                    "user_email": email,
-                    "address_isdefault": isdefault
-                }, function (json) {
-                    if (json == 1) {
-                        $(".icon-box-suc").css("display", "inline");
-                        location.href = ("order_info.html");
-                    } else {
-                        $(".icon-box-error").css("display", "inline");
-                    }
-                })
-            });
-
-
-
-
-            //显示所有地址
-            function findAllAddress(userid) {
-                //查询所有收货地址
-                $("ul.addname").empty();
-                $.getJSON('myGuoMei/showAddress?userid='+userid, function (json) {
-                    for (var i = 0; i < json.length; i++) {
-                        var li = "";
-                        var subCate = json[i];
-                        li +="<li class='addr-box'>";
-                        li +="<input type='hidden' value='"+subCate.id+"' name='address_id'>";
-                        if(subCate.isdefault == 1){
-                            li +="<div class='addr-box-content active'>";
-                        }else{
-                            li +="<div class='addr-box-content'>";
-                        }
-
-                        li +="<div class='addr-header'>";
-                        if(subCate.isdefault == 1){
-                            li +="<span>默认地址</span>";
-                        }
-                        li +="</div>";
-                        li +="<div class='addr-hd'>";
-                        li +="<span class='name' title='刘君'>"+subCate.userName+"</span>";
-                        li +="<span>"+subCate.provinceAddress.provinceName+"</span>";
-                        li +="</div>";
-                        li +="<div class='addr-hd hd-detail' title=''><span class=''>"+subCate.provinceAddress.cityName+"</span>";
-                        li +="<span class=''>"+subCate.provinceAddress.districtName+"</span><span class=''>"+subCate.provinceAddress.streetName+"</span><span class=''>" + subCate.address + "</span>";
-                        li +="<span class=''> "+subCate.phone+"</span>";
-                        li +="</div>";
-                        li +="<div class='addr-manage'>";
-                        li +="<span class='addr-btn  hide' g-hover='' g-modify-path='list,0' tpmmtag='选择地址|100|5' style='display: none;'>修改</span>";
-                        li +="</div>";
-                        li +="<div class='addr-footer'>";
-                        li +="<i class='c-i big_chose_icon'></i>";
-                        li +="</div>";
-                        li +="</div>";
-                        li +="</li>";
-                        $("ul.addname").append(li);
-                    }
-                    var li1="<li class='addr-box addr-box-add' new-address='' id='addAddress'> <div class='addr-box-content'> <div class='add-content'><div class='add-add'>+</div><div class='add-title'>添加新地址</div></div></div></li>";
-                    $("ul.addname").append(li1);
-                });
             }
-            $("body").on('click','.addr-box',function () {
-                $(this).find(".addr-box-content").addClass("active");
-                $(this).siblings().find(".addr-box-content").removeClass("active");
-            });
-            //点击新增收货地址
-            $("body").on('click','#addAddress',function () {
-                $("#info").show();
+        )
+
+        //查看当前用户是否有地址
+        $.getJSON("myGuoMei/selectAddressExist", {"uid": userid}, function (json) {
+            if(json.code == "no"){
                 $("#infos").show();
-            });
-            //显示选择收货地址信息
-            $("body").on('click','#adrs',function (){
-                $("#adrss").show();
-                $("#adrsss").show();
-            });
-            //关闭选择地址信息
-            $("body").on('click','#cityClose',function (){
-                $("#adrss").hide();
-                $("#adrsss").hide();
-            });
+            }
+        });
 
-            //关闭收货地址详情页面
-            $("#closeaddress").click(function () {
-                $("#info").hide();
-                $("#infos").hide();
+        findAllAddress(userid);
+
+        var index1 = "";//省Id
+        var index2 = "";//市id
+        var index3 = "";//区id
+        var index4 = "";//街id
+        var title1 = "";//省名称
+        var title2 = "";//市
+        var title3 = "";//区
+        var title4 = "";//街
+
+        //选中省市区街联动
+        $("body").on('click', '.provin1', function () {
+            $(this).addClass("cur").siblings().removeClass("cur");
+            $("div#ctbox_1").css("display", "block");
+            // var index1 = $(this).attr()
+            findProvince();
+
+            //点击省显示市
+            $("body").on('click', '.province', function () {
+                $('.provin2').addClass("cur").siblings().removeClass("cur");
+                index1 = $(this).attr("code");
+                title1 = $(this).attr("title");
+                $("#province_title").text(title1);
+                findCityByPro(index1);
+                $("div#ctbox_1").css("display", "none");
+                $("div#ctbox_2").css("display", "block");
             });
-
-
-            //优惠卷显示
-            $(".tit-span").click(function () {
-                if ($("#juan").is(':hidden') || $("#juans").is(':hidden')) {
-                    $("#juan").show();
-                    $("#juans").show();
-                } else {
-                    $("#juan").hide();
-                    $("#juans").hide();
-                }
+            //点击市显示区
+            $("body").on('click', '.cityId', function () {
+                $('.provin3').addClass("cur").siblings().removeClass("cur");
+                index2 = $(this).attr("code");
+                title2 = $(this).attr("title");
+                $("#city_title").text(title2);
+                findAreaByCity(index2);
+                $("div#ctbox_2").css("display", "none");
+                $("div#ctbox_3").css("display", "block");
+            });
+            //点击区显示街道
+            $("body").on('click', '.areaId', function () {
+                $('.provin4').addClass("cur").siblings().removeClass("cur");
+                index3 = $(this).attr("code");
+                title3 = $(this).attr("title");
+                $("#area_title").text(title3);
+                findStreetByArea(index3);
+                $("div#ctbox_3").css("display", "none");
+                $("div#ctbox_4").css("display", "block");
+            });
+            //点击街道,关闭窗口 吧所有数据显示出来
+            $("body").on('click', '.streetId', function () {
+                index4 = $(this).attr("code");
+                title4 = $(this).attr("title");
+                $("#street_title").text(title4);
+                $("#address").removeClass("gctCur");
+                $("#address-details").hide();
+                $("#stockaddress").attr("title", title1 + title2 + title3 + title4);
+                $("#stockaddress").text(title1 + title2 + title3 + title4);
+            });
+            $("body").on('click', '.provin2', function () {
+                $(this).addClass("cur").siblings().removeClass("cur");
+                $("div#ctbox_1").empty();
+                $("div#ctbox_3").empty();
+                $("div#ctbox_4").empty();
+                $("div#ctbox_1").css("display", "none");
+                $("div#ctbox_2").css("display", "block");
+                findCityByPro(index1);
+            });
+            $("body").on('click', '.provin3', function () {
+                $("div#ctbox_1").empty();
+                $("div#ctbox_2").empty();
+                $("div#ctbox_4").empty();
+                $(this).addClass("cur").siblings().removeClass("cur");
+                $("div#ctbox_2").css("display", "none");
+                $("div#ctbox_3").css("display", "block");
+                findAreaByCity(index2);
+            });
+            $("body").on('click', '.provin4', function () {
+                $("div#ctbox_1").empty();
+                $("div#ctbox_2").empty();
+                $("div#ctbox_3").empty();
+                $(this).addClass("cur").siblings().removeClass("cur");
+                $("div#ctbox_3").css("display", "none");
+                $("div#ctbox_4").css("display", "block");
+                findStreetByArea(index3);
             });
         });
+
+
+        //查询所有省份
+        function findProvince() {
+            $("div#ctbox_1").empty();
+            $.getJSON('myGuoMei/findProvince', function (json) {
+                for (var i = 0; i < json.length; i++) {
+                    var span = "";
+                    var cate = json[i];
+                    span += "<span>";
+                    span += "<a href='javascript:;' title='" + cate.name + "' code='" + cate.id + "' class='province' >" + cate.name + "</a>";
+                    span += "</span>";
+                    $("div#ctbox_1").append(span);
+                }
+            });
+
+        }
+
+        //根据省份id查询城市
+        function findCityByPro(id) {
+            //根据省份id查询城市
+            $("div#ctbox_2").empty();
+            $.getJSON('myGuoMei/findCityByProvince?province_id=' + id, function (json) {
+                for (var i = 0; i < json.length; i++) {
+                    var span = "";
+                    var cate = json[i];
+                    span += "<span>";
+                    span += "<a href='javascript:;' title='" + cate.cname + "' code='" + cate.id + "' class='cityId' >" + cate.cname + "</a>";
+                    span += "</span>";
+                    $("div#ctbox_2").append(span);
+                }
+            });
+        }
+
+        //根据城市id查询区
+        function findAreaByCity(id) {
+
+            $("div#ctbox_3").empty();
+            $.getJSON('myGuoMei/findAreaByCity?city_id=' + id, function (json) {
+                for (var i = 0; i < json.length; i++) {
+                    var span = "";
+                    var cate = json[i];
+                    span += "<span>";
+                    span += "<a href='javascript:;' title='" + cate.dname + "' code='" + cate.id + "' class='areaId' >" + cate.dname + "</a>";
+                    span += "</span>";
+                    $("div#ctbox_3").append(span);
+                }
+            })
+        }
+
+        //根据区id查询街
+        function findStreetByArea(id) {
+            //根据区id查询街
+            $("div#ctbox_4").empty();
+            $.getJSON('myGuoMei/findStreetByArea?district_id=' + id, function (json) {
+                for (var i = 0; i < json.length; i++) {
+                    var span = "";
+                    var cate = json[i];
+                    span += "<span>";
+                    span += "<a href='javascript:;' title='" + cate.sname + "' code='" + cate.id + "' class='streetId' >" + cate.sname + "</a>";
+                    span += "</span>";
+                    $("div#ctbox_4").append(span);
+                }
+            });
+        }
+
+
+        //新增收货人地址ajax方法
+        $("body").on('click', '#saveAddress', function () {
+            //新增收货人地址
+            var userName = $("input[name=consignee]").val();//收货人
+            var address = $("input[name=detailAddress]").val();//详细地址
+            var phone = $("input[name=phone]").val();//电话号码
+            var email = $("input[name=email]").val();
+            var isdefault = "";//是否为默认地址 1为默认地址 2为普通地址
+            if ($("#inputCeckbox").is(":checked")) {
+                isdefault = 1;
+            } else {
+                isdefault = 2;
+            }
+            $.getJSON('myGuoMei/addAddressPage', {
+                "province_id": index1,
+                "city_id": index2,
+                "district_id": index3,
+                "street_id": index4,
+                "user_id": userid,
+                "address_name": userName,
+                "address_detail": address,
+                "user_phone": phone,
+                "user_email": email,
+                "address_isdefault": isdefault
+            }, function (json) {
+                if (json == 1) {
+                    $(".icon-box-suc").css("display", "inline");
+                    findAllAddress(userid);
+                } else {
+                    $(".icon-box-error").css("display", "inline");
+                }
+            })
+        });
+
+
+        //显示所有地址
+        function findAllAddress(userid) {
+            //查询所有收货地址
+            $("ul.addname").empty();
+            $.getJSON('myGuoMei/showAddress?userid=' + userid, function (json) {
+                for (var i = 0; i < json.length; i++) {
+                    var li = "";
+                    var subCate = json[i];
+                    li += "<li class='addr-box'>";
+                    li += "<input type='hidden' value='" + subCate.id + "' name='address_id'>";
+                    if (subCate.isdefault == 1) {
+                        li += "<div class='addr-box-content active'>";
+                    } else {
+                        li += "<div class='addr-box-content'>";
+                    }
+
+                    li += "<div class='addr-header'>";
+                    if (subCate.isdefault == 1) {
+                        li += "<span>默认地址</span>";
+                    }
+                    li += "</div>";
+                    li += "<div class='addr-hd'>";
+                    li += "<span class='name' title='刘君'>" + subCate.userName + "</span>";
+                    li += "<span>" + subCate.provinceAddress.provinceName + "</span>";
+                    li += "</div>";
+                    li += "<div class='addr-hd hd-detail' title=''><span class=''>" + subCate.provinceAddress.cityName + "</span>";
+                    li += "<span class=''>" + subCate.provinceAddress.districtName + "</span><span class=''>" + subCate.provinceAddress.streetName + "</span><span class=''>" + subCate.address + "</span>";
+                    li += "<span class=''> " + subCate.phone + "</span>";
+                    li += "</div>";
+                    li += "<div class='addr-manage'>";
+                    li += "<span class='addr-btn  hide' g-hover='' g-modify-path='list,0' tpmmtag='选择地址|100|5' style='display: none;'>修改</span>";
+                    li += "</div>";
+                    li += "<div class='addr-footer'>";
+                    li += "<i class='c-i big_chose_icon'></i>";
+                    li += "</div>";
+                    li += "</div>";
+                    li += "</li>";
+                    $("ul.addname").append(li);
+                }
+                var li1 = "<li class='addr-box addr-box-add' new-address='' id='addAddress'> <div class='addr-box-content'> <div class='add-content'><div class='add-add'>+</div><div class='add-title'>添加新地址</div></div></div></li>";
+                $("ul.addname").append(li1);
+            });
+        }
+
+        $("body").on('click', '.addr-box', function () {
+            $(this).find(".addr-box-content").addClass("active");
+            $(this).siblings().find(".addr-box-content").removeClass("active");
+        });
+        //点击新增收货地址
+        $("body").on('click', '#addAddress', function () {
+            $("#info").show();
+            $("#infos").show();
+        });
+        //显示选择收货地址信息
+        $("body").on('click', '#adrs', function () {
+            $("#adrss").show();
+            $("#adrsss").show();
+        });
+        //关闭选择地址信息
+        $("body").on('click', '#cityClose', function () {
+            $("#adrss").hide();
+            $("#adrsss").hide();
+        });
+
+        //关闭收货地址详情页面
+        $("#closeaddress").click(function () {
+            $("#info").hide();
+            $("#infos").hide();
+        });
+
+
+        //优惠卷显示
+        $(".tit-span").click(function () {
+            if ($("#juan").is(':hidden') || $("#juans").is(':hidden')) {
+                $("#juan").show();
+                $("#juans").show();
+            } else {
+                $("#juan").hide();
+                $("#juans").hide();
+            }
+        });
+    });
 </script>
 <script type="text/javascript">
-    $(function(){
+    $(function () {
         goodsList();
     })
-    function goodsList(){
+
+    function goodsList() {
         var url = GetRequest();
         var money = 0;
-        $.getJSON("Orders/orderInfo",{"goodsId":url.goodsId,"num":url.num},function(result){
-            for(var i = 0; i < result.goods.length; i++){
+        $.getJSON("Orders/orderInfo", {"goodsId": url.goodsId, "num": url.num}, function (result) {
+            for (var i = 0; i < result.goods.length; i++) {
                 var g = result.goods[i];
                 var div = " <div class='info-bd clearfix' style='margin-left: 264px'>";
-                div+="<div class='backStyle'>";
-                div+=" <span class='hcon'>商品信息</span> </div>";
-                div+=" <div class='dilivery clearfix'> <div class='cart-shop-good      clearfix      cart-shop-good-common ' data-good='true' data-sid='1122490798' data-pid='9133744812' bigdata-pid='9133744812'>";
-                div+=" <div class='cart-col-2' style='height: 82px;'><a href='product_details.html?gid="+g.gid+"' target='_blank' class='g-img'> <img src='"+g.img+"' alt=''> </a></div>";
-                div+=" <div class='fl'> <div class='clearfix'> <div class='cart-col-3'> <div class='cart-good-name' style='width: 198px;height: 50px'> <a href='product_details.html?gid="+g.gid+" target='_blank title='"+g.title+"'> "+g.title+"</a> </div> </div>";
-                div+=" <div class='cart-col-8'> <div class='cart-good-pro'> <div class='cart-saleprops-text'></div> </div> </div> <div class='cart-col-4 cart-price-height47'> <div class='cart-good-real-price '>  ¥&nbsp;"+g.price+"</div>";
-                div+=" <div class='red'></div> </div> </div> </div> <div class='cart-col-7'> <div class='cart-good-fun delfixed' style='width: 100px;height: 30px'> <span class='fontGray mr20 ml5'> x "+g.num+" </span> <span class='fontGray mr10'>有货</span> </div> </div> </div> </div> </div>";
-                money+=g.num*g.price;
+                div += "<div class='backStyle'>";
+                div += " <span class='hcon'>商品信息</span> </div>";
+                div += " <div class='dilivery clearfix'> <div class='cart-shop-good      clearfix      cart-shop-good-common ' data-good='true' data-sid='1122490798' data-pid='9133744812' bigdata-pid='9133744812'>";
+                div += " <div class='cart-col-2' style='height: 82px;'><a href='product_details.html?gid=" + g.gid + "' target='_blank' class='g-img'> <img src='" + g.img + "' alt=''> </a></div>";
+                div += " <div class='fl'> <div class='clearfix'> <div class='cart-col-3'> <div class='cart-good-name' style='width: 198px;height: 50px'> <a href='product_details.html?gid=" + g.gid + " target='_blank title='" + g.title + "'> " + g.title + "</a> </div> </div>";
+                div += " <div class='cart-col-8'> <div class='cart-good-pro'> <div class='cart-saleprops-text'></div> </div> </div> <div class='cart-col-4 cart-price-height47'> <div class='cart-good-real-price '>  ¥&nbsp;" + g.price + "</div>";
+                div += " <div class='red'></div> </div> </div> </div> <div class='cart-col-7'> <div class='cart-good-fun delfixed' style='width: 100px;height: 30px'> <span class='fontGray mr20 ml5'> x " + g.num + " </span> <span class='fontGray mr10'>有货</span> </div> </div> </div> </div> </div>";
+                money += g.num * g.price;
                 $("div.infoH").append(div);
             }
             $("#num").text(result.goods.length);
-            $("#totalMoney").text("¥"+money);
+            $("#totalMoney").text("¥" + money);
             //实付金额
-            $("#sum").text("¥"+money);
+            $("#sum").text("¥" + money);
         });
 
 
     }
+
     function GetRequest() {
         var url = location.search; //获取url中"?"符后的字串
         var theRequest = new Object();
         if (url.indexOf("?") != -1) {
             var str = url.substr(1);
             strs = str.split("&");
-            for(var i = 0; i < strs.length; i ++) {
-                theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
             }
         }
         return theRequest;
