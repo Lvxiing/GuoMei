@@ -52,8 +52,7 @@
     <!--查询用户订单的待付款待收货总记录-->
     <select id="findTotal" parameterType="int" resultType="map">
         SELECT COUNT(CASE WHEN(order_status=1)THEN order_status END) AS num1,
-               COUNT(CASE WHEN(order_status=4)THEN order_status END) AS num2,
-               COUNT(CASE WHEN(order_status=5)THEN order_status END) AS num3
+               COUNT(CASE WHEN(order_status=4)THEN order_status END) AS num2
         FROM orders WHERE user_id =#{uid}
     </select>
     <!--根据订单号查询地址表的相关信息-->
