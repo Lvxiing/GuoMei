@@ -1,6 +1,7 @@
 $(function () {
     //定义每页数量
     var pageSize=2;
+    browse();
     findParentCategory();
     search();
     searchGoods(1,pageSize);
@@ -19,6 +20,9 @@ $(function () {
         }else if(sort==2){  //按新品
              sort=1;
             searc2(1,1,pageSize);
+        }else if(sort==1){   //按销量
+            sort=4;
+            searc1(sort,1,pageSize);
         }
     });
     //价格点击
@@ -78,7 +82,10 @@ $(function () {
                 searc2(sort,num,pageSize);
             }else if(sort==2||sort==3){  //按价格
                 searc3(sort,num,pageSize);
-            }else{//按区间查
+            }else if(sort==4){   //按销量
+                searc1(sort,num,pageSize);
+            }
+            else{//按区间查
                 searc4(num,price,pageSize);
             }
 
@@ -95,7 +102,10 @@ $(function () {
                 searc2(sort,num,pageSize);
             }else if(sort==2||sort==3){  //按价格
                 searc3(sort,num,pageSize);
-            }else{  //按区间查
+            }else if(sort==4){
+                searc1(sort,num,pageSize); //按销量
+            }
+            else{  //按区间查
                 searc4(num,price,pageSize);
             }
 
@@ -249,5 +259,23 @@ function search() {
         var input=$("#searchInput").val();
         var content = encodeURI(encodeURI(input));
         window.location.href='categoryLists.html?content='+content;
+    });
+}
+
+
+//最近浏览
+function browse() {
+    $.getJSON("../../Goods/findBrowseGoods",function (json) {
+        if(json.msg=="success"){
+            var list=json.list;
+            for(var i=0;i<list.length;i++){
+                var li="<li class='active'><p class='num num1'>"+i+1+"</p>";
+                li+="<p class='pname'><a class='bigD_item' href='product_details.html?gid="+list[i].id+"' target='_blank'>"+list[i].title+"</a></p>";
+                li+="<div class='pdetail'><p class='pic'><a class='bigD_item'  href='product_details.html?gid="+list[i].id+"' target='_blank'><img  src='"+list[i].mainImg+"'></a></p>";
+                li+="<p class='name'><a class='bigD_item'  href='product_details.html?gid="+list[i].id+"' target='_blank'>"+list[i].title+"</a></p>";
+                li+="<p class='price'><em>¥<span>"+list[i].price+"</span></em></p></div> </li>";
+                $("#bigD_weekTop").append(li);
+            }
+        }
     });
 }
