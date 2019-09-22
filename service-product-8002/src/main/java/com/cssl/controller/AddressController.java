@@ -1,6 +1,7 @@
 package com.cssl.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.entity.Address;
 import com.cssl.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,4 +47,17 @@ public class AddressController {
         return addressService.showAddress(uId);
     }
 
+    //查询当前用户是否有收获地址
+    @RequestMapping("selectAddressExist")
+    @ResponseBody
+    public  String selectAddressExist(@RequestParam Integer uid){
+        System.out.println("uid = " + uid);
+        int count = addressService.count(new QueryWrapper<Address>().eq("user_id", uid));
+        String json ;
+        if(count<=1){
+            json = "{\"code\":\"no\"}";
+            return  json;
+        }
+        return "{\"code\":\"yes\"}";
+    }
 }
