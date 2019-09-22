@@ -67,7 +67,7 @@ function foot() {
     $.getJSON("../../Goods/findBrowseGoods",function (json) {
         if(json.msg=="success"){
             var list=json.list;
-            for(var i=0;i<list.length;i++){
+            for(var i=0;i<6;i++){
                 var li="<li> <div class='myFootprint-img'><a href='product_details.html?gid="+list[i].id+"' target='_blank'><img src='"+list[i].mainImg+"' ></a>";
                 li+="</div> <p class='myFootprint-areaPrice'>¥"+list[i].price+"</p> </li>";
                 $(".myFootprint-box").append(li);
