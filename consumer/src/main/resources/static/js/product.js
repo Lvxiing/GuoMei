@@ -239,7 +239,7 @@ function vipPrice() {
         $.getJSON("../../Goods/vipInfo",{"gid":re.gid},function(json){
             $("#huiYuanDJ").text("您享受"+json.grade_name+"会员价");
             var vip_price=json.goods_price-json.Discount_money;
-            $(".huiYuanTeJia_text").html("¥<span name=vipPrice>"+vip_price+".00</span>").css("color","#e3101e");
+            $(".huiYuanTeJia_text").html("¥<span name=vipPrice>"+vip_price+"</span>").css("color","#e3101e");
             $("#Discount_money").attr("money",json.Discount_money);
         })
     }

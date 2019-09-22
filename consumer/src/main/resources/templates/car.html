@@ -74,8 +74,8 @@
 
 
                 <div act-check-all-items="" gui-checkbox="" gui-class-unchecked="good-checkboxs-no"
-                     gui-class-checked="c-i checkbox_chose" gui-class-disabled="no_check" style="margin-top: 16px;"
-                     class="good-checkboxs-no" name="allCheckDiv">
+                     gui-class-checked="c-i checkbox_chose" gui-class-disabled="no_check" style="margin-top: 0px;"
+                     class="" name="allCheckDiv">
                     <input type="checkbox" name="allCheck"></div>
             </div>
 
@@ -112,7 +112,7 @@
                     <div class="bottom-total-pirce">
                         <dl>
                             <dt> 总计（不含运费）：</dt>
-                            <dd class="cart-price-red ffyh" style="font-size:18px;font-weight:900;">￥<span name="sumPrice">0.00</span></dd>
+                            <dd class="cart-price-red ffyh" style="font-size:18px;font-weight:900;">￥<span name="sumPrice">0</span></dd>
                         </dl>
                     </div>
                 </div>
@@ -147,7 +147,7 @@ $.getJSON("/cart/cartAllGoodsByUserId",function (json) {
         $("#container").append(empty);
     } else{
     for (var i = 0; i < json.length; i++){
-        var div='<div class="cart-shop-goods cart-shop-goods-normal" style="margin-top: 10px;" name="goodDiv"> <div class="cart-shop-good                        clearfix            cart-shop-good-common                        cart-item-last           " data-good="true" data-sid="pop8012883715" data-pid="A0006581765" bigdata-pid="A0006581765" >                      <div class="cart-col-1                border-top         ">            <div act-check-item="" gui-checkbox="" gui-class-unchecked="good-checkboxs-no" gui-class-checked="c-i checkbox_chose" gui-class-disabled="no_check" data-cid="5504926502" class="good-checkboxs-no" name="goodCheckDiv">      <input type="checkbox" name="good" path="0.commerceItemsGroups.0.commerceItemsGroup.0" value="5504926502" data-save="true" >     </div>          </div> <div class="cart-col-2" style="height: 82px;">  <p name="goodsId" style="display:none;"  help="'+json[i].goodsId+'"  >'+json[i].goodsId+'</p>  <a href="product_details.html?gid='+json[i].goodsId+'" target="_blank" class="g-img">        <img src="'+json[i].goodsMainImg+'" alt="">           </a>  </div>  <div class="fl">   <div class="clearfix">    <div style="" class="cart-col-3">     <div class="cart-good-name">            <a href="product_details.html?gid='+json[i].goodsId+'" target="_blank" title="'+json[i].goodsTitle+'">                     '+json[i].goodsTitle+'  </a>     </div>     <div class="support-server clearfix">                        </div>                      </div>                      <div class="cart-col-8">                      </div>                 <div class="cart-col-4 cart-price-height47">     <div class="cart-good-real-price ">                ¥&nbsp;   <span name="price">'+json[i].goodsPrice+'  </span>                        </div>  <div class="red" name="vipPrice">   </div>  </div>   <div class="cart-col-5">                                                                <div gui-count="" click-document-pre="" gui-count-min="1" gui-count-animate="1" gui-count-change-interval="1000" act-change-count="" data-cid="5505891616" data-limit="99" data-sku="pop8012883715" class="gui-count cart-count" data-limit-pop8012883715-a0006581765="99">                                            <a href="javascript:;" gui-count-sub="" class="gui-count-btn gui-count-sub" name="sub">-</a><a href="javascript:;" gui-count-add="" class="gui-count-btn gui-count-add" name="add">+</a><div class="gui-count-input"><input dytest="" class="dytest " type="text" value="'+json[i].cartNum+'" name="num"></div></div>                                                                                                                                                                                                             </div>  <div class="cart-col-6 ">      <div class="cart-good-amount">    ¥&nbsp;<span name="totalPrice" >'+json[i].cartTotal+'.00</span>      </div>         </div>  </div>  <div class="cart-good-box">         &nbsp;         </div>  </div>  <div class="cart-col-7">       <div class="cart-good-fun delfixed">     <a href="javascript:;" act-remove-item="" path="3.commerceItemsGroups.0.commerceItemsGroup.0" data-sku="pop8012883715" data-save="true" name="del" style="color: #e3101e;">     删除     </a>    </div>              <div class="cart-good-fun">     <a href="javascript:" act-add-wishlist="" path="3.commerceItemsGroups.0.commerceItemsGroup.0" name="toCollect">      移入收藏夹</a>    </div>               </div>          </div></div>';
+        var div='<div class="cart-shop-goods cart-shop-goods-normal" style="margin-top: 10px;" name="goodDiv"> <div class="cart-shop-good                        clearfix            cart-shop-good-common                        cart-item-last           " data-good="true" data-sid="pop8012883715" data-pid="A0006581765" bigdata-pid="A0006581765" >                      <div class="cart-col-1                border-top         ">            <div act-check-item="" gui-checkbox="" gui-class-unchecked="good-checkboxs-no" gui-class-checked="c-i checkbox_chose" gui-class-disabled="no_check" data-cid="5504926502" class="" name="goodCheckDiv">      <input type="checkbox" name="good" path="0.commerceItemsGroups.0.commerceItemsGroup.0" value="5504926502" data-save="true" >     </div>          </div> <div class="cart-col-2" style="height: 82px;">  <p name="goodsId" style="display:none;"  help="'+json[i].goodsId+'"  >'+json[i].goodsId+'</p>  <a href="product_details.html?gid='+json[i].goodsId+'" target="_blank" class="g-img">        <img src="'+json[i].goodsMainImg+'" alt="">           </a>  </div>  <div class="fl">   <div class="clearfix">    <div style="" class="cart-col-3">     <div class="cart-good-name">            <a href="product_details.html?gid='+json[i].goodsId+'" target="_blank" title="'+json[i].goodsTitle+'">                     '+json[i].goodsTitle+'  </a>     </div>     <div class="support-server clearfix">                        </div>                      </div>                      <div class="cart-col-8">                      </div>                 <div class="cart-col-4 cart-price-height47">     <div class="cart-good-real-price ">                ¥&nbsp;   <span name="price">'+json[i].goodsPrice+'  </span>                        </div>  <div class="red" name="vipPrice">   </div>  </div>   <div class="cart-col-5">                                                                <div gui-count="" click-document-pre="" gui-count-min="1" gui-count-animate="1" gui-count-change-interval="1000" act-change-count="" data-cid="5505891616" data-limit="99" data-sku="pop8012883715" class="gui-count cart-count" data-limit-pop8012883715-a0006581765="99">                                            <a href="javascript:;" gui-count-sub="" class="gui-count-btn gui-count-sub" name="sub">-</a><a href="javascript:;" gui-count-add="" class="gui-count-btn gui-count-add" name="add">+</a><div class="gui-count-input"><input dytest="" class="dytest " type="text" value="'+json[i].cartNum+'" name="num"></div></div>                                                                                                                                                                                                             </div>  <div class="cart-col-6 ">      <div class="cart-good-amount">    ¥&nbsp;<span name="totalPrice" >'+json[i].cartTotal+'</span>      </div>         </div>  </div>  <div class="cart-good-box">         &nbsp;         </div>  </div>  <div class="cart-col-7">       <div class="cart-good-fun delfixed">     <a href="javascript:;" act-remove-item="" path="3.commerceItemsGroups.0.commerceItemsGroup.0" data-sku="pop8012883715" data-save="true" name="del" style="color: #e3101e;">     删除     </a>    </div>              <div class="cart-good-fun">     <a href="javascript:" act-add-wishlist="" path="3.commerceItemsGroups.0.commerceItemsGroup.0" name="toCollect">      移入收藏夹</a>    </div>               </div>          </div></div>';
         $("#container").append(div);
 
 
@@ -219,7 +219,7 @@ $(this).next().next().find("[name=num]").val(count);
 getSum();
 var price= $(this).parents("[name=goodDiv]").find("[name=price]").text();
 var totalPrice=count*price;
-$(this).parents("[name=goodDiv]").find("[name=totalPrice]").text(totalPrice+".00");
+$(this).parents("[name=goodDiv]").find("[name=totalPrice]").text(totalPrice);
 
 });
 
@@ -232,7 +232,7 @@ $(this).next().find("[name=num]").val(count);
 getSum();
 var price= $(this).parents("[name=goodDiv]").find("[name=price]").text();
 var totalPrice=count*price;
-$(this).parents("[name=goodDiv]").find("[name=totalPrice]").text(totalPrice+".00");
+$(this).parents("[name=goodDiv]").find("[name=totalPrice]").text(totalPrice);
 
 });
 

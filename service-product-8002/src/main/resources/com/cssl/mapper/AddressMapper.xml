@@ -70,8 +70,8 @@
                address_isdefault
         FROM address a
         <where>
-            <if test="uId!=null and uId != '' ">
-              and  user_id = #{uId}
+            <if test="userid!=null and userid != '' ">
+              and  user_id = #{userid}
             </if>
             <if test="aid!=null and aid != '' ">
               and  a.address_id = #{aid}
