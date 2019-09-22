@@ -257,7 +257,7 @@ if(checkLength>=1){
     toBuy();
 }
 else{
-    layer.msg("你还没有选择商品哦");
+    layer.msg("你还没有选择商品哦",{icon:0});
 }
 });
 
@@ -286,10 +286,10 @@ var delThis=$(this);
 layer.confirm('真的删除行么?', function(){
     $.getJSON("/cart/delCartGood/"+goodsId,function(result){
         if (result==true){
-            layer.msg("删除成功");
+            layer.msg("删除成功",{icon:1});
             delThis.parents("[name=goodDiv]").remove();
         } else{
-            layer.msg("删除失败,请重试");
+            layer.msg("删除失败,请重试",{icon:2});
         }
         show();
         getSum();
@@ -310,10 +310,10 @@ $("[name=delManyChecked]").click(function(){
                     getSum();
                 })
             });
-            layer.msg("删除成功");
+            layer.msg("删除成功",{icon:1});
         });
     }else{
-        layer.msg("你还没有选择商品哦");
+        layer.msg("你还没有选择商品哦",{icon:0});
     }
 });
 
@@ -323,14 +323,27 @@ $("#container").on("click","[name=toCollect]",function () {
     layer.confirm('移入收藏夹后该商品只在收藏夹内显示了哦', function(){
         $.getJSON("/cart/findIfCollected/"+goodsId,function (json) {
             if (json !=null){
-                layer.msg("你的收藏夹中已有此商品");
+                layer.alert("你的收藏夹中已有此商品",{ btn: ['知道了','查看收藏夹']
+                        ,btn2: function(){
+                            location.href="gm-shoucang.html";
+                        }
+                    }
+                );
             }else{
                 $.getJSON("/cart/saveCollection/"+goodsId,function (result) {
                     if (result ==true){
-                        layer.msg("移入收藏夹成功");
-                        $(this).parents("[name=goodDiv]").remove();
+                        layer.alert("移入收藏夹成功",{ btn: ['知道了','查看收藏夹']
+                                ,btn2: function(){
+                                    location.href="gm-shoucang.html";
+                                }
+                            }
+                        );
+                        //将收藏的商品从购物车中删除
+                        $.getJSON("/cart/delCartGood/"+goodsId,function(){
+                            $(this).parents("[name=goodDiv]").remove();
+                        })
                     } else {
-                        layer.msg("移入收藏夹失败");
+                        layer.msg("移入收藏夹失败",{icon:2});
                     }
                     show();
                     getSum();

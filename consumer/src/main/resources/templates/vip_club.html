@@ -792,7 +792,7 @@
             var layer = layui.layer,  //弹层
                 $ = layui.jquery;
 
-//加入购物车
+//点击按钮加入购物车
         $("ul.club-items-box").on("click",".go-buy",function() {
           var gradeName=  $("#gradeName").text();
           var grade=  $(this).parents("li.club-item").find("[name='gradeName']").text();
@@ -818,7 +818,7 @@ if (gradeName!=grade){
         "price": vipPrice,
         "total": total
     }, function (result) {
-        layer.msg("加入购物车成功");
+        layer.msg("加入购物车成功",{icon:1});
         if (result.msg == "新增到购物车") {
             //如果购物车内没有该商品,则购物车内商品的件数加1
             $("[name=num]").text(parseInt($("[name=num]").text()) + 1);
@@ -828,7 +828,7 @@ if (gradeName!=grade){
 }
         });
 
-
+            //a链接加入购物车
             $("ul.club-items-box").on("click","a",function() {
                 var goodsId=  $(this).parents("li.club-item").find("[name='goodsId']").text();
                 var gradeName=  $("#gradeName").text();
@@ -843,28 +843,7 @@ if (gradeName!=grade){
                 }else{
                     location.href="product_details.html?gid="+goodsId+"&vip=yes";
                 }
-
-
             });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         });

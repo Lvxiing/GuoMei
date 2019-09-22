@@ -286,10 +286,10 @@ $(function () {
                 ,done: function(res){
                     //如果上传失败
                     if(res.code > 0){
-                        return layer.msg('上传失败,请重试');
+                        return layer.msg('上传失败,请重试',{icon:2});
                     }
                     //上传成功
-                    layer.msg("头像上传成功");
+                    layer.msg("头像上传成功",{icon:1});
                     $("#img_url").val(res.url);
                 }
                 ,error: function(){
@@ -312,11 +312,11 @@ $(function () {
                     async: true,
                     success: function (result) {
                         if (result==true) {
-                            layer.msg('修改成功', {time:600}, function(){
+                            layer.msg('修改成功',{icon:1}, {time:600}, function(){
                                 location.reload(); //刷新窗口数据
                             });
                         } else {
-                            layer.msg("修改失败,请重试");
+                            layer.msg("修改失败,请重试",{icon:2});
                         }
                     }
                 });

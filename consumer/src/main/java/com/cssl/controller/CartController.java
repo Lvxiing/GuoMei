@@ -55,22 +55,6 @@ public class CartController {
         return  userFeignInterface.cartAllGoodsByUserId(users.getId());
     }
 
-    //确定购买,要生成订单的商品和数量
-    @RequestMapping("/toOrder")
-    @ResponseBody
-    public List<Cart> toOrder(@RequestParam("goodsId[]") Integer[] goodsId, @RequestParam("num[]") Integer[] num) {
-        List<Cart> toBuyList = new ArrayList<>();
-        for (int i = 0; i < goodsId.length; i++) {
-            Cart cart = new Cart();
-            cart.setGoodsId(goodsId[i]);
-            cart.setNum(num[i]);
-            toBuyList.add(cart);
-        }
-        //还需把这些确定购买,要生成订单的商品从我的购物车中删除
-
-        return toBuyList;
-    }
-
     //我的购物车中商品的件数
     @RequestMapping("/cartCount")
     @ResponseBody
@@ -90,7 +74,7 @@ public class CartController {
         return userFeignInterface.delCartGood(map);
     }
 
-    //将我的购物车中的商品移入收藏夹
+    //将商品移入收藏夹
     @RequestMapping("/saveCollection/{goodsId}")
     @ResponseBody
     public boolean saveCollection(@PathVariable("goodsId") Integer goodsId, HttpSession session) {
@@ -98,8 +82,6 @@ public class CartController {
         collections.setGoodsId(goodsId);
         Users users = (Users) session.getAttribute("user");
         collections.setUid(users.getId());
-        //移入收藏夹后需把我的购物车中该商品删除
-        boolean b = delCartGood(goodsId, session);
         return userFeignInterface.saveCollection(collections);
     }
 
