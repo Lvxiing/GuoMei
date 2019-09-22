@@ -240,7 +240,6 @@ function vipPrice() {
             $("#huiYuanDJ").text("您享受"+json.grade_name+"会员价");
             var vip_price=json.goods_price-json.Discount_money;
             $(".huiYuanTeJia_text").text("¥"+vip_price+"  ");
-            $("#Discount_money").text(json.Discount_money);
             $("#Discount_money").attr("money",json.Discount_money);
         })
     }

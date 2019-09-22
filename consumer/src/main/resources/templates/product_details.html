@@ -151,9 +151,8 @@
                 </div>
                 <div class="fd"
                      style="width: 330.7692308px;height:330.7692308px; position: absolute; left: 364px; top:0px; overflow: hidden;display: none;z-index: 9999;">
-                    <img src="" style="position: absolute;" />
+                    <img src="" style="position: absolute;"/>
                 </div>
-
 
 
             </div>
@@ -212,10 +211,19 @@
                 <div class="prd-price-right lanjuan" id="lanjuan"></div>
             </div>
             <!--促销-->
-            <div class="prd-price-other prd-cuxiao-other clearfix dn">
+            <div class="prd-price-other prd-cuxiao-other clearfix dn" id="vip">
                 <div class="cuxiaobox">
                     <label class="prd-price-left cuxiao">促&#x3000;&#x3000;销</label>
-                    <div class="prd-price-right prd-promotions "></div>
+                    <div class="prd-price-right prd-promotions ">
+                        <div class="promotions-collapse-wrapper">
+                            <div class="promotions-collapse">
+                                <div class="prd-promotions-red"><label>会员价</label>
+                                       <span id="showVipPrice"><span  id="huiYuanDJ" ></span> 
+                                        <em class="huiYuanTeJia_text"></em>
+                                        <a href="vip_club.html">更多&nbsp;<i id="Discount_money"class="s-arrow">&gt;</i></a></span></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -237,7 +245,7 @@
                     <div class="prd-properties-right fumai"></div>
                 </div>
 
-                <div class="prd-properties-other fuwu m16"  style="margin-top:30px;">
+                <div class="prd-properties-other fuwu m16" style="margin-top:30px;">
                     <label class="prd-properties-left">服　　务</label>
                     <div class="prd-properties-right">
                         <span id="service_bable">由<b class="fwline">国美</b>配送并提供保障监管。</span>
@@ -361,23 +369,23 @@
                 }
 
                 //我的购物车中商品的件数
-                function  showNum(){
-                    $.getJSON("/cart/cartCount",function(result){
+                function showNum() {
+                    $.getJSON("/cart/cartCount", function (result) {
                         $("[name=num]").text(result);
-                        if(result==0){
-                            $("[name=numSpan]").css({"background-color":" #A5A5A5"});
-                        }else{
-                            $("[name=numSpan]").css({"background-color":"#dd00a7"});
+                        if (result == 0) {
+                            $("[name=numSpan]").css({"background-color": " #A5A5A5"});
+                        } else {
+                            $("[name=numSpan]").css({"background-color": "#dd00a7"});
                         }
-                    })   ;
+                    });
                 }
 
-                layui.use(['layer','upload','form'], function() {
+                layui.use(['layer', 'upload', 'form'], function () {
                     var layer = layui.layer,  //弹层
                         $ = layui.jquery;
 
-                $(function () {
-                    var re = GetRequest();
+                    $(function () {
+                        var re = GetRequest();
 
 
                         showNum();
@@ -385,12 +393,12 @@
                         //放大镜效果
 
                         // 绑定鼠标移入原图窗口事件
-                        $("#orig").mouseover(function(e) {
+                        $("#orig").mouseover(function (e) {
                             $(".fd").css("display", "block");
                             $(".blocks").css("display", "block");
                         });
                         //绑定鼠标在原图窗口移动的事件
-                        $("#orig").mousemove(function(e) {
+                        $("#orig").mousemove(function (e) {
                             // 获取鼠标当前的位置
                             var x = e.clientX;
                             var y = e.clientY;
@@ -405,8 +413,8 @@
                             var mh = $(".blocks").height() / 2;
                             // 鼠标移动后小框框的移动距离
                             $(".blocks").css({
-                                left : mx - mw + "px",
-                                top : my - mh + "px"
+                                left: mx - mw + "px",
+                                top: my - mh + "px"
                             });
                             // 获取小框框的偏移位置
                             var lw = $(".blocks").position().left;
@@ -437,12 +445,12 @@
                             var newX = lw * 1.3;
                             var newY = lh * 1.3;
                             $(".fd img").css({
-                                left : -newX + "px",
-                                top : -newY + "px"
+                                left: -newX + "px",
+                                top: -newY + "px"
                             });
                         });
                         //绑定鼠标离开原图窗口事件
-                        $("#orig").mouseout(function() {
+                        $("#orig").mouseout(function () {
                             $(".fd").css("display", "none");
                             $(".blocks").css("display", "none");
                         });
@@ -463,26 +471,26 @@
                                     .attr("src");
                                 var flyer = $("<img style='border-radius:50%;width:80px;heigth:80px;'  src='"
                                     + img + "' >");
-                            /*    flyer.fly({
-                                    //开始位置
-                                    start : {
-                                        left : event.pageX,
-                                        top : event.pageY,
-                                    },
-                                    //结束位置
-                                    end : {
-                                        left : offset.left,
-                                        top : offset.top,
-                                        width : 0, //结束时高度
-                                        height : 0, //结束时宽度
-                                    },
-                                    speed : 1.7, //速度
-                                    //结束回调
-                                    onEnd : function() {
-                                        //销毁抛物体
-                                        this.destory();
-                                    }
-                                });  */
+                                /*    flyer.fly({
+                                        //开始位置
+                                        start : {
+                                            left : event.pageX,
+                                            top : event.pageY,
+                                        },
+                                        //结束位置
+                                        end : {
+                                            left : offset.left,
+                                            top : offset.top,
+                                            width : 0, //结束时高度
+                                            height : 0, //结束时宽度
+                                        },
+                                        speed : 1.7, //速度
+                                        //结束回调
+                                        onEnd : function() {
+                                            //销毁抛物体
+                                            this.destory();
+                                        }
+                                    });  */
 
                                 //添加该商品到购物车
                                 $.getJSON("/cart/saveCart", {
@@ -492,9 +500,9 @@
                                     "total": total
                                 }, function (result) {
                                     layer.msg("加入购物车成功");
-                                    if(result.msg=="新增到购物车"){
+                                    if (result.msg == "新增到购物车") {
                                         //如果购物车内没有该商品,则购物车内商品的件数加1
-                                        $("[name=num]").text(parseInt($("[name=num]").text())+1);
+                                        $("[name=num]").text(parseInt($("[name=num]").text()) + 1);
                                     }
                                     showNum();
                                 });
@@ -502,7 +510,7 @@
                             })
 
 
-                   });
+                    });
 
                 })
 
