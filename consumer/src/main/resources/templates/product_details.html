@@ -231,7 +231,7 @@
                                 <div class="prd-promotions-red"><label>会员价</label>
                                        <span id="showVipPrice"><span  id="huiYuanDJ" ></span> 
                                         <em class="huiYuanTeJia_text"></em>
-                                        <a href="vip_club.html">更多&nbsp;<i id="Discount_money"class="s-arrow">&gt;</i></a></span></div>
+                                       </span></div>
                             </div>
                         </div>
                     </div>
@@ -475,7 +475,14 @@
                             .click(function () {
 
                                 var num = $("#enterQty").val();
-                                var price = $("#prdPrice span[name='price']").text();
+                                var price;
+                              var  vipPrice= $("[name=vipPrice]").text();
+
+if(vipPrice==''){
+    price = $("#prdPrice span[name='price']").text();
+}else{
+    price= vipPrice;
+}
                                 var total = num * price;
 
                                 var img = $("div.jqzoom").children("img")
