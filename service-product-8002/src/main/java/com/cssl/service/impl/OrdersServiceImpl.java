@@ -1,19 +1,25 @@
 package com.cssl.service.impl;
 
+import com.cssl.entity.Goods;
+import com.cssl.entity.OrderDetail;
 import com.cssl.entity.Orders;
 import com.cssl.mapper.OrdersMapper;
+import com.cssl.service.Order_detailService;
 import com.cssl.service.OrdersService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cssl.util.GenerateNum;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author lx
@@ -21,9 +27,11 @@ import java.util.*;
  */
 @Service
 public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> implements OrdersService {
-   @Autowired
-   private OrdersMapper ordersMapper;
+    @Autowired
+    private OrdersMapper ordersMapper;
 
+    @Autowired
+    private Order_detailService orderDetailService;
 
     @Override
     public Page<Map<String, Object>> findOrdersByUserId(Map<String, Object> map) {
@@ -43,11 +51,47 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     public List<Map<String, Object>> findTotal(Integer uid) {
         return ordersMapper.findTotal(uid);
     }
-      //根据订单编号查收货信息
+
+    //根据订单编号查收货信息
     @Override
     public Map<String, Object> findAddressByOrder(Integer oid) {
         return ordersMapper.findAddressByOrder(oid);
     }
+
+    @Override
+    public boolean addOrder(Map<String, Object> map) {
+        boolean res = false;
+        Orders orders = new Orders();
+        orders.setUserId(Integer.valueOf(map.get("uid").toString()));
+        orders.setAddressId(Integer.valueOf(map.get("aid").toString()));
+        orders.setOrderTime(new Date());
+        orders.setStatus(1);
+        orders.setOrderNo(GenerateNum.getInstance().GenerateOrder());
+        double totalMoney = 0;
+        List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("list");
+        for (Map m : list) {
+            totalMoney += (double) m.get("price") * (int) m.get("num");
+        }
+        BigDecimal decimal = new BigDecimal(totalMoney);
+        orders.setTotal(decimal.setScale(2, BigDecimal.ROUND_HALF_UP));
+        int result = ordersMapper.addOrder(orders);
+        if (result > 0) { //订单下单成功
+            for (Map m : list) {
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.setGoodsId(Integer.valueOf(m.get("gid").toString()));
+                orderDetail.setOrderId(orders.getId());
+                orderDetail.setNum(Integer.valueOf(m.get("num").toString()));
+                double money = Integer.valueOf(m.get("num").toString()) * Double.valueOf(m.get("price").toString());
+                BigDecimal decimal2 = new BigDecimal(money);
+                orders.setTotal(decimal2.setScale(2, BigDecimal.ROUND_HALF_UP));
+                orderDetail.setMoney(decimal2);
+                orderDetailService.save(orderDetail);
+            }
+            res = true;
+        }
+        return res;
+    }
+
 
     @Override
     public List<Map<String, Object>> byGoodId(String order_no) {
@@ -138,17 +182,17 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             list4.add((String) i.get("times"));
         }
 
-       if(list2.size()!=xcontent.size()){
-           data2 = differenceSet(xcontent, list2, data2);
-       }
-        if(list3.size()!=xcontent.size()){
+        if (list2.size() != xcontent.size()) {
+            data2 = differenceSet(xcontent, list2, data2);
+        }
+        if (list3.size() != xcontent.size()) {
             data3 = differenceSet(xcontent, list3, data3);
         }
-        if(list4.size()!=xcontent.size()){
+        if (list4.size() != xcontent.size()) {
             data4 = differenceSet(xcontent, list4, data4);
         }
 
-        System.out.println("data3:"+data3);
+        System.out.println("data3:" + data3);
         map1.put("data", data1);
         map2.put("data", data2);
         map3.put("data", data3);
@@ -166,15 +210,16 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
 
         return list;
     }
+
     //求差集返回差集所在位置
     private List<Object> differenceSet(List<String> list1, List<String> list2, List<Object> data) {
         List<String> exists = new ArrayList<String>(list1);
         //求差集
-         exists.removeAll(list2);
-        System.out.println("exists:"+exists);
+        exists.removeAll(list2);
+        System.out.println("exists:" + exists);
         //查询差集得所在位置
         List<Object> existss = new ArrayList<Object>();
-        if(list2.size()>0){
+        if (list2.size() > 0) {
             for (int i = 0; i < list1.size(); i++) {
                 for (int j = 0; j < exists.size(); j++) {
                     if (list1.get(i).equals(exists.get(j))) {
@@ -183,30 +228,31 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                 }
             }
         }
-        List<Object>datas= Arrays.asList(new Integer[list1.size()]);
+        List<Object> datas = Arrays.asList(new Integer[list1.size()]);
         List<Object> arrList = new ArrayList(datas);
-        if(data.size()>0){
-            for(int  n=0;n<data.size();n++){
-                arrList.set(n,data.get(n));
+        if (data.size() > 0) {
+            for (int n = 0; n < data.size(); n++) {
+                arrList.set(n, data.get(n));
             }
         }
 
-        if(existss.size()>0){
+        if (existss.size() > 0) {
             for (int k = 0; k < existss.size(); k++) {
                 arrList.add((int) existss.get(k), 0);
             }
             //去除null
-            for(int k=0;k<arrList.size();k++){
+            for (int k = 0; k < arrList.size(); k++) {
                 arrList.remove(null);
             }
-        }else{
-            for(int i = 0; i < list1.size(); i++){
-                arrList.set(i,0);
+        } else {
+            for (int i = 0; i < list1.size(); i++) {
+                arrList.set(i, 0);
             }
         }
 
         return arrList;
     }
+
     @Override
     public List<Map<String, Object>> weekOrder() {
         List<Map<String, Object>> list = new ArrayList<>();
@@ -257,7 +303,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     }
 
     @Override
-    public Page<Map<String,Object>> orderDetail(String order_no,int pageIndex,int pageSize) {
+    public Page<Map<String, Object>> orderDetail(String order_no, int pageIndex, int pageSize) {
         Page<Map<String, Object>> page = PageHelper.startPage(pageIndex, pageSize);
         ordersMapper.orderDetail(order_no);
         return page;

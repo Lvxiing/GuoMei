@@ -25,6 +25,8 @@ public interface OrdersMapper extends BaseMapper<Orders> {
     public List<Map<String,Object>> findTotal(Integer uid);
     //根据订单号查询地址表的相关信息
    public Map<String,Object> findAddressByOrder(Integer oid);
+    //新增订单
+    int addOrder(Orders orders);
     //-----------------------后台---------------------------
     //根据订单编号查询用户id，商品id,订单id
     public List<Map<String,Object>>byGoodId(String order_no);
@@ -52,4 +54,5 @@ public interface OrdersMapper extends BaseMapper<Orders> {
     public  List<Map<String,Object>> weekUnpaidAmount ();
     //查看订单详情信息
     public List<Map<String,Object>>orderDetail(String order_no);
+
 }

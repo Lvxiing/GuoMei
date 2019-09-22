@@ -52,9 +52,16 @@ public class OrdersController {
     @ResponseBody
     public Map<String, Object> orderInfo(@RequestParam("uid") Integer uid, @RequestParam Map<String, Object> map) {
         Map<String, Object> data = new HashMap<>();
+        data.put("goods",packData(map.get("goodsId").toString(),map.get("num").toString()));
+        data.put("uid",uid);
+        return data;
+    }
+
+    //封装数据
+    public List<Map<String,Object>> packData(String goodsId,String nums){
         List<Map<String, Object>> goodsList = new ArrayList<>();
-        String[] gid = map.get("goodsId").toString().split(",");
-        String[] num = map.get("num").toString().split(",");
+        String[] gid = goodsId.split(",");
+        String[] num = nums.split(",");
         for (int i = 0; i < gid.length; i++) {
             Goods goods = goodsService.getOne(new QueryWrapper<Goods>().eq("goods_id",gid[i]));
             Map<String,Object> param = new HashMap<>();
@@ -65,11 +72,23 @@ public class OrdersController {
             param.put("num",num[i]);
             goodsList.add(param);
         }
-        data.put("goods",goodsList);
-        data.put("uid",uid);
-        return data;
+        return goodsList;
     }
 
+    //用户下单
+    @RequestMapping("addOrders")
+    @ResponseBody
+    public String addOrders(@RequestParam Map<String,Object> map){
+        List<Map<String, Object>> list = packData(map.get("goodsId").toString(), map.get("num").toString());
+        map.put("list",list);
+        boolean b =ordersService.addOrder(map);
+        String json ;
+        if(b){
+            json = "{\"code\":\"yes\"}";
+            return  json;
+        }
+        return "{\"code\":\"no\"}";
+    }
 
     //用户订单
     @RequestMapping("findOrdersByUserId")
