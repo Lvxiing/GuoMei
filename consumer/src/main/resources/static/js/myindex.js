@@ -59,3 +59,8 @@ function findOrdersDetail(order_no,order_id) {
 function noData() {
    var p="<p class='myGome-empty-order'>您还没有订单记录，快<a target='_blank' href='index.html'>去逛逛</a>吧</p>";
 }
+
+//足迹
+function foot() {
+    
+}
