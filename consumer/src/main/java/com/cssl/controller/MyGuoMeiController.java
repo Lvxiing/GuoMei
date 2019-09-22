@@ -1,5 +1,6 @@
 package com.cssl.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.api.ProductFeignInterface;
 import com.cssl.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,5 +117,12 @@ public class MyGuoMeiController {
     @ResponseBody
     public List<Address> showAddress(@RequestParam(value = "userid") Integer uId){
         return productFeignInterface.showAddress(uId);
+    }
+
+    //查询当前用户是否有收获地址
+    @RequestMapping("selectAddressExist")
+    @ResponseBody
+    public  String selectAddressExist(@RequestParam("uid") Integer uid){
+        return productFeignInterface.selectAddressExist(uid);
     }
 }
