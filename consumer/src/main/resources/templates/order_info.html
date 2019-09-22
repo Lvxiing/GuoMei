@@ -921,12 +921,12 @@
                 }
                 var li1 = "<li class='addr-box addr-box-add' new-address='' id='addAddress'> <div class='addr-box-content'> <div class='add-content'><div class='add-add'>+</div><div class='add-title'>添加新地址</div></div></div></li>";
                 $("ul.addname").append(li1);
-                orderAddress(json[0]);//默认加载第一个
+                orderAddress(json[0],json[0].id);//默认加载第一个
             });
 
         }
 
-        function orderAddress(json){
+        function orderAddress(json,id){
             //加载页面后,提交订单显示默认地址
             var myPhone = json.phone;
             myPhone = myPhone.replace(reg, function(a, b, c, d) {
@@ -940,7 +940,7 @@
             add +="</div>";
             add +="<div class='text-right mb15 mr8'>";
             add +="<span class='name_over3'>收货人："+json.userName+"</span>&nbsp;";
-            add +="<span class='mr10 name_over4'>"+myPhone+"</span>";
+            add +="<span class='mr10 name_over4'>"+myPhone+"</span><input id='aid'  type='hidden' value='"+id+"'>";
             add +="</div>";
             $("div.ds_address ").append(add);
         }
@@ -950,7 +950,7 @@
             var aid = $(this).attr("aid");
 
             $.getJSON("myGuoMei/showAddress?aid="+aid,function(json){
-                orderAddress(json[0]);
+                orderAddress(json[0],aid);
             });
         });
         $("body").on('click', '.addr-box-add', function (){
@@ -995,6 +995,11 @@
 <script type="text/javascript">
     $(function () {
         goodsList();
+        $("#id_commit").click(function(){
+            var url = GetRequest();
+            var aid=$("#aid").val(); //收获地址id
+
+        });
     });
 
     function goodsList() {
