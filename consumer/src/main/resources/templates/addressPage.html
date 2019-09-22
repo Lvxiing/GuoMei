@@ -704,7 +704,7 @@
                 for (var i = 0; i < json.length; i++) {
                     var subCate = json[i];
                     var tr = "";
-                    tr += "<tr class='s-def s-tr-d s-tr-bg item'>";
+                    tr += "<tr class='s-def s-tr-d s-tr-bg item showAction'>";
                     //设置为默认地址,前面显示一个图片,样式为display:inline-block 否则display-none
                     if (subCate.isdefault == 1) {
                         tr += "<td class='tIcon'><i class='icon-right'></i></td>";
@@ -724,7 +724,7 @@
                     }
                     // tr +="<div class='dk-show'><a href='javascript:;' class='clink j-info-edit'>修改</a>";
                     // tr +="<span>|</span> <a href='javascript:;' class='clink j-info-remove'>删除</a></div>";
-                    tr += "<div class='h-show'><a href='javascript:;' class='clink j-set-def'>设为默认地址</a>";
+                    tr += "<div class='h-show' name='"+subCate.isdefault+"'><a href='javascript:;' class='clink j-set-def'>设为默认地址</a>";
                     tr += "<span>|</span> <a href='javascript:;' class='clink j-info-edit'>修改</a>";
                     tr += "<span>|</span> <a href='javascript:;' class='clink j-info-remove'>删除</a></div>";
                     // tr += "<div class='k-show'><a href='javascript:;' class='clink j-set-def'>设为默认地址</a>";
@@ -736,7 +736,12 @@
                 }
             })
         }
-
+        $("body").on('hover','.showAction',function () {
+            var sss =$("div.h-show").attr("name");
+            if(sss != 1){
+                $("div.h-show").css("display","block")
+            }
+        });
         //显示地址
         $("#addAdrs").click(function () {
             $(".address-dl").show();
