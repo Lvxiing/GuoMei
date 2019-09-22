@@ -55,7 +55,7 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
 
     //登录:验证手机验证码
     @RequestMapping("/verfiy")
-    public String login(@RequestParam("phoneNum") String phoneNum, @RequestParam("code") String code, HttpSession session) {
+    public String login(@RequestParam("phoneNum") String phoneNum, @RequestParam("code") String code, HttpSession session) throws Exception{
         System.out.println("phoneNum:" + phoneNum + "," + "code:" + code);
         Map<String, String> hm = userFeignInterface.login(phoneNum, code);
         System.out.println("mess:" + hm.get("mess"));
@@ -72,24 +72,19 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
             String loginTime = sdf.format(u.getLoginTime());
             //当前系统时间
             String nowDate = sdf.format(System.currentTimeMillis());
+            int days = (int) ((sdf.parse(nowDate).getTime() - sdf.parse(loginTime).getTime()) / (1000*3600*24));
             //用户当日注册当日登录
             //每日首次登录加成长值
-            if (!loginTime.equals(nowDate)) {
+            if (days!=1) {
                 int ucount = userFeignInterface.updateGrowupSum(map);
                 int scount = userFeignInterface.saveGrowupdetail(map);
                 //将此次获得的成长值详细说明存入redis中
                 Map desMap = userFeignInterface.detailDescription();
                 Object gdetailId = desMap.get("gdetailId");
                 Object userPhone = desMap.get("userPhone");
-                Object gdetailTime = desMap.get("gdetailTime");
-                try {
-                    Date parse = sdf.parse(gdetailTime.toString());
-                    redisFeignInterface.set(gdetailId.toString(),"登录账户:"+userPhone+",登录时间:"+ sdf.format(parse),-1);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                    redisFeignInterface.set(gdetailId.toString(), "登录账户:" + userPhone + ",登录时间:" + nowDate, -1);
+
             }
-            u.setLoginTime(new Date());
             boolean b = userFeignInterface.updateLoginTime(u);
             System.out.println("sessionUser:" + session.getAttribute("user"));
             return "redirect:/index.html";
@@ -133,15 +128,11 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
 //将此次获得的成长值详细说明存入redis中
             Map desMap = userFeignInterface.detailDescription();
             Object gdetailId = desMap.get("gdetailId");
-            Object userTime = desMap.get("userTime");
             //时间格式转换
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                Date parse = sdf.parse(userTime.toString());
-                redisFeignInterface.set(gdetailId.toString(),"注册时间:"+sdf.format(parse),-1);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            String nowDate = sdf.format(System.currentTimeMillis());
+                redisFeignInterface.set(gdetailId.toString(),"注册时间:"+nowDate,-1);
+
         }
         return pd;
     }
