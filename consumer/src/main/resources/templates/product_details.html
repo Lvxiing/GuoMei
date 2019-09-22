@@ -195,12 +195,12 @@
             <div class="prd-price-other line33 p20  clearfix">
                 <label class="prd-price-left">国&nbsp;&nbsp;美&nbsp;&nbsp;价</label>
                 <div class="unitprice prd-price-right">
-                    <span id="prdPrice" class="price">00</span>
+                    <span id="prdPrice" class="price">0.00</span>
                 </div>
                 <div class="prd-price-flr">
                     <div class="prd-price-line">|</div>
                     <div class="prd-price-lineright">
-                        <p>好评度<em id="haocnt">100%</em></p>
+                        <p>好评度<em id="haocnt">0%</em></p>
                         <p class="pincnt"><a href="javascript:;" class="reduce" id="goappr"><em
                                 id="pincnt">0</em>人评价</a></p>
                     </div>
@@ -454,6 +454,7 @@
                         //该商品的图片由小圆球形状飞入到购物车内
                         $("#addCart")
                             .click(function () {
+
                                 var num = $("#enterQty").val();
                                 var price = $("#prdPrice span[name='price']").text();
                                 var total = num * price;
@@ -462,7 +463,7 @@
                                     .attr("src");
                                 var flyer = $("<img style='border-radius:50%;width:80px;heigth:80px;'  src='"
                                     + img + "' >");
-                                flyer.fly({
+                            /*    flyer.fly({
                                     //开始位置
                                     start : {
                                         left : event.pageX,
@@ -481,7 +482,8 @@
                                         //销毁抛物体
                                         this.destory();
                                     }
-                                });
+                                });  */
+
                                 //添加该商品到购物车
                                 $.getJSON("/cart/saveCart", {
                                     "goodsId": re.gid,

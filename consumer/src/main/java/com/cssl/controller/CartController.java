@@ -6,6 +6,7 @@ import com.cssl.api.UserFeignInterface;
 import com.cssl.entity.Cart;
 import com.cssl.entity.Collections;
 import com.cssl.entity.Users;
+import com.cssl.entity.VipGoods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,7 +52,7 @@ public class CartController {
     @ResponseBody
     List<Map> cartAllGoodsByUserId(HttpSession session) {
         Users users = (Users) session.getAttribute("user");
-        return userFeignInterface.cartAllGoodsByUserId(users.getId());
+        return  userFeignInterface.cartAllGoodsByUserId(users.getId());
     }
 
     //确定购买,要生成订单的商品和数量
@@ -66,7 +67,6 @@ public class CartController {
             toBuyList.add(cart);
         }
         //还需把这些确定购买,要生成订单的商品从我的购物车中删除
-
 
         return toBuyList;
     }
@@ -114,7 +114,12 @@ public class CartController {
         return userFeignInterface.findIfCollected(map);
     }
 
-
+    //判断该商品是否是会员专享价格
+    @RequestMapping("/ifVipGoods/{goodsId}")
+    @ResponseBody
+    public VipGoods ifVipGoods(@PathVariable("goodsId") Integer goodsId){
+        return userFeignInterface.ifVipGoods(goodsId);
+    }
 
 
 

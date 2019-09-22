@@ -34,6 +34,8 @@
           href="//css.gomein.net.cn/??gmpro/2.0.0/memberClub/1.2.2/css/common/h_b_c.css,gmpro/2.0.0/memberClub/1.2.2/css/common/vipMainHeader.css,gmpro/1.0.0/cart/1.0.0/css/headCart.min.css,gmpro/2.0.0/memberClub/1.2.2/css/common/mygome_new.css,gmpro/2.0.0/memberClub/1.2.2/css/common/pager.css,gmpro/2.0.0/memberClub/1.2.2/css/memberClub/membersClub.css">
 
     <script src="js/jquery-1.8.3.js"></script>
+    <script src="layui/layui.js"></script>
+    <link rel="stylesheet" href="layui/css/layui.css">
 
 </head>
 <body class="memberClub">
@@ -84,6 +86,39 @@
                     </ul>
                 </li>
             </ul>
+
+
+            <div class="mygome-side" data-cart="mincart">
+                <ul class="topmenu clearfix">
+                    <li class="shopcartbox"><span class="cartlinkbox">
+                <a data-code="public03004" rel="nofollow" class="menulink cartlink" id="a" href="car.html"><em
+                        class="i-cart"><span class="shopnum" name="numSpan"><span
+                        id="commerceItemQuantityId" name="num">0</span><i></i></span></em><span
+                        id="hdrcarttext">我的购物车</span></a></span>
+
+                    </li>
+                </ul>
+            </div>
+
+            <script type="text/javascript">
+
+                //我的购物车中商品的件数
+                function  showNum(){
+                    $.getJSON("/cart/cartCount",function(result){
+                        $("[name=num]").text(result);
+                        if(result==0){
+                            $("[name=numSpan]").css({"background-color":" #A5A5A5"});
+                        }else{
+                            $("[name=numSpan]").css({"background-color":"#dd00a7"});
+                        }
+                    })   ;
+                }
+
+                $(function() {
+                    showNum();
+                });
+
+            </script>
 
 
 
@@ -156,14 +191,6 @@
 
 
                 $(function () {
-
-                    //一加载就得到session中的用户
-                    $.getJSON("/users/getSessionUser", function (json) {
-                        var li;
-                        li = ' <li id="gome-user" data-load="user" class="" data-open="true"  > <b id="loginDiv-name">Hi,&nbsp;<a data-code="public01054" href="vip_club.html" target="_blank">  <span  style="display: none;" id="userId">' + json.id + '</span>  <span class="sign-top-member-name" >' + json.userName + '</span></a></b>  </li>  <li  class="gome-link"   >  <a rel="nofollow" data-code="public01035" class="gome-link-logout" href="/users/outUser">退出</a> </li>';
-
-                        $("li#gome-entry-link").after(li);
-                    });
 
                     //显示该会员信息
                     $.getJSON("/users/findVip", function (result) {
@@ -694,6 +721,7 @@
 </script>
 
 <script type="text/javascript">
+
     $(function () {
         var pageSize = 2;
         var gid;
@@ -750,12 +778,13 @@
                     var cate = json[i];
                     var li = "";
                     li += "<li class='club-item'>";
-                    li += "<a type='1' target='_blank' class='pic' href='product_details.html?gid=" + cate.goods_id + "&vip=yes'>";
+                    li+="<span name='goodsId' style='display:none;'>"+cate.goods_id+"</span>";
+                    li += "<a type='1' target='_blank' class='pic' href='product_details.html?gid=" + cate.goods_id + "&vip=yes' >";
                     li += "<img width='160' height='160' alt='" + cate.goods_title + "' src='" + cate.goods_main_img + "'>";
                     li += "</a>";
                     li += "<p class='name'>";
                     li += "<a href='product_details.html?gid=" + cate.goods_id + "&vip=yes' title='" + cate.goods_title + "' target='_blank'>" + cate.goods_title + "</a>";
-                    li += "<p class='price'><span class='vipPrice'>会员价：<b class='highlight '>¥" + (cate.goods_price - cate.discount_money) + "</b></span></p>";
+                    li += "<p class='price'><span class='vipPrice'>会员价：<b class='highlight '>¥<span  name='vipPrice'>" + (cate.goods_price - cate.discount_money) + "</span></b></span></p>";
                     li += "<p class='price'><span class='gmPrice'>国美价：<b class='delete'>¥" + cate.goods_price + "</b></span></p>";
                     li += "<p class='conditions clearfix'>";
                     if(cate.grade_name == "G1"){
@@ -770,13 +799,63 @@
                         li +="<i class='ic gmlv5'></i>"
                     }
 
-                    li += "<span class='fl'>" + cate.grade_name + "会员专享价</span></p>";
+                    li += "<span class='fl'><span name='gradeName'>" + cate.grade_name + "</span>会员专享价</span></p>";
                     li += "<span class='go-buy' shop_flag='1' >加入购物车</span>";
                     li += "</li>";
                     $("ul.club-items-box").append(li);
                 }
             })
         }
+
+
+
+
+        layui.use(['layer','upload','form'], function() {
+            var layer = layui.layer,  //弹层
+                $ = layui.jquery;
+
+//加入购物车
+        $("ul.club-items-box").on("click",".go-buy",function() {
+          var gradeName=  $("#gradeName").text();
+          var grade=  $(this).parents("li.club-item").find("[name='gradeName']").text();
+            var goodsId=  $(this).parents("li.club-item").find("[name='goodsId']").text();
+if (gradeName!=grade){
+    layer.msg("您的会员等级不匹配享受此等级的会员价哦", { btn: ['知道了','国美价购买']
+        ,btn2: function(){
+          location.href="product_details.html?gid="+goodsId;
+        }
+    });
+    return false;
+}else{
+    var goodsId = $(this).parents("li.club-item").find("[name='goodsId']").text();
+    var vipPrice = $(this).parents("li.club-item").find("[name='vipPrice']").text();
+//默认加入数量为1
+    var num = 1;
+    var total = parseInt(num) * vipPrice;
+
+    //添加会员专享价商品到购物车
+    $.getJSON("/cart/saveCart", {
+        "goodsId": goodsId,
+        "num": num,
+        "price": vipPrice,
+        "total": total
+    }, function (result) {
+        layer.msg("加入购物车成功");
+        if (result.msg == "新增到购物车") {
+            //如果购物车内没有该商品,则购物车内商品的件数加1
+            $("[name=num]").text(parseInt($("[name=num]").text()) + 1);
+        }
+        showNum();
+    });
+}
+        });
+
+
+
+
+
+        });
+
 
 
 

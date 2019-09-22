@@ -185,14 +185,6 @@
 
     $(function () {
 
-        //一加载就得到session中的用户
-        $.getJSON("/users/getSessionUser", function (json) {
-            var li;
-            li = ' <li id="gome-user" data-load="user" class="" data-open="true"  > <b id="loginDiv-name">Hi,&nbsp;<a data-code="public01054" href="vip_club.html" target="_blank">  <span  style="display: none;" id="userId">' + json.id + '</span>  <span class="sign-top-member-name" >' + json.userName + '</span></a></b>  </li>  <li  class="gome-link"   >  <a rel="nofollow" data-code="public01035" class="gome-link-logout" href="/users/outUser">退出</a> </li>';
-
-            $("li#gome-entry-link").after(li);
-        })
-
 
         //显示该会员信息
         $.getJSON("/users/findVip",function(result){

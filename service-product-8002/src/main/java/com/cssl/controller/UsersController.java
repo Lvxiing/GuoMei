@@ -1,9 +1,13 @@
 package com.cssl.controller;
 
 
+import com.cssl.entity.Users;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * <p>
@@ -13,8 +17,10 @@ import org.springframework.stereotype.Controller;
  * @author lx
  * @since 2019-09-10
  */
-@Controller
+@RestController
 @RequestMapping("/users")
 public class UsersController {
+
+
 
 }

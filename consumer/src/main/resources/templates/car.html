@@ -109,11 +109,11 @@
                 <div class="cart-col-3 mlf14"></div>
                 <div class="cart-col-4 cart-totle-price  pl84 ">
                     <div g-hoverup-obj="" class="cart-bottom-selectgood"> 已选 <span
-                            class="cart-price-red selected-price">      <span name="sumNum">1</span>         </span> 件商品 </div>
+                            class="cart-price-red selected-price">      <span name="sumNum">0</span>         </span> 件商品 </div>
                     <div class="bottom-total-pirce">
                         <dl>
                             <dt> 总计（不含运费）：</dt>
-                            <dd class="cart-price-red ffyh" style="font-size:18px;font-weight:900;">￥<span name="sumPrice">16.00</span></dd>
+                            <dd class="cart-price-red ffyh" style="font-size:18px;font-weight:900;">￥<span name="sumPrice">0.00</span></dd>
                         </dl>
                     </div>
                 </div>
@@ -139,6 +139,7 @@
 
     //显示我的购物车里的商品
    function  show(){
+
 $.getJSON("/cart/cartAllGoodsByUserId",function (json) {
     $("#container>div").remove();
     //购物车内暂无商品
@@ -147,208 +148,227 @@ $.getJSON("/cart/cartAllGoodsByUserId",function (json) {
         $("#container").append(empty);
     } else{
     for (var i = 0; i < json.length; i++){
-        var div='<div class="cart-shop-goods cart-shop-goods-normal" style="margin-top: 10px;" name="goodDiv"> <div class="cart-shop-good                        clearfix            cart-shop-good-common                        cart-item-last           " data-good="true" data-sid="pop8012883715" data-pid="A0006581765" bigdata-pid="A0006581765" >                      <div class="cart-col-1                border-top         ">            <div act-check-item="" gui-checkbox="" gui-class-unchecked="good-checkboxs-no" gui-class-checked="c-i checkbox_chose" gui-class-disabled="no_check" data-cid="5504926502" class="good-checkboxs-no" name="goodCheckDiv">      <input type="checkbox" name="good" path="0.commerceItemsGroups.0.commerceItemsGroup.0" value="5504926502" data-save="true" >     </div>          </div> <div class="cart-col-2" style="height: 82px;">  <p name="goodsId" style="display:none;">'+json[i].goodsId+'</p>  <a href="product_details.html?gid='+json[i].goodsId+'" target="_blank" class="g-img">        <img src="'+json[i].goodsMainImg+'" alt="">           </a>  </div>  <div class="fl">   <div class="clearfix">    <div style="" class="cart-col-3">     <div class="cart-good-name">            <a href="product_details.html?gid='+json[i].goodsId+'" target="_blank" title="'+json[i].goodsTitle+'">                     '+json[i].goodsTitle+'  </a>     </div>     <div class="support-server clearfix">                        </div>                      </div>                      <div class="cart-col-8">                      </div>                 <div class="cart-col-4 cart-price-height47">     <div class="cart-good-real-price ">                ¥&nbsp;   <span name="price">'+json[i].goodsPrice+'  </span>                        </div>               <div class="red">           </div>             </div>   <div class="cart-col-5">                                                                <div gui-count="" click-document-pre="" gui-count-min="1" gui-count-animate="1" gui-count-change-interval="1000" act-change-count="" data-cid="5505891616" data-limit="99" data-sku="pop8012883715" class="gui-count cart-count" data-limit-pop8012883715-a0006581765="99">                                            <a href="javascript:;" gui-count-sub="" class="gui-count-btn gui-count-sub" name="sub">-</a><a href="javascript:;" gui-count-add="" class="gui-count-btn gui-count-add" name="add">+</a><div class="gui-count-input"><input dytest="" class="dytest " type="text" value="'+json[i].cartNum+'" name="num"></div></div>                                                                                                                                                                                                             </div>  <div class="cart-col-6 ">      <div class="cart-good-amount">    ¥&nbsp;<span name="totalPrice" style="    right: 35px;top:0px;">'+json[i].cartTotal+'</span>      </div>         </div>  </div>  <div class="cart-good-box">         &nbsp;         </div>  </div>  <div class="cart-col-7">       <div class="cart-good-fun delfixed">     <a href="javascript:;" act-remove-item="" path="3.commerceItemsGroups.0.commerceItemsGroup.0" data-sku="pop8012883715" data-save="true" name="del" style="color: #e3101e;">     删除     </a>    </div>              <div class="cart-good-fun">     <a href="javascript:" act-add-wishlist="" path="3.commerceItemsGroups.0.commerceItemsGroup.0" name="toCollect">      移入收藏夹</a>    </div>               </div>          </div></div>';
+        var div='<div class="cart-shop-goods cart-shop-goods-normal" style="margin-top: 10px;" name="goodDiv"> <div class="cart-shop-good                        clearfix            cart-shop-good-common                        cart-item-last           " data-good="true" data-sid="pop8012883715" data-pid="A0006581765" bigdata-pid="A0006581765" >                      <div class="cart-col-1                border-top         ">            <div act-check-item="" gui-checkbox="" gui-class-unchecked="good-checkboxs-no" gui-class-checked="c-i checkbox_chose" gui-class-disabled="no_check" data-cid="5504926502" class="good-checkboxs-no" name="goodCheckDiv">      <input type="checkbox" name="good" path="0.commerceItemsGroups.0.commerceItemsGroup.0" value="5504926502" data-save="true" >     </div>          </div> <div class="cart-col-2" style="height: 82px;">  <p name="goodsId" style="display:none;"  help="'+json[i].goodsId+'"  >'+json[i].goodsId+'</p>  <a href="product_details.html?gid='+json[i].goodsId+'" target="_blank" class="g-img">        <img src="'+json[i].goodsMainImg+'" alt="">           </a>  </div>  <div class="fl">   <div class="clearfix">    <div style="" class="cart-col-3">     <div class="cart-good-name">            <a href="product_details.html?gid='+json[i].goodsId+'" target="_blank" title="'+json[i].goodsTitle+'">                     '+json[i].goodsTitle+'  </a>     </div>     <div class="support-server clearfix">                        </div>                      </div>                      <div class="cart-col-8">                      </div>                 <div class="cart-col-4 cart-price-height47">     <div class="cart-good-real-price ">                ¥&nbsp;   <span name="price">'+json[i].goodsPrice+'.00  </span>                        </div>  <div class="red" name="vipPrice">   </div>  </div>   <div class="cart-col-5">                                                                <div gui-count="" click-document-pre="" gui-count-min="1" gui-count-animate="1" gui-count-change-interval="1000" act-change-count="" data-cid="5505891616" data-limit="99" data-sku="pop8012883715" class="gui-count cart-count" data-limit-pop8012883715-a0006581765="99">                                            <a href="javascript:;" gui-count-sub="" class="gui-count-btn gui-count-sub" name="sub">-</a><a href="javascript:;" gui-count-add="" class="gui-count-btn gui-count-add" name="add">+</a><div class="gui-count-input"><input dytest="" class="dytest " type="text" value="'+json[i].cartNum+'" name="num"></div></div>                                                                                                                                                                                                             </div>  <div class="cart-col-6 ">      <div class="cart-good-amount">    ¥&nbsp;<span name="totalPrice" >'+json[i].cartTotal+'.00</span>      </div>         </div>  </div>  <div class="cart-good-box">         &nbsp;         </div>  </div>  <div class="cart-col-7">       <div class="cart-good-fun delfixed">     <a href="javascript:;" act-remove-item="" path="3.commerceItemsGroups.0.commerceItemsGroup.0" data-sku="pop8012883715" data-save="true" name="del" style="color: #e3101e;">     删除     </a>    </div>              <div class="cart-good-fun">     <a href="javascript:" act-add-wishlist="" path="3.commerceItemsGroups.0.commerceItemsGroup.0" name="toCollect">      移入收藏夹</a>    </div>               </div>          </div></div>';
         $("#container").append(div);
-    }
-    }
+
+
+        //判断是否是会员价商品
+        $.ajax({
+            type : "POST",
+            async : false,
+            url : "/cart/ifVipGoods/"+json[i].goodsId,
+            dataType : "json",
+            success : function(result) {
+if (result!=null) {
+        $("[help="+result.goodsId+"]").parents("[name=goodDiv]").find("[name='vipPrice']").text("会员价");
+}
+}
 });
-   }
 
-        $(function(){
 
-            //一加载就显示
-            show();
 
-        //点击"全选"checkbox
-        $("input[name=allCheck]").click(function(){
-            if($("input[name=allCheck]").get(0).checked){   //全选
-                $("[name=goodDiv]").each(function(i,item){
-                    $(item).find("input[name='good']").get(0).checked=true;
-                });
-            }else{             //取消全选
-                $("[name=goodDiv]").each(function(i,item){
-                    $(item).find("input[name='good']").get(0).checked=false;
-                });
-            }
-            getSum();
-        });
 
-        //点击每个商品前的checkbox
-        $("#container").on("click","input[name='good']",function(){
-            var length=$("[name=goodDiv]  input[name='good']").length;
-            var checkl=$("[name=goodDiv]  input[name='good']:checked").length;
-            //如果所有商品前的checkbox都被选中,则"全选"checkbox被选中
-            //如果有一个商品前的checkbox取消了选中,则"全选"checkbox也取消选中
-            if(length==checkl){
-                $("input[name=allCheck]").get(0).checked=true;
-            }else{
-                $("input[name=allCheck]").get(0).checked=false;
-            }
-            getSum();
-        });
+}
+}
+});
 
-        //点击"-",减少购买数量
-        $("#container").on("click","[name=sub]",function(){
-            var count=$(this).next().next().find("[name=num]").val();
-            //购买数量已是1时,则不能再减少
-            if(count==1){
-                $(this).attr("class","gui-count-btn gui-count-sub gui-count-disabled");
-                return false;
-            }
-            count=parseInt(count)-1;
-            $(this).next().next().find("[name=num]").val(count);
-            getSum();
-            var price= $(this).parents("[name=goodDiv]").find("[name=price]").text();
-            var totalPrice=count*price;
-            $(this).parents("[name=goodDiv]").find("[name=totalPrice]").text(totalPrice);
+}
 
-        });
+$(function(){
 
-        //点击"+",增加购买数量
-        $("#container").on("click","[name=add]",function(){
-            $(this).prev().attr("class","gui-count-btn gui-count-sub");
-            var count=$(this).next().find("[name=num]").val();
-            count=parseInt(count)+1;
-            $(this).next().find("[name=num]").val(count);
-            getSum();
-            var price= $(this).parents("[name=goodDiv]").find("[name=price]").text();
-            var totalPrice=count*price;
-            $(this).parents("[name=goodDiv]").find("[name=totalPrice]").text(totalPrice);
+//一加载就显示
+show();
 
-        });
+//点击"全选"checkbox
+$("input[name=allCheck]").click(function(){
+if($("input[name=allCheck]").get(0).checked){   //全选
+    $("[name=goodDiv]").each(function(i,item){
+        $(item).find("input[name='good']").get(0).checked=true;
+    });
+}else{             //取消全选
+    $("[name=goodDiv]").each(function(i,item){
+        $(item).find("input[name='good']").get(0).checked=false;
+    });
+}
+getSum();
+});
 
-        //购买数量的文本框绑定失去焦点事件
-        $("#container").on("click","input[name='num']",function(){
-            //如果输入的购买数量少于1,则自动默认为1
-            if($(this).val()<1){
-                $(this).val("1");
-            }
-            //如果输入的购买数量不是数字,则自动默认为1
-            if(isNaN($(this).val())){
-                $(this).val("1");
-            }
-            getSum();
-        });
+//点击每个商品前的checkbox
+$("#container").on("click","input[name='good']",function(){
+var length=$("[name=goodDiv]  input[name='good']").length;
+var checkl=$("[name=goodDiv]  input[name='good']:checked").length;
+//如果所有商品前的checkbox都被选中,则"全选"checkbox被选中
+//如果有一个商品前的checkbox取消了选中,则"全选"checkbox也取消选中
+if(length==checkl){
+    $("input[name=allCheck]").get(0).checked=true;
+}else{
+    $("input[name=allCheck]").get(0).checked=false;
+}
+getSum();
+});
 
-        //点击"结算商品"
-        $("[name=toBuy]").click(function(){
-            var checkLength=$("[name=goodDiv]  input[name='good']:checked").length;
-            if(checkLength>=1){
-                toBuy();
-            }
-            else{
-                layer.msg("你还没有选择商品哦");
-            }
-        });
+//点击"-",减少购买数量
+$("#container").on("click","[name=sub]",function(){
+var count=$(this).next().next().find("[name=num]").val();
+//购买数量已是1时,则不能再减少
+if(count==1){
+    $(this).attr("class","gui-count-btn gui-count-sub gui-count-disabled");
+    return false;
+}
+count=parseInt(count)-1;
+$(this).next().next().find("[name=num]").val(count);
+getSum();
+var price= $(this).parents("[name=goodDiv]").find("[name=price]").text();
+var totalPrice=count*price;
+$(this).parents("[name=goodDiv]").find("[name=totalPrice]").text(totalPrice+".00");
 
-        //调用计算商品合计总价钱的函数
-        getSum();
+});
 
-        //把checkbox选中的商品结算掉,没选中的则继续留在购物车里不结算
-        function  toBuy(){
-            var goodsId=new Array();
-            $("[name=goodDiv]  input[name='good']:checked").each(function(i,item){
-                goodsId.push(parseInt($(this).parents("[name=goodDiv]").find("[name='goodsId']").text()));
-            });
-            var num=new Array();
-            $("[name=goodDiv]  input[name='good']:checked").each(function(){
-                //购买数量
-                num.push(parseInt($(this).parents("[name=goodDiv]").find("input[name='num']").val()));
-            });
+//点击"+",增加购买数量
+$("#container").on("click","[name=add]",function(){
+$(this).prev().attr("class","gui-count-btn gui-count-sub");
+var count=$(this).next().find("[name=num]").val();
+count=parseInt(count)+1;
+$(this).next().find("[name=num]").val(count);
+getSum();
+var price= $(this).parents("[name=goodDiv]").find("[name=price]").text();
+var totalPrice=count*price;
+$(this).parents("[name=goodDiv]").find("[name=totalPrice]").text(totalPrice+".00");
 
-            $.getJSON("/cart/toOrder",{"goodsId":goodsId,"num":num},function(result){
-                    location.href="order_info.html";
-            });
+});
+
+//购买数量的文本框绑定失去焦点事件
+$("#container").on("click","input[name='num']",function(){
+//如果输入的购买数量少于1,则自动默认为1
+if($(this).val()<1){
+    $(this).val("1");
+}
+//如果输入的购买数量不是数字,则自动默认为1
+if(isNaN($(this).val())){
+    $(this).val("1");
+}
+getSum();
+});
+
+//点击"结算商品"
+$("[name=toBuy]").click(function(){
+var checkLength=$("[name=goodDiv]  input[name='good']:checked").length;
+if(checkLength>=1){
+    toBuy();
+}
+else{
+    layer.msg("你还没有选择商品哦");
+}
+});
+
+//调用计算商品合计总价钱的函数
+getSum();
+
+//把checkbox选中的商品结算掉,没选中的则继续留在购物车里不结算
+function  toBuy(){
+var goodsId=new Array();
+$("[name=goodDiv]  input[name='good']:checked").each(function(i,item){
+    goodsId.push(parseInt($(this).parents("[name=goodDiv]").find("[name='goodsId']").text()));
+});
+var num=new Array();
+$("[name=goodDiv]  input[name='good']:checked").each(function(){
+    //购买数量
+    num.push(parseInt($(this).parents("[name=goodDiv]").find("input[name='num']").val()));
+});
+
+$.getJSON("/cart/toOrder",{"goodsId":goodsId,"num":num},function(result){
+        location.href="order_info.html";
+});
+}
+
+//单个删除我的购物车中的商品
+$("#container").on("click","[name='del']",function () {
+var goodsId= $(this).parents("[name=goodDiv]").find("[name='goodsId']").text();
+var delThis=$(this);
+layer.confirm('真的删除行么?', function(){
+    $.getJSON("/cart/delCartGood/"+goodsId,function(result){
+        if (result==true){
+            layer.msg("删除成功");
+            delThis.parents("[name=goodDiv]").remove();
+        } else{
+            layer.msg("删除失败,请重试");
         }
+        show();
+        getSum();
+    })
+});
+});
 
-        //单个删除我的购物车中的商品
-        $("#container").on("click","[name='del']",function () {
-           var goodsId= $(this).parents("[name=goodDiv]").find("[name='goodsId']").text();
-           var delThis=$(this);
-            layer.confirm('真的删除行么?', function(){
+//删除所选
+$("[name=delManyChecked]").click(function(){
+    var checkLength=$("[name=goodDiv]  input[name='good']:checked").length;
+    if(checkLength>=1){
+        layer.confirm('真的删除行么?', function(){
+            $("[name=goodDiv]  input[name='good']:checked").each(function(i,item){
+                var goodsId=$(this).parents("[name=goodDiv]").find("[name='goodsId']").text()  ;
                 $.getJSON("/cart/delCartGood/"+goodsId,function(result){
-                    if (result==true){
-                        layer.msg("删除成功");
-                        delThis.parents("[name=goodDiv]").remove();
-                    } else{
-                        layer.msg("删除失败,请重试");
-                    }
+                        $(item).parents("[name=goodDiv]").remove();
                     show();
                     getSum();
                 })
             });
+            layer.msg("删除成功");
         });
+    }else{
+        layer.msg("你还没有选择商品哦");
+    }
+});
 
-        //删除所选
-            $("[name=delManyChecked]").click(function(){
-                var checkLength=$("[name=goodDiv]  input[name='good']:checked").length;
-                if(checkLength>=1){
-                    layer.confirm('真的删除行么?', function(){
-                        $("[name=goodDiv]  input[name='good']:checked").each(function(i,item){
-                            var goodsId=$(this).parents("[name=goodDiv]").find("[name='goodsId']").text()  ;
-                            $.getJSON("/cart/delCartGood/"+goodsId,function(result){
-                                    $(item).parents("[name=goodDiv]").remove();
-                                show();
-                                getSum();
-                            })
-                        });
-                        layer.msg("删除成功");
-                    });
-                }else{
-                    layer.msg("你还没有选择商品哦");
-                }
-            });
-
-            //移入收藏夹
-            $("#container").on("click","[name=toCollect]",function () {
-                var goodsId= $(this).parents("[name=goodDiv]").find("[name='goodsId']").text();
-                layer.confirm('移入收藏夹后该商品只在收藏夹内显示了哦', function(){
-                    $.getJSON("/cart/findIfCollected/"+goodsId,function (json) {
-                        if (json !=null){
-                            layer.msg("你的收藏夹中已有此商品");
-                        }else{
-                            $.getJSON("/cart/saveCollection/"+goodsId,function (result) {
-                                if (result ==true){
-                                    layer.msg("移入收藏夹成功");
-                                    $(this).parents("[name=goodDiv]").remove();
-                                } else {
-                                    layer.msg("移入收藏夹失败");
-                                }
-                                show();
-                                getSum();
-                            });
-                        }
-                    })
+//移入收藏夹
+$("#container").on("click","[name=toCollect]",function () {
+    var goodsId= $(this).parents("[name=goodDiv]").find("[name='goodsId']").text();
+    layer.confirm('移入收藏夹后该商品只在收藏夹内显示了哦', function(){
+        $.getJSON("/cart/findIfCollected/"+goodsId,function (json) {
+            if (json !=null){
+                layer.msg("你的收藏夹中已有此商品");
+            }else{
+                $.getJSON("/cart/saveCollection/"+goodsId,function (result) {
+                    if (result ==true){
+                        layer.msg("移入收藏夹成功");
+                        $(this).parents("[name=goodDiv]").remove();
+                    } else {
+                        layer.msg("移入收藏夹失败");
+                    }
+                    show();
+                    getSum();
                 });
-
-            });
-
-
-
-
-
-    })
-
+            }
+        })
     });
 
+});
 
 
-    //商品合计
-    function getSum(){
-        var sumPrice=0;
-        var sumNum=0;
-        $("[name=goodDiv]  input[name='good']:checked").each(function(){
-            //购买数量
-            var num=$(this).parents("[name=goodDiv]").find("input[name='num']").val();
-            //商品单价
-            var  price=$(this).parents("[name=goodDiv]").find("[name=price]").text();
-            //合计
-            sumPrice+=num*price;
-            sumNum+=parseInt(num);
-        });
-        $("[name=sumPrice]").text(sumPrice);
-        $("[name=sumNum]").text(sumNum);
-    }
+
+
+
+})
+
+});
+
+
+
+//商品合计
+function getSum(){
+var sumPrice=0;
+var sumNum=0;
+$("[name=goodDiv]  input[name='good']:checked").each(function(){
+//购买数量
+var num=$(this).parents("[name=goodDiv]").find("input[name='num']").val();
+//商品单价
+var  price=$(this).parents("[name=goodDiv]").find("[name=price]").text();
+//合计
+sumPrice+=num*price;
+sumNum+=parseInt(num);
+});
+$("[name=sumPrice]").text(sumPrice+".00");
+$("[name=sumNum]").text(sumNum);
+}
 
 </script>
 
