@@ -136,6 +136,8 @@
         var layer = layui.layer,  //弹层
             $ = layui.jquery;
 
+        var vipIdArr=new Array();
+
     //显示我的购物车里的商品
    function  show(){
 
@@ -151,6 +153,8 @@ $.getJSON("/cart/cartAllGoodsByUserId",function (json) {
         $("#container").append(div);
 
 
+
+
         //判断是否是会员价商品
         $.ajax({
             type : "POST",
@@ -160,6 +164,7 @@ $.getJSON("/cart/cartAllGoodsByUserId",function (json) {
             success : function(result) {
 if (result!=null) {
         $("[help="+result.goodsId+"]").parents("[name=goodDiv]").find("[name='vipPrice']").text("会员价");
+    vipIdArr.push(result.goodsId);
 }
 }
 });
@@ -275,7 +280,7 @@ $("[name=goodDiv]  input[name='good']:checked").each(function(){
     num.push(parseInt($(this).parents("[name=goodDiv]").find("input[name='num']").val()));
 });
 
-    location.href="order_info.html?goodsId="+goodsId+"&num="+num;
+    location.href="order_info.html?goodsId="+goodsId+"&num="+num+"&vipIdArr="+vipIdArr;
 }
 
 //单个删除我的购物车中的商品
