@@ -95,6 +95,7 @@ public class OrdersController {
     public Map<String, Object> addOrders(@RequestParam Map<String, Object> map) {
         List<Map<String, Object>> list = packData(map.get("goodsId").toString(), map.get("num").toString(), map.get("vipIdArr").toString() != null ? map.get("vipIdArr").toString() : null, Integer.valueOf(map.get("uid").toString()));
         map.put("list", list);
+        System.out.println("*******************************************"+map);
         Map<String, Object> b = ordersService.addOrder(map);
         Map<String, Object> param = new HashMap<>();
         if (b != null) {

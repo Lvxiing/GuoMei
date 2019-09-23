@@ -81,7 +81,10 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         orders.setOrderTime(day);
         orders.setStatus(1);
         orders.setOrderNo(GenerateNum.getInstance().GenerateOrder());
-        double totalMoney = 0;
+        double totalMoney = 0; //总金额
+        if (map.get("sumPrice").toString() != null) {
+            totalMoney = Double.valueOf(map.get("sumPrice").toString());
+        }
         List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("list");
         for (Map m : list) {
             String str = m.get("price").toString();
@@ -111,7 +114,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                 Goods one = goodsService.getOne(new QueryWrapper<Goods>().eq("goods_id", Integer.valueOf(m.get("gid").toString())));
                 goods.setStock(one.getStock() - Integer.valueOf(m.get("num").toString()));
                 goodsService.updateById(goods);
-                if(goods.getStock() == 0){ //表示无库存,商品进行下架
+                if (goods.getStock() == 0) { //表示无库存,商品进行下架
                     Goods upGoods = new Goods();
                     upGoods.setId(Integer.valueOf(m.get("gid").toString()));
                     upGoods.setState(0);
