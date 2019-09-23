@@ -163,7 +163,7 @@ function findOrdersDetail(order_id,time,order_no,status,order_total) {
         tr=" <table class='order-list-cont'><tbody><tr class='item-info'> <td style='width:40%;padding-left:10px;' class='orderTd1_11926392274'>";
         tr+=" <input type='checkbox' class='orderNumcheck' disabled='' > <span class='ico-qiang ' ordertype='2'title='普通订单'>普</span> ";
         tr+="<span class='order-time'>"+times+"</span> ";
-        tr+="<span class='order-number'>订单编号：<a target='_blank' href='gm-orederList.html'>"+order_no+"</a></span></td>";
+        tr+="<span class='order-number'>订单编号：<a target='_blank' href='gm-orederList.html?oid="+data[0].oid+"&ono="+guid()+order_no+"'>"+order_no+"</a></span></td>";
         tr+="<td style='width:20%; text-align:right;padding-right:35px;'></td>";
         tr+="<td style='width:10%;'></td> <td style='width:10%;'></td><td style='width:10%;'></td>";
         tr+="<td style='width:10%;padding-left:15px;' class='orderIcon_11926392274'>";
