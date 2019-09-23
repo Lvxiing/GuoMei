@@ -81,11 +81,12 @@ public class OrdersController {
     public Map<String, Object> addOrders(@RequestParam Map<String, Object> map) {
         List<Map<String, Object>> list = packData(map.get("goodsId").toString(), map.get("num").toString());
         map.put("list", list);
-        String b = ordersService.addOrder(map);
+        Map<String,Object> b = ordersService.addOrder(map);
         Map<String, Object> param = new HashMap<>();
         if (b != null) {
             param.put("code", "yes");
-            param.put("orderNo", b);
+            param.put("orderNo", b.get("orderNo"));
+            param.put("times", b.get("times"));
             return param;
         }
         param.put("code", "no");

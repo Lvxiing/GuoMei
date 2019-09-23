@@ -60,7 +60,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     }
 
     @Override
-    public String addOrder(Map<String, Object> map) {
+    public Map<String,Object> addOrder(Map<String, Object> map) {
         boolean res = false;
         Orders orders = new Orders();
         orders.setUserId(Integer.valueOf(map.get("uid").toString()));
@@ -96,7 +96,10 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             }
             res = true;
         }
-        return orders.getOrderNo();
+        Map<String,Object> param = new HashMap<>();
+        param.put("orderNo",orders.getOrderNo());
+        param.put("times",orders.getOrderTime());
+        return param;
     }
 
 
