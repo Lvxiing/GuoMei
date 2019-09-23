@@ -170,8 +170,7 @@
                         <div id="chooseBankDiv" style="display:block">
                             <div class="bank-list-box" style="padding-bottom: 18px;">
                                 <ul class="bank-lists clearfix bank-lst" id="bank-zfptId">
-                                    <li id="ALIPAY" name="支付宝"
-                                        class="ygbx-pay-bank hsdiscount">
+                                    <li id="ALIPAY" name="支付宝" id="pay"  onclick="pay()" class="ygbx-pay-bank hsdiscount">
                                         <img height="40"
                                              src="https://misc.gomein.net.cn/finance/cashier-web/temp/ALIPAY.png"
                                              alt="支付宝">
@@ -207,6 +206,10 @@
         showOrdersInfo();//显示订单信息
 
     });
+
+    function pay(){
+        alert(1223);
+    }
     var reg = /^(\d{3})(\d*)(\d{4})$/;//电话号码中间4位为*
     //显示订单信息
     function showOrdersInfo() {
@@ -241,15 +244,6 @@
             }
         });
     }
-
-    //{addressInfo=Address(id=54, provinceId=1, cityId=1, districtId=1, streetId=1, userId=31, userName=123,
-    // address=65, phone=13798654587, email=15689756548@qq.com, isdefault=1,
-    // provinceAddress=ProvinceAddress{provinceId=1, provinceName=湖南省, cityId=1,
-    // cityName=长沙市, districtId=1, districtName=开福区, streetId=1, streetName=望麓园街道}),
-    // goods=[{money=246392.00, title=Sony/索尼 ILCE-A7RM3(E24-70GM)套机 全画幅相机 索尼微单A7R3}],
-    // orders=Orders(id=36, addressId=54, payDate=null, orderTime=Mon Sep 23 17:05:42 CST 2019,
-    // total=246392.00, status=1, orderNo=201909231705416840001, userId=31)}
-
     function GetRequest() {
         var url = location.search; //获取url中"?"符后的字串
         var theRequest = new Object();
