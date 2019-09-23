@@ -121,6 +121,11 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         return param;
     }
 
+    @Override
+    public List<Map<String, Object>> userPayInfo(Integer oid) {
+        return ordersMapper.userPayInfo(oid);
+    }
+
 
     @Override
     public List<Map<String, Object>> byGoodId(String order_no) {

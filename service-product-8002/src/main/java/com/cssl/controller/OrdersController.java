@@ -119,9 +119,9 @@ public class OrdersController {
         //查询当前订单信息
         Orders one = ordersService.getOne(new QueryWrapper<Orders>().eq("order_no", map.get("orderNo")));
         data.put("orders", one);
-
         //查询当前订单下进行购买的商品详情
-
+        List<Map<String, Object>> maps = ordersService.userPayInfo(one.getId());
+        data.put("goods", maps);
         //用于查询当前收货地址信息
         Map<String, Object> param = new HashMap<>();
         param.put("userid", map.get("uid"));
