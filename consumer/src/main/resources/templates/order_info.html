@@ -968,7 +968,7 @@
         $("#id_commit").click(function () {
             var url = GetRequest();
             var aid = $("#aid").val(); //收获地址id
-            $.getJSON("Orders/addOrders", {"aid": aid, "goodsId": url.goodsId, "num": url.num}, function (data) {
+            $.getJSON("Orders/addOrders", {"aid": aid, "goodsId": url.goodsId, "num": url.num,"vipIdArr":url.vipIdArr}, function (data) {
                 //转换时间格式
                 var dateee = new Date(data.times).toJSON();
                 var times = new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
