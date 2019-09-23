@@ -1,6 +1,7 @@
 $(function () {
     findParentCategory();
     categoryGoodsShow();
+    search();
      //按综合,销量,新品查询
     var sort=0;
     $("#filter-order-box li").click(function () {
@@ -398,4 +399,16 @@ function xunhuan(json,bs) {
         }
     }
 
+}
+
+//搜索跳转
+function search() {
+    $(".search-btn").click(function () {
+        var input=$("#searchInput").val();
+        if(input==""){
+            input="华为";
+        }
+        var content = encodeURI(encodeURI(input));
+        window.location.href='categoryLists.html?content='+content;
+    });
 }
