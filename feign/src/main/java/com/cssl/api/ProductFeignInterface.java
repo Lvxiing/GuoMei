@@ -195,6 +195,8 @@ public interface ProductFeignInterface {
     @RequestMapping("orders/findAddressByOrder")
      Map<String,Object> findAddressByOrder(@RequestParam("oid") Integer oid);
 
+    @RequestMapping("orders/userPayInfo")
+    Map<String, Object> userPayInfo(@RequestParam Map<String, Object> map);
 
     //--------------------------后台模块----------------------------------
 

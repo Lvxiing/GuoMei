@@ -2,6 +2,7 @@ package com.cssl.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.api.ProductFeignInterface;
+import com.cssl.entity.Address;
 import com.cssl.entity.Orders;
 import com.cssl.entity.PageInfo;
 import com.cssl.entity.Users;
@@ -74,6 +75,16 @@ public class OrdersController {
     public Map<String,Object> findAddressByOrder(@RequestParam("oid") Integer oid){
         return productFeignInterface.findAddressByOrder(oid);
     }
+
+    //用户支付订单详情
+    @RequestMapping("userPayInfo")
+    @ResponseBody
+    public Map<String, Object> userPayInfo(HttpSession session,@RequestParam Map<String, Object> map) {
+        Users users = (Users)session.getAttribute("user");
+        map.put("uid",users.getId());
+        return productFeignInterface.userPayInfo(map);
+    }
+
 
     //-------------------------后台------------------------
     //查询所有和模糊查询和分页

@@ -219,7 +219,9 @@
         $("#payNo").text(payno); //支付单号
         var ono = url.orderNo;
         ono=ono.substring(36,ono.length);
-        $.getJSON();
+        $.getJSON("Orders/userPayInfo",{"orderNo":ono},function(data){
+            alert(data);
+        });
     }
 
     function GetRequest() {

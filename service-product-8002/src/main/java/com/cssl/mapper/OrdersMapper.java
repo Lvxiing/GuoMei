@@ -27,6 +27,9 @@ public interface OrdersMapper extends BaseMapper<Orders> {
    public Map<String,Object> findAddressByOrder(Integer oid);
     //新增订单
     int addOrder(Orders orders);
+    // //用户支付订单详情
+    List<Map<String,Object>> userPayInfo(Integer oid);
+
     //-----------------------后台---------------------------
     //根据订单编号查询用户id，商品id,订单id
     public List<Map<String,Object>>byGoodId(String order_no);

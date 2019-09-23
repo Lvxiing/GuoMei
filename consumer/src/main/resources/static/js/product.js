@@ -80,9 +80,9 @@ function info() {
         var stock="有货";
         if(json.goodsDes.stock<5){
             stock="库存紧张";
-        }else{
-            $("#stock").text(json.goodsDes.stock);
         }
+            $("#stock").text(json.goodsDes.stock);
+
         $("#stockTxt").text(stock);
         //描述
         $("#showStoretit").text(json.goodsDes.des);

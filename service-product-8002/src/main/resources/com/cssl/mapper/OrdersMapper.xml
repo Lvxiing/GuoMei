@@ -170,4 +170,11 @@
         INSERT INTO orders(user_id,address_id,order_time,order_total,order_status,order_no) VALUES (#{userId},#{addressId},#{orderTime},#{total},#{status},#{orderNo})
     </insert>
 
+    <select id="userPayInfo" resultType="map">
+        SELECT g.`goods_title` AS title, d.detail_money AS money FROM order_detail d
+        INNER JOIN orders  o ON d.order_id = o.order_id
+        INNER JOIN goods g ON g.`goods_id` = d.goods_id
+        WHERE o.order_id = #{oid}
+
+    </select>
 </mapper>

@@ -1058,13 +1058,7 @@ if(vipPrice==''){
             }
         });
         $("a#a").attr("href", "car.html");
-        //上下加减
-        $(".j-gACbtnA").click(function () {
-            var num = $("#enterQty").val();
-            if (num < 100) {
-                $("#enterQty").val(parseInt(num) + 1);
-            }
-        });
+        //减
         $(".j-gACbtn").click(function () {
             var num = $("#enterQty").val();
             if (num > 1) {
