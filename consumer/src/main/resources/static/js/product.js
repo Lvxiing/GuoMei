@@ -29,6 +29,9 @@ $(function () {
 function search() {
     $(".search-btn").click(function () {
         var input=$("#searchInput").val();
+        if(input==""){
+            input="华为";
+        }
         var content = encodeURI(encodeURI(input));
         window.location.href='categoryLists.html?content='+content;
     });
@@ -52,6 +55,11 @@ function GetRequest() {
 function info() {
     var re =GetRequest();
     $.getJSON("../../Goods/GoodInfoShow",{"gid":re.gid} ,function (json) {
+         //库存等于0跳转页面
+        if(json.goodsDes.stock==0){
+            window.location.href="gm-ferror.html?Identification=1";
+        }
+
         //主图
         var div="<img width='330.7692308' height='330.7692308' class='j-bpic-b'  src='"+json.goodsDes.mainImg+"' alt='"+json.goodsDes.title+"'/>";
         div+="<a title='"+json.goodsDes.title+"'target='_blank' href='javascript:;'class='pic-l-b'></a>";
@@ -82,7 +90,7 @@ function info() {
         if(json.goodsDes.stock<5){
             stock="库存紧张";
         }
-            $("#stock").text(json.goodsDes.stock);
+        $("#stock").text(json.goodsDes.stock);
 
         $("#stockTxt").text(stock);
         //描述
