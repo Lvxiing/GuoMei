@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.rmi.server.UID;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -84,9 +85,13 @@ public class OrdersController {
         Map<String,Object> b = ordersService.addOrder(map);
         Map<String, Object> param = new HashMap<>();
         if (b != null) {
+            // 生成支付单号
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+            String payno = simpleDateFormat.format(Calendar.getInstance().getTime());
             param.put("code", "yes");
             param.put("orderNo", b.get("orderNo"));
             param.put("times", b.get("times"));
+            param.put("payno", payno);
             return param;
         }
         param.put("code", "no");
