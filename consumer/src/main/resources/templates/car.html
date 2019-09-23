@@ -287,7 +287,7 @@ $("[name=goodDiv]  input[name='good']:checked").each(function(){
 $("#container").on("click","[name='del']",function () {
 var goodsId= $(this).parents("[name=goodDiv]").find("[name='goodsId']").text();
 var delThis=$(this);
-layer.confirm('真的删除行么?', function(){
+layer.confirm('删除商品?', function(){
     $.getJSON("/cart/delCartGood/"+goodsId,function(result){
         if (result==true){
             layer.msg("删除成功",{icon:1});
@@ -305,7 +305,7 @@ layer.confirm('真的删除行么?', function(){
 $("[name=delManyChecked]").click(function(){
     var checkLength=$("[name=goodDiv]  input[name='good']:checked").length;
     if(checkLength>=1){
-        layer.confirm('真的删除行么?', function(){
+        layer.confirm('删除商品?', function(){
             $("[name=goodDiv]  input[name='good']:checked").each(function(i,item){
                 var goodsId=$(this).parents("[name=goodDiv]").find("[name='goodsId']").text()  ;
                 $.getJSON("/cart/delCartGood/"+goodsId,function(result){

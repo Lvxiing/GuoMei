@@ -51,6 +51,11 @@ public interface UserFeignInterface {
     @RequestMapping("/growup_detail/detailDescription")
      Map detailDescription();
 
+    @RequestMapping("/score/updateScoreSum")
+    int updateScoreSum(@RequestParam  Map map);
+
+    @RequestMapping("/score_detail/saveScoreDetail")
+    int saveScoreDetail(@RequestParam  Map map);
 
     //****************** 购物车 ***************
 
@@ -83,6 +88,12 @@ public interface UserFeignInterface {
 
     @RequestMapping("/vip_goods/ifVipGoods/{goodsId}")
      VipGoods   ifVipGoods(@PathVariable("goodsId") Integer goodsId);
+
+    @RequestMapping("/collection/collectionFenYe/{userId}/{pageIndex}/{pageSize}")
+     PageInfo<Map> collectionFenYe(@PathVariable("userId") Integer userId,@PathVariable("pageIndex") int pageIndex,@PathVariable("pageSize") int pageSize);
+
+    @RequestMapping("/collection/delCollection/{collectionId}")
+     boolean  delCollection(@PathVariable("collectionId") Integer collectionId);
 
     //**********后台***********
 

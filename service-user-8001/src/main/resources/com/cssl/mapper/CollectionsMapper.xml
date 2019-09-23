@@ -10,4 +10,35 @@
         <result column="collection_time" property="ctime" />
     </resultMap>
 
+
+
+    <resultMap id="myMap" type="map">
+        <id column="collection_id" property="collectionId" />
+        <result column="collection_time" property="collectionTime" />
+        <result column="goods_id" property="goodsId" />
+        <result column="goods_main_img" property="goodsMainImg" />
+        <result column="goods_title" property="goodsTitle" />
+        <result column="goods_price" property="goodsPrice" />
+        <result column="goods_stock" property="goodsStock" />
+    </resultMap>
+
+
+    <select id="findCollection" resultMap="myMap">
+        SELECT   c.`collection_id`,c.`collection_time`,c.`goods_id`, g.`goods_main_img`,g.`goods_title`,g.`goods_price`,g.`goods_stock`   FROM   `collection`   c
+                                                                                                                                                     LEFT  JOIN   `goods`  g  ON  g.`goods_id`=c.`goods_id`
+        WHERE  `user_id`=#{userId}
+        ORDER BY  c.collection_time DESC
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>

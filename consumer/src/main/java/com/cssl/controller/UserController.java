@@ -172,9 +172,6 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
 
 
 
-
-
-
     //**************后台*************
 
     //管理员登录
