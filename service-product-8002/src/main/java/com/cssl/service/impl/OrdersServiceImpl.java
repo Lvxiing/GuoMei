@@ -1,9 +1,12 @@
 package com.cssl.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cssl.entity.Cart;
 import com.cssl.entity.Goods;
 import com.cssl.entity.OrderDetail;
 import com.cssl.entity.Orders;
 import com.cssl.mapper.OrdersMapper;
+import com.cssl.service.CartService;
 import com.cssl.service.Order_detailService;
 import com.cssl.service.OrdersService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -33,6 +36,9 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
 
     @Autowired
     private Order_detailService orderDetailService;
+
+    @Autowired
+    private CartService cartService;
 
     @Override
     public Page<Map<String, Object>> findOrdersByUserId(Map<String, Object> map) {
@@ -93,9 +99,12 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                 orders.setTotal(decimal2.setScale(2, BigDecimal.ROUND_HALF_UP));
                 orderDetail.setMoney(decimal2);
                 orderDetailService.save(orderDetail);
+                //从购物车中删除该商品
+                cartService.remove(new QueryWrapper<Cart>().eq("user_id",Integer.valueOf(map.get("uid").toString())).eq("goods_id",Integer.valueOf(m.get("gid").toString())));
             }
             res = true;
         }
+
         Map<String,Object> param = new HashMap<>();
         param.put("orderNo",orders.getOrderNo());
         param.put("times",orders.getOrderTime());
