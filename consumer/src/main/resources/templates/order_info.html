@@ -283,20 +283,13 @@
         <p class="text-right  clearfix"><span class="w185 fr pr20" id="totalMoney">¥20.80</span><span class="fr"><em
                 class="fontRed" id="num">1</em>件商品，总金额：</span></p>
         <p class="text-right  clearfix"><span class="w185 fr pr20">-¥0.00</span><span class="fr">优惠券：</span></p>
+        <p class="text-right  clearfix"><span class="w185 fr pr20">-¥0.00</span><span class="fr">美豆：</span></p>
         <div style="height:28px;"></div>
         <div class="text-right play pr18 border-no-bootom clearfix">
             <span class="fr mt15 mb5">     应付款总金额：<em id="sum" class="fontRed strong font20">¥35.80</em></span>
         </div>
         <div class="commitOrder-ds">
             <div class="fr ds_address">
-                <!--<div class="text-right mr8" style="margin-bottom: -8px;">-->
-                <!--<div class="i-block">送货地址：湖南省&nbsp;&nbsp;长沙市&nbsp;&nbsp;开福区&nbsp;&nbsp;望麓园街道</div>-->
-                <!--<div class="mr10 i-block name_over2 " title="北大青鸟实力校区">北大青鸟实力校区</div>-->
-                <!--</div>-->
-                <!--<div class="text-right mb15 mr8">-->
-                <!--<span class="">收货人：刘君</span>&nbsp;-->
-                <!--<span class="mr10">130****2754</span>-->
-                <!--</div>-->
             </div>
         </div>
         <div class="text-right play clearfix" style="background: #fff;margin-bottom: 30px;">
@@ -985,6 +978,7 @@
 
     function goodsList() {
         var url = GetRequest();
+
         var money = 0;
         var num = 0;
         $.ajax(
