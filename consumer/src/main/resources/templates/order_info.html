@@ -1006,8 +1006,9 @@
                         }else{
                             div+="<div class='red'></div>"
                         }
+                        var sumMoney = g.num * g.price;
                         money += g.num * g.price;
-                        div += "  </div> </div> </div> <div class='cart-col-7'> <div class='cart-good-fun delfixed' style='width: 170px;height: 30px'> <span class='fontGray mr20 ml5'> x " + g.num + " </span><span class='fontGray mr10' style='color: black;'>¥"+money+"</span> <span class='fontGray mr10'>有货</span> </div> </div> </div> </div> </div>";
+                        div += "  </div> </div> </div> <div class='cart-col-7'> <div class='cart-good-fun delfixed' style='width: 170px;height: 30px'> <span class='fontGray mr20 ml5'> x " + g.num + " </span><span class='fontGray mr10' style='color: black;'>¥"+sumMoney+"</span> <span class='fontGray mr10'>有货</span> </div> </div> </div> </div> </div>";
                         num += parseInt(g.num);
                         $("div.infoH").append(div);
                     }
