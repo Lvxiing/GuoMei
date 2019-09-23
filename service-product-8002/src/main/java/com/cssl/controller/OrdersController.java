@@ -4,10 +4,7 @@ package com.cssl.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.entity.*;
 import com.cssl.mapper.Order_detailMapper;
-import com.cssl.service.EvaluateService;
-import com.cssl.service.GoodsService;
-import com.cssl.service.Order_detailService;
-import com.cssl.service.OrdersService;
+import com.cssl.service.*;
 import com.github.pagehelper.Page;
 import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,22 +44,30 @@ public class OrdersController {
     @Autowired
     private EvaluateService evaluateService;
 
+    @Autowired
+    private AddressService addressService;
+
+    @Autowired
+    private  CartService cartService;
+
     //-----------------------------前台模块----------------------------
     //用户下单信息
     @RequestMapping("orderInfo")
     @ResponseBody
     public Map<String, Object> orderInfo(@RequestParam("uid") Integer uid, @RequestParam Map<String, Object> map) {
         Map<String, Object> data = new HashMap<>();
-        data.put("goods", packData(map.get("goodsId").toString(), map.get("num").toString()));
+        data.put("goods", packData(map.get("goodsId").toString(), map.get("num").toString(), map.get("vipIdArr").toString(),uid));
         data.put("uid", uid);
         return data;
     }
 
     //封装数据
-    public List<Map<String, Object>> packData(String goodsId, String nums) {
+    public List<Map<String, Object>> packData(String goodsId, String nums, String vipIdArr,Integer uid) {
         List<Map<String, Object>> goodsList = new ArrayList<>();
         String[] gid = goodsId.split(",");
         String[] num = nums.split(",");
+        String[] vipArr = vipIdArr.split(",");
+        List<String> vipIdList = Arrays.asList(vipArr);
         for (int i = 0; i < gid.length; i++) {
             Goods goods = goodsService.getOne(new QueryWrapper<Goods>().eq("goods_id", gid[i]));
             Map<String, Object> param = new HashMap<>();
@@ -71,6 +76,11 @@ public class OrdersController {
             param.put("img", goods.getMainImg());
             param.put("price", goods.getPrice());
             param.put("num", num[i]);
+            if (vipIdList.contains(goods.getId().toString())){ //表示为会员商品
+                Cart one = cartService.getOne(new QueryWrapper<Cart>().eq("user_id", uid).eq("goods_id", goods.getId()));
+                param.put("price", one.getPrice());
+                param.put("bs","vip");
+            }
             goodsList.add(param);
         }
         return goodsList;
@@ -80,9 +90,9 @@ public class OrdersController {
     @RequestMapping("addOrders")
     @ResponseBody
     public Map<String, Object> addOrders(@RequestParam Map<String, Object> map) {
-        List<Map<String, Object>> list = packData(map.get("goodsId").toString(), map.get("num").toString());
+        List<Map<String, Object>> list = packData(map.get("goodsId").toString(), map.get("num").toString(), map.get("vipIdArr").toString(),Integer.valueOf(map.get("uid").toString()));
         map.put("list", list);
-        Map<String,Object> b = ordersService.addOrder(map);
+        Map<String, Object> b = ordersService.addOrder(map);
         Map<String, Object> param = new HashMap<>();
         if (b != null) {
             // 生成支付单号
@@ -97,6 +107,28 @@ public class OrdersController {
         param.put("code", "no");
         return param;
     }
+
+    //用户支付订单详情
+    @RequestMapping("userPayInfo")
+    @ResponseBody
+    public Map<String, Object> userPayInfo(@RequestParam Map<String, Object> map) {
+        Map<String, Object> data = new HashMap<>();
+        //查询当前订单信息
+        Orders one = ordersService.getOne(new QueryWrapper<Orders>().eq("order_no", map.get("orderNo")));
+        data.put("orders", one);
+
+        //查询当前订单下进行购买的商品详情
+
+
+        //用于查询当前收货地址信息
+        Map<String, Object> param = new HashMap<>();
+        param.put("userid", map.get("uid"));
+        param.put("aid", one.getAddressId());
+        List<Address> addresses = addressService.showAddress(param);
+        data.put("addressInfo", addresses.get(0));
+        return data;
+    }
+
 
     //用户订单
     @RequestMapping("findOrdersByUserId")
