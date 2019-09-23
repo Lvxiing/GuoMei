@@ -284,7 +284,10 @@ $("[name=goodDiv]  input[name='good']:checked").each(function(){
     num.push(parseInt($(this).parents("[name=goodDiv]").find("input[name='num']").val()));
 });
 
-    location.href="order_info.html?goodsId="+goodsId+"&num="+num+"&vipIdArr="+vipIdArr;
+//合计的钱
+   var sumPrice= $("[name=sumPrice]").text();
+
+    location.href="order_info.html?goodsId="+goodsId+"&num="+num+"&vipIdArr="+vipIdArr+"&sumPrice="+sumPrice;
 }
 
 //单个删除我的购物车中的商品
