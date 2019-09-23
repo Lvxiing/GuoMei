@@ -25,6 +25,10 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script type="text/javascript" src="js/gm-shoucang.js"></script>
+    <script src="js/jquery-1.8.3.js"></script>
+    <script src="layui/layui.js"></script>
+    <link rel="stylesheet" href="layui/css/layui.css">
+
 </head>
 <body>
 <!-- 返利的导航 -->
@@ -61,6 +65,40 @@
                     </ul>
                 </li>
             </ul>
+
+            <div class="mygome-side" data-cart="mincart">
+                <ul class="topmenu clearfix">
+                    <li class="shopcartbox"><span class="cartlinkbox">
+                <a data-code="public03004" rel="nofollow" class="menulink cartlink" id="a" href="car.html"><em
+                        class="i-cart"><span class="shopnum" name="numSpan"><span
+                        id="commerceItemQuantityId" name="num">0</span><i></i></span></em><span
+                        id="hdrcarttext">我的购物车</span></a></span>
+
+                    </li>
+                </ul>
+            </div>
+
+            <script type="text/javascript">
+
+                //我的购物车中商品的件数
+                function  showNum(){
+                    $.getJSON("/cart/cartCount",function(result){
+                        $("[name=num]").text(result);
+                        if(result==0){
+                            $("[name=numSpan]").css({"background-color":" #A5A5A5"});
+                        }else{
+                            $("[name=numSpan]").css({"background-color":"#dd00a7"});
+                        }
+                    })   ;
+                }
+
+                $(function() {
+                    showNum();
+                });
+
+            </script>
+
+
 
         </div>
     </div>
@@ -136,8 +174,6 @@
                     </div>
 
 
-
-
                     <div class="tabsContent clearfix">
                         <div class="clearfix" id="getGoodsListId" style="display: block;">
                             <div class="history-bd">
@@ -145,113 +181,166 @@
                                 <div class="uc_overdueTable">
 
                                     <div class="list-main clearfix" id="myListGoods">
-                                        <ul>
-                                            <li class="list-li" style="">
-                                                <div class="col154" data-skuid="pop8012687607"
-                                                     data-productid="A0006554670" c1id="cat10000001" c3id="cat10000092">
-                                                    <label></label>
-                                                    <div class="overflow">
-                                                        <div class="image-box"><a
-                                                                href="//item.gome.com.cn/A0006554670-pop8012687607.html"
-                                                                title="小米 (MI)Ruby 15.6英寸金属轻薄笔记本电脑 I3-8130U FHD 全键盘 Win10  深空灰(店铺定制8G内存 256G固态)"
-                                                                target="_blank"><img
-                                                                src="image/T1jXAgBCVj1RCvBVdK_100.png"
-                                                                width="100" height="100"> </a></div>
-                                                        </div>
-                                                </div>
-                                                <div class="col280">
-                                                    <div class="con"><h2><span class="bargain">真划算</span> <a
-                                                            href="//item.gome.com.cn/A0006554670-pop8012687607.html"
-                                                            title="小米 (MI)Ruby 15.6英寸金属轻薄笔记本电脑 I3-8130U FHD 全键盘 Win10  深空灰(店铺定制8G内存 256G固态)"
-                                                            target="_blank">小米 (MI)Ruby 15.6英寸金属轻薄笔记本电脑 I3-8130U FHD 全键盘
-                                                        Win10 深空灰(店铺定制8G内存 256G固态)</a></h2>
-                                                        <div class="price-box"><span class="price">￥3249.00</span>
-                                                            <!---->
-                                                            <!--<span class="label-red">满减</span>								<span class="label-red">赠品</span>-->
-                                                        </div>
-                                                        <div class="time-box"><p class="font-aide">
-                                                            <span>收藏时间：2019-08-29</span></p></div>
-                                                        <div class="btns-box"><a href="javascript:void(0);"
-                                                                                 class="button-grey j_add-shopcart"
-                                                                                 shop_flag="1" data-mid="" data-keyid=""
-                                                                                 data-storeid="" pid="A0006554670"
-                                                                                 sid="pop8012687607">加入购物车</a>  <a
-                                                                href="javascript:void(0);"
-                                                                class="button-grey j_remove-goods" totalcount="1"
-                                                                pid="A0006554670" sid="pop8012687607"
-                                                                itemid="8012687607">取消收藏</a></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col206 padt40"> 有货</div>
-                                                <div class="col320">
+                                        <ul name="collectionUl">
 
-                                                </div>                    <!--==== col320  end ====-->
-                                            </li>
+
+
                                         </ul>
-                                    </div>
+
+
+
+
+<script>
+
+    layui.use(['layer','upload','form'], function() {
+        var layer = layui.layer,  //弹层
+            $ = layui.jquery;
+
+
+        $(function(){
+
+            //时间格式转换
+            function  formatDate(time) {
+                return new Date(+new Date(new Date(time).toJSON()) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+            }
+
+            function show(pageIndex){
+            $.getJSON("/cart/collectionFenYe/"+pageIndex,function (json) {
+                if(json.pageNo==1){
+                    $("[name=prev]").addClass("disable");
+                    $("[name=prev]").attr("disable","true");
+                }else{
+                    $("[name=prev]").removeClass("disable");
+                    $("[name=prev]").attr("disable","false");
+                }
+                if(json.pageNo==json.pageCount){
+                    $("[name=next]").addClass("disable");
+                    $("[name=next]").attr("disable","true");
+                }else{
+                    $("[name=next]").removeClass("disable");
+                    $("[name=next]").attr("disable","false");
+                }
+                if(json.pageCount==1){
+                    $("[name=prev]").addClass("disable");
+                    $("[name=prev]").attr("disable","true");
+                    $("[name=next]").addClass("disable");
+                    $("[name=next]").attr("disable","true");
+                }
+                $("[name=pageNo]").text(json.pageNo);
+
+                if(json.data.length==0){
+                    $("[name=collectionUl]").empty();
+                    var p='<p class="no-order" style="height: 84px;">暂无收藏商品，去<a href="index.html" class="guang" target="_blank">逛逛</a>吧</p>';
+                    $("[name=collectionUl]").append(p);
+                    $("[name=prev]").addClass("disable");
+                    $("[name=prev]").attr("disable","true");
+                    $("[name=next]").addClass("disable");
+                    $("[name=next]").attr("disable","true");
+                }else {
+                //先清空
+                $("[name=collectionUl]").empty();
+                for (var i=0;i<json.data.length;i++){
+          var di=json.data[i];
+          var stock="有货";
+          if (di.goodsStock<5) {
+              stock = "库存紧张";
+          }
+          var li= '<li class="list-li" style="">  <div class="col154" data-skuid="pop8012687607"  data-productid="A0006554670" c1id="cat10000001" c3id="cat10000092">   <label></label>   <div class="overflow">   <div class="image-box"><span name="collectionId" style="display: none;">'+di.collectionId+'</span><span name="goodsId" style="display: none;">'+di.goodsId+'</span><a   href="product_details.html?gid='+di.goodsId+'" title="'+di.goodsTitle+'"  target="_blank"><img   src="'+di.goodsMainImg+'" width="100" height="100"> </a></div>  </div>  </div>  <div class="col280">  <div class="con"><h2><span class="bargain"></span> <a href="product_details.html?gid='+di.goodsId+'"  title="'+di.goodsTitle+'" target="_blank">'+di.goodsTitle+'</a></h2> <div class="price-box"><span class="price">￥<span name="price">'+di.goodsPrice+'</span></span>  </div>  <div class="time-box"><p class="font-aide">  <span>收藏时间：'+formatDate(di.collectionTime)+'</span></p></div>  <div class="btns-box"><a href="javascript:void(0);" class="button-grey j_add-shopcart" shop_flag="1" data-mid="" data-keyid="" data-storeid="" pid="A0006554670" sid="pop8012687607" name="toCart">加入购物车</a>  <a href="javascript:void(0);" class="button-grey j_remove-goods" totalcount="1" pid="A0006554670" sid="pop8012687607" itemid="8012687607" name="exitCollection">取消收藏</a></div>  </div>  </div>  <div class="col206 padt40"> '+stock+'</div>  <div class="col320">  </div> </li>';
+              $("[name=collectionUl]").append(li);
+      }
+                }
+  })
+            }
+
+//一加载显示第1页
+            show(1);
+
+        //上页
+            $("[name=prev]").click(function () {
+               var pageNo= $("[name=pageNo]").text();
+                    pageNo--;
+               show(pageNo);
+            });
+
+            //下页
+            $("[name=next]").click(function () {
+                var pageNo=parseInt($("[name=pageNo]").text());
+                 pageNo++;
+                show(pageNo);
+            });
+
+//加入购物车
+            $("[name=collectionUl]").on("click","[name=toCart]",function() {
+
+                var goodsId=  $(this).parents("li.list-li").find("[name='goodsId']").text();
+                var price = $(this).parents("li.list-li").find("[name='price']").text();
+//默认加入数量为1
+                var num = 1;
+                var total = parseInt(num) * price;
+
+                //添加商品到购物车
+                $.getJSON("/cart/saveCart", {
+                    "goodsId": goodsId,
+                    "num": num,
+                    "price": price,
+                    "total": total
+                }, function (result) {
+                    layer.msg("加入购物车成功",{icon:1});
+                    if (result.msg == "新增到购物车") {
+                        //如果购物车内没有该商品,则购物车内商品的件数加1
+                        $("[name=num]").text(parseInt($("[name=num]").text()) + 1);
+                    }
+                    showNum();
+                });
+            });
+
+
+//取消收藏
+            $("[name=collectionUl]").on("click","[name=exitCollection]",function() {
+                var collectionId=  $(this).parents("li.list-li").find("[name='collectionId']").text();
+                var delThis=$(this);
+                layer.confirm('您确定要取消此收藏吗?', function(){
+                    $.getJSON("/cart/delCollection/"+collectionId,function (result) {
+                        if (result==true) {
+                            layer.msg("取消收藏成功",{icon:1});
+                            delThis.parents("li.list-li").remove();
+                            var pageNo=parseInt($("[name=pageNo]").text());
+                            show(pageNo);
+                        }else{
+                            layer.msg("取消收藏失败,请重试",{icon:0});
+                        }
+
+                    });
+                });
+            });
+
+
+
+
+
+
+        })
+
+    })
+
+
+</script>
+
+
+               </div>
                                 </div>
                             </div>
                             <!--=====  history-bd  End ======-->
-                            <div class="pager"><a class="prev disable" href="javascript:void(0);">&nbsp;上一页<s
-                                    class="icon-prev"></s><i></i></a><span class="cur">1</span><a class="next disable"
-                                                                                                  href="javascript:void(0);">下一页<s
-                                    class="icon-next"></s><i></i></a><label for="pagenum" class="txt-wrap">到<input
-                                    type="text" id="pNum" class="txt" bnum="1" value="1">页</label><a
-                                    href="javascript:void(0)" zdx="nBtn" class="btn">确定</a></div>
+                            <div class="pager">
+                                <a class="prev" href="javascript:void(0);" name="prev">&nbsp;上一页<s
+                                    class="icon-prev"></s><i></i></a>
+                                <span name="pageNo" style="display: none;"></span>
+
+                                <a class="next"
+                                                                                                  href="javascript:void(0);" name="next" >下一页<s
+                                    class="icon-next"></s><i></i></a></div>
                         </div>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

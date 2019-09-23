@@ -4,9 +4,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cssl.entity.Collections;
 import com.cssl.mapper.CollectionsMapper;
 import com.cssl.service.CollectionsService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -23,4 +28,10 @@ public class CollectionsServiceImpl extends ServiceImpl<CollectionsMapper, Colle
     @Autowired
     private CollectionsMapper collectionsMapper;
 
+    @Override
+    public Page<Map> collectionFenYe(Integer userId, int pageIndex, int pageSize) {
+        Page<Map> page = PageHelper.startPage(pageIndex, pageSize);
+        collectionsMapper.findCollection(userId);
+        return  page;
+    }
 }

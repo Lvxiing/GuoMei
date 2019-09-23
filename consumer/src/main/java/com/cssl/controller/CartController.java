@@ -3,15 +3,13 @@ package com.cssl.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.api.ProductFeignInterface;
 import com.cssl.api.UserFeignInterface;
-import com.cssl.entity.Cart;
-import com.cssl.entity.Collections;
-import com.cssl.entity.Users;
-import com.cssl.entity.VipGoods;
+import com.cssl.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpSession;
 import javax.swing.*;
 import java.util.ArrayList;
@@ -102,6 +100,29 @@ public class CartController {
     public VipGoods ifVipGoods(@PathVariable("goodsId") Integer goodsId){
         return userFeignInterface.ifVipGoods(goodsId);
     }
+
+    //查询收藏的商品,并分页显示
+    @RequestMapping("/collectionFenYe/{pageIndex}")
+    @ResponseBody
+    public Map<String,Object> collectionFenYe(HttpSession session, @PathVariable("pageIndex") int pageIndex){
+        Users users = (Users) session.getAttribute("user");
+        final Integer pageSize=2;
+        PageInfo<Map> mapPageInfo = userFeignInterface.collectionFenYe(users.getId(), pageIndex, pageSize);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("count", mapPageInfo.getTotalCount());  //总记录数
+        map.put("data", mapPageInfo.getList());
+        map.put("pageNo",mapPageInfo.getPageNo());  //当前页码
+        map.put("pageCount",mapPageInfo.getPageCount());  //总页数
+       return map;
+    }
+
+//取消收藏
+    @RequestMapping("/delCollection/{collectionId}")
+    @ResponseBody
+  public   boolean  delCollection(@PathVariable("collectionId") Integer collectionId){
+        return userFeignInterface.delCollection(collectionId);
+    }
+
 
 
 
