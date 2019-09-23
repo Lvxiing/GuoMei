@@ -61,4 +61,9 @@ public class AddressController {
         }
         return "{\"code\":\"yes\"}";
     }
+
+    //根据address_id删除收货地址
+    @RequestMapping("deleteAddress")
+    @ResponseBody
+    public boolean deleteAddress(@RequestParam(value = "address_id") Integer id){return addressService.removeById(id);}
 }

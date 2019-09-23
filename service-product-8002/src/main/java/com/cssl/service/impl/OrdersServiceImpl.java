@@ -1,9 +1,12 @@
 package com.cssl.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cssl.entity.Cart;
 import com.cssl.entity.Goods;
 import com.cssl.entity.OrderDetail;
 import com.cssl.entity.Orders;
 import com.cssl.mapper.OrdersMapper;
+import com.cssl.service.CartService;
 import com.cssl.service.Order_detailService;
 import com.cssl.service.OrdersService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -34,6 +37,9 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     @Autowired
     private Order_detailService orderDetailService;
 
+    @Autowired
+    private CartService cartService;
+
     @Override
     public Page<Map<String, Object>> findOrdersByUserId(Map<String, Object> map) {
         Integer pageSize = new Integer(map.get("pageSize").toString());
@@ -60,7 +66,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     }
 
     @Override
-    public String addOrder(Map<String, Object> map) {
+    public Map<String,Object> addOrder(Map<String, Object> map) {
         boolean res = false;
         Orders orders = new Orders();
         orders.setUserId(Integer.valueOf(map.get("uid").toString()));
@@ -93,10 +99,16 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                 orders.setTotal(decimal2.setScale(2, BigDecimal.ROUND_HALF_UP));
                 orderDetail.setMoney(decimal2);
                 orderDetailService.save(orderDetail);
+                //从购物车中删除该商品
+                cartService.remove(new QueryWrapper<Cart>().eq("user_id",Integer.valueOf(map.get("uid").toString())).eq("goods_id",Integer.valueOf(m.get("gid").toString())));
             }
             res = true;
         }
-        return orders.getOrderNo();
+
+        Map<String,Object> param = new HashMap<>();
+        param.put("orderNo",orders.getOrderNo());
+        param.put("times",orders.getOrderTime());
+        return param;
     }
 
 
@@ -235,7 +247,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                 }
             }
         }
-        List<Object> datas = Arrays.asList(new Integer[list1.size()]);
+        List<Integer> datas = Arrays.asList(new Integer[list1.size()]);
         List<Object> arrList = new ArrayList(datas);
         if (data.size() > 0) {
             for (int n = 0; n < data.size(); n++) {

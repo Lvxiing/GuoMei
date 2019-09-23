@@ -31,7 +31,7 @@ public interface OrdersService extends IService<Orders> {
     public Map<String,Object> findAddressByOrder(Integer oid);
 
     //新增订单
-    String addOrder(Map<String,Object> map);
+    Map<String,Object> addOrder(Map<String,Object> map);
     //-----------------------后台-----------------------
     //根据订单编号查询用户id，商品id,订单id
     public List<Map<String,Object>>byGoodId(String order_no);
