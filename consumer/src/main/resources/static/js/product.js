@@ -80,6 +80,8 @@ function info() {
         var stock="有货";
         if(json.goodsDes.stock<5){
             stock="库存紧张";
+        }else{
+            $("#stock").text(json.goodsDes.stock);
         }
         $("#stockTxt").text(stock);
         //描述
@@ -231,7 +233,7 @@ function besimilarGoods(name) {
 //判断点击商品是否低于会员等级
 function good() {
     var re=GetRequest();
-    $.getJSON("../../Goods/vipInfo",{"gid":re.gid},function(json){
+    $.getJSON("../../Goods/vipInfo",{"gid":parseInt(re.gid)},function(json){
         var id=parseInt(json.grade_name.substring(1));
         if(re.leven>id){
             var vipprice=json.goods_price-json.Discount_money;
