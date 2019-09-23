@@ -969,12 +969,11 @@
             var url = GetRequest();
             var aid = $("#aid").val(); //收获地址id
             $.getJSON("Orders/addOrders", {"aid": aid, "goodsId": url.goodsId, "num": url.num}, function (data) {
-                alert();
                 //转换时间格式
                 var dateee = new Date(data.times).toJSON();
                 var times = new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
                 if (data.code == 'yes') {
-                    location.href = "order_succeed.html?orderNo=" + data.orderNo + "&times=" + times;
+                    location.href = "order_succeed.html?orderNo=" + data.orderNo + "&times=" + times+"&payno="+data.payno;
                 } else {
                     location.href = "gm-ferror.html";
                 }
@@ -986,7 +985,6 @@
         var url = GetRequest();
         var money = 0;
         var num = 0;
-        alert(url.vipIdArr);
         $.ajax(
             {
                 type: "post",
