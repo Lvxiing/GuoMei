@@ -287,8 +287,21 @@ $("[name=goodDiv]  input[name='good']:checked").each(function(){
 //合计的钱
    var sumPrice= $("[name=sumPrice]").text();
 
-    location.href="order_info.html?goodsId="+goodsId+"&num="+num+"&vipIdArr="+vipIdArr+"&sumPrice="+sumPrice;
+    location.href="order_info.html?goodsId="+goodsId+"&num="+num+"&vipIdArr="+vipIdArr+"&sumPrice="+guid()+sumPrice;
 }
+
+    //生成唯一的uuid
+    function guid() {
+
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+
+            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+
+            return v.toString(16);
+
+        });
+
+    }
 
 //单个删除我的购物车中的商品
 $("#container").on("click","[name='del']",function () {
