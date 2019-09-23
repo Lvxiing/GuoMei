@@ -103,6 +103,15 @@
         <div class="cart-bottom-info ">
             <div class="container" style="position:relative">
 
+
+
+                <p style="margin-left: 650px;margin-bottom: 10px;padding-top: 20px;"   name="diYongP" hidden>可用<span name="scoreSum">0</span>美豆抵用<span name="diQian">0</span>元
+                    <input type="checkbox" name="diYongCheck">
+                </p>
+
+
+
+
                 <div class="cart-col-2">  <a href="javascript:" act-batch-remove-item="" class="black del-goods"
                                                 data-save="true" style="color: #e3101e;" name="delManyChecked">删除所选</a></div>
                 <div class="cart-col-3 mlf14"></div>
@@ -140,7 +149,7 @@
 
     //显示我的购物车里的商品
    function  show(){
-
+       $("input[name=allCheck]").get(0).checked=false;
 $.getJSON("/cart/cartAllGoodsByUserId",function (json) {
     $("#container>div").remove();
     //购物车内暂无商品
@@ -272,11 +281,36 @@ $("[name=goodDiv]  input[name='good']:checked").each(function(i,item){
 var num=new Array();
 $("[name=goodDiv]  input[name='good']:checked").each(function(){
     //购买数量
-    num.push(parseInt($(this).parents("[name=goodDiv]").find("input[name='num']").val()));
+    num.push(parseInt($(this).parents("[name=goodDiv]").find("input[name='num']").val()
+
+    ));
 });
 
-    location.href="order_info.html?goodsId="+goodsId+"&num="+num+"&vipIdArr="+vipIdArr;
+
+//合计的钱
+   var sumPrice= $("[name=sumPrice]").text();
+
+    if ($("[name=diYongCheck]").get(0).checked==true) {   //使用美豆抵钱
+        location.href="order_info.html?goodsId="+goodsId+"&num="+num+"&vipIdArr="+vipIdArr+"&sumPrice="+guid()+sumPrice+"&ifUseScore=yes";
+    }else{     //不使用美豆抵钱
+        location.href="order_info.html?goodsId="+goodsId+"&num="+num+"&vipIdArr="+vipIdArr+"&sumPrice="+guid()+sumPrice+"&ifUseScore=no";
+    }
+
+
 }
+
+    //生成唯一的uuid
+    function guid() {
+
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+
+            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+
+            return v.toString(16);
+
+        });
+
+    }
 
 //单个删除我的购物车中的商品
 $("#container").on("click","[name='del']",function () {
@@ -353,13 +387,50 @@ $("#container").on("click","[name=toCollect]",function () {
 
 });
 
+//显示该会员的美豆数
+    $.getJSON("/users/findVip", function (result) {
+        for (var i = 0; i < result.length; i++) {
+            if(result[i].scoreSum==0){
+                $("[name=diYongP]").hide();
+            }else{
+                $("[name=diYongP]").show();
+                $("[name=scoreSum]").text(result[i].scoreSum);
+                $("[name=diQian]").text(result[i].scoreSum/100);
+            }
+        }
+    });
 
-
+    //选择是否使用美豆抵钱
+    $("[name=diYongCheck]").click(function () {
+        diYong();
+    })
 
 
 })
 
 });
+
+    //选择是否使用美豆抵钱
+    function  diYong() {
+        if ($("[name=diYongCheck]").get(0).checked==true) {   //使用美豆抵钱
+            var sumPrice=$("[name=sumPrice]").text();
+            if (sumPrice!=0){
+                sumPrice=sumPrice- $("[name=diQian]").text();
+                $("[name=sumPrice]").text(sumPrice);
+            }
+        }else{     //不使用美豆抵钱
+            var sumPrice=0;
+            $("[name=goodDiv]  input[name='good']:checked").each(function(){
+//购买数量
+                var num=$(this).parents("[name=goodDiv]").find("input[name='num']").val();
+//商品单价
+                var  price=$(this).parents("[name=goodDiv]").find("[name=price]").text();
+//合计
+                sumPrice+=num*price;
+            });
+            $("[name=sumPrice]").text(sumPrice);
+        }
+    }
 
 
 
@@ -378,6 +449,8 @@ sumNum+=parseInt(num);
 });
 $("[name=sumPrice]").text(sumPrice);
 $("[name=sumNum]").text(sumNum);
+
+    diYong();
 }
 
 </script>
