@@ -973,7 +973,7 @@
                 var dateee = new Date(data.times).toJSON();
                 var times = new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
                 if (data.code == 'yes') {
-                    location.href = "order_succeed.html?orderNo=" + data.orderNo + "&times=" + times+"&payno="+data.payno;
+                    location.href = "order_succeed.html?orderNo="+guid() + data.orderNo + "&times=" + times+"&payno="+guid()+data.payno;
                 } else {
                     location.href = "gm-ferror.html";
                 }
@@ -1034,6 +1034,20 @@
         }
         return theRequest;
     }
+
+    //生成唯一的uuid
+    function guid() {
+
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+
+            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+
+            return v.toString(16);
+
+        });
+
+    }
+
 </script>
 </body>
 

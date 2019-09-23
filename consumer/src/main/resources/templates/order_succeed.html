@@ -43,7 +43,7 @@
         <div class="or_dstop clearfix" style="padding: 35px 0px 20px 31px;" id="orderInfo_PTSYT">
             <div class="or_left">
 
-                <h3>订单提交成功，请您尽快付款。 支付单号：<i id="payNo"></i></h3>
+                <h3>订单提交成功，请您尽快付款。 支付单号：<span id="payNo"></span></h3>
 
                 <input type="hidden" id="orderTime" value="20190829104959">
                 <br>
@@ -214,10 +214,11 @@
     //显示订单信息
     function showOrdersInfo(){
         var url = GetRequest();
-        $("#payNo").text(url.payno); //支付单号
-        alert(url.orderNo);
-        alert(url.times);
-        alert(url.payno);
+        var payno = url.payno;
+        payno = payno.substring(36,payno.length);
+        $("#payNo").text(payno); //支付单号
+        var ono = url.orderNo;
+        ono=ono.substring(36,ono.length);
         $.getJSON();
     }
 
