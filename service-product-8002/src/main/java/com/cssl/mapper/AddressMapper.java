@@ -2,6 +2,7 @@ package com.cssl.mapper;
 
 import com.cssl.entity.Address;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Delete;
 
 import java.util.List;
 import java.util.Map;
@@ -21,4 +22,5 @@ public interface AddressMapper extends BaseMapper<Address> {
     List<Address> findAddress();
     //查询我的收货地址
     List<Address> showAddress(Map<String,Object> map);
+
 }

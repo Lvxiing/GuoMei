@@ -247,7 +247,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                 }
             }
         }
-        List<Object> datas = Arrays.asList(new Integer[list1.size()]);
+        List<Integer> datas = Arrays.asList(new Integer[list1.size()]);
         List<Object> arrList = new ArrayList(datas);
         if (data.size() > 0) {
             for (int n = 0; n < data.size(); n++) {
