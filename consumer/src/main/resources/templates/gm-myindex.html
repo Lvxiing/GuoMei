@@ -161,19 +161,13 @@
                             <div class="userPhoto-level clearfix">
                                 <div class="userImage">
                                     <div class="myGome-userPhoto fl"><img
-                                            src="http://gfs14.gomein.net.cn/T1YvKTBsDv1RCvBVdK.png"> <a
-                                            class="edit-photo-bitton" href="profile" target="_blank"
-                                            style="color: rgb(255, 255, 255); display: none;">编辑</a></div>
+                                            src="" name="headImg"> </div>
                                 </div>
-                                <div class="user-name-Level fr"><p class="user-name" title="小伙子">小伙子</p>
-                                    <p class="userLevel"><span class="levelId"> G1     </span>会员 </p>
+                                <div class="user-name-Level fr"><p class="user-name" title="" name="userName"></p>
+                                    <p class="userLevel"><span class="levelId" name="gradeName">      </span>会员 </p>
                                     <div class="userStageDaren"></div>
                                 </div>
                             </div>
-                            <div class="level-up-info dn" style="display: none;"> 继续获得<span class="red-arial">0</span>个成长值<span
-                                    class="red-arial">1</span>个购物天数可升级为<span class="level-bg-radius">G2</span></div>
-
-
                         </div>
                         <div class="myGome-userAssets fl"><h2 class="clearfix assetTitle"><span
                                 class="fl"></span><i></i>我的资产<span class="fr"></span></h2>
@@ -182,7 +176,7 @@
                                 <div class="myGome-gomeb clearfix"></div>
                                 <div class="clearfix" style="padding:10px 0;">
                                     <div class="myGome-fanli fl">
-                                        <p class="clearfix"><span>美&nbsp;&nbsp;&nbsp;豆：</span> <span class="gomefavourable"> <a href="gm-myMD.html" target="_blank" class="myGome-fanli-num moreZeroNum">0</a> </span></p>
+                                        <p class="clearfix"><span>美&nbsp;&nbsp;&nbsp;豆：</span> <span class="gomefavourable"> <a href="gm-myMD.html" target="_blank" class="myGome-fanli-num moreZeroNum" name="scoreSum">0</a> </span></p>
                                     </div>
                                     <div class="myGome-QMK fl">
                                         <p class="clearfix"><span>优惠券：</span> <span class="gomefavourable"> <a href="gomeMyCoupon.html" target="_blank" class="myGome-fanli-num moreZeroNum">0</a> 张 </span></p>
@@ -191,6 +185,8 @@
                             </div>
                         </div>
                         <i class="circleBottom"></i></div>
+
+
                 </div>
                 <!--最近三个月订单-->
                 <div class="myGomeSort_lateOrder">
@@ -219,7 +215,51 @@
                     <ul class="myFootprint-box">
                     </ul>  </div>
                 <!--我的收藏-->
-                <div class="myGome_myCollection"><div class="homeRight-service clearfix"> <h3 class="homeRight-title">我的收藏<a href="gm-shoucang.html" target="_blank">查看更多 <i>&gt;</i></a></h3>   <dl> <dt> <a class="myCollect-img" href="//item.gome.com.cn/A0006533167-pop8012621469.html" target="_blank"> <img src="//gfs17.gomein.net.cn/T1EYEbB5K_1RCvBVdK_100.jpg" alt="Dettol滴露 健康抑菌洗手液500g送300g 滋润双手 抑菌率99.9% 适合全家长期使用(自然清新500g送300g)"> </a> </dt> <dd>¥18.90</dd> </dl>  <dl> <dt> <a class="myCollect-img" href="//item.gome.com.cn/9140150028-1130650788.html" target="_blank"> <img src="//gfs17.gomein.net.cn/T1J4dXBjbT1RCvBVdK_100.jpg" alt="宏碁(acer)蜂鸟SF714 全面屏便携超轻薄触摸屏14英寸笔记本电脑(i7-8500Y 16G 512G PCIe SSD IPS win10 指纹识别 堂纸白 )"> </a> </dt> <dd>¥12999.00</dd> </dl>   </div> </div>
+                <div class="myGome_myCollection"><div class="homeRight-service clearfix"> <h3 class="homeRight-title" name="myCollection">我的收藏<a href="gm-shoucang.html" target="_blank">查看更多 <i>&gt;</i></a></h3>
+
+                 <!--   <dl> <dt> <a class="myCollect-img" href="//item.gome.com.cn/A0006533167-pop8012621469.html" target="_blank"> <img src="//gfs17.gomein.net.cn/T1EYEbB5K_1RCvBVdK_100.jpg" alt="Dettol滴露 健康抑菌洗手液500g送300g 滋润双手 抑菌率99.9% 适合全家长期使用(自然清新500g送300g)"> </a> </dt> <dd>¥18.90</dd> </dl>
+
+                -->
+                </div> </div>
+
+
+
+
+                <script>
+                    $(function(){
+
+                        //显示该会员信息
+                        $.getJSON("/users/findVip", function (result) {
+                            for (var i = 0; i < result.length; i++) {
+                                $("[name=headImg]").attr("src",result[i].headImg);
+                                $("[name=userName]").text(result[i].userName);
+                                $("[name=gradeName]").text(result[i].gradeName);
+                                $("[name=scoreSum]").text(result[i].scoreSum);
+                            }
+                        });
+
+                        //我的收藏显示3个商品
+                        $.getJSON("/cart/collectionFenYe/1",function(json){
+                            if(json.data.length==0){
+                                var p='<p class="empty-coupon" style="text-align:center;margin-top:25px;"> <span>亲，您这里好空荡哟~~~</span> <a href="index.html" style="margin:15px 0 0 90px;">去收藏</a> </p>';
+                                $("h3[name=myCollection]").after(p);
+                            }else{
+                            for (var i=0;i<3;i++){
+                                var di=json.data[i];
+                                var dl='<dl style="display: inline-block;width:75px;"> <dt> <a class="myCollect-img" href="product_details.html?gid='+di.goodsId+'" target="_blank"> <img src="'+di.goodsMainImg+'" alt="'+di.goodsTitle+'"> </a> </dt> <dd>¥'+di.goodsPrice+'</dd> </dl>';
+                                $("h3[name=myCollection]").after(dl);
+                            }
+                            }
+                        });
+
+
+                    })
+
+
+                </script>
+
+
+
             </div>
             <!--热门圈子-->
             <!--底部广告-->

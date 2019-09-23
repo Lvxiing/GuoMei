@@ -106,7 +106,7 @@ public class CartController {
     @ResponseBody
     public Map<String,Object> collectionFenYe(HttpSession session, @PathVariable("pageIndex") int pageIndex){
         Users users = (Users) session.getAttribute("user");
-        final Integer pageSize=2;
+        final Integer pageSize=3;
         PageInfo<Map> mapPageInfo = userFeignInterface.collectionFenYe(users.getId(), pageIndex, pageSize);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("count", mapPageInfo.getTotalCount());  //总记录数
