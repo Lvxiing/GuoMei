@@ -12,6 +12,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 //积分表
+@Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class Score extends Model<Score> {

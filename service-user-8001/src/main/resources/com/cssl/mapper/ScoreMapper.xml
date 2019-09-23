@@ -8,5 +8,10 @@
         <result column="user_id" property="userId" />
         <result column="score_sum" property="scores" />
     </resultMap>
-
+    <!--修改用户积分-->
+    <update id="updateScoreSum">
+        UPDATE  `score` SET `score_sum`=`score_sum`+(SELECT  `scoreType_value` FROM  `score_type`
+                                                     WHERE  `scoreType_name`=#{typeName})
+        WHERE `user_id`=#{userId}
+    </update>
 </mapper>

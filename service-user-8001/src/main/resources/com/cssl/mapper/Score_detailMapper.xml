@@ -10,5 +10,14 @@
         <result column="scoreType_id" property="scoreTypeId" />
         <result column="get_time" property="getTime" />
     </resultMap>
-
+       <!--新增积分-->
+      <insert id="saveScoreDetail">
+          INSERT INTO  `score_detail`(score_id,`user_id`,`scoreType_id`,get_time)
+          VALUES
+          (
+              (SELECT  `score_id` FROM  `score` WHERE `user_id`=#{userId}),#{userId},
+               (SELECT  scoreType_id FROM  `score_type` WHERE  `scoreType_name`=#{typeName})
+              ,#{time}
+          )
+      </insert>
 </mapper>

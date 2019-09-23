@@ -57,7 +57,7 @@ function findNoComment() {
                 tbody+="<span class='meidouPrompt' style='float: left;display: block;margin-top: 39px;margin-left: -118px;color: #a5a5a5;'>（评价晒单说出您的看法哦~）</span></dd>";
                 //提交
                 tbody+="<dd class='commit-btnlayer'><div class='commit_tip'>描述一下您的心得呗~</div>";
-                tbody+="<input  style='display:block' name='evaluate' type='button' onclick='evaluates("+i+")' value='提交' id='"+data[i].evaluate_id+"'> <input type='hidden'></dd>";
+                tbody+="<input  style='display:block' name='evaluate' type='button' onclick='evaluates("+i+")' value='提交' id='"+data[i].evaluate_id+"/"+data[i].goods_id+"/"+data[i].order_no+"'> <input type='hidden'></dd>";
                 tbody+="</dl> </div> </div> </td> </tr> </tbody>";
                 $("#table").append(tbody);
             }
@@ -117,7 +117,7 @@ function findHaveComment(pageIndex,pageSize){
                 tbody+="<tr style='display: none' class='yellow addArea' id='addevaluate-"+i+"'><td colspan='4' style='border-bottom:1px solid #f3dbb6;border-top:1px solid #f3dbb6;'>";
                 tbody+="<div class='again_arrows'></div><div class='again_area'><textarea name='textarea' class='again_info ctextarea-info'></textarea>";
                 tbody+="<div class='again_grade'> <div class='commit-btnlayer clearfix'><div class='addcommit_tip'>描述一下您的心得呗~</div>";
-                tbody+=" <a id='"+list[i].goods_id+"/"+list[i].user_id+"/"+list[i].evaluate_star+"/"+list[i].order_id+"'  name='addevaluate' class='btn-light' href='javascript:;'  style='margin-left:120px;margin-top: 10px;' onclick='addEvaluates("+i+")'>提交</a>";
+                tbody+=" <a id='"+list[i].goods_id+"/"+list[i].user_id+"/"+list[i].evaluate_star+"/"+list[i].order_id+"/"+list[i].order_no+"'  name='addevaluate' class='btn-light' href='javascript:;'  style='margin-left:120px;margin-top: 10px;' onclick='addEvaluates("+i+")'>提交</a>";
                 tbody+="<span class='btn_tip'></span> <span style='float:right;text-align:right;' class='textarea_explain appraise_gray'>0 / 400</span>";
                 tbody+="</div></div></div></div></td></tr></tbody>";
                 $("#table2").append(tbody);
@@ -150,8 +150,9 @@ function evaluates(id) {
     var evaluate_content=document.getElementsByName("textareas")[id].value;
     var sid=document.getElementsByName("evaluate");
     var evaluate_id=sid[id].id;
+    var val=evaluate_id.split("/");
     if(evaluate_content!=""){
-        $.getJSON("../../evaluate/updateEvaluate",{"evaluate_content":evaluate_content,"evaluate_star":len,"evaluate_id":evaluate_id},function (json) {
+        $.getJSON("../../evaluate/updateEvaluate",{"evaluate_content":evaluate_content,"evaluate_star":len,"evaluate_id":val[0],"order_no":val[2],"goods_id":val[1]},function (json) {
             if(json.abc=="true"){   //评论成功
                 findNoComment();
             }else{
@@ -175,8 +176,9 @@ function addEvaluates(id) {
     var uid=val[1];
     var start=val[2];
     var oid=val[3];
+    var order_no=val[4];
     if(textarea!=""){
-        $.getJSON("../../evaluate/addEvaluate",{"evaluate_content":textarea,"evaluate_star":start,"user_id":uid,"goods_id":gid,"order_id":oid},function (json) {
+        $.getJSON("../../evaluate/addEvaluate",{"evaluate_content":textarea,"evaluate_star":start,"user_id":uid,"goods_id":gid,"order_id":oid,"order_no":order_no},function (json) {
             if(json.abc=="true"){   //追加成功
                 findHaveComment(1,pageSize);
             }else{
