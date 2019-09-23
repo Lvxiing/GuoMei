@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="or_right" id="or_right_id">
-                <p class="or_allpay">应付金额<i id="yfPayMoney">16.00</i>元</p>
+                <p class="or_allpay">应付金额<i id="yfPayMoney"></i>元</p>
 
                 <b id="or_look" class="or_look" style="padding-top: 7px; color: rgb(0, 102, 153);">收起详情<i
                         class="shangla1"
@@ -71,15 +71,11 @@
             </div>
         </div>
         <div class="or_dteail" id="or_dteail" style="color: rgb(94, 94, 94); display: block;">
-            <div class="adress-mess clearfix"><span class="or_addss">收货地址：<i title="湖南省 长沙市 开福区 望麓园街道 北大青鸟实力校区">湖南省 长沙市 开福区 望麓园街道 北大青鸟实力校区</i></span><span
-                    class="or_name">收货人：<b class="get_name" title="刘君">刘君</b><i>130****2754</i></span></div>
-            <div class="or_list clearfix"><span class="or_coding">订单号：<i title="11962714723">11962714723</i></span>
-                <div class="shop-god clearfix">
-                    <ul class="or_goodsname">
-                        <li><b title="华为(HUAWEI) 华为nova5i 手机(蜜语红 全网通 6GB+128GB)">    华为(HUAWEI) 华为nova5i 手机(蜜语红 全网通
-                            6GB+128GB)</b><i>¥1746.0</i></li>
-                    </ul>
-                </div>
+            <div class="adress-mess clearfix" id="adress-mess">
+
+            </div>
+            <div class="or_list clearfix" id="olist">
+                <span class="or_coding">订单号：<i  id="ordNo" title=""></i></span>
 
             </div>
         </div>
@@ -163,7 +159,7 @@
         <div class="platform platform-nomyb platform1-top wy_pay" id="platform-zfpt" style="display:block;">
             <dl class="platform-box">
                 <dt class="platform-title">
-                    <span class="price">支付<b class="heighlight">16.00</b>元</span>
+                    <span class="price">支付<b class="heighlight" id="money"></b>元</span>
                     <label class="type"><i
                             style="display:inline-block;margin-right:5px;vertical-align:middle;position:relative"></i>平台支付</label>
                     <span class="sm"></span>
@@ -206,23 +202,53 @@
             },
             function () {
                 $("#or_dteail").show();
-        });
+            });
 
         showOrdersInfo();//显示订单信息
 
     });
+    var reg = /^(\d{3})(\d*)(\d{4})$/;//电话号码中间4位为*
     //显示订单信息
-    function showOrdersInfo(){
+    function showOrdersInfo() {
         var url = GetRequest();
         var payno = url.payno;
-        payno = payno.substring(36,payno.length);
+        payno = payno.substring(36, payno.length);
         $("#payNo").text(payno); //支付单号
         var ono = url.orderNo;
-        ono=ono.substring(36,ono.length);
-        $.getJSON("Orders/userPayInfo",{"orderNo":ono},function(data){
-            alert(data);
+        ono = ono.substring(36, ono.length);
+        $.getJSON("Orders/userPayInfo", {"orderNo": ono}, function (data) {
+            var aInfo = data.addressInfo;
+            var span = "<span class='or_addss'>";
+            var myPhone = aInfo.phone;
+            myPhone = myPhone.replace(reg, function (a, b, c, d) {
+                return b + c.replace(/\d/g, "*") + d;
+            });
+            span += "收货地址：<i title='" + aInfo.provinceAddress.provinceName + "&nbsp;&nbsp;" + aInfo.provinceAddress.cityName + "&nbsp;&nbsp;" + aInfo.provinceAddress.districtName + "&nbsp;&nbsp;" + aInfo.provinceAddress.streetName + "'>" + aInfo.provinceAddress.provinceName + "&nbsp;&nbsp;" + aInfo.provinceAddress.cityName + "&nbsp;&nbsp;" + aInfo.provinceAddress.districtName + "&nbsp;&nbsp;" + aInfo.provinceAddress.streetName + "&nbsp;&nbsp;" + aInfo.address + "</i></span><spanclass='or_name'>&nbsp;&nbsp;收货人：<b class='get_name' title='" + aInfo.userName + "'>" + aInfo.userName + "</b><i>" + myPhone + "</i></span>"
+            $("div#adress-mess").append(span);
+            $("#ordNo").attr("title", data.orders.orderNo);
+            $("#ordNo").text(data.orders.orderNo);
+            $("#yfPayMoney").text(data.orders.total);
+            $("#money").text(data.orders.total);
+            for (var i = 0; i < data.goods.length; i++) {
+                var g = data.goods[i];
+                if(i==0){
+                    var div ="<div class='shop-god clearfix'><b class='or_shopname' title='"+g.bname+"'>"+g.bname+"</b> <ul class='or_goodsname'> <li><b title='"+g.title+"'>"+g.title+"</b><i>¥"+g.money+"</i></li> </ul> </div>";
+                    $("div#olist").append(div);
+                }else{
+                    var div = "<div class='shop-god clearfix'><span class='empty'>&nbsp;</span><b class='or_shopname' title='"+g.bname+"'>"+g.bname+"</b> <ul class='or_goodsname'><li><b title='"+g.title+"'>"+g.title+"</b><i>¥"+g.money+"</i></li> </ul> </div>";
+                    $("div#olist").append(div);
+                }
+            }
         });
     }
+
+    //{addressInfo=Address(id=54, provinceId=1, cityId=1, districtId=1, streetId=1, userId=31, userName=123,
+    // address=65, phone=13798654587, email=15689756548@qq.com, isdefault=1,
+    // provinceAddress=ProvinceAddress{provinceId=1, provinceName=湖南省, cityId=1,
+    // cityName=长沙市, districtId=1, districtName=开福区, streetId=1, streetName=望麓园街道}),
+    // goods=[{money=246392.00, title=Sony/索尼 ILCE-A7RM3(E24-70GM)套机 全画幅相机 索尼微单A7R3}],
+    // orders=Orders(id=36, addressId=54, payDate=null, orderTime=Mon Sep 23 17:05:42 CST 2019,
+    // total=246392.00, status=1, orderNo=201909231705416840001, userId=31)}
 
     function GetRequest() {
         var url = location.search; //获取url中"?"符后的字串

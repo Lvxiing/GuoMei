@@ -111,6 +111,12 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                 Goods one = goodsService.getOne(new QueryWrapper<Goods>().eq("goods_id", Integer.valueOf(m.get("gid").toString())));
                 goods.setStock(one.getStock() - Integer.valueOf(m.get("num").toString()));
                 goodsService.updateById(goods);
+                if(goods.getStock() == 0){ //表示无库存,商品进行下架
+                    Goods upGoods = new Goods();
+                    upGoods.setId(Integer.valueOf(m.get("gid").toString()));
+                    upGoods.setState(0);
+                    goodsService.updateById(upGoods);
+                }
             }
             res = true;
         }
