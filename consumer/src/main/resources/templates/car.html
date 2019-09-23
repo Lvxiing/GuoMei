@@ -105,7 +105,7 @@
 
 
 
-                <p style="margin-left: 650px;margin-bottom: 10px;padding-top: 20px;"   name="diYongP">可用<span name="scoreSum">0</span>美豆抵用<span name="diQian">0</span>元
+                <p style="margin-left: 650px;margin-bottom: 10px;padding-top: 20px;"   name="diYongP" hidden>可用<span name="scoreSum">0</span>美豆抵用<span name="diQian">0</span>元
                     <input type="checkbox" name="diYongCheck">
                 </p>
 
@@ -149,7 +149,7 @@
 
     //显示我的购物车里的商品
    function  show(){
-
+       $("input[name=allCheck]").get(0).checked=false;
 $.getJSON("/cart/cartAllGoodsByUserId",function (json) {
     $("#container>div").remove();
     //购物车内暂无商品
@@ -281,13 +281,22 @@ $("[name=goodDiv]  input[name='good']:checked").each(function(i,item){
 var num=new Array();
 $("[name=goodDiv]  input[name='good']:checked").each(function(){
     //购买数量
-    num.push(parseInt($(this).parents("[name=goodDiv]").find("input[name='num']").val()));
+    num.push(parseInt($(this).parents("[name=goodDiv]").find("input[name='num']").val()
+
+    ));
 });
+
 
 //合计的钱
    var sumPrice= $("[name=sumPrice]").text();
 
-    location.href="order_info.html?goodsId="+goodsId+"&num="+num+"&vipIdArr="+vipIdArr+"&sumPrice="+guid()+sumPrice;
+    if ($("[name=diYongCheck]").get(0).checked==true) {   //使用美豆抵钱
+        location.href="order_info.html?goodsId="+goodsId+"&num="+num+"&vipIdArr="+vipIdArr+"&sumPrice="+guid()+sumPrice+"&ifUseScore=yes";
+    }else{     //不使用美豆抵钱
+        location.href="order_info.html?goodsId="+goodsId+"&num="+num+"&vipIdArr="+vipIdArr+"&sumPrice="+guid()+sumPrice+"&ifUseScore=no";
+    }
+
+
 }
 
     //生成唯一的uuid
@@ -381,8 +390,13 @@ $("#container").on("click","[name=toCollect]",function () {
 //显示该会员的美豆数
     $.getJSON("/users/findVip", function (result) {
         for (var i = 0; i < result.length; i++) {
-            $("[name=scoreSum]").text(result[i].scoreSum);
-            $("[name=diQian]").text(result[i].scoreSum/100);
+            if(result[i].scoreSum==0){
+                $("[name=diYongP]").hide();
+            }else{
+                $("[name=diYongP]").show();
+                $("[name=scoreSum]").text(result[i].scoreSum);
+                $("[name=diQian]").text(result[i].scoreSum/100);
+            }
         }
     });
 
