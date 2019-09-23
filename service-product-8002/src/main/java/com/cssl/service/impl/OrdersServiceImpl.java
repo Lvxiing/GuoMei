@@ -7,6 +7,7 @@ import com.cssl.entity.OrderDetail;
 import com.cssl.entity.Orders;
 import com.cssl.mapper.OrdersMapper;
 import com.cssl.service.CartService;
+import com.cssl.service.GoodsService;
 import com.cssl.service.Order_detailService;
 import com.cssl.service.OrdersService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -40,6 +41,9 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     @Autowired
     private CartService cartService;
 
+    @Autowired
+    private GoodsService goodsService;
+
     @Override
     public Page<Map<String, Object>> findOrdersByUserId(Map<String, Object> map) {
         Integer pageSize = new Integer(map.get("pageSize").toString());
@@ -66,7 +70,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     }
 
     @Override
-    public Map<String,Object> addOrder(Map<String, Object> map) {
+    public Map<String, Object> addOrder(Map<String, Object> map) {
         boolean res = false;
         Orders orders = new Orders();
         orders.setUserId(Integer.valueOf(map.get("uid").toString()));
@@ -100,14 +104,20 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                 orderDetail.setMoney(decimal2);
                 orderDetailService.save(orderDetail);
                 //从购物车中删除该商品
-                cartService.remove(new QueryWrapper<Cart>().eq("user_id",Integer.valueOf(map.get("uid").toString())).eq("goods_id",Integer.valueOf(m.get("gid").toString())));
+                cartService.remove(new QueryWrapper<Cart>().eq("user_id", Integer.valueOf(map.get("uid").toString())).eq("goods_id", Integer.valueOf(m.get("gid").toString())));
+                //减少库存
+                Goods goods = new Goods();
+                goods.setId(Integer.valueOf(m.get("gid").toString()));
+                Goods one = goodsService.getOne(new QueryWrapper<Goods>().eq("goods_id", Integer.valueOf(m.get("gid").toString())));
+                goods.setStock(one.getStock() - Integer.valueOf(m.get("num").toString()));
+                goodsService.updateById(goods);
             }
             res = true;
         }
 
-        Map<String,Object> param = new HashMap<>();
-        param.put("orderNo",orders.getOrderNo());
-        param.put("times",orders.getOrderTime());
+        Map<String, Object> param = new HashMap<>();
+        param.put("orderNo", orders.getOrderNo());
+        param.put("times", orders.getOrderTime());
         return param;
     }
 
