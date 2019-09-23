@@ -171,7 +171,7 @@
     </insert>
 
     <select id="userPayInfo" resultType="map">
-        SELECT g.`goods_title` AS title, d.detail_money AS money,b.brand_name FROM order_detail d
+        SELECT g.`goods_title` AS title, d.detail_money AS money,b.brand_name AS bname  FROM order_detail d
        INNER JOIN orders  o ON d.order_id = o.order_id
        INNER JOIN goods g ON g.`goods_id` = d.goods_id
        INNER JOIN brand b ON b.brand_id = g.brand_id
