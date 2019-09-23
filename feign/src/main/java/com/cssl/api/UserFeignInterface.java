@@ -51,6 +51,11 @@ public interface UserFeignInterface {
     @RequestMapping("/growup_detail/detailDescription")
      Map detailDescription();
 
+    @RequestMapping("/score/updateScoreSum")
+    int updateScoreSum(@RequestParam  Map map);
+
+    @RequestMapping("/score_detail/saveScoreDetail")
+    int saveScoreDetail(@RequestParam  Map map);
 
     //****************** 购物车 ***************
 

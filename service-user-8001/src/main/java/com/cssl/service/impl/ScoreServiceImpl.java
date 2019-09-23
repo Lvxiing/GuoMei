@@ -4,7 +4,10 @@ import com.cssl.entity.Score;
 import com.cssl.mapper.ScoreMapper;
 import com.cssl.service.ScoreService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -16,5 +19,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ScoreServiceImpl extends ServiceImpl<ScoreMapper, Score> implements ScoreService {
+    @Autowired
+    private  ScoreMapper scoreMapper;
 
+    @Override
+    public int updateScoreSum(Map map) {
+        return scoreMapper.updateScoreSum(map);
+    }
 }
