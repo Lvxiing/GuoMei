@@ -62,12 +62,16 @@ public interface ProductFeignInterface {
     //根据街id查询街名称
     @RequestMapping("street/findNameByStreetId")
     public String findNameByStreetId(@RequestParam Integer street_id);
-    //回显省市级地址
+    //查询所有地址
     @RequestMapping("address/showAddress")
     List<Address> showAddress(@RequestParam Map<String,Object>map);
-
+    //判断该用户是否有收货地址
     @RequestMapping("address/selectAddressExist")
     String selectAddressExist(@RequestParam("uid") Integer uid);
+
+    //根据address_id删除收货地址
+    @RequestMapping("address/deleteAddress")
+    boolean deleteAddress(@RequestParam(value = "address_id") Integer id);
 
     //---------------------------新闻前台模块--------------------------------
     //查询所有新闻
