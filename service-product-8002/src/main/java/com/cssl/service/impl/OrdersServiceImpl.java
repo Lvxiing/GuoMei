@@ -1,9 +1,12 @@
 package com.cssl.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cssl.entity.Cart;
 import com.cssl.entity.Goods;
 import com.cssl.entity.OrderDetail;
 import com.cssl.entity.Orders;
 import com.cssl.mapper.OrdersMapper;
+import com.cssl.service.CartService;
 import com.cssl.service.Order_detailService;
 import com.cssl.service.OrdersService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -15,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -32,6 +36,9 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
 
     @Autowired
     private Order_detailService orderDetailService;
+
+    @Autowired
+    private CartService cartService;
 
     @Override
     public Page<Map<String, Object>> findOrdersByUserId(Map<String, Object> map) {
@@ -59,18 +66,24 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     }
 
     @Override
-    public boolean addOrder(Map<String, Object> map) {
+    public Map<String,Object> addOrder(Map<String, Object> map) {
         boolean res = false;
         Orders orders = new Orders();
         orders.setUserId(Integer.valueOf(map.get("uid").toString()));
         orders.setAddressId(Integer.valueOf(map.get("aid").toString()));
-        orders.setOrderTime(new Date());
+        Date day = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(df.format(day));
+        orders.setOrderTime(day);
         orders.setStatus(1);
         orders.setOrderNo(GenerateNum.getInstance().GenerateOrder());
         double totalMoney = 0;
         List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("list");
         for (Map m : list) {
-            totalMoney += (double) m.get("price") * (int) m.get("num");
+            String str = m.get("price").toString();
+            Double price = Double.parseDouble(str);
+            Integer num = new Integer(m.get("num").toString());
+            totalMoney += price * num;
         }
         BigDecimal decimal = new BigDecimal(totalMoney);
         orders.setTotal(decimal.setScale(2, BigDecimal.ROUND_HALF_UP));
@@ -86,10 +99,16 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                 orders.setTotal(decimal2.setScale(2, BigDecimal.ROUND_HALF_UP));
                 orderDetail.setMoney(decimal2);
                 orderDetailService.save(orderDetail);
+                //从购物车中删除该商品
+                cartService.remove(new QueryWrapper<Cart>().eq("user_id",Integer.valueOf(map.get("uid").toString())).eq("goods_id",Integer.valueOf(m.get("gid").toString())));
             }
             res = true;
         }
-        return res;
+
+        Map<String,Object> param = new HashMap<>();
+        param.put("orderNo",orders.getOrderNo());
+        param.put("times",orders.getOrderTime());
+        return param;
     }
 
 
@@ -228,7 +247,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                 }
             }
         }
-        List<Object> datas = Arrays.asList(new Integer[list1.size()]);
+        List<Integer> datas = Arrays.asList(new Integer[list1.size()]);
         List<Object> arrList = new ArrayList(datas);
         if (data.size() > 0) {
             for (int n = 0; n < data.size(); n++) {

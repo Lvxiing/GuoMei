@@ -33,7 +33,7 @@ public class OrdersController {
     //用户下单
     @RequestMapping("addOrders")
     @ResponseBody
-    public String addOrders(HttpSession session,@RequestParam Map<String,Object> map){
+    public Map<String, Object>  addOrders(HttpSession session,@RequestParam Map<String,Object> map){
         Users users =(Users) session.getAttribute("user");
         map.put("uid",users.getId());
         return productFeignInterface.addOrders(map);
