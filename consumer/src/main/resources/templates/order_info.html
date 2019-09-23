@@ -283,7 +283,7 @@
         <p class="text-right  clearfix"><span class="w185 fr pr20" id="totalMoney">¥20.80</span><span class="fr"><em
                 class="fontRed" id="num">1</em>件商品，总金额：</span></p>
         <p class="text-right  clearfix"><span class="w185 fr pr20">-¥0.00</span><span class="fr">优惠券：</span></p>
-        <p class="text-right  clearfix"><span class="w185 fr pr20">-¥0.00</span><span class="fr">美豆：</span></p>
+        <p class="text-right  clearfix"><span class="w185 fr pr20" id="meidou">-¥0.00</span><span class="fr">美豆：</span></p>
         <div style="height:28px;"></div>
         <div class="text-right play pr18 border-no-bootom clearfix">
             <span class="fr mt15 mb5">     应付款总金额：<em id="sum" class="fontRed strong font20">¥35.80</em></span>
@@ -958,6 +958,7 @@
 <script type="text/javascript">
     $(function () {
         goodsList();
+        //提交订单
         $("#id_commit").click(function () {
             var url = GetRequest();
             var sumPrice = url.sumPrice;
@@ -978,7 +979,9 @@
 
     function goodsList() {
         var url = GetRequest();
-
+        var sumPrice = url.sumPrice;
+        sumPrice = sumPrice.substring(36, payno.length);
+        alert(sumPrice);
         var money = 0;
         var num = 0;
         $.ajax(
