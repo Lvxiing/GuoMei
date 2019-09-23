@@ -160,6 +160,7 @@ function category(cid) {
 function searchGoods(pageIndex,pageSize) {
     var _t = getQueryString("content"); //获取地址栏参数
     var content = decodeURI(_t); //只需要转一次码
+    alert(content);
     $.getJSON("../../Goods/showAll",{"pageIndex":pageIndex,"pageSize":pageSize,"keywords":content}, function (json) {
         $("#searchTotalNumber").text(json.totalCount);
         xunhuan(json);
@@ -257,6 +258,9 @@ function getQueryString(name) {
 function search() {
     $(".search-btn").click(function () {
         var input=$("#searchInput").val();
+        if(input==""){
+            input="华为";
+        }
         var content = encodeURI(encodeURI(input));
         window.location.href='categoryLists.html?content='+content;
     });

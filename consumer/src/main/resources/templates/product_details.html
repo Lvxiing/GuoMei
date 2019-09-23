@@ -53,6 +53,26 @@
 <div id="gome-head" class="wbox" data-need-slogan-judge="true">
     <div id="logo"><a data-code="public03001" href="javascript:;">国美</a></div>
     <div id="logo-gif"></div>
+    <div id="topSearch" class="topsearch">
+        <div id="topSearchHover" class="searchbox" data-visitor="hover">
+            <form id="searchForm" method="get" action="//search.gome.com.cn/search" class="">
+                <div id="search-type-dropdown">
+                    <div class="search-type">
+                        <span class="search-type-selected" data-selected="goods">商品</span>
+                    </div>
+                </div>
+                <input type="text" id="searchInput" name="question" value="" autocomplete="off" onpropertychange="if(this.value.length>200){this.value=this.value.slice(0,199)}" alt="">
+                <button type="button" class="search-btn">搜索</button>
+            </form>
+            <a href="//js.gomein.net.cn/search/voice/search.html" target="_blank"><div class="voice-search"></div></a></div>
+        <div id="searchTips" class="searchtips" style="display: none;">
+
+            <ul id="searchTipsList" class="searchabout clearfix"><li class="related-search related-shop-search">    <a href="javascript:void(0);">        <i></i><span>找“</span><em class="related-keyword"></em><span>”相关店铺</span></a>    </li></ul>
+            <div class="closeSearch" id="closeSearch"><span>关闭</span></div><div class="closeSearch delHeaderHistorySearch" style="display: none;" id="delHeaderHistorySearch"><span>全部删除</span></div></div>
+        <script type="text/javascript">
+            var environment = 'commerce', targetType = 'Production', contentLabels = 'Catalog', language = 'chinese';
+        </script>
+    </div>
     <div class="mygome-side" data-cart="mincart">
         <ul class="topmenu clearfix">
             <li class="shopcartbox"><span class="cartlinkbox">
@@ -249,7 +269,7 @@
                     <label class="prd-properties-left">库　　存</label>
                     <div class="prd-properties-right" style="position:relative">
                         <span class="hasstock" id="stockTxt">有货</span>
-                        <span class="hasstock" id="stock"></span>
+                        <span class="hasstock" id="stock" style="display: none;"></span>
                         <div id="show_xiangqing" class="pop-freightnote hide"></div>
                     </div>
                 </div>
@@ -501,6 +521,22 @@ if(vipPrice==''){
                                 });
 
                             })
+
+
+
+
+//加数量
+                        $(".j-gACbtnA").click(function () {
+                            var num = $("#enterQty").val();
+                            var stock=$("#stock").text();
+                            if (num==stock) {
+                                layer.msg("该商品库存最多只有"+stock+"件了哦",{icon:0});
+                                $("#enterQty").val(stock);
+                            }else{
+                                $("#enterQty").val(parseInt(num) + 1);
+                            }
+                        });
+
 
 
                     });
@@ -1058,13 +1094,7 @@ if(vipPrice==''){
             }
         });
         $("a#a").attr("href", "car.html");
-        //上下加减
-        $(".j-gACbtnA").click(function () {
-            var num = $("#enterQty").val();
-            if (num < 100) {
-                $("#enterQty").val(parseInt(num) + 1);
-            }
-        });
+        //减
         $(".j-gACbtn").click(function () {
             var num = $("#enterQty").val();
             if (num > 1) {

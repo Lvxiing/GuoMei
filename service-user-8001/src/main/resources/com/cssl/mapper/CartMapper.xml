@@ -17,6 +17,7 @@
         <id column="goods_id" property="goodsId" />
         <result column="goods_title" property="goodsTitle" />
         <result column="goods_main_img" property="goodsMainImg" />
+        <result column="goods_stock" property="goodsStock" />
         <result column="cart_money" property="goodsPrice" />
         <result column="cart_id" property="cartId" />
         <result column="cart_num" property="cartNum" />
@@ -25,7 +26,7 @@
 
 
     <select id="cartAllGoodsByUserId" resultMap="myMap">
-        SELECT   g.goods_id,g.goods_title,g.goods_main_img,c.cart_money,c.cart_id,c.cart_num,c.cart_total FROM   cart c
+        SELECT   g.goods_id,g.goods_title,g.goods_main_img,g.goods_stock,c.cart_money,c.cart_id,c.cart_num,c.cart_total FROM   cart c
                                                                                                                       LEFT JOIN   goods  g  ON  c.goods_id=g.goods_id
         WHERE   c.user_id=#{userId}
     </select>
