@@ -56,22 +56,6 @@ public class GoodsController {
         return goodsService.findGoodsByCategoryName(map);
     }
 
-    //根据分类名称查询该分类下的所有品牌商品的新品抢先
-    @RequestMapping("findGoodsNewByCategoryName")
-    @ResponseBody
-    public List<Goods> findGoodsNewByCategoryName(@RequestParam("categoryName") String categoryName) {
-
-        return goodsService.findGoodsNewByCategoryName(collectionCategoryName(categoryName));
-    }
-
-    //根据分类名称查询该分类下的所有品牌商品的畅想低价
-    @RequestMapping("findGoodsLowPrice")
-    @ResponseBody
-    public List<Goods> findGoodsLowPrice(@RequestParam("categoryName") String categoryName) {
-
-        return goodsService.ListfindGoodsLowPrice(collectionCategoryName(categoryName));
-    }
-
     //封装参数
     public List collectionCategoryName(String categoryName) {
         List list = new ArrayList();
