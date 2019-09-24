@@ -46,8 +46,8 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     }
 
     @Override
-    public List<Goods> findGoodsByCategoryName(List list) {
-        return goodsMapper.findGoodsByCategoryName(list);
+    public List<Goods> findGoodsByCategoryName(Map<String,Object> map) {
+        return goodsMapper.findGoodsByCategoryName(map);
     }
 
     @Override
