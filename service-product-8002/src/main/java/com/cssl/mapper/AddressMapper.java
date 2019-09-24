@@ -22,5 +22,8 @@ public interface AddressMapper extends BaseMapper<Address> {
     List<Address> findAddress();
     //查询我的收货地址
     List<Address> showAddress(Map<String,Object> map);
-
+    //修改该用户下的所有地址为普通用户
+    int updatePTAddress(Integer userid);
+    //根据address_id修改为默认地址
+    int updateMRAddress(Map<String,Object> map);
 }

@@ -579,10 +579,13 @@
             search();
             var re=GetRequest();
             var p="";
-            if(re.Identification==""){   //其他页面跳转过来
-               p =" <p>服务器繁忙，请您稍后访问<br><span><a href='index.html'>返回首页</a></span></p>";
-            }else{   //商品下架跳转过来
+
+            if(re.Identification==1){
+                $(".find-tips").empty();
                 p=" <p>该商品已下架,商家努力补货中<br><span><a href='index.html'>返回首页</a></span></p>";
+            }else{
+                $(".find-tips").empty();
+                p =" <p>服务器繁忙，请您稍后访问<br><span><a href='index.html'>返回首页</a></span></p>";
             }
             $(".find-tips").append(p);
             //--------------------悬浮商品分类特效-------------------------

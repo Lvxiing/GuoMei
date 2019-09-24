@@ -73,6 +73,17 @@ public interface ProductFeignInterface {
     @RequestMapping("address/deleteAddress")
     boolean deleteAddress(@RequestParam(value = "address_id") Integer id);
 
+    //根据adddress_id修改收货地址
+    @RequestMapping("address/updateAddress")
+    boolean updateAddress(@RequestBody Address address);
+
+    //修改该用户下的所有地址为普通用户
+    @RequestMapping("address/updatePTAddress")
+    int updatePTAddress(@RequestParam Integer userid);
+    //根据address_id修改为默认地址
+    @RequestMapping("address/updateMRAddress")
+    int updateMRAddress(@RequestParam Map<String,Object> map);
+
     //---------------------------新闻前台模块--------------------------------
     //查询所有新闻
     @RequestMapping("news/findAllNews")
@@ -170,10 +181,17 @@ public interface ProductFeignInterface {
 
 
     //----------------------------订单前台模块-----------------------------
+
+    //用户支付成功,更新数据库的支付时间
+    @RequestMapping("orders/orderSuccess")
+    String orderSuccess(@RequestParam  String orderNo);
+
+
     //用户下单信息
     @RequestMapping("orders/orderInfo")
     Map<String,Object> orderInfo(@RequestParam("uid") Integer uid,@RequestParam Map<String,Object> map);
 
+    //用户下单
     @RequestMapping("orders/addOrders")
     Map<String, Object>  addOrders(@RequestParam Map<String,Object> map);
 
