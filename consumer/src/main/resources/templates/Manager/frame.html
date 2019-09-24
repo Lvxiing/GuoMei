@@ -120,8 +120,8 @@
                 //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
                 type:2,
                 title: "修改密码",
-                area: [ '500px', '500px' ],
-                content:'/tgls/modify_password.html?id='+$("span#userId").text() //引用的弹出层的页面层的方式加载修改界面表单
+                area: [ '400px', '300px' ],
+                content:['/tgls/modify_password.html' ,'no']//引用的弹出层的页面层的方式加载修改界面表单
             });
 
         })
@@ -129,11 +129,11 @@
 
 
 		//一加载就得到session中的管理员
-		$(function () {
-		    $.getJSON("/users/getSessionAdminUser",function (json){
-		        $("span#userId").text(json.id);
-		        $("span#userName").text(json.userName);
-			})
+        $(function () {
+            $.getJSON("/users/getSessionAdminUser",function (json){
+                $("span#userId").text(json.id);
+                $("span#userName").text(json.userName);
+            })
         })
 
 

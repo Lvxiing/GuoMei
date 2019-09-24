@@ -253,7 +253,6 @@ function floor(key, id, color,floorName,brandName,cid1,cid2) {
             }
             uls+="</li>";
         }else if(id==94){
-            alert(12);
             var brandNames=brandName.split(",");
             var cidss=cid2.split(",");
             for(var t=0;t<brandNames.length-1;t++){
