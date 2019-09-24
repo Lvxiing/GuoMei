@@ -61,7 +61,15 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
         System.out.println("mess:" + hm.get("mess"));
         if ("success".equals(hm.get("mess"))) {
             Users u = selectPhone(phoneNum);
+            //把登录的该用户存入session中
             session.setAttribute("user", u);
+
+            Map m=new HashMap();
+            m.put("userId",u.getId());
+            Integer userGradeId =Integer.valueOf(userFeignInterface.findVip(m).get(0).get("gradeId").toString());
+            //把登录的该用户的会员等级id存入session中
+            session.setAttribute("userGradeId",userGradeId);
+
             Map map = new HashMap();
             map.put("userId", u.getId());
             final String typeName = "每日登录";
@@ -72,10 +80,12 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
             String loginTime = sdf.format(u.getLoginTime());
             //当前系统时间
             String nowDate = sdf.format(System.currentTimeMillis());
-            int days = (int) ((sdf.parse(nowDate).getTime() - sdf.parse(loginTime).getTime()) / (1000*3600*24));
+           // int days = (int) ((sdf.parse(nowDate).getTime() - sdf.parse(loginTime).getTime()) / (1000*3600*24));
+            boolean pd=sdf.parse(nowDate).getTime()==sdf.parse(loginTime).getTime();
             //用户当日注册当日登录
             //每日首次登录加成长值
-            if (days!=1) {
+            //days==1
+            if (!pd || sdf.format(u.getTime()).equals(loginTime) ) {
                 int ucount = userFeignInterface.updateGrowupSum(map);
                 int scount = userFeignInterface.saveGrowupdetail(map);
                 //将此次获得的成长值详细说明存入redis中
@@ -83,7 +93,6 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
                 Object gdetailId = desMap.get("gdetailId");
                 Object userPhone = desMap.get("userPhone");
                     redisFeignInterface.set(gdetailId.toString(), "登录账户:" + userPhone + ",登录时间:" + nowDate, -1);
-
             }
             boolean b = userFeignInterface.updateLoginTime(u);
             System.out.println("sessionUser:" + session.getAttribute("user"));
@@ -179,7 +188,13 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
         return userFeignInterface.updatePwd(users);
     }
 
-
+    //得到session中的用户会员等级id
+    @RequestMapping("/getSessionUserGradeId")
+    @ResponseBody
+    public Integer getSessionUserGradeId(HttpSession session) {
+        System.out.println("*******getSessionUserGradeId");
+        return Integer.valueOf(session.getAttribute("userGradeId").toString());
+    }
 
 
 
