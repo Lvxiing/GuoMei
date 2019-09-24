@@ -18,7 +18,7 @@ public class AlipayConfig {
 
     //return_url是指付款成功之后返回给用户查看的界面
     // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-    public static String return_url = "http://localhost:9001/pay-success.html";
+    public static String return_url = "http://localhost:9001/Orders/orderSuccess";
 
     // 签名方式
     public static String sign_type = "RSA2";
