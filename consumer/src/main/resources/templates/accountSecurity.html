@@ -62,6 +62,7 @@
                 <li class="w107 gomeNavList">
                     <a href="javascript:;">账户设置<i></i></a>
                     <ul class="navList w105">
+                        <li class=""><a href="accountSecurity.html">账户安全</a></li>
                         <li><a href="profile.html">基本资料</a></li>
                         <li><a href="addressPage.html">收货地址</a></li>
                     </ul>
@@ -126,6 +127,9 @@
                 </ul>
                 <div class="sideBar-sort">账户设置</div>
                 <ul>
+                    <li>
+                        <a href="accountSecurity.html">账户安全</a><span></span>
+                    </li>
                     <li id="li">
                         <a href="profile.html">基本资料</a><span></span>
                     </li>
@@ -147,114 +151,77 @@
                     <div class="conttopbox-right"></div>
                 </div>            </div>
             <h2 class="bgtit all clearfix"><span class="red-d fl">修改登录密码</span> </h2>
-            <div id="updatePasswordId" style="overflow:hidden;">
+            <div id="updatePasswordId" style="overflow:hidden;">                <div class="pi-ibox clearfix" id="pi-iboxa">                                            <p class="pr">                            <label class="formt" for="newPassword"><span class="red">*</span>输入密码：</label>                            <input maxlength="20" size="24"  type="password" class="blueboder" name="newPassword" id="newPassword">                            <label style="display:none;"> <span class="ibox-yes"></span> </label>                            <span class="gray graycol"></span>                            <span class="remark red"></span>                        </p>                        <input type="hidden" value="hmnhmn" name="loginName" id="loginName">                        <p class="pr">                            <label class="formt" for="rNewPassword"> <span class="red">*</span>确认密码：</label>                            <input size="24" maxlength="20"  type="password" required="true" class="blueboder" name="passWord" id="rNewPassword">                            <label style="display:none;"> <span class="ibox-yes"></span></label>                            <span class="gray graycol"></span>                            <span class="remark red"></span>                        </p>                        <p class="c2">                            <label class="formt">手机号码：</label>                            <strong class="f14 fb red" name="phone"></strong>                            <a onclick="return false;" id="sendCode" href="javascript:void(0)" class="nreomcode">获取短信验证码</a>                            <span style="display:none;">您还可以获得<label id="getCodeRemaining" class="red"></label>次验证码</span>                        </p>                        <p class="pr">                            <label class="formt">短信验证码：</label>                            <input class="blueboder" type="text" name="verifyCode" id="verifyCode" name="code" onkeypress="if(event.keyCode==13||event.which==13){return false;}">                            <label style="display:none;" id="verifyCodeMessageChangePassword"> <span class="ibox-yes"></span> </label>                            <span class="remark red" id="verifyCodeMessage"></span>                        </p>                        <p class="pl110">                            <a id="passwdCgAct" name="toSubmit" class="commonbtn minor" href="javascript:void(0);"><span><strong>提交</strong></span></a>                        </p>                                    </div>                               </div>
 
 
-                <div class="cBody" style="margin-top: 10px;">
-                    <form id="modifyPwdForm" class="layui-form" action="">
-                        <div class="layui-form-item" style="display: none;">
-                            <label class="layui-form-label">id</label>
-                            <div class="layui-input-inline shortInput">
-                                <input type="text" name="id" autocomplete="off" class="layui-input"  >
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">原始密码</label>
-                            <div class="layui-input-inline shortInput">
-                                <input type="password" name="oldPassword" required lay-verify="required" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">新密码</label>
-                            <div class="layui-input-inline shortInput">
-                                <input type="password" name="newPassword" required lay-verify="required" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">确认新密码</label>
-                            <div class="layui-input-inline shortInput">
-                                <input type="password" name="passWord" required lay-verify="required" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
+            <script>
 
-                        <div class="layui-form-item">
-                            <div class="layui-input-block">
-                                <button class="layui-btn" lay-submit="" lay-filter="update">确认修改</button>
-                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                            </div>
-                        </div>
-                    </form>
+                $(function(){
 
-                    <script >
+                    //一加载就显示该用户的手机号
+                    $.getJSON("/users/getSessionUser",function(result){
+                        $("[name=phone]").text(result.phone);
+                    });
 
-                        layui.use(['layer','form'],function(){
-                            var layer = layui.layer ,
-                                form = layui.form,
-                                $ = layui.jquery;
+                    layui.use(['layer','upload','form'], function() {
+                        var layer = layui.layer,  //弹层
+                            $ = layui.jquery;
 
-
-                            //提交表单
-                            form.on('submit(update)', function (data) {
-                                $.ajax({
-                                    type: 'POST',
-                                    url: "/users/updateUserPwd",
-                                    dataType: 'json',
-                                    data: data.field,//往后台发送的是data.field，即一个{name：value}的数据结构
-                                    async: true,
-                                    success: function (result) {
-                                        if (result==true) {
-                                            layer.msg('密码修改成功',{icon:1}, function(){
-                                                location.reload(); //刷新窗口
-                                            });
-                                        } else {
-                                            layer.msg("密码修改失败,请重试",{icon:2});
-                                        }
-                                    }
-                                });
-                                return false;
-                            });
-
-
-                            $(function () {
-                                $("input[name=oldPassword]").blur(checkOldPassword);
-                                $("input[name=passWord]").blur(checkPassword);
-                            })
-
-                            //验证原始密码
-                            function  checkOldPassword(){
-                                var  oldPassword= $("input[name=oldPassword]").val();
-                                $.getJSON("/users/selectUserPwd",{passWord:oldPassword},function (result) {
-                                    if (result==null){
-                                        layer.msg("原始密码错误!",{icon:0});
-                                        $("input[name=oldPassword]").focus();
-                                    }
-                                });
-                            }
-
-//验证确认密码
-                            function  checkPassword(){
-                                var  newPassword= $("input[name=newPassword]").val();
-                                var  passWord= $("input[name=passWord]").val();
-                                if (newPassword!=passWord){
-                                    layer.msg("两次密码不一致!",{icon:0});
-                                    $("input[name=passWord]").focus();
-                                }
-                            }
-
-
-
-
-
-
-
+//发送验证码
+                        $("#sendCode").click(function () {
+                            layer.msg("验证码已发送,请注意查看信息!",{icon:1});
+                            sendyzm($("#sendCode"));
                         })
 
-                    </script>
+//提交,修改密码
+                        $("[name=toSubmit]").click(function(){
+                            var passWord=$("[name=passWord]").val();
+                            $.getJSON("/users/updateUserPwd",{"passWord":passWord},function(result){
+                                if (result==true) {
+                                    layer.msg('密码修改成功',{icon:1}, function(){
+                                        location.reload(); //刷新窗口数据
+                                    });
+                                } else {
+                                    layer.msg("密码修改失败,请重试",{icon:2});
+                                }
+                            })
+                        });
 
-                </div>
+
+                    });
+
+                })
 
 
-            </div>
+                function sendyzm(){
+                    var phone = $("[name=phone]").text();
+                    $.getJSON("/users/ajaxNum","phoneNum="+phone,function (json) {
+                        var verCode = json.numeric;
+                    })
+                    setTime(obj);
+                }
+                var countdown = 60;
+                function setTime(obj) {
+                    if (countdown == 0) {
+                        obj.prop('disabled', false);
+                        obj.text("点击获取验证码");
+                        countdown = 60;//60秒过后button上的文字初始化,计时器初始化;
+                        return;
+                    } else {
+                        obj.prop('disabled', true);
+                        obj.text("("+countdown+"s)后重新发送") ;
+                        countdown--;
+                    }
+                    setTimeout(function() { setTime(obj) },1000) //每1000毫秒执行一次
+                }
+
+
+            </script>
+
+
+
+
+
         </div>
     </div>
 </div>
