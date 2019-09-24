@@ -226,7 +226,7 @@ function sellWell(id) {
 
 //相似商品
 function besimilarGoods(name) {
-    $.getJSON("../../Goods/findGoodsNewByCategoryName",{"categoryName":name} ,function (json){
+    $.getJSON("../../Goods/findGoodsByCategoryName",{"categoryName":name,"bs":"time"} ,function (json){
         var re =GetRequest();
         for(var i=0;i<json.length;i++){
             if(re.gid!=json[i].id){
