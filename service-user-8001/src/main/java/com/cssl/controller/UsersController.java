@@ -157,7 +157,6 @@ Map<String,String> hm=new HashMap<>();
 
     @RequestMapping("/updateLoginTime")
     public boolean updateLoginTime(@RequestBody  Users users) {
-        users.setLoginTime(new java.util.Date());
        return  usersService.updateById(users);
     }
 
@@ -185,6 +184,10 @@ Map<String,String> hm=new HashMap<>();
     }
 
 
+    @RequestMapping("/updateSignInTime")
+    public boolean updateSignInTime(@RequestBody  Users users) {
+        return  usersService.updateById(users);
+    }
 
 
 
