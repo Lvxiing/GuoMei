@@ -57,7 +57,6 @@ public class Coupon extends Model<Coupon> {
     @TableField(value = "coupon_count")
     private Integer couponCount;               //发放数量
 
-
     @TableField(value = "coupon_limit")
     private Integer couponLimit;                //每人限领
 
