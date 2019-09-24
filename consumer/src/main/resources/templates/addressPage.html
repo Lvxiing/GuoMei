@@ -809,7 +809,13 @@
                     tr += "</tr>";
                     $("table.list-table tbody").append(tr);
                 }
-            })
+                //判断是否有收货地址,无则显示请添加收货地址,有则隐藏
+                if(json.length >0){
+                    $("div.hite").css("display","none");
+                }else{
+                    $("div.hite").css("display","block");
+                }
+            });
         }
 
         //悬浮收货地址显示修改删除设定默认地址
