@@ -45,14 +45,17 @@ $(function () {
         }
     );
     //价格区间的查询
-    var lowPrice;
-    var highPrice;
+    var price;
     $("#fc-btn-ok").click(function () {
-        if($("#fc-lowPrice").val()!=""&&$("#fc-highPrice").val()!=""){
-            lowPrice =$("#fc-lowPrice").val();
-            highPrice =$("#fc-highPrice").val();
-            sort=5;
-            searc4(5,1,lowPrice,highPrice);
+        var lowPrice =$("#fc-lowPrice").val();
+        var highPrice =$("#fc-highPrice").val();
+        sort=5;    //标识为区间查询(用于上下分页)
+        if(lowPrice!=""&&highPrice!=""){   //判断区间(两个都不为空按条件查,低价不为空按递减查,其他不调用区间查询方法)
+            price=lowPrice+"-"+highPrice;
+            searc4(sort,1,price);
+        }else if(lowPrice!=""){
+            price=lowPrice;
+            searc4(sort,1,price);
         }
     });
 
@@ -70,7 +73,7 @@ $(function () {
             }else if(sort==3||sort==4){  //按价格
                 searc3(sort,num);
             }else{//按区间查
-                searc4(5,num,lowPrice,highPrice);
+                searc4(sort,num,price);
             }
 
         }
@@ -89,7 +92,7 @@ $(function () {
             }else if(sort==3||sort==4){  //按价格
                 searc3(sort,num);
             }else{  //按区间查
-                searc4(5,num,lowPrice,highPrice);
+                searc4(sort,num,price);
             }
 
         }
@@ -321,9 +324,9 @@ function searc3(bs,pageno) {
 }
 
 //按区间查
-function searc4(bs,pageno,lowPrice,highPrice) {
+function searc4(sort,pageno,price) {
     var re=GetRequest();
-    $.getJSON("../../category/categoryGoodsShow",{"cid":re.cid,"level":re.level,"pageIndex":pageno,"pageSize":pageSize,"low":lowPrice,"high":highPrice}, function (json) {
+    $.getJSON("../../category/categoryGoodsShow",{"cid":re.cid,"level":re.level,"pageIndex":pageno,"pageSize":pageSize,"price":price}, function (json) {
         //显示当前页码和总页面
         var pageCount=json.page.pageCount;
         var pageNo=json.page.pageNo;
@@ -341,7 +344,7 @@ function searc4(bs,pageno,lowPrice,highPrice) {
             $("#mp-prev").addClass("mp-disable");
         }
         //循环显示商品
-        xunhuan(json,bs);
+        xunhuan(json,sort);
     });
 }
 //查询全部
