@@ -170,10 +170,17 @@ public interface ProductFeignInterface {
 
 
     //----------------------------订单前台模块-----------------------------
+
+    //用户支付成功,更新数据库的支付时间
+    @RequestMapping("orders/orderSuccess")
+    String orderSuccess(@RequestParam  String orderNo);
+
+
     //用户下单信息
     @RequestMapping("orders/orderInfo")
     Map<String,Object> orderInfo(@RequestParam("uid") Integer uid,@RequestParam Map<String,Object> map);
 
+    //用户下单
     @RequestMapping("orders/addOrders")
     Map<String, Object>  addOrders(@RequestParam Map<String,Object> map);
 
