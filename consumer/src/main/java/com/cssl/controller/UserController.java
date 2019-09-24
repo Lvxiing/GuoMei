@@ -56,9 +56,7 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
     //登录:验证手机验证码
     @RequestMapping("/verfiy")
     public String login(@RequestParam("phoneNum") String phoneNum, @RequestParam("code") String code, HttpSession session) throws Exception{
-        System.out.println("phoneNum:" + phoneNum + "," + "code:" + code);
         Map<String, String> hm = userFeignInterface.login(phoneNum, code);
-        System.out.println("mess:" + hm.get("mess"));
         if ("success".equals(hm.get("mess"))) {
             Users u = selectPhone(phoneNum);
             //把登录的该用户存入session中
@@ -76,16 +74,18 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
             map.put("typeName", typeName);
             //时间格式转换
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//用户上次登录时间
+            //用户上次登录时间
             String loginTime = sdf.format(u.getLoginTime());
             //当前系统时间
             String nowDate = sdf.format(System.currentTimeMillis());
-           // int days = (int) ((sdf.parse(nowDate).getTime() - sdf.parse(loginTime).getTime()) / (1000*3600*24));
+
+            //今日是否已登陆过
+            Integer dayLogin = u.getDayLogin();
+
             boolean pd=sdf.parse(nowDate).getTime()==sdf.parse(loginTime).getTime();
             //用户当日注册当日登录
             //每日首次登录加成长值
-            //days==1
-            if (!pd || sdf.format(u.getTime()).equals(loginTime) ) {
+            if (!pd || dayLogin==0 ) {
                 int ucount = userFeignInterface.updateGrowupSum(map);
                 int scount = userFeignInterface.saveGrowupdetail(map);
                 //将此次获得的成长值详细说明存入redis中
@@ -93,7 +93,11 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
                 Object gdetailId = desMap.get("gdetailId");
                 Object userPhone = desMap.get("userPhone");
                     redisFeignInterface.set(gdetailId.toString(), "登录账户:" + userPhone + ",登录时间:" + nowDate, -1);
+                u.setDayLogin(1);
             }
+            u.setLoginTime(new java.util.Date());
+            session.setAttribute("user", u);
+            //修改登录时间和今日是否已登录过
             boolean b = userFeignInterface.updateLoginTime(u);
             System.out.println("sessionUser:" + session.getAttribute("user"));
             return "redirect:/index.html";
@@ -150,8 +154,9 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
     @RequestMapping("/getSessionUser")
     @ResponseBody
     public Users getSessionUser(HttpSession session) {
-        System.out.println("*******sessionUser");
-        return (Users) session.getAttribute("user");
+        Users  users =  (Users) session.getAttribute("user");
+        System.out.println("*******sessionUser:"+users);
+        return users;
     }
 
     //用户退出登录
@@ -196,7 +201,64 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
         return Integer.valueOf(session.getAttribute("userGradeId").toString());
     }
 
+    //用户每日签到领美豆
+    @RequestMapping("/signIn")
+    @ResponseBody
+public   boolean   signIn(HttpSession session) throws Exception{
+    Users u = (Users) session.getAttribute("user");
+    //时间格式转换
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    //用户上次签到时间
+    String signInTime = sdf.format(u.getSignInTime());
+    //当前系统时间
+    String nowDate = sdf.format(System.currentTimeMillis());
 
+    //今日是否已签到过
+    Integer daySignIn = u.getDaySignIn();
+
+    boolean pd = sdf.parse(nowDate).getTime() == sdf.parse(signInTime).getTime();
+
+    //用户当日注册当日登录当日签到
+    //每日首次签到领美豆
+    if (!pd || daySignIn == 0) {
+        Map map = new HashMap();
+        map.put("userId", u.getId());
+        final String typeName = "每日签到";
+        map.put("typeName", typeName);
+        int ucount = userFeignInterface.updateScoreSum(map);
+        int scount = userFeignInterface.saveScoreDetail(map);
+        u.setDaySignIn(1);
+    }
+        u.setSignInTime(new java.util.Date());
+        session.setAttribute("user",u);
+    //修改签到时间和今日是否已签到过标识
+    return  userFeignInterface.updateSignInTime(u);
+}
+
+//判断今日是否已签到过了
+@RequestMapping("/dayIfSignIn")
+@ResponseBody
+public boolean  dayIfSignIn(HttpSession session) throws Exception{
+    Users u = (Users) session.getAttribute("user");
+    //时间格式转换
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    //用户上次签到时间
+    String signInTime = sdf.format(u.getSignInTime());
+    //当前系统时间
+    String nowDate = sdf.format(System.currentTimeMillis());
+
+    //今日是否已签到过
+    Integer daySignIn = u.getDaySignIn();
+
+    boolean pd = sdf.parse(nowDate).getTime() == sdf.parse(signInTime).getTime();
+
+    //用户当日注册当日登录当日签到
+    if (pd && daySignIn == 1) {    //今日已签到过了
+        return  true;
+    }else{   //今日还未签到
+       return false;
+    }
+}
 
 
 
