@@ -312,11 +312,11 @@ $(function () {
                     async: true,
                     success: function (result) {
                         if (result==true) {
-                            layer.msg('修改成功',{icon:1}, {time:600}, function(){
+                            layer.msg('基本资料修改成功',{icon:1}, function(){
                                 location.reload(); //刷新窗口数据
                             });
                         } else {
-                            layer.msg("修改失败,请重试",{icon:2});
+                            layer.msg("基本资料修改失败,请重试",{icon:2});
                         }
                     }
                 });

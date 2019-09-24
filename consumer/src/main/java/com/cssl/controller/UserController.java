@@ -170,6 +170,23 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
         return userFeignInterface.findGrowupDetail(users.getId());
     }
 
+    //查询用户的原始密码是否正确
+    @RequestMapping("/selectUserPwd")
+    @ResponseBody
+    public Users selectUserPwd(Users user,HttpSession session) {
+        Users u= (Users)  session.getAttribute("user");
+        user.setId(u.getId());
+        return userFeignInterface.selectPwd(user);
+    }
+
+    //用户修改密码
+    @RequestMapping("/updateUserPwd")
+    @ResponseBody
+    public boolean updateUserPwd(Users users,HttpSession session) {
+        Users u= (Users)  session.getAttribute("user");
+        users.setId(u.getId());
+        return userFeignInterface.updatePwd(users);
+    }
 
 
     //**************后台*************
@@ -289,14 +306,18 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
     //管理员修改密码
     @RequestMapping("/updatePwd")
     @ResponseBody
-    public boolean updatePwd(Users users) {
-        return userFeignInterface.updatePwd(users);
+    public boolean updatePwd(Users users,HttpSession session) {
+        Users u= (Users)  session.getAttribute("adminUser");
+        users.setId(u.getId());
+    return userFeignInterface.updatePwd(users);
     }
 
     //查询管理员的原始密码是否正确
     @RequestMapping("/selectPwd")
     @ResponseBody
-    public Users selectPwd(Users user) {
+    public Users selectPwd(Users user,HttpSession session) {
+        Users u= (Users)  session.getAttribute("adminUser");
+        user.setId(u.getId());
         return userFeignInterface.selectPwd(user);
     }
 

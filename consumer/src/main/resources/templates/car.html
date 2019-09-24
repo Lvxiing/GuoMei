@@ -291,6 +291,11 @@ $("[name=goodDiv]  input[name='good']:checked").each(function(){
    var sumPrice= $("[name=sumPrice]").text();
 
     if ($("[name=diYongCheck]").get(0).checked==true) {   //使用美豆抵钱
+
+        //把该用户的美豆减掉
+
+
+
         location.href="order_info.html?goodsId="+goodsId+"&num="+num+"&vipIdArr="+vipIdArr+"&sumPrice="+guid()+sumPrice+"&ifUseScore=yes";
     }else{     //不使用美豆抵钱
         location.href="order_info.html?goodsId="+goodsId+"&num="+num+"&vipIdArr="+vipIdArr+"&sumPrice="+guid()+sumPrice+"&ifUseScore=no";
