@@ -73,6 +73,17 @@ public interface ProductFeignInterface {
     @RequestMapping("address/deleteAddress")
     boolean deleteAddress(@RequestParam(value = "address_id") Integer id);
 
+    //根据adddress_id修改收货地址
+    @RequestMapping("address/updateAddress")
+    boolean updateAddress(@RequestBody Address address);
+
+    //修改该用户下的所有地址为普通用户
+    @RequestMapping("address/updatePTAddress")
+    int updatePTAddress(@RequestParam Integer userid);
+    //根据address_id修改为默认地址
+    @RequestMapping("address/updateMRAddress")
+    int updateMRAddress(@RequestParam Map<String,Object> map);
+
     //---------------------------新闻前台模块--------------------------------
     //查询所有新闻
     @RequestMapping("news/findAllNews")

@@ -66,4 +66,28 @@ public class AddressController {
     @RequestMapping("deleteAddress")
     @ResponseBody
     public boolean deleteAddress(@RequestParam(value = "address_id") Integer id){return addressService.removeById(id);}
+
+    //根据adddress_id修改收货地址
+    @RequestMapping("updateAddress")
+    @ResponseBody
+    public boolean updateAddress(@RequestBody Address address){
+        Integer userid = address.getUserId();
+        Integer address_id = address.getIsdefault();
+        if(address_id == 1){
+            addressService.updatePTAddress(userid);
+        }
+        return addressService.updateById(address);
+    }
+    //修改该用户下的所有地址为普通用户
+    @RequestMapping("updatePTAddress")
+    @ResponseBody
+    public int updatePTAddress(@RequestParam Integer userid) {
+        return addressService.updatePTAddress(userid);
+    }
+    //根据address_id修改为默认地址
+    @RequestMapping("updateMRAddress")
+    @ResponseBody
+    public int updateMRAddress(@RequestParam Map<String,Object> map) {
+        return addressService.updateMRAddress(map);
+    }
 }
