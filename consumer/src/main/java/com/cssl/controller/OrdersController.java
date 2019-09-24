@@ -44,8 +44,9 @@ public class OrdersController {
     //用户订单
     @RequestMapping("findOrdersByUserId")
     @ResponseBody
-    public PageInfo<Map<String, Object>> findOrdersByUserId(@RequestParam Map<String, Object> map) {
-        map.put("uid",18);
+    public PageInfo<Map<String, Object>> findOrdersByUserId(HttpSession session,@RequestParam Map<String, Object> map) {
+        Users users =(Users) session.getAttribute("users");
+        map.put("uid",users.getId());
         return productFeignInterface.findOrdersByUserId(map);
     }
     //订单下的详细信息
