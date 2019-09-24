@@ -48,7 +48,7 @@
         WHERE goods_id = #{gid}
     </update>
 
-    <select id="findGoodsByCategoryName" resultMap="BaseResultMap" parameterType="map">
+    <select id="findSaleGoodsByCategoryName" resultMap="BaseResultMap" parameterType="map">
         SELECT * FROM goods g INNER JOIN (SELECT goods_id,SUM(detail_num) AS num FROM order_detail
         GROUP BY goods_id ORDER BY num DESC
         ) o ON g.`goods_id` = o.goods_id
@@ -62,17 +62,30 @@
         </foreach>
         ))
         and g.goods_state = 1
-        <if test="bs=='sale' ">
-            ORDER BY num DESC
-        </if>
+        ORDER BY num DESC
+        LIMIT 10
+    </select>
+
+    <select id="findGoodsByCategoryName" resultMap="BaseResultMap" parameterType="map">
+        SELECT g.*
+        FROM goods g
+        INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
+        WHERE b.`category_id` IN
+        (SELECT category_id FROM category WHERE category_parent_id IN
+        (SELECT category_id FROM category
+        WHERE
+        <foreach item="item" index="index" collection="list" open="" separator=" OR " close="">
+            category_name =#{item}
+        </foreach>
+        ))
+        and g.goods_state = 1
         <if test="bs=='time'">
             ORDER BY g.`goods_create_time` DESC
         </if>
         <if test="bs=='lowprice'">
             ORDER BY g.`goods_price` ASC
         </if>
-
-        LIMIT 10
+         LIMIT 10
     </select>
 
 

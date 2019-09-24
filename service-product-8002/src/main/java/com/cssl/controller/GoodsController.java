@@ -46,7 +46,7 @@ public class GoodsController {
 
 
     //--------------------------前台模块-------------------------------
-    //根据分类名称查询该分类下的所有品牌商品的热卖商品
+    //首页商品通用接口
     @RequestMapping("findGoodsByCategoryName")
     @ResponseBody
     public List<Goods> findGoodsByCategoryName(@RequestParam("categoryName") String categoryName,@RequestParam("bs") String bs) {

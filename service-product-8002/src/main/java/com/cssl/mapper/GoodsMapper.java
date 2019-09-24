@@ -27,9 +27,11 @@ public interface GoodsMapper extends BaseMapper<Goods> {
     //修改商品状态
     int upStateGoods(Map<String,Object> map);
 
-    //根据分类名称查询该分类下的所有品牌商品的热卖商品
+    //商品通用查询方法
     List<Goods> findGoodsByCategoryName(Map<String,Object> map);
 
+    //热销商品通用查询方法
+    List<Goods> findSaleGoodsByCategoryName(Map<String,Object> map);
 
     //根据当前第二级分类编号查询该分类下的所有第三级分类的热销榜
     List<Map<String,Object>> findSaleByCategoryId(Integer cid);
