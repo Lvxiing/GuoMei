@@ -45,7 +45,7 @@ public class OrdersController {
     @RequestMapping("findOrdersByUserId")
     @ResponseBody
     public PageInfo<Map<String, Object>> findOrdersByUserId(HttpSession session,@RequestParam Map<String, Object> map) {
-        Users users =(Users) session.getAttribute("users");
+        Users users =(Users) session.getAttribute("user");
         map.put("uid",users.getId());
         return productFeignInterface.findOrdersByUserId(map);
     }
