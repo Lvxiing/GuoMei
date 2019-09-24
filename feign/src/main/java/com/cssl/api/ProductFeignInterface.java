@@ -289,7 +289,7 @@ public interface ProductFeignInterface {
     //--------------------------商品模块后台-------------------------------
     //查询商品
     @RequestMapping("goods/findGoods")
-    PageInfo<Map<String, Object>> findGoods(@RequestParam Map<String,Object> param);
+    PageInfo<Map<String, Object>> findGoods(@RequestParam Map<String,Object> param,@RequestParam("page")int page, @RequestParam("limit")int limit);
 
     //新增商品
     @RequestMapping("goods/addGoods")
