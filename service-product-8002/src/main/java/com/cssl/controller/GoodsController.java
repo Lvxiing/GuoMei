@@ -49,25 +49,11 @@ public class GoodsController {
     //根据分类名称查询该分类下的所有品牌商品的热卖商品
     @RequestMapping("findGoodsByCategoryName")
     @ResponseBody
-    public List<Goods> findGoodsByCategoryName(@RequestParam("categoryName") String categoryName) {
-
-        return goodsService.findGoodsByCategoryName(collectionCategoryName(categoryName));
-    }
-
-    //根据分类名称查询该分类下的所有品牌商品的新品抢先
-    @RequestMapping("findGoodsNewByCategoryName")
-    @ResponseBody
-    public List<Goods> findGoodsNewByCategoryName(@RequestParam("categoryName") String categoryName) {
-
-        return goodsService.findGoodsNewByCategoryName(collectionCategoryName(categoryName));
-    }
-
-    //根据分类名称查询该分类下的所有品牌商品的畅想低价
-    @RequestMapping("findGoodsLowPrice")
-    @ResponseBody
-    public List<Goods> findGoodsLowPrice(@RequestParam("categoryName") String categoryName) {
-
-        return goodsService.ListfindGoodsLowPrice(collectionCategoryName(categoryName));
+    public List<Goods> findGoodsByCategoryName(@RequestParam("categoryName") String categoryName,@RequestParam("bs") String bs) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("list",collectionCategoryName(categoryName));
+        map.put("bs",bs);
+        return goodsService.findGoodsByCategoryName(map);
     }
 
     //封装参数
