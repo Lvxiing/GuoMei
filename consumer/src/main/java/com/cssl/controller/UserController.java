@@ -170,15 +170,6 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
         return userFeignInterface.findGrowupDetail(users.getId());
     }
 
-    //查询用户的原始密码是否正确
-    @RequestMapping("/selectUserPwd")
-    @ResponseBody
-    public Users selectUserPwd(Users user,HttpSession session) {
-        Users u= (Users)  session.getAttribute("user");
-        user.setId(u.getId());
-        return userFeignInterface.selectPwd(user);
-    }
-
     //用户修改密码
     @RequestMapping("/updateUserPwd")
     @ResponseBody
@@ -187,6 +178,13 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
         users.setId(u.getId());
         return userFeignInterface.updatePwd(users);
     }
+
+
+
+
+
+
+
 
 
     //**************后台*************
