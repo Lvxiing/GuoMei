@@ -44,8 +44,9 @@ public class OrdersController {
     //用户订单
     @RequestMapping("findOrdersByUserId")
     @ResponseBody
-    public PageInfo<Map<String, Object>> findOrdersByUserId(@RequestParam Map<String, Object> map) {
-        map.put("uid",18);
+    public PageInfo<Map<String, Object>> findOrdersByUserId(HttpSession session,@RequestParam Map<String, Object> map) {
+        Users users =(Users) session.getAttribute("user");
+        map.put("uid",users.getId());
         return productFeignInterface.findOrdersByUserId(map);
     }
     //订单下的详细信息
@@ -65,9 +66,9 @@ public class OrdersController {
     //查询用户订单的待付款待收货总记录数
     @RequestMapping("findTotal")
     @ResponseBody
-    List<Map<String,Object>> findTotal(@RequestParam(value = "uid", required=false) Integer uid){
-
-        return productFeignInterface.findTotal(18);
+    List<Map<String,Object>> findTotal(HttpSession session){
+        Users user = (Users) session.getAttribute("user");
+        return productFeignInterface.findTotal(user.getId());
     }
     //根据订单号查询地址表相关信息
     @RequestMapping("findAddressByOrder")
