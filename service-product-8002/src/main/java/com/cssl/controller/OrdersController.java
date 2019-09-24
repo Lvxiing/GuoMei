@@ -52,6 +52,17 @@ public class OrdersController {
 
     //-----------------------------前台模块----------------------------
 
+    //用户支付成功,更新数据库的支付时间
+    @RequestMapping("orderSuccess")
+    @ResponseBody
+    public String orderSuccess(@RequestParam  String orderNo) {
+        //支付成功时间
+        Orders order = ordersService.getOne(new QueryWrapper<Orders>().eq("order_no", orderNo));
+        order.setPayDate(new Date());
+        boolean b = ordersService.updateById(order);
+        System.out.println("b***************************************** = " + b);
+        return b ? "success" : "error";
+    }
 
 
     //用户下单信息

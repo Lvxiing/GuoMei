@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
@@ -28,7 +29,7 @@ public class PayController {
     @RequestMapping("NotifyServlet")
     protected void service(HttpServletRequest request, HttpServletResponse response) throws AlipayApiException, IOException {
         System.out.println("接收到支付宝的异步通知请求——");
-        Map<String,String[]> parameterMap=request.getParameterMap();
+        Map<String, String[]> parameterMap = request.getParameterMap();
         System.out.println(parameterMap);
         //成功处理后返回success
         response.getWriter().write("success");
@@ -36,7 +37,10 @@ public class PayController {
 
     //支付请求接口
     @RequestMapping("ali/{no}/{money}/45798651653253846584563218*&&&45445")
-    public void ali(@PathVariable("no") String no,@PathVariable("money") String money, HttpServletResponse response, HttpServletRequest request) throws Exception {
+    public void ali(HttpSession session, @PathVariable("no") String no, @PathVariable("money") String money, HttpServletResponse response, HttpServletRequest request) throws Exception {
+
+        session.setAttribute("orderNo",no); //把当前用户要进行支付的订单号保存到session中
+
         //设置编码
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();

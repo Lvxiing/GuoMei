@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,21 @@ public class OrdersController {
     private ProductFeignInterface productFeignInterface;
 
     //-------------------------前台------------------------
+    //订单支付成功
+    @RequestMapping("orderSuccess")
+    public String orderSuccess(HttpSession session){
+        //支付成功时间
+        String orderNo = (String)session.getAttribute("orderNo");
+        if(orderNo != null){
+             String s = productFeignInterface.orderSuccess(orderNo);
+             if("success".equals(s)){
+                 return "redirect:/pay-success.html";
+             }
+        }
+        return "redirect:/gm-ferror.html";
+    }
+
+
     //用户下单信息
     @RequestMapping("orderInfo")
     @ResponseBody
