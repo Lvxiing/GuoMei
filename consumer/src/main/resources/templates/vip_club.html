@@ -718,7 +718,7 @@
         });
 
         time();
-        var pageSize = 1;
+        var pageSize = 5;
         var gid;
         var bs;
         var pageno = "";//显示第几页
@@ -779,7 +779,7 @@
                         li +="<i class='ic gmlv5'></i>"
                     }
 
-                    li += "<span class='fl'><span name='gradeName'>" + cate.grade_name + "</span>会员专享价</span></p>";
+                    li += "<span class='fl'><span name='grade' style='display: none;'>"+cate.grade_id+"</span><span name='gradeName'>" + cate.grade_name + "</span>会员专享价</span></p>";
                     li += "<span class='go-buy' shop_flag='1' >加入购物车</span>";
                     li += "</li>";
                     $("ul.club-items-box").append(li);
@@ -802,6 +802,22 @@
     var num = 1;
     var total = parseInt(num) * vipPrice;
 
+//该会员的等级id
+            var leven=parseInt($("[name=gradeId]").text());
+          //该会员商品属于的会员等级id
+           var  grade=parseInt($(this).parents("li.club-item").find("[name=grade]").text());
+           //该会员的等级名称
+            var levenName=$("#gradeName").text();
+            //该会员商品属于的会员等级名称
+            var  gradeName=$(this).parents("li.club-item").find("[name=gradeName]").text();
+if (leven<grade){
+    layer.alert("你的会员等级太低,不足够享受"+gradeName+"会员价哦",{ btn: ['知道了','以'+levenName+'会员价购买']
+            ,btn2: function(){
+            location.href="product_details.html?gid="+goodsId+"&vip=yes&leven="+leven;
+            }
+        }
+    );
+} else{
     //添加会员专享价商品到购物车
     $.getJSON("/cart/saveCart", {
         "goodsId": goodsId,
@@ -816,13 +832,16 @@
         }
         showNum();
     });
+}
+
+
         });
 
             //a链接加入购物车
             $("ul.club-items-box").on("click","a",function() {
                 var leven=parseInt($("[name=gradeId]").text());
                 var goodsId=  $(this).parents("li.club-item").find("[name='goodsId']").text();
-                    location.href="product_details.html?gid="+goodsId+"&vip=yes&leven="+leven;;
+                    location.href="product_details.html?gid="+goodsId+"&vip=yes&leven="+leven;
             });
 
 

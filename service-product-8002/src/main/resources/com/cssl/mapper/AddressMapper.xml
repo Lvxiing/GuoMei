@@ -78,4 +78,12 @@
             </if>
         </where>
     </select>
+<!--修改该用户下的所有地址为普通用户-->
+    <update id="updatePTAddress" parameterType="Integer">
+        UPDATE address SET address_isdefault = 2 WHERE user_id= #{userid};
+    </update>
+    <!--根据address_id修改为默认地址-->
+    <update id="updateMRAddress" parameterType="Integer">
+        UPDATE address SET address_isdefault = 1 WHERE address_id = #{address_id} and user_id=#{userid};
+    </update>
 </mapper>
