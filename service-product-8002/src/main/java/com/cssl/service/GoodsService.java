@@ -27,8 +27,8 @@ public interface GoodsService extends IService<Goods> {
     //修改商品状态
     int upStateGoods(Map<String,Object> map);
 
-    //根据分类名称查询该分类下的所有品牌商品的热卖商品
-    List<Goods> findGoodsByCategoryName(Map<String,Object>map);
+    //商品通用查询方法
+    List<Goods> findGoodsByCategoryName(Map<String,Object> map);
 
 
     //根据当前第二级分类编号查询该分类下的所有第三级分类的热销榜
