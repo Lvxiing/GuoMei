@@ -137,7 +137,7 @@ public interface ProductFeignInterface {
     //---------------------------商品前台模块--------------------------------
     //根据分类名称查询该分类下的所有品牌商品的热卖商品
     @RequestMapping("goods/findGoodsByCategoryName")
-    List<Goods> findGoodsByCategoryName(@RequestParam("categoryName")String categoryName);
+    List<Goods> findGoodsByCategoryName(@RequestParam("categoryName")String categoryName,@RequestParam("bs") String bs);
 
     //根据分类名称查询该分类下的所有品牌商品的新品抢先
     @RequestMapping("goods/findGoodsNewByCategoryName")
@@ -217,6 +217,11 @@ public interface ProductFeignInterface {
     Map<String, Object> userPayInfo(@RequestParam Map<String, Object> map);
 
     //--------------------------后台模块----------------------------------
+
+    //----------------------------优惠券后台模块------------------
+    @RequestMapping("coupon/addCoupon")
+    String addCoupon(@RequestParam Map<String,Object> map);
+
 
     //---------------------------新闻后台模块--------------------------------
     //新闻查询

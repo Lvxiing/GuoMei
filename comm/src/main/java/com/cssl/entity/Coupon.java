@@ -57,12 +57,11 @@ public class Coupon extends Model<Coupon> {
     @TableField(value = "coupon_count")
     private Integer couponCount;               //发放数量
 
-    @TableField(value = "coupon_scope")
-    private Integer couponScope;                  //使用范围
-
     @TableField(value = "coupon_limit")
     private Integer couponLimit;                //每人限领
 
+    @TableField(value = "coupon_type") //所属类型
+    private Integer cType;
 
     @Override
     protected Serializable pkVal() {

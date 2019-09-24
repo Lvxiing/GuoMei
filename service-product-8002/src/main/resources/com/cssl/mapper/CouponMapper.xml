@@ -15,8 +15,8 @@
         <result column="coupon_remarks" property="remarks" />
         <result column="full_money" property="fullMoney" />
         <result column="coupon_count" property="couponCount" />
-        <result column="coupon_scope" property="couponScope" />
         <result column="coupon_limit" property="couponLimit" />
+        <result column="coupon_type" property="cType" />
     </resultMap>
 
 </mapper>
