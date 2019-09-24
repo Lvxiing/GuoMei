@@ -66,14 +66,15 @@ function noData() {
 function foot() {
     $.getJSON("../../Goods/findBrowseGoods",function (json) {
         if(json.msg=="success"){
-            var list=json.list;
+            var lists=json.list;
             for(var i=0;i<6;i++){
-                var li="<li> <div class='myFootprint-img'><a href='product_details.html?gid="+list[i].id+"' target='_blank'><img src='"+list[i].mainImg+"' ></a>";
-                li+="</div> <p class='myFootprint-areaPrice'>¥"+list[i].price+"</p> </li>";
+                var li="<li> <div class='myFootprint-img'><a href='product_details.html?gid="+lists[i].id+"' target='_blank'><img src='"+lists[i].mainImg+"' ></a>";
+                li+="</div> <p class='myFootprint-areaPrice'>¥"+lists[i].price+"</p> </li>";
                 $(".myFootprint-box").append(li);
             }
         }else{
-            var li="<li>无足迹</li>"
+            var li="<p class='empty-coupon' style='text-align:center;margin-top:25px;'> <span>亲，您这里好空荡哟~~~</span> <a href='index.html' style='margin:15px 0 0 90px;'>去逛一逛</a> </p>"
+
             $(".myFootprint-box").append(li);
         }
     });
