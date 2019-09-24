@@ -297,7 +297,9 @@
                         <dl>
                             <dt>&nbsp;</dt>
                             <dd><a class="button-red j-add-address" href="javascript:;" data-type="addInsert" data-id=""
-                                   id="addAddress">保存收货人地址</a>
+                                   id="addAddress" style="display: block">保存收货人地址</a>
+                                <a class="button-red j-add-address" href="javascript:;" data-type="update"
+                                   id="updaAddress" style="display: none">修改收货人地址</a>
                                 <a href="javascript:;" class="j-cancel-submit" id="close">取消</a> <span
                                         class="icon-box icon-box-suc"><i class="suc-icon"></i>保存成功</span>
                                 <span
@@ -548,6 +550,7 @@
             $("#stockaddress").text("请选择收货地址");
             $("#stockaddress").attr("title", "");
             $("div#citySelect a b").text("请选择");
+            $("#addAddress").attr("data-type","");
             //显示选择收货地址信息
             $("body").on('click', '#stockaddress', function () {
                 $(this).parent().addClass("gctCur");
@@ -556,6 +559,7 @@
                 $("div#ctbox_4").empty();
             });
             $(".icon-box-suc").css("display", "none");
+            $("div.h3address").text("");
         }
 
 
@@ -755,6 +759,7 @@
                 }, function (json) {
                     if (json == 1) {
                         $(".icon-box-suc").css("display", "inline");
+                        $("#addAddress").attr("data-type","");
                         findAllAddress(userid);
                         clearAddress();//清空ajax提交方法的回显数据
                     } else {
@@ -859,8 +864,10 @@
         //获取address_id值== aaid
         var aaid;
         $("body").on('click', '.updaAddress', function () {
-            $("#addAddress").attr("data-type", "update");
+            $("#updaAddress").attr("data-type", "update");
             $(".address-dl").show();
+            $("#updaAddress").css("display","block");
+            $("#addAddress").css("display","none")
             $("div.h3address").text("修改地址");
             //先根据address_id回显数据
             aaid = $(this).attr("addressid");
@@ -868,7 +875,7 @@
         });
         //保存地址a标签放一个属性data-type判断是否为修改还市新增
         //点击保存,运行修改数据
-        $("body").on('click', '#addAddress', function () {
+        $("body").on('click', '#updaAddress', function () {
             var userName = $("input[name=name]").val();//收货人
             var address = $("input[name=addressDetailed]").val();//详细地址
             var phone = $("input[name=mobile]").val();//电话号码
@@ -883,7 +890,7 @@
             } else {
                 isdefault = 2;
             }
-            if ($("#addAddress").data('type') == "update") {
+            if ($("#updaAddress").data('type') == "update") {
                 $.getJSON('myGuoMei/updateAddress', {
                     "id": aaid,
                     "provinceId": pid,
@@ -946,6 +953,10 @@
         //显示地址
         $("#addAdrs").click(function () {
             $(".address-dl").show();
+            $("div.h3address").text("添加地址");
+            $("#addAddress").css("display","block");
+            $("#updaAddress").css("display","none");
+            $(this).attr("data-type","addInsert");
         });
 
         //取消
