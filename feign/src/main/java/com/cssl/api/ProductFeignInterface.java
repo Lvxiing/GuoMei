@@ -137,7 +137,7 @@ public interface ProductFeignInterface {
     //---------------------------商品前台模块--------------------------------
     //根据分类名称查询该分类下的所有品牌商品的热卖商品
     @RequestMapping("goods/findGoodsByCategoryName")
-    List<Goods> findGoodsByCategoryName(@RequestParam("categoryName")String categoryName);
+    List<Goods> findGoodsByCategoryName(@RequestParam("categoryName")String categoryName,@RequestParam("bs") String bs);
 
     //根据分类名称查询该分类下的所有品牌商品的新品抢先
     @RequestMapping("goods/findGoodsNewByCategoryName")

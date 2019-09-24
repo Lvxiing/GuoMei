@@ -33,6 +33,8 @@
           href="//css.gomein.net.cn/??gmpro/2.0.0/member/4.4.4/css/common/h_b_c.css,gmpro/2.0.0/member/4.4.4/css/common/vipMainHeader.css,gmpro/1.0.0/cart/1.0.0/css/headCart.min.css,gmlib/unit/gcity/1.0.0/gcity.css,gmpro/2.0.0/member/4.4.4/css/common/mygome_new.css,gmpro/2.0.0/member/4.4.4/css/common/pager.css,gmpro/2.0.0/member/4.4.4/css/common/popbox.css,gmpro/2.0.0/member/4.4.4/css/addressPage/myAddress.css">
     <script type="text/javascript" src="js/recharge/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="js/addressPage.js"></script>
+    <script src="layui/layui.js"></script>
+    <link rel="stylesheet" href="layui/css/layui.css">
 
 </head>
 <body>
@@ -807,7 +809,13 @@
                     tr += "</tr>";
                     $("table.list-table tbody").append(tr);
                 }
-            })
+                //判断是否有收货地址,无则显示请添加收货地址,有则隐藏
+                if(json.length >0){
+                    $("div.hite").css("display","none");
+                }else{
+                    $("div.hite").css("display","block");
+                }
+            });
         }
 
         //悬浮收货地址显示修改删除设定默认地址
@@ -829,19 +837,24 @@
         });
 
         //删除收货地址
-        $("body").on('click', '.deleAdress', function () {
-            var addresid = $(this).attr("addressid");
-            $.getJSON('myGuoMei/deleteAddress?address_id=' + addresid, function (json) {
-                var rs = confirm("确认是否删除");
-                if (rs) {
-                    if (json == true) {
-                        location.href = "addressPage.html";
-                    }
-                } else {
-                    alert("删除失败");
-                }
+        layui.use(['layer'], function () {
+            var layer = layui.layer;
+            $ = layui.jquery;
+            $("body").on('click', '.deleAdress', function () {
+                var addresid = $(this).attr("addressid");
+                layer.confirm('确认是否删除?', function (index) {
+                    $.getJSON('myGuoMei/deleteAddress?address_id=' + addresid, function (json) {
+                        if (json == true) {
+                            layer.close(index);
+                            layer.msg("删除成功!");
+                            location.href = "addressPage.html";
+                        }
+                    });
+                    layer.close(index);
+                });
             });
         });
+
         //修改地址
         //获取address_id值== aaid
         var aaid;

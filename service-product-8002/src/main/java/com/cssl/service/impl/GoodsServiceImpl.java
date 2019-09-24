@@ -10,6 +10,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,19 +47,13 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     }
 
     @Override
-    public List<Goods> findGoodsByCategoryName(List list) {
-        return goodsMapper.findGoodsByCategoryName(list);
+    public List<Goods> findGoodsByCategoryName(Map<String, Object> map) {
+        if(map.get("bs")!=null && "sale".equals(map.get("bs"))){
+            return goodsMapper.findSaleGoodsByCategoryName(map);
+        }
+        return goodsMapper.findGoodsByCategoryName(map);
     }
 
-    @Override
-    public List<Goods> findGoodsNewByCategoryName(List list) {
-        return goodsMapper.findGoodsNewByCategoryName(list);
-    }
-
-    @Override
-    public List<Goods> ListfindGoodsLowPrice(List list) {
-        return goodsMapper.ListfindGoodsLowPrice(list);
-    }
 
     @Override
     public List<Map<String, Object>> findSaleByCategoryId(Integer cid) {

@@ -52,9 +52,9 @@ public class GoodsController {
     //根据分类名称查询该分类下的所有品牌商品的热卖商品
     @RequestMapping("findGoodsByCategoryName")
     @ResponseBody
-    public List<Goods> findGoodsByCategoryName(@RequestParam("categoryName") String categoryName) {
+    public List<Goods> findGoodsByCategoryName(@RequestParam("categoryName") String categoryName,@RequestParam("bs") String bs) {
 
-        return productFeignInterface.findGoodsByCategoryName(categoryName);
+        return productFeignInterface.findGoodsByCategoryName(categoryName,bs);
     }
 
     //根据分类名称查询该分类下的所有品牌商品的新品抢先
