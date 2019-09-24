@@ -73,7 +73,8 @@ function foot() {
                 $(".myFootprint-box").append(li);
             }
         }else{
-            var li="<p class='empty-coupon' style='text-align:center;margin-top:25px;'> <span>亲，您这里好空荡哟~~~</span> <a href='index.html' style='margin:15px 0 0 90px;'>去逛一逛</a> </p>"
+            var li="<p class='empty-coupon'style='text-align:center;margin-top:25px;'> <span>亲，您这里好空荡哟~~~</span> <a href='index.html' style='margin:15px 0 0 90px;'>去逛一逛</a> </p>"
+
 
             $(".myFootprint-box").append(li);
         }
