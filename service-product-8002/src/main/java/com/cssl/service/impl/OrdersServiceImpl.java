@@ -71,43 +71,37 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
 
     @Override
     public Map<String, Object> addOrder(Map<String, Object> map) {
-        boolean res = false;
+        boolean res = false; //表示下单是否成功
         Orders orders = new Orders();
         orders.setUserId(Integer.valueOf(map.get("uid").toString()));
         orders.setAddressId(Integer.valueOf(map.get("aid").toString()));
         Date day = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println(df.format(day));
         orders.setOrderTime(day);
         orders.setStatus(1);
-        orders.setOrderNo(GenerateNum.getInstance().GenerateOrder());
-        double totalMoney = 0; //总金额
-        if (map.get("sumPrice").toString() != null) {
-            totalMoney = Double.valueOf(map.get("sumPrice").toString());
-        }
-        List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("list");
-        for (Map m : list) {
-            String str = m.get("price").toString();
-            Double price = Double.parseDouble(str);
-            Integer num = new Integer(m.get("num").toString());
-            totalMoney += price * num;
-        }
+        orders.setOrderNo(GenerateNum.getInstance().GenerateOrder()); //调用生产订单号类拿到订单号
+        double totalMoney = Double.valueOf(map.get("sumPrice").toString()); //总金额(前台传入)
+        List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("list"); //拿到封装好的商品数据
+        //金额转换,保留两位小数
         BigDecimal decimal = new BigDecimal(totalMoney);
         orders.setTotal(decimal.setScale(2, BigDecimal.ROUND_HALF_UP));
+        //新增订单
         int result = ordersMapper.addOrder(orders);
         if (result > 0) { //订单下单成功
             for (Map m : list) {
+                //保存订单详情信息
                 OrderDetail orderDetail = new OrderDetail();
                 orderDetail.setGoodsId(Integer.valueOf(m.get("gid").toString()));
                 orderDetail.setOrderId(orders.getId());
                 orderDetail.setNum(Integer.valueOf(m.get("num").toString()));
                 double money = Integer.valueOf(m.get("num").toString()) * Double.valueOf(m.get("price").toString());
                 BigDecimal decimal2 = new BigDecimal(money);
-                orders.setTotal(decimal2.setScale(2, BigDecimal.ROUND_HALF_UP));
-                orderDetail.setMoney(decimal2);
+                orderDetail.setMoney(decimal2.setScale(2, BigDecimal.ROUND_HALF_UP));
                 orderDetailService.save(orderDetail);
+
                 //从购物车中删除该商品
                 cartService.remove(new QueryWrapper<Cart>().eq("user_id", Integer.valueOf(map.get("uid").toString())).eq("goods_id", Integer.valueOf(m.get("gid").toString())));
+
                 //减少库存
                 Goods goods = new Goods();
                 goods.setId(Integer.valueOf(m.get("gid").toString()));

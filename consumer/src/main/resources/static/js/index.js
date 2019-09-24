@@ -2,20 +2,21 @@ $(function () {
     lunbo();
     findParentCategory();
     showNewsTitle();
+
     //楼层左侧
-    floor("#groundKey", 26, "#6294f6");
-    floor("#secondKey", 9, "#3eb8e9");
-    floor("#threeKey", 1, "#7179ea");
-    floor("#fourKey", 68, "#2cc7b0");
-    floor("#fiveKey", 94, "#9cc736");
-    floor("#sixKey", 103, "#6a8ea0");
+    floor("#groundKey", 26, "#6294f6","","","","");
+    // floor("#secondKey", 9, "#3eb8e9","","","","");
+    floor("#threeKey", 1, "#7179ea","","","","");
+    floor("#fourKey", 68, "#2cc7b0","","","","");
+    // floor("#fiveKey", 94, "#9cc736");
+    floor("#sixKey", 103, "#6a8ea0","","","","");
     //楼层小标题
-    floorTitle("#groundFloor", 26, "rgb(113, 158, 247)", "#groundFloor_div");
-    floorTitle("#secondFloor", 9, "rgb(80, 191, 236)", "#secondFloor_div");
-    floorTitle("#threeFloor", 1, "#7f86ec", "#threeFloor_div");
-    floorTitle("#fourFloor", 68, "#41ccb8;", "#fourFloor_div");
-    floorTitle("#fiveFloor", 94, " #abce5b", "#fiveFloor_div");
-    floorTitle("#sixFloor", 103, "#829daa", "#sixFloor_div");
+    floorTitle("#groundFloor", 26, "rgb(113, 158, 247)", "#groundFloor_div","");
+    secondName();
+    floorTitle("#threeFloor", 1, "#7f86ec", "#threeFloor_div","");
+    floorTitle("#fourFloor", 68, "#41ccb8;", "#fourFloor_div","");
+    fiveName();
+    floorTitle("#sixFloor", 103, "#829daa", "#sixFloor_div","");
     //热销排行榜
     hot();
     search();
@@ -78,9 +79,53 @@ function floorDiv(url, h2, name, key) {
 
 }
 
-//楼层小标题
-function floorTitle(key, id, color, h2) {
+//查询第二楼的电脑整机
 
+function secondName() {
+    $.getJSON("../../category/findCategoryAndChild", {"parentId": 22}, function (json) {
+        var secondFloorName="";
+        var brandName="";
+        var cid1="";
+        var cid2="";
+        for(var i=0;i<json.length;i++){
+            secondFloorName+=json[i].name+",";
+             cid1+=json[i].cid+",";
+            var list=json[i].categoryChildren;
+            for(var j=0;j<list.length;j++){
+                brandName+=list[j].name+",";
+                cid2+=list[j].cid+",";
+            }
+        }
+        floorTitle("#secondFloor", 9, "rgb(80, 191, 236)", "#secondFloor_div",secondFloorName);
+        floor("#secondKey", 9, "#3eb8e9",secondFloorName,brandName,cid1,cid2);
+    });
+
+}
+
+//查询第五楼(家装建材)
+function fiveName() {
+    $.getJSON("../../category/findCategoryAndChild", {"parentId": 84}, function (json) {
+        var fiveFloorName="";
+        var fname="";
+        var brandName="";
+        var cid1="";
+        var cid2="";
+        for(var i=0;i<json.length;i++){
+            var list=json[i].categoryChildren;
+            fname+=json[i].name+",";
+            cid1+=json[i].cid+",";
+            for(var j=0;j<list.length;j++){
+                fiveFloorName+=list[j].name+",";
+                cid2+=list[j].cid+",";
+            }
+        }
+        floorTitle("#fiveFloor", 94, " #abce5b", "#fiveFloor_div",fiveFloorName);
+        floor("#fiveKey", 94, "#9cc736",fname,fiveFloorName,cid1,cid2);
+    });
+}
+
+//楼层小标题
+function floorTitle(key, id, color, h2,floorName) {
     $.getJSON("../../category/findCategoryAndChild", {"parentId": id}, function (json) {
         var names = "";
         //循环拼接name(categoryName)
@@ -89,6 +134,12 @@ function floorTitle(key, id, color, h2) {
             for (var j = 0; j < list.length; j++) {
                 names += list[j].name += ",";
             }
+        }
+        //判断是否是第二楼(循环拼接用于前三)
+        if(key=="#secondFloor"){
+            names+=floorName;
+        }else if(key=="#fiveFloor"){
+            names+=floorName;
         }
         names = names.substring(0, names.length - 1);
         //热卖
@@ -101,18 +152,38 @@ function floorTitle(key, id, color, h2) {
         li += " <li key='1' name='" + names + "'><a href='javascript:void(0);'>新品抢先</a> </li>";
         li += "<li key='2' name='" + names + "'><a href='javascript:void(0);'>畅享低价</a> </li>";
         var k = 2;
+        //判断是否是第二层或第五层
+        if(key=="#secondFloor"){
+            var secondNames=floorName.split(",");
+            for(var o=0;o<secondNames.length-1;o++){
+                k++;
+                li += "<li key='" + k + "' name='"+secondNames[o]+"'><a href='javascript:void(0);'>"+secondNames[o]+"</a></li>";
+                floorDiv("../../Goods/findGoodsNewByCategoryName", h2, secondNames[o], 1);
+            }
+        }else if(key=="#fiveFloor"){
+            var secondNames=floorName.split(",");
+            for(var o=0;o<secondNames.length-1;o++){
+                k++;
+                li += "<li key='" + k+ "' name='"+secondNames[o]+"'><a href='javascript:void(0);'>"+secondNames[o]+"</a></li>";
+                floorDiv("../../Goods/findGoodsNewByCategoryName", h2, secondNames[o], 1);
+            }
+        }
         for (var i = 0; i < json.length; i++) {
             var list = json[i].categoryChildren;
             for (var j = 0; j < list.length; j++) {
                 k++;
-                var name = list[j].name.substring(0, list[j].name.length - 1);
-                if (list[j].name == "通讯设备") {
-                    li += "<li key='" + k + "' name='" + name + "'><a href='javascript:void(0);'>手机</a></li>";
-                } else {
-                    li += "<li key='" + k + "' name='" + name + "'><a href='javascript:void(0);'>" + name + "</a> </li>";
+                //判断最长显示数
+                if(k<9){
+                    var name = list[j].name.substring(0, list[j].name.length - 1);
+                    if (list[j].name == "通讯设备") {
+                        li += "<li key='" + k + "' name='" + name + "'><a href='javascript:void(0);'>手机</a></li>";
+                    } else {
+                        li += "<li key='" + k + "' name='" + name + "'><a href='javascript:void(0);'>" + name + "</a> </li>";
+                    }
+                    //普通商品
+                    floorDiv("../../Goods/findGoodsNewByCategoryName", h2, name, 1);
                 }
-                //普通商品
-                floorDiv("../../Goods/findGoodsNewByCategoryName", h2, name, 1);
+
             }
         }
         $(key).append(li);
@@ -121,7 +192,7 @@ function floorTitle(key, id, color, h2) {
 }
 
 //楼层
-function floor(key, id, color) {
+function floor(key, id, color,floorName,brandName,cid1,cid2) {
     $.getJSON("../../category/findCategoryAndChild", {"parentId": id}, function (json) {
         var channelbg = "<div class='channelbg'> <div class='channel'style='background:" + color + "'>";
         if (id == 68 || id == 94) {
@@ -136,14 +207,13 @@ function floor(key, id, color) {
             if (id == 68 || id == 94) {
                 channelbg += "<li class='edit-mode'><a>" + json[i].name + "</a></li>";
             } else {
-                channelbg += " <a>" + json[i].name + "</a><span>/</span>";
+                channelbg += " <a>" +json[i].name+ "</a><span>/</span>";
             }
             var list = json[i].categoryChildren;
             for (var j = 0; j < list.length; j++) {
                 if (id != 68 && id != 94) {
                     channelbg += "<a href='categoryList.html?cid="+list[j].cid+"&level="+list[j].clevel+"' target='_blank' data-code='1000060863-1'>" + list[j].name + "</a><span>/</span>";
                 }
-
                 if (id != 26) {
                     ul += "<li><a href='categoryList.html?cid="+list[j].cid+"&level="+list[j].clevel+"' target='_blank'>" + list[j].name + "</a></li>";
                 }
@@ -153,13 +223,43 @@ function floor(key, id, color) {
                     if (id == 26) {
                         ul += "<li><a href='categoryList.html?cid="+lists[k].cid+"&level="+lists[k].clevel+"' target='_blank'>" + lists[k].name + "手机</a></li>";
                     } else {
-                        uls += "<a href='categoryList.html?cid="+lists[k].cid+"&level="+lists[k].clevel+"' target='_blank'>" + lists[k].name + "</a>  ";
+                            uls += "<a href='categoryList.html?cid="+lists[k].cid+"&level="+lists[k].clevel+"' target='_blank'>" + lists[k].name + "</a>  ";
                     }
                 }
                 uls += "</li>";
             }
         }
+        if(id==94){
+            var floorNames=floorName.split(",");
+            var cids=cid1.split(",");
+            for(var p=0;p<floorNames.length-1;p++){
+                channelbg += "<li class='edit-mode'><a>" + floorNames[p] + "</a></li>";
+            }
+        }
         channelbg += "</li></ul></div></div>";
+        //判断是否是第二楼
+
+        if(id==9){
+            var floorNames=floorName.split(",");
+            var cids=cid1.split(",");
+            var brandNames=brandName.split(",");
+            var cidss=cid2.split(",");
+            for(var p=0;p<floorNames.length-1;p++){
+                ul += "<li><a href='categoryList.html?cid="+cids[p]+"&level=3' target='_blank'>" + floorNames[p]+ "</a></li>";
+            }
+            uls+="<li>";
+            for(var t=0;t<brandNames.length-1;t++){
+                uls += "<a href='categoryList.html?cid="+cidss[t]+"&level=4' target='_blank'>" + brandNames[t]+ "</a>  ";
+            }
+            uls+="</li>";
+        }else if(id==94){
+            var brandNames=brandName.split(",");
+            var cidss=cid2.split(",");
+            for(var t=0;t<brandNames.length-1;t++){
+                ul += "<li><a href='categoryList.html?cid="+cidss[t]+"&level=4' target='_blank' data-code='1000060863-1'>" +brandNames[t]+ "</a></li>";
+            }
+
+        }
         keyword += ul + "</ul>" + uls + "</ul>";
         channelbg += keyword;
         $(key).append(channelbg);

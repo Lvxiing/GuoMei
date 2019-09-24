@@ -208,7 +208,10 @@
     });
 
     function pay(){
-        alert(1223);
+        var ordNo = $("#ordNo").text();
+        var yfPayMoney = $("#yfPayMoney").text();
+        location.href="pay/ali/"+ordNo+"/"+yfPayMoney+"/45798651653253846584563218*&&&45445";
+
     }
     var reg = /^(\d{3})(\d*)(\d{4})$/;//电话号码中间4位为*
     //显示订单信息

@@ -962,7 +962,7 @@
         $("#id_commit").click(function () {
             var url = GetRequest();
             var sumPrice = url.sumPrice;
-            sumPrice = sumPrice.substring(36, payno.length);
+            sumPrice = sumPrice.substring(36, sumPrice.length);
             var aid = $("#aid").val(); //收获地址id
             $.getJSON("Orders/addOrders", {"aid": aid, "goodsId": url.goodsId, "num": url.num,"vipIdArr":url.vipIdArr,"sumPrice":sumPrice}, function (data) {
                 //转换时间格式
@@ -980,8 +980,8 @@
     function goodsList() {
         var url = GetRequest();
         var sumPrice = url.sumPrice;
-        sumPrice = sumPrice.substring(36, payno.length);
-        alert(sumPrice);
+        var ifUseScore = url.ifUseScore;
+        sumPrice = sumPrice.substring(36, sumPrice.length);
         var money = 0;
         var num = 0;
         $.ajax(
@@ -1014,6 +1014,11 @@
                     $("#num").text(num);
                     money = Math.floor(money * 100) / 100;
                     $("#totalMoney").text("¥" + money);
+                    if(ifUseScore=='yes'){ //使用了美豆
+                        var subMoney = money-sumPrice;
+                        money-=subMoney;
+                        $("#meidou").text("-¥"+parseFloat(subMoney).toFixed(2));
+                    }
                     //实付金额
                     $("#sum").text("¥" + money);
                 }
