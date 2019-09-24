@@ -218,6 +218,11 @@ public interface ProductFeignInterface {
 
     //--------------------------后台模块----------------------------------
 
+    //----------------------------优惠券后台模块------------------
+    @RequestMapping("coupon/addCoupon")
+    String addCoupon(@RequestParam Map<String,Object> map);
+
+
     //---------------------------新闻后台模块--------------------------------
     //新闻查询
     @RequestMapping("news/findByNewsPage")
