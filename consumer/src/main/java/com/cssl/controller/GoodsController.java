@@ -195,14 +195,19 @@ public class GoodsController {
     }
 
     //--------------------------后台模块-------------------------------
-    @RequestMapping("findGoods")
+    @RequestMapping("/findGoods/{cname}/{title}/{state}")
     @ResponseBody
-    public Map<String, Object> findGoods(@RequestParam Map<String, Object> param) {
+    public Map<String, Object> findGoods(@PathVariable("cname") String cname,@PathVariable("title") String title,@PathVariable("state") String state,@RequestParam("page")int page, @RequestParam("limit")int limit) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("cname",cname);
+        param.put("title",title);
+        param.put("state",state);
+        PageInfo<Map<String, Object>> goods = productFeignInterface.findGoods(param,page,limit);
         Map<String, Object> map = new HashMap<>();
-        PageInfo<Map<String, Object>> goods = productFeignInterface.findGoods(param);
-        map.put("code", 0);
-        map.put("data", goods.getList());
-        map.put("totalCount", goods.getTotalCount());
+        map.put("code",0);
+        map.put("msg", "");
+        map.put("data",goods.getList());
+        map.put("count",goods.getTotalCount());
         return map;
     }
 
