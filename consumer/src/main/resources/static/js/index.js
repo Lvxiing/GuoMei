@@ -60,9 +60,9 @@ function floorDiv(url, h2, name, key) {
     //判断是否是热卖商品
     var div = "";
     if (key == 0) {
-        div = "<div class='main' tab-data-load='0' style='display: block;'><ul class='main_inner'>";
+        div = "<div class='main' id='load-"+key+"' style='display: block;'><ul class='main_inner'>";
     } else {
-        div = "<div class='main' tab-data-load='0' style='display: none;'><ul class='main_inner'>";
+        div = "<div class='main' id='load-"+key+"' style='display: none;'><ul class='main_inner'>";
     }
     $.getJSON(url, {"categoryName": name}, function (json) {
         for (var i = 0; i < json.length; i++) {
@@ -147,7 +147,7 @@ function floorTitle(key, id, color, h2,floorName) {
         //新品抢先
         floorDiv("../../Goods/findGoodsNewByCategoryName", h2, names, 1);
         //低价
-        floorDiv("../../Goods/findGoodsLowPrice", h2, names, 1);
+        floorDiv("../../Goods/findGoodsLowPrice", h2, names, 2);
         var li = " <li  class='cur' key='0' name='" + names + "'><a style='background:" + color + ";' href='javascript:void(0);'>精选热卖</a></li>";
         li += " <li key='1' name='" + names + "'><a href='javascript:void(0);'>新品抢先</a> </li>";
         li += "<li key='2' name='" + names + "'><a href='javascript:void(0);'>畅享低价</a> </li>";
@@ -158,14 +158,14 @@ function floorTitle(key, id, color, h2,floorName) {
             for(var o=0;o<secondNames.length-1;o++){
                 k++;
                 li += "<li key='" + k + "' name='"+secondNames[o]+"'><a href='javascript:void(0);'>"+secondNames[o]+"</a></li>";
-                floorDiv("../../Goods/findGoodsNewByCategoryName", h2, secondNames[o], 1);
+                floorDiv("../../Goods/findGoodsNewByCategoryName", h2, secondNames[o], k);
             }
         }else if(key=="#fiveFloor"){
             var secondNames=floorName.split(",");
             for(var o=0;o<secondNames.length-1;o++){
                 k++;
                 li += "<li key='" + k+ "' name='"+secondNames[o]+"'><a href='javascript:void(0);'>"+secondNames[o]+"</a></li>";
-                floorDiv("../../Goods/findGoodsNewByCategoryName", h2, secondNames[o], 1);
+                floorDiv("../../Goods/findGoodsNewByCategoryName", h2, secondNames[o], k);
             }
         }
         for (var i = 0; i < json.length; i++) {
@@ -181,7 +181,7 @@ function floorTitle(key, id, color, h2,floorName) {
                         li += "<li key='" + k + "' name='" + name + "'><a href='javascript:void(0);'>" + name + "</a> </li>";
                     }
                     //普通商品
-                    floorDiv("../../Goods/findGoodsNewByCategoryName", h2, name, 1);
+                    floorDiv("../../Goods/findGoodsNewByCategoryName", h2, name,k );
                 }
 
             }

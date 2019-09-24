@@ -864,12 +864,12 @@
             }
         );
         //6F小分类悬浮事件
-        floorHover("#groundFloor li","rgb(113, 158, 247)","#groundFloor_div>div");
-        floorHover("#secondFloor li","rgb(80, 191, 236)","#secondFloor_div>div");
-        floorHover("#threeFloor li","#7f86ec","#threeFloor_div>div");
-        floorHover("#fourFloor li","#41ccb8","#fourFloor_div>div");
-        floorHover("#fiveFloor li","#abce5b","#fiveFloor_div>div");
-        floorHover("#sixFloor li","#829daa","#sixFloor_div>div");
+        floorHover("#groundFloor li","rgb(113, 158, 247)","#groundFloor_div #load-");
+        floorHover("#secondFloor li","rgb(80, 191, 236)","#secondFloor_div #load-");
+        floorHover("#threeFloor li","#7f86ec","#threeFloor_div  #load-");
+        floorHover("#fourFloor li","#41ccb8","#fourFloor_div  #load-");
+        floorHover("#fiveFloor li","#abce5b","#fiveFloor_div #load-");
+        floorHover("#sixFloor li","#829daa","#sixFloor_div  #load-");
         //-----------------楼层导航栏-------------------------
         //给楼层加悬浮变色
         $(".handler").hover(
@@ -963,7 +963,8 @@
                 $(this).siblings().find("a").css("background","none");
                 //悬浮显示div
                 var key=$(this).attr("key");
-                $(floor2).eq(key).show().siblings().hide();
+                $(floor2+key).show().siblings().hide();
+                // $(floor2).eq(key).show().siblings().hide();
             }
         );
     }
