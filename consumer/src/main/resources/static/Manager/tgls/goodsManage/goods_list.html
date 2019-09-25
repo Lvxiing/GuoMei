@@ -62,19 +62,19 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">商品名称</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="name" required lay-verify="required" id="title" placeholder="输入商品名称"
+                    <input type="text" name="title"  id="title" placeholder="输入商品名称"
                            autocomplete="off" class="layui-input">
                 </div>
                 <label class="layui-form-label">分类名称</label>
                 <div class="layui-input-inline">
                     <div class="layui-input-block">
-                        <input id="ts_input" type="text" style="width: 190px" name="parentName" required
-                               lay-verify="required" autocomplete="off" class="layui-input">
+                        <input id="ts_input" type="text" style="width: 190px" name="cname"  autocomplete="off" class="layui-input">
+
                     </div>
                 </div>
-                <button type="button" class="layui-btn" id="serch" onclick="query()" data-type="reload"
-                        style="margin-bottom: 6px">检索
-                </button>
+                <input type="radio"  name="type" value="1" title="上架商品" checked lay-filter="type">
+                <input type="radio"  name="type" value="0" title="下架商品" lay-filter="type">
+                <button class="layui-btn" style="margin-bottom: 6px;" lay-submit lay-filter="formDemo">检索</button>
                 <a class="layui-btn" style="margin-bottom: 6px;" href="goods_add.html">导入商品</a>
             </div>
         </form>
@@ -86,126 +86,100 @@
     <div id="pages"></div>
 
     <script>
-        //设置页面数量
-        var pageSize = 10;
-        var pageIndex = 1;
-        var title;
-        var cname;
+        layui.use(['laypage', 'layer', 'table', 'upload', 'form', 'util'], function () {
+            var laypage = layui.laypage,  //分页
+                layer = layui.layer,  //弹层
+                table = layui.table, //表格
+                form = layui.form,
+                $ = layui.jquery
+                , upload = layui.upload;
+            var util = layui.util;
 
-        //页面第一次请求
-        function dataLists(pageIndex, pageSize, cname, title) {
-            var url = '../../../../Goods/findGoods?pageIndex=' + pageIndex + '&pageSize=' + pageSize + '&cname=' + cname + '&title=' + title + '';
-            $.get(url, function (json) {
-                dataList(json.data);  // 数据传到 table组件
-                page(json.totalCount, cname, title);      // 数据传到 分页组件
-            });
-        }
-
-        //页面加载查询全部
-        dataLists(pageIndex, pageSize, null, null);
-
-        function page(totalCount, cname, title) {
-            layui.use('laypage', function () {
-                var laypage = layui.laypage;
-                laypage.render({
-                    elem: 'pages',
-                    count: totalCount,
-                    limit: pageSize,
-                    limits: [5, 10, 15],
-                    prev: "上一页",
-                    next: "下一页",
-                    layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
-                    jump: function (obj, first) {
-                        if (!first) {
-                            numpage(obj.curr, obj.limit, cname, title)  // 分页点击传参
-                        }
-                    }
-                });
-            });
-        }
-
-        //新的一个请求
-        function numpage(pageIndex, pageSize, cname, title) {
-            var obj = panduan(cname, title);
-            var url = '../../../../Goods/findGoods?pageIndex=' + pageIndex + '&pageSize=' + pageSize + '&cname=' + cname + '&title=' + title + '';
-            $.get(url, function (json) {
-                dataList(json.data);  // 数据传到 table组件
-            });
-        }
-
-        //判断是否为undefined并返回
-        function panduan(cname2, title2) {
-            //判断是否等于undefined
-            if (typeof (cname2) == "undefined") {
-                cname = null;
-            }
-            if (typeof (title2) == "undefined") {
-                title = null;
-            }
-            cname = cname2;
-            title = title2;
-            return {cnames: cname, titles: title};
-        }
-
-        // 表格渲染
-        function dataList(data) {
-            layui.use('table', function () {
-                var table = layui.table;
-                table.render({
-                    elem: "#followTable",
-                    even: true, //隔行背景
-                    cols: [[
-                        {type: 'numbers', width: 80, title: "序号"},
-                        {
-                            field: "goods_title", title: "商品名称", templet: function (d) {
-                                if (d.goods_title.length > 7) {
-                                    return d.goods_title.substring(0, 7) + '...';
-                                } else {
-                                    return d.goods_title;
-                                }
+            //执行一个 table 实例
+            table.render({
+                elem: '#followTable'
+                , url: "/Goods/findGoods/null/null/null"
+                , even: true //隔行背景
+                , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem）
+                    layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip'] //自定义排版
+                    , limit: 10 //每页默认显示的数量
+                }
+                , done: function (res, curr, count) { //表格数据加载完后的事件
+                    //调用示例
+                    layer.photos({//点击图片弹出
+                        photos: '.layer-photos-demo'
+                        , anim: 1 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+                    });
+                    console.log(res);
+                }
+                , cols:[[
+                    {type: 'numbers', width: 80, title: "序号"},
+                    {
+                        field: "goods_title", title: "商品名称", templet: function (d) {
+                            if (d.goods_title.length > 7) {
+                                return d.goods_title.substring(0, 7) + '...';
+                            } else {
+                                return d.goods_title;
                             }
-                        },
-                        {
-                            field: "goods_sub_title", title: "商品副标题", templet: function (d) {
-                                if (d.goods_sub_title.length > 7) {
-                                    return d.goods_sub_title.substring(0, 7) + '...';
-                                } else {
-                                    return d.goods_sub_title;
-                                }
-                            }
-                        },
-                        {field: "goods_sub_title", title: "商品图片", templet: '#imgtmp'},
-                        {field: "brand_name", title: "所属品牌"},
-                        {field: "goods_price", title: "参考价位", sort: true},
-                        {field: "goods_stock", title: "商品库存", sort: true},
-                        {field: "status", title: "商品状态", templet: '#state'},
-                        {
-                            field: 'isMenu', width: 150, align: 'center', templet: function (d) {
-
-                                if (d.goods_state == 1) {
-                                    return '<button class="layui-btn layui-btn-xs"  onclick="updateBut(' + d.goods_id + ','+d.brand_id+') ">修改</button><a class="layui-btn layui-btn-xs"  onclick="upStateGoods(' + d.goods_id + ',' + d.goods_state + ')" >下架</a>';
-                                } else {
-                                    return '<button class="layui-btn layui-btn-xs"  onclick="updateBut(' + d.goods_id + ','+d.brand_id+')">修改</button><a class="layui-btn layui-btn-danger layui-btn-xs"  onclick="upStateGoods(' + d.goods_id + ',' + d.goods_state + ')" >上架</a>';
-                                }
-                            }, title: '操作'
                         }
-                    ]],
-                    data: data // 数据
-                    , done: function (res, curr, count) {
-                        $(".layui-table-box").find("[data-field='goods_id']").css("display", "none");
-                        //调用示例
-                        layer.photos({//点击图片弹出
-                            photos: '.layer-photos-demo'
-                            ,anim: 1//0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
-                        });
+                    },
+                    {
+                        field: "goods_sub_title", title: "商品副标题", templet: function (d) {
+                            if (d.goods_sub_title.length > 7) {
+                                return d.goods_sub_title.substring(0, 7) + '...';
+                            } else {
+                                return d.goods_sub_title;
+                            }
+                        }
+                    },
+                    {field: "goods_sub_title", title: "商品图片", templet: '#imgtmp'},
+                    {field: "brand_name", title: "所属品牌"},
+                    {field: "goods_price", title: "参考价位", sort: true},
+                    {field: "goods_stock", title: "商品库存", sort: true},
+                    {field: "status", title: "商品状态", templet: '#state'},
+                    {
+                        field: 'isMenu', width: 150, align: 'center', templet: function (d) {
 
+                            if (d.goods_state == 1) {
+                                return '<button class="layui-btn layui-btn-xs"  onclick="updateBut(' + d.goods_id + ','+d.brand_id+') ">修改</button><a class="layui-btn layui-btn-xs"  onclick="upStateGoods(' + d.goods_id + ',' + d.goods_state + ')" >下架</a>';
+                            } else {
+                                return '<button class="layui-btn layui-btn-xs"  onclick="updateBut(' + d.goods_id + ','+d.brand_id+')">修改</button><a class="layui-btn layui-btn-danger layui-btn-xs"  onclick="upStateGoods(' + d.goods_id + ',' + d.goods_state + ')" >上架</a>';
+                            }
+                        }, title: '操作'
                     }
-                });
-
-
+                ]]
             });
-        }
+            form.on("radio(type)", function (data) {
+                table.reload("followTable", {
+                    page: {
+                        curr: 1
+                    },
+                    url: "/Goods/findGoods/null/null/"+data.value+""
 
+                })
+            });
+
+            //根据用户名模糊查询
+            form.on('submit(formDemo)', function (data) {
+                if (data.field.cname == '') {
+                    data.field.cname = null;
+                }
+                if (data.field.title == '') {
+                    data.field.title = null;
+                }
+                table.reload("followTable", {
+                    page: {
+                        curr: 1
+                    },
+                    url: "/Goods/findGoods/"+data.field.cname+"/"+data.field.title+"/"+data.field.type+""
+
+                })
+                return false;
+            });
+
+
+
+        });
         function updateBut(id,bid) {
             layui.use('layer', function () {
                 //iframe层-父子操作
@@ -243,21 +217,6 @@
             });
         }
 
-
-        //模糊查询
-        function query() {
-            //模糊查询
-            title = $("#title").val();
-            cname = $("#ts_input").val();
-            //判读是否为空
-            if (typeof (cname) == "undefined" || cname == "") {
-                cname = null;
-            }
-            if (typeof (title) == "undefined" || title == "") {
-                title = null;
-            }
-            dataLists(pageIndex, pageSize, cname, title);
-        }
 
     </script>
 

@@ -57,6 +57,9 @@ public interface UserFeignInterface {
     @RequestMapping("/score_detail/saveScoreDetail")
     int saveScoreDetail(@RequestParam  Map map);
 
+    @RequestMapping("/users/updateSignInTime")
+     boolean updateSignInTime(Users users);
+
     //****************** 购物车 ***************
 
     @RequestMapping("/cart/saveCart")

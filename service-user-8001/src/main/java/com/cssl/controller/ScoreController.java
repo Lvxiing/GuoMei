@@ -47,7 +47,7 @@ public class ScoreController {
             Score scores=new Score();
             scores.setUserId(uid);
             //查询相关积分值
-            final  String scoreType_name="文字评价";
+            final  String scoreType_name=map.get("typeName").toString();
             map1.put("scoreType_name",scoreType_name);
             Collection<ScoreType> collection = score_typeService.listByMap(map1);
             Iterator iterator = collection.iterator();
