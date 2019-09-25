@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -32,19 +33,19 @@ public class GoodsController {
     //--------------------------solr搜索引擎---------------------------
     @ResponseBody
     @RequestMapping("findAllSolrData")
-    public List<SolrPo> findAllSolrData(){
+    public List<SolrPo> findAllSolrData() {
         return productFeignInterface.findAllSolrData();
     }
 
     @RequestMapping("saveData")
     @ResponseBody
-    public String saveData() throws  Exception{
+    public String saveData() throws Exception {
         return productFeignInterface.saveData();
     }
 
     @RequestMapping("showAll")
     @ResponseBody
-    public PageInfo<SolrPo> showAll(@RequestParam Map<String,Object> map) throws Exception {
+    public PageInfo<SolrPo> showAll(@RequestParam Map<String, Object> map) throws Exception {
         return productFeignInterface.showAll(map);
     }
 
@@ -52,9 +53,9 @@ public class GoodsController {
     //根据分类名称查询该分类下的所有品牌商品的热卖商品
     @RequestMapping("findGoodsByCategoryName")
     @ResponseBody
-    public List<Goods> findGoodsByCategoryName(@RequestParam("categoryName") String categoryName,@RequestParam("bs") String bs) {
+    public List<Goods> findGoodsByCategoryName(@RequestParam("categoryName") String categoryName, @RequestParam("bs") String bs) {
 
-        return productFeignInterface.findGoodsByCategoryName(categoryName,bs);
+        return productFeignInterface.findGoodsByCategoryName(categoryName, bs);
     }
 
     //根据分类名称查询该分类下的所有品牌商品的新品抢先
@@ -90,7 +91,7 @@ public class GoodsController {
     //查询商品详情信息
     @RequestMapping("GoodInfoShow")
     @ResponseBody
-    public Map<String, Object> GoodInfoShow(HttpServletRequest request, HttpServletResponse response, @RequestParam("gid") Integer gid) throws Exception {
+    public Map<String, Object> GoodInfoShow(HttpSession session, HttpServletRequest request, HttpServletResponse response, @RequestParam("gid") Integer gid) throws Exception {
         Cookie cookie = null;
         String value = null;  //保存新的cookie中的值
         Cookie[] cookies = request.getCookies();
@@ -127,25 +128,33 @@ public class GoodsController {
 
         cookie.setMaxAge(60 * 60 * 24 * 7);
         response.addCookie(cookie);
+
+
         Map<String, Object> map = productFeignInterface.GoodInfoShow(gid);
+        int count = productFeignInterface.selectVipGoods(gid);
+        if (count == 1) { //享有会员商品
+            map.put("vip", "yes");
+            map.put("leven",Integer.valueOf(session.getAttribute("userGradeId").toString()));
+        }
         if (bs) {
             List<Goods> goods = productFeignInterface.browseGoods(browseGoods(request, response));
             map.put("browseGoods", goods);
         }
+        System.out.println("map**************************** = " + map.get("vip"));
         return map;
     }
 
     @ResponseBody
     @RequestMapping("findBrowseGoods")
-    public Map<String,Object> findBrowseGoods(HttpServletRequest request, HttpServletResponse response) {
-        Map<String,Object> map = new HashMap<>();
+    public Map<String, Object> findBrowseGoods(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> map = new HashMap<>();
         String s = browseGoods(request, response);
-        if (s != null && s.length()>0) {
-           List<Goods> goods = productFeignInterface.browseGoods(s);
-            map.put("list",goods);
-            map.put("msg","success");
-        }else{
-            map.put("msg","error");
+        if (s != null && s.length() > 0) {
+            List<Goods> goods = productFeignInterface.browseGoods(s);
+            map.put("list", goods);
+            map.put("msg", "success");
+        } else {
+            map.put("msg", "error");
         }
         return map;
     }
@@ -190,24 +199,24 @@ public class GoodsController {
     //根据商品编号查询会员商品详情
     @RequestMapping("vipInfo")
     @ResponseBody
-    public Map<String,Object> vipInfo(@RequestParam("gid") Integer gid){
+    public Map<String, Object> vipInfo(@RequestParam("gid") Integer gid) {
         return productFeignInterface.vipInfo(gid);
     }
 
     //--------------------------后台模块-------------------------------
     @RequestMapping("/findGoods/{cname}/{title}/{state}")
     @ResponseBody
-    public Map<String, Object> findGoods(@PathVariable("cname") String cname,@PathVariable("title") String title,@PathVariable("state") String state,@RequestParam("page")int page, @RequestParam("limit")int limit) {
+    public Map<String, Object> findGoods(@PathVariable("cname") String cname, @PathVariable("title") String title, @PathVariable("state") String state, @RequestParam("page") int page, @RequestParam("limit") int limit) {
         Map<String, Object> param = new HashMap<>();
-        param.put("cname",cname);
-        param.put("title",title);
-        param.put("state",state);
-        PageInfo<Map<String, Object>> goods = productFeignInterface.findGoods(param,page,limit);
+        param.put("cname", cname);
+        param.put("title", title);
+        param.put("state", state);
+        PageInfo<Map<String, Object>> goods = productFeignInterface.findGoods(param, page, limit);
         Map<String, Object> map = new HashMap<>();
-        map.put("code",0);
+        map.put("code", 0);
         map.put("msg", "");
-        map.put("data",goods.getList());
-        map.put("count",goods.getTotalCount());
+        map.put("data", goods.getList());
+        map.put("count", goods.getTotalCount());
         return map;
     }
 
