@@ -63,8 +63,7 @@ public class EvaluateController {
         Users users = (Users)session.getAttribute("user");
         Object orderno = map.get("order_no");
         Object gid = map.get("goods_id");
-//        //添加成长值
-//        addGrowth(users.getId(),orderno,gid);
+
         boolean b = productFeignInterface.addEvaluate(map);
         String json="{\"abc\":\"false\"}";
         if(b){

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,7 +27,7 @@ public class ScoreType extends Model<ScoreType> {
     private String typeName;               //类型名称
 
     @TableField(value = "scoreType_value")
-    private Integer value;          //  对应增减值
+    private BigDecimal value;          //  对应增减值
 
 
     @Override
