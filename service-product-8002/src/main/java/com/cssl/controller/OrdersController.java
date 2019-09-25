@@ -59,8 +59,8 @@ public class OrdersController {
         //支付成功时间
         Orders order = ordersService.getOne(new QueryWrapper<Orders>().eq("order_no", orderNo));
         order.setPayDate(new Date());
+        order.setStatus(2);//已付款
         boolean b = ordersService.updateById(order);
-        System.out.println("b***************************************** = " + b);
         return b ? "success" : "error";
     }
 
