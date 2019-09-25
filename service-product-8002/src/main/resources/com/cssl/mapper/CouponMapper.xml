@@ -23,7 +23,7 @@
         SELECT * FROM coupon
         <where>
             <if test="name!='null' and name!='' ">
-                and coupon_name = #{name}
+                and coupon_name LIKE concat('%',#{name},'%')
             </if>
             <if test="start!='null' and start!='' ">
                 and STR_TO_DATE(#{start}, '%Y-%m-%d %H') =start_time
