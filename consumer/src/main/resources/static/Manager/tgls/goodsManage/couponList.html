@@ -79,6 +79,10 @@
     </div>
 
 
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+    </script>
+
     <table class="layui-hide" id="table" lay-filter="test"></table>
 
 
@@ -134,7 +138,7 @@
                 }
                 , cols: [[ //表头
                     {type: 'numbers', width: 80, title: "序号"},
-                    {field: 'coupon_name', title: '优惠券名称'}
+                    {field: 'coupon_name', title: '优惠券名称',width:200}
                     , {field: 'coupon_remarks', title: '描述'}
                     , {
                         field: 'start_time', title: '开始时间',
@@ -178,28 +182,18 @@
             table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
                 var data = obj.data //获得当前行数据
                     ,layEvent = obj.event; //获得 lay-event 对应的值
-                if (layEvent === 'edit') {   //查看
-                    layui.use('layer', function () {
-                        var layer = layui.layer;
-                        //iframe层-父子操作
-                        layer.open({
-                            title: "订单信息查看",
-                            type: 2,
-                            area: ['100%', '100%'],
-                            scrollbar: false,	//默认：true,默认允许浏览器滚动，如果设定scrollbar: false，则屏蔽
-                            maxmin: true,
-                            content: 'order_edit.html?orderNo=' + data.num
-                        });
+                //删除
+                 if(layEvent === 'edit'){
+                    layer.open({
+                        //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                        type:2,
+                        title: "修改优惠券信息",
+                        area: [ '100%', '100%' ],
+                        content:'coupon_update.html?id='+data.coupon_id ///引用的弹出层的页面层的方式加载修改界面表单
                     });
                 }
             });
-
-
         });
-    </script>
-
-    <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">订单详情</a>
     </script>
 
     <script id="state" type="text/html">
