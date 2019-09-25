@@ -8,13 +8,13 @@
     <meta name="renderer" content="webkit">
     <!--国产浏览器高速模式-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="穷在闹市" />
+    <meta name="author" content="穷在闹市"/>
     <!-- 作者 -->
-    <meta name="revised" content="穷在闹市.v3, 2019/05/01" />
+    <meta name="revised" content="穷在闹市.v3, 2019/05/01"/>
     <!-- 定义页面的最新版本 -->
-    <meta name="description" content="网站简介" />
+    <meta name="description" content="网站简介"/>
     <!-- 网站简介 -->
-    <meta name="keywords" content="搜索关键字，以半角英文逗号隔开" />
+    <meta name="keywords" content="搜索关键字，以半角英文逗号隔开"/>
     <title>穷在闹市出品</title>
 
     <!-- 公共样式 开始 -->
@@ -42,8 +42,10 @@
 <!--
 这里是弹出层的表单信息
 表单的id用于表单的选择，只有点击编辑才会弹出-->
-<div class="layui-row" id="popUpdateTest" >
-    <form class="layui-form layui-from-pane" action="" style="margin-top:20px" lay-filter="example" id="userForm" enctype="mutipart/form-data" method="post">
+<div class="layui-row" id="popUpdateTest">
+    <form class="layui-form layui-from-pane" action="" style="margin-top:20px" lay-filter="example" id="userForm"
+          enctype="mutipart/form-data" method="post">
+        <input type="hidden" name="cid" id="cid">
         <div class="layui-form-item">
             <label class="layui-form-label">优惠券名称</label>
             <div class="layui-input-block">
@@ -70,18 +72,18 @@
             </div>
         </div>
 
-        <div class="layui-form-item">
+        <div class="layui-inline">
             <label class="layui-form-label">优惠券类型</label>
             <div class="layui-input-block">
                 <input type="radio" name="type" value="1" title="满减" lay-filter="type">
-                <input type="radio" name="type" value="0" title="无门槛" lay-filter="type" checked>
+                <input type="radio" name="type" value="0" title="无门槛" lay-filter="type">
             </div>
         </div>
 
         <div class="layui-form-item" id="fullMoney" style="display: none">
             <label class="layui-form-label">金额满多少</label>
             <div class="layui-input-block">
-                <input style="width: 343px" type="text" name="fullPrice"  class="layui-input">
+                <input style="width: 343px" type="text" name="fullPrice" class="layui-input">
             </div>
         </div>
 
@@ -116,7 +118,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">发放数量</label>
             <div class="layui-input-block">
-                <input style="width: 343px" type="text" name="number"  required lay-verify="required|number"
+                <input style="width: 343px" type="text" name="number" required lay-verify="required|number"
                        autocomplete="off"
                        class="layui-input">
             </div>
@@ -140,12 +142,27 @@
 
 
     <script>
-        layui.use(['layer','upload','form'], function() {
-            var   layer = layui.layer ,  //弹层
+        layui.use(["jquery", "upload", "form", "layer", "element", 'util','laydate'], function () {
+            var laydate = layui.laydate;
+            var layer = layui.layer,  //弹层
                 form = layui.form,
                 $ = layui.jquery
-                ,upload = layui.upload;
+                , upload = layui.upload;
+            var util = layui.util;
 
+
+            //日期时间选择器
+            laydate.render({
+                elem: '#test5'
+                , type: 'datetime',
+                trigger:'click'
+            });
+            //日期时间选择器
+            laydate.render({
+                elem: '#test6'
+                , type: 'datetime',
+                trigger:'click'
+            });
 
             function GetRequest() {
                 var url = location.search; //获取url中"?"符后的字串
@@ -164,50 +181,49 @@
             //页面一加载就显示信息
             $(function () {
                 var re = GetRequest();
-                alert(re.id);
-                // $.getJSON("/users/findById/"+re.id,
-                //     function(result) {
-                //         $("#popUpdateTest input[name=id]").val(result.id);
-                //         $("#popUpdateTest input[name=userName]").val(result.userName);
-                //         $("input[name=sex][value="+result.sex+"]").prop("checked","true");
-                //         $("#popUpdateTest input[name=birthday]").val(result.birthday);
-                //         $("#popUpdateTest input[name=phone]").val(result.phone);
-                //         $("#popUpdateTest input[name=email]").val(result.email);
-                //         $("#popUpdateTest input[name=time]").val(result.time);
-                //         $("#popUpdateTest input[name=address]").val(result.address);
-                //         $("#photo").attr("src",result.headImg);
-                //         $("#img_url").val(result.headImg);
-                //         form.render();  //更新全部
-                //     });
+                $.getJSON("/coupon/getCouponUpdateInfo?id=" + re.id,
+                    function (result) {
+                        $("#cid").val(result.id);
+                        $("input[name='cname']").val(result.couponName);
+                        $("input[name='cdes']").val(result.remarks);
+                        $("input[name=type][value="+result.type+"]").prop("checked","true");
+                        $.getJSON("/category/findCategoryByInfo", "id=" + result.categoryId, function (json) {
+                            $("input[name='catename']").val(json.name);
+                        });
+                        if (result.type == 1) {
+                            $("#fullMoney").css("display", "block");
+                            $("input[name='fullPrice']").val(result.fullMoney);
+                        }
+                        $("input[name='price']").val(result.couponMoney);
+                        $("input[name='startTime']").val(util.toDateString(result.start_time, "yyyy-MM-dd HH:mm:ss"));
+                        $("input[name='endTime']").val(util.toDateString(result.endTime, "yyyy-MM-dd HH:mm:ss"));
+                        $("input[name='number']").val(result.couponCount);
+                        $("input[name='limit']").val(result.couponLimit);
+                        form.render();  //更新全部
+                    });
             })
 
 
-
             //提交表单
-            form.on('submit(update)', function (data) {
+            form.on('submit(submitBut)', function (data) {
                 $.ajax({
                     type: 'POST',
-                    url: "/users/updateUser",
+                    url: "/coupon/modifyCoupon",
                     dataType: 'json',
                     data: data.field,//往后台发送的是data.field，即一个{name：value}的数据结构
                     async: true,
                     success: function (result) {
-                        if (result==true) {
-                            layer.msg('修改成功',{icon:1}, {time:600}, function(){
+                        if (result.code = "success") {
+                            layer.msg('修改成功', {time: 600}, function () {
                                 layer.close(layer.index); //关闭当前窗口
                                 window.parent.location.reload(); //刷新父窗口数据
                             });
-                        } else {
-                            layer.msg("修改失败,请重试",{icon:2});
-                        }
+                        } else
+                            layer.msg(res.msg);//输出错误消息
                     }
                 });
                 return false;
             });
-
-
-
-
 
 
         });

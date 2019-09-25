@@ -72,7 +72,16 @@ public class CategoryController {
 
 
     //------------------------------后台模块--------------------------------
+
     //查询当前分类信息
+    @RequestMapping("findCategoryByInfo")
+    @ResponseBody
+    public Category findCategoryByInfo(@RequestParam Integer id){
+          return productFeignInterface.findCategoryByInfo(id) ;
+    }
+
+
+    //查询当前分类父类信息
     @RequestMapping("findParentOne")
     @ResponseBody
     public Category findParentOne(@RequestParam("id")Integer id){
