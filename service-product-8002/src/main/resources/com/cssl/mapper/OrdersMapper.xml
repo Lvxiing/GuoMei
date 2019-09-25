@@ -40,6 +40,7 @@
                 AND order_status=#{status}
             </if>
         </where>
+        order by order_time desc
    </select>
 
     <select id="findOrdersDetail" resultType="map">
