@@ -1119,110 +1119,110 @@
         });
     });
 </script>
-<!--<script type="text/javascript">-->
-    <!--$(function () {-->
-        <!--goodsList();-->
-        <!--//提交订单-->
-        <!--$("#id_commit").click(function () {-->
-            <!--var url = GetRequest();-->
-            <!--var sumPrice = url.sumPrice;-->
-            <!--sumPrice = sumPrice.substring(36, sumPrice.length);-->
-            <!--var aid = $("#aid").val(); //收获地址id-->
-            <!--$.getJSON("Orders/addOrders", {-->
-                <!--"aid": aid,-->
-                <!--"goodsId": url.goodsId,-->
-                <!--"num": url.num,-->
-                <!--"vipIdArr": url.vipIdArr,-->
-                <!--"sumPrice": sumPrice-->
-            <!--}, function (data) {-->
-                <!--//转换时间格式-->
-                <!--var dateee = new Date(data.times).toJSON();-->
-                <!--var times = new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')-->
-                <!--if (data.code == 'yes') {-->
-                    <!--location.href = "order_succeed.html?orderNo=" + guid() + data.orderNo + "&times=" + times + "&payno=" + guid() + data.payno;-->
-                <!--} else {-->
-                    <!--location.href = "gm-ferror.html";-->
-                <!--}-->
-            <!--});-->
-        <!--});-->
-    <!--});-->
+<script type="text/javascript">
+    $(function () {
+        goodsList();
+        //提交订单
+        $("#id_commit").click(function () {
+            var url = GetRequest();
+            var sumPrice = url.sumPrice;
+            sumPrice = sumPrice.substring(36, sumPrice.length);
+            var aid = $("#aid").val(); //收获地址id
+            $.getJSON("Orders/addOrders", {
+                "aid": aid,
+                "goodsId": url.goodsId,
+                "num": url.num,
+                "vipIdArr": url.vipIdArr,
+                "sumPrice": sumPrice
+            }, function (data) {
+                //转换时间格式
+                var dateee = new Date(data.times).toJSON();
+                var times = new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+                if (data.code == 'yes') {
+                    location.href = "order_succeed.html?orderNo=" + guid() + data.orderNo + "&times=" + times + "&payno=" + guid() + data.payno;
+                } else {
+                    location.href = "gm-ferror.html";
+                }
+            });
+        });
+    });
 
-    <!--function goodsList() {-->
-        <!--var url = GetRequest();-->
-        <!--var sumPrice = url.sumPrice;-->
-        <!--var ifUseScore = url.ifUseScore;-->
-        <!--sumPrice = sumPrice.substring(36, sumPrice.length);-->
-        <!--var money = 0;-->
-        <!--var num = 0;-->
-        <!--$.ajax(-->
-            <!--{-->
-                <!--type: "post",-->
-                <!--url: "Orders/orderInfo",-->
-                <!--data: {"goodsId": url.goodsId, "num": url.num, "vipIdArr": url.vipIdArr},-->
-                <!--async: false,-->
-                <!--success: function (result) {-->
-                    <!--for (var i = 0; i < result.goods.length; i++) {-->
-                        <!--var g = result.goods[i];-->
-                        <!--var div = " <div class='info-bd clearfix' style='margin-left: 264px'>";-->
-                        <!--div += "<div class='backStyle'>";-->
-                        <!--div += " <span class='hcon'>商品信息</span> </div>";-->
-                        <!--div += " <div class='dilivery clearfix'> <div class='cart-shop-good      clearfix      cart-shop-good-common ' data-good='true' data-sid='1122490798' data-pid='9133744812' bigdata-pid='9133744812'>";-->
-                        <!--div += " <div class='cart-col-2' style='height: 82px;'><a href='product_details.html?gid=" + g.gid + "' target='_blank' class='g-img'> <img src='" + g.img + "' alt=''> </a></div>";-->
-                        <!--div += " <div class='fl'> <div class='clearfix'> <div class='cart-col-3'> <div class='cart-good-name' style='width: 198px;height: 50px'> <a href='product_details.html?gid=" + g.gid + " target='_blank title='" + g.title + "'> " + g.title + "</a> </div> </div>";-->
-                        <!--div += " <div class='cart-col-8'> <div class='cart-good-pro'> <div class='cart-saleprops-text'></div> </div> </div> <div class='cart-col-4 cart-price-height47'> <div class='cart-good-real-price '>  ¥&nbsp;" + g.price + "</div>";-->
-                        <!--if (g.bs == 'vip') {-->
-                            <!--div += "<div class='red'>会员价</div>"-->
-                        <!--} else {-->
-                            <!--div += "<div class='red'></div>"-->
-                        <!--}-->
-                        <!--var sumMoney = g.num * g.price;-->
-                        <!--money += g.num * g.price;-->
-                        <!--div += "  </div> </div> </div> <div class='cart-col-7'> <div class='cart-good-fun delfixed' style='width: 170px;height: 30px'> <span class='fontGray mr20 ml5'> x " + g.num + " </span><span class='fontGray mr10' style='color: black;'>¥" + sumMoney + "</span> <span class='fontGray mr10'>有货</span> </div> </div> </div> </div> </div>";-->
-                        <!--num += parseInt(g.num);-->
-                        <!--$("div.infoH").append(div);-->
-                    <!--}-->
-                    <!--$("#num").text(num);-->
-                    <!--money = Math.floor(money * 100) / 100;-->
-                    <!--$("#totalMoney").text("¥" + money);-->
-                    <!--if (ifUseScore == 'yes') { //使用了美豆-->
-                        <!--var subMoney = money - sumPrice;-->
-                        <!--money -= subMoney;-->
-                        <!--$("#meidou").text("-¥" + parseFloat(subMoney).toFixed(2));-->
-                    <!--}-->
-                    <!--//实付金额-->
-                    <!--$("#sum").text("¥" + money);-->
-                <!--}-->
-            <!--}-->
-        <!--);-->
-    <!--}-->
+    function goodsList() {
+        var url = GetRequest();
+        var sumPrice = url.sumPrice;
+        var ifUseScore = url.ifUseScore;
+        sumPrice = sumPrice.substring(36, sumPrice.length);
+        var money = 0;
+        var num = 0;
+        $.ajax(
+            {
+                type: "post",
+                url: "Orders/orderInfo",
+                data: {"goodsId": url.goodsId, "num": url.num, "vipIdArr": url.vipIdArr},
+                async: false,
+                success: function (result) {
+                    for (var i = 0; i < result.goods.length; i++) {
+                        var g = result.goods[i];
+                        var div = " <div class='info-bd clearfix' style='margin-left: 264px'>";
+                        div += "<div class='backStyle'>";
+                        div += " <span class='hcon'>商品信息</span> </div>";
+                        div += " <div class='dilivery clearfix'> <div class='cart-shop-good      clearfix      cart-shop-good-common ' data-good='true' data-sid='1122490798' data-pid='9133744812' bigdata-pid='9133744812'>";
+                        div += " <div class='cart-col-2' style='height: 82px;'><a href='product_details.html?gid=" + g.gid + "' target='_blank' class='g-img'> <img src='" + g.img + "' alt=''> </a></div>";
+                        div += " <div class='fl'> <div class='clearfix'> <div class='cart-col-3'> <div class='cart-good-name' style='width: 198px;height: 50px'> <a href='product_details.html?gid=" + g.gid + " target='_blank title='" + g.title + "'> " + g.title + "</a> </div> </div>";
+                        div += " <div class='cart-col-8'> <div class='cart-good-pro'> <div class='cart-saleprops-text'></div> </div> </div> <div class='cart-col-4 cart-price-height47'> <div class='cart-good-real-price '>  ¥&nbsp;" + g.price + "</div>";
+                        if (g.bs == 'vip') {
+                            div += "<div class='red'>会员价</div>"
+                        } else {
+                            div += "<div class='red'></div>"
+                        }
+                        var sumMoney = g.num * g.price;
+                        money += g.num * g.price;
+                        div += "  </div> </div> </div> <div class='cart-col-7'> <div class='cart-good-fun delfixed' style='width: 170px;height: 30px'> <span class='fontGray mr20 ml5'> x " + g.num + " </span><span class='fontGray mr10' style='color: black;'>¥" + sumMoney + "</span> <span class='fontGray mr10'>有货</span> </div> </div> </div> </div> </div>";
+                        num += parseInt(g.num);
+                        $("div.infoH").append(div);
+                    }
+                    $("#num").text(num);
+                    money = Math.floor(money * 100) / 100;
+                    $("#totalMoney").text("¥" + money);
+                    if (ifUseScore == 'yes') { //使用了美豆
+                        var subMoney = money - sumPrice;
+                        money -= subMoney;
+                        $("#meidou").text("-¥" + parseFloat(subMoney).toFixed(2));
+                    }
+                    //实付金额
+                    $("#sum").text("¥" + money);
+                }
+            }
+        );
+    }
 
-    <!--function GetRequest() {-->
-        <!--var url = location.search; //获取url中"?"符后的字串-->
-        <!--var theRequest = new Object();-->
-        <!--if (url.indexOf("?") != -1) {-->
-            <!--var str = url.substr(1);-->
-            <!--strs = str.split("&");-->
-            <!--for (var i = 0; i < strs.length; i++) {-->
-                <!--theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);-->
-            <!--}-->
-        <!--}-->
-        <!--return theRequest;-->
-    <!--}-->
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
 
-    <!--//生成唯一的uuid-->
-    <!--function guid() {-->
+    //生成唯一的uuid
+    function guid() {
 
-        <!--return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {-->
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
 
-            <!--var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);-->
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
 
-            <!--return v.toString(16);-->
+            return v.toString(16);
 
-        <!--});-->
+        });
 
-    <!--}-->
+    }
 
-<!--</script>-->
+</script>
 </body>
 
 </html>
