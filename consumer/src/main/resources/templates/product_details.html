@@ -493,32 +493,43 @@
                         //点击添加到购物车
                         $("#addCart")
                             .click(function () {
+                                //判断用户是否登录
+                                $.getJSON("/users/getSessionUser",function(json){
+                                    if(json!=null){
+                                        var num = $("#enterQty").val();
+                                        var price;
+                                        var  vipPrice= $("[name=vipPrice]").text();
 
-                                var num = $("#enterQty").val();
-                                var price;
-                              var  vipPrice= $("[name=vipPrice]").text();
+                                        if(vipPrice==''){
+                                            price = $("#prdPrice span[name='price']").text();
+                                        }else{
+                                            price= vipPrice;
+                                        }
+                                        var total = num * price;
 
-if(vipPrice==''){
-    price = $("#prdPrice span[name='price']").text();
-}else{
-    price= vipPrice;
-}
-                                var total = num * price;
-
-                                //添加该商品到购物车
-                                $.getJSON("/cart/saveCart", {
-                                    "goodsId": re.gid,
-                                    "num": num,
-                                    "price": price,
-                                    "total": total
-                                }, function (result) {
-                                    layer.msg("加入购物车成功",{icon:1});
-                                    if (result.msg == "新增到购物车") {
-                                        //如果购物车内没有该商品,则购物车内商品的件数加1
-                                        $("[name=num]").text(parseInt($("[name=num]").text()) + 1);
+                                        //添加该商品到购物车
+                                        $.getJSON("/cart/saveCart", {
+                                            "goodsId": re.gid,
+                                            "num": num,
+                                            "price": price,
+                                            "total": total
+                                        }, function (result) {
+                                            layer.msg("加入购物车成功",{icon:1});
+                                            if (result.msg == "新增到购物车") {
+                                                //如果购物车内没有该商品,则购物车内商品的件数加1
+                                                $("[name=num]").text(parseInt($("[name=num]").text()) + 1);
+                                            }
+                                            showNum();
+                                        });
+                                    }else{  //跳到登录页面去登录
+                                        layer.msg("你还未登录,请先去登录哦",{icon:0});
+                                        location.href = "gm-login.html";
                                     }
-                                    showNum();
                                 });
+
+
+
+
 
                             })
 
