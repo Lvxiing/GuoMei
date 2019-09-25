@@ -181,6 +181,15 @@ public class CategoryController {
 
 
     //--------------------------后台模块-------------------------------
+
+    //查询当前分类信息
+    @RequestMapping("findCategoryByInfo")
+    @ResponseBody
+    public Category findCategoryByInfo(@RequestParam Integer id){
+        return categoryService.getOne(new QueryWrapper<Category>().eq("category_id",id)) ;
+    }
+
+
     //查询所有分类
     @RequestMapping("findCategory")
     @ResponseBody
