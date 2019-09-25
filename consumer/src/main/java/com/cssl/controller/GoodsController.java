@@ -140,7 +140,6 @@ public class GoodsController {
             List<Goods> goods = productFeignInterface.browseGoods(browseGoods(request, response));
             map.put("browseGoods", goods);
         }
-        System.out.println("map**************************** = " + map.get("vip"));
         return map;
     }
 
