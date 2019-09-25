@@ -167,6 +167,9 @@ public interface ProductFeignInterface {
     @RequestMapping("goods/goodsInfoSale")
     List<Goods> goodsInfoSale(@RequestParam("cid") Integer cid);
 
+    //查询当前商品是否是当前用户享有的会员商品
+    @RequestMapping("goods/selectVipGoods")
+    int selectVipGoods(@RequestParam Integer gid);
 
     //会员商品
     @RequestMapping("vip_goods/vipGoodsFindAllQian")
