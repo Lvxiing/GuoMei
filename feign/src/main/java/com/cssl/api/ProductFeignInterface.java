@@ -218,6 +218,11 @@ public interface ProductFeignInterface {
 
     //--------------------------后台模块----------------------------------
 
+    //----------------------------优惠券后台模块------------------
+    @RequestMapping("coupon/addCoupon")
+    String addCoupon(@RequestParam Map<String,Object> map);
+
+
     //---------------------------新闻后台模块--------------------------------
     //新闻查询
     @RequestMapping("news/findByNewsPage")
@@ -284,7 +289,7 @@ public interface ProductFeignInterface {
     //--------------------------商品模块后台-------------------------------
     //查询商品
     @RequestMapping("goods/findGoods")
-    PageInfo<Map<String, Object>> findGoods(@RequestParam Map<String,Object> param);
+    PageInfo<Map<String, Object>> findGoods(@RequestParam Map<String,Object> param,@RequestParam("page")int page, @RequestParam("limit")int limit);
 
     //新增商品
     @RequestMapping("goods/addGoods")

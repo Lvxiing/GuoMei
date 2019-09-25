@@ -61,8 +61,18 @@ public class Users extends Model<Users> {
     @JsonFormat(pattern="yyyy-MM-dd")
     private  Date  loginTime;   //登录时间
 
+    @TableField("user_dayLogin")
+    private Integer dayLogin;  //今日是否登录过   0:未登录   1:已登录
+
     @TableField("user_infocomplete")
     private Integer infoComplete;  //信息完善度    0:未完善   1:已完善
+
+    @TableField("user_signInTime")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date signInTime;                //签到时间
+
+    @TableField("user_daySignIn")
+    private Integer daySignIn;  //今日是否签到过   0:未签到  1:已签到
 
     @Override
     protected Serializable pkVal() {

@@ -17,6 +17,9 @@
         <result column="user_role" property="role" />
         <result column="user_logintime" property="loginTime" />
         <result column="user_infocomplete" property="infoComplete" />
+        <result column="user_signInTime" property="signInTime" />
+        <result column="user_dayLogin" property="dayLogin" />
+        <result column="user_daySignIn" property="daySignIn" />
     </resultMap>
 
 
@@ -31,10 +34,6 @@
 
 
 
-
-
-
-
     <resultMap type="map" id="myMap">
         <id column="user_id" property="id"/>
         <result column="user_name" property="userName"/>
@@ -45,11 +44,13 @@
         <result column="grade_name" property="gradeName"/>
         <result column="low" property="low"/>
         <result column="high" property="high"/>
+        <result column="user_signInTime" property="signInTime" />
+        <result column="user_daySignIn" property="daySignIn" />
     </resultMap>
 
 
     <select id="findVip" resultMap="myMap">
-        SELECT     u.user_id,u.user_name,u.user_headimg ,IFNULL(g.growup_sum,0) AS growup_sum   ,gr.`grade_id` ,IFNULL(gr.grade_name,'G1')  AS grade_name  ,
+        SELECT     u.user_id,u.user_name,u.user_headimg ,u.user_signInTime,u.user_daySignIn,IFNULL(g.growup_sum,0) AS growup_sum   ,gr.`grade_id` ,IFNULL(gr.grade_name,'G1')  AS grade_name  ,
         IFNULL(gr.low,0) AS  low ,
         IFNULL(gr.high,100) AS  high  ,
                IFNULL(s.score_sum,0)  AS score_sum  FROM  `users`  u

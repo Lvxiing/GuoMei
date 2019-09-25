@@ -234,33 +234,7 @@
             <div class="club-hot-box">
                 <div class="club-hot-slider">
                     <ul>
-                        <!--<li class="item">-->
-                            <!--<a href="//item.gome.com.cn/9140048045-1130660115.html?intcmp=club-club04001-01"-->
-                               <!--class="img" title="戴尔笔记本电脑Ins 15-7590-R1535B" data-code="club04001-01"-->
-                               <!--target="_blank"> <img width="130" height="130" alt="戴尔笔记本电脑Ins 15-7590-R1535B"-->
-                                                     <!--src="//gfs17.gomein.net.cn/T1YPYsBvWv1RCvBVdK_130.jpg"> </a>-->
-                            <!--<p class="name"><a href="//item.gome.com.cn/9140048045-1130660115.html"-->
-                                               <!--title="戴尔笔记本电脑Ins 15-7590-R1535B" data-code="club04001-01"-->
-                                               <!--target="_blank">戴尔笔记本电脑Ins 15-7590-R1535B</a></p>-->
-                            <!--<p class="price"><span class="vipPrice">会员价：<b class="highlight ">¥6989.00</b></span>-->
-                            <!--</p>-->
-                            <!--<p class="price"><span class="gmPrice">国美价：<b class="delete">¥6999.00</b></span></p>-->
-                            <!--<p class="conditions "><i class="ic gmlv1"></i><span class="fl">G1会员专享价</span></p></li>-->
-                        <!--<li class="item">-->
-                            <!--<a href="//item.gome.com.cn/9140152012-1130671571.html" class="img"-->
-                               <!--title="惠普笔记本电脑HP Pavilion Gaming Laptop15-dk0019TX(7LG65PA#AB2)"-->
-                               <!--data-code="club04002-02" target="_blank"> <img width="130" height="130"-->
-                                                                              <!--alt="惠普笔记本电脑HP Pavilion Gaming Laptop15-dk0019TX(7LG65PA#AB2)"-->
-                                                                              <!--src="//gfs17.gomein.net.cn/T1oaVXBvCv1RCvBVdK_130.jpg">-->
-                            <!--</a>-->
-                            <!--<p class="name"><a href="//item.gome.com.cn/9140152012-1130671571.html"-->
-                                               <!--title="惠普笔记本电脑HP Pavilion Gaming Laptop15-dk0019TX(7LG65PA#AB2)"-->
-                                               <!--data-code="club04002-02" target="_blank">惠普笔记本电脑HP Pavilion Gaming-->
-                                <!--Laptop15-dk0019TX(7LG65PA#AB2)</a></p>-->
-                            <!--<p class="price"><span class="vipPrice">会员价：<b class="highlight ">¥6199.00</b></span>-->
-                            <!--</p>-->
-                            <!--<p class="price"><span class="gmPrice">国美价：<b class="delete">¥6209.00</b></span></p>-->
-                            <!--<p class="conditions "><i class="ic gmlv1"></i><span class="fl">G1会员专享价</span></p></li>-->
+
                     </ul>
 
                     <span class="chot-goNext"></span>
@@ -288,13 +262,21 @@
                                     <div class="fl rightData">29</div>
                                 </div>
                             </div>
+
+
+
+
                             <div class="sign-btn-box">
-                                <a class="sign-btn clearfix" data-code="club00501-01" href="javascript:void(0)">
+                                <a class="sign-btn clearfix" data-code="club00501-01" href="javascript:void(0)" name="signIn" >
                                     <i class="sign-no-icon"></i>
-                                    <span class="sign-btn-text">签到领美豆</span>
+                                    <span class="sign-btn-text" style="float: none;
+    margin-left: 3px;" >签到领美豆</span>
                                 </a>
                             </div>
-                            <div class="sign-info">连续签到可获得额外奖励</div>
+
+
+
+                            <div class="sign-info"></div>
                         </div>
                         <div class="club-sign-in" style="display:none" id="signIn">
                         </div>
@@ -336,28 +318,10 @@
                 <a href="javascript:void(0)" class="unit-type default" id="shangxian" attc="2">上线时间<i></i></a>
             </div>
         </div>
-        <!--<div class="nPage-nav">-->
-            <!--<span class="info">-->
-                <!--<em id="nPage-nav-curPage">1</em>/<em id="nPage-nav-allPage">1</em>-->
-            <!--</span>-->
-            <!--<a href="javascript:void(0)" class="" id="nPage-nav-prev">&lt;</a>-->
-            <!--<a href="javascript:void(0)" class="" id="nPage-nav-next">&gt;</a>-->
-        <!--</div>-->
+
     </div>
     <ul class="club-items-box clearfix" id="club-items" style="height: 374px">
-        <!--<li class="club-item">-->
-            <!--<a type="1" target="_blank" class="pic" href="">-->
-                <!--<img width="160" height="160" alt="" src="">-->
-            <!--</a>-->
-            <!--<p class="name">-->
-                <!--<a href="" title="" target="_blank">sa</a>-->
-            <!--</p>-->
-            <!--<p class="price"><span class="vipPrice">会员价：<b class="highlight ">¥3989.00</b></span></p>-->
-            <!--<p class="price"><span class="gmPrice">国美价：<b class="delete">¥3999.00</b></span></p>-->
-            <!--<p class="conditions clearfix"><i class="ic gmlv1"></i><span class="fl">G1会员专享价</span></p>-->
-            <!--<span sid="pop8009977165" defcat="cat10000230" class="go-buy" pid="A0005455249" shop_flag="1"-->
-                  <!--track="添加购物车:9111611586:3698.0">加入购物车</span>-->
-        <!--</li>-->
+
     </ul>
     <!-- 任务活动 -->
     <div class="activeDiv" style="display:none">
@@ -717,6 +681,17 @@
             vipGood();
         });
 
+        //判断该用户今日是否已签到过了
+        $.getJSON("/users/dayIfSignIn",function (result) {
+            if (result==true){
+                $("[name=signIn]>span").text("今日已签到");
+                $("[name=signIn]").css("background-color","grey");
+            } else{
+                $("[name=signIn]>span").text("签到领美豆");
+                $("[name=signIn]").css("background-color","#fa565a");
+            }
+        });
+
         time();
         var pageSize = 5;
         var gid;
@@ -726,7 +701,6 @@
         //显示会员等级
         vipShow();
         showAllGoodsVip(1, pageSize, gid, bs);
-
 
         //显示所有会员商品,点击G1会员传入会员gid参数,点击销量传入参数bs不传入默认查询所有会员商品
         //传入pageIndex,pageSize分页参数
@@ -833,8 +807,6 @@ if (leven<grade){
         showNum();
     });
 }
-
-
         });
 
             //a链接加入购物车
@@ -845,9 +817,32 @@ if (leven<grade){
             });
 
 
+            //每日签到领美豆
+            $("[name=signIn]").click(function (){
+                $.getJSON("/users/dayIfSignIn",function (result) {
+                    if (result==true){
+                        layer.msg("今日已签到过了哦",{icon:0});
+                    } else{
+                        $.getJSON("/users/signIn",function (json) {
+                            if (json==true){
+                                layer.msg("今日签到,美豆领取成功",{icon:1});
+                                $("[name=signIn]>span").text("今日已签到");
+                                $("[name=signIn]").css("background-color","grey");
+                            } else{
+                                layer.msg("今日签到失败,请重试!",{icon:2});
+                            }
+                        });
+                    }
+                });
+            });
+
+
+
+
+
+
+
         });
-
-
 
 
 
@@ -978,6 +973,8 @@ if (leven<grade){
         //设置几号
         $(".rightData").text(date.getDate());
     }
+
+
 </script>
 
 
