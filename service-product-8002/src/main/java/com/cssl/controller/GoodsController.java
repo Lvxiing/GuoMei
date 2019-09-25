@@ -125,6 +125,14 @@ public class GoodsController {
         return goods;
     }
 
+    //查询当前商品是否是当前用户享有的会员商品
+    @RequestMapping("selectVipGoods")
+    @ResponseBody
+    public int selectVipGoods(@RequestParam Integer gid) {
+        return vipGoodsService.count(new QueryWrapper<VipGoods>().eq("goods_id", gid));
+    }
+
+
     //商品详情的热销榜
     @RequestMapping("goodsInfoSale")
     @ResponseBody
