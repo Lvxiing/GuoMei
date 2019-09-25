@@ -121,13 +121,15 @@ function info() {
         $("#detailHtml").append(image);
         //最近浏览
         var browse=json.browseGoods;
-        for(var i=0;i<browse.length;i++){
-            var li="<li><div class='img-w'> <a href='product_details.html?gid="+browse[i].id+"' target='_blank' title=''>";
-            li+="<img src='"+browse[i].mainImg+"' alt='"+browse[i].title+"'></a></div>";
-            li+="<p class='title'><a href='product_details.html?gid="+browse[i].id+"'target='_blank'title='"+browse[i].title+"'><span>"+browse[i].title+"</span></a></p>";
-            li+="<p class='yuan colprice fb'>¥<span>"+browse[i].price+"</span></p>";
-            li+="<p></p></li>";
-            $("#rangedBrowsedProd").append(li);
+        if(browse!=null){
+            for(var i=0;i<browse.length;i++){
+                var li="<li><div class='img-w'> <a href='product_details.html?gid="+browse[i].id+"' target='_blank' title=''>";
+                li+="<img src='"+browse[i].mainImg+"' alt='"+browse[i].title+"'></a></div>";
+                li+="<p class='title'><a href='product_details.html?gid="+browse[i].id+"'target='_blank'title='"+browse[i].title+"'><span>"+browse[i].title+"</span></a></p>";
+                li+="<p class='yuan colprice fb'>¥<span>"+browse[i].price+"</span></p>";
+                li+="<p></p></li>";
+                $("#rangedBrowsedProd").append(li);
+            }
         }
         //分类
         findCategory(json.goodsDes.title);
