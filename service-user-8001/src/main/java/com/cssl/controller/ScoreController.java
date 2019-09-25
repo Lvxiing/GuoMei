@@ -41,25 +41,40 @@ public class ScoreController {
          Integer uid=Integer.valueOf(map.get("userId").toString());
          Map<String,Object>maps=new HashMap<String,Object>();
          maps.put("user_id",uid);
-        if(scoreService.listByMap(maps).size()!=0){
-            return  scoreService.updateScoreSum(map);
-        }else{
-            Map<String,Object>map1=new HashMap<String,Object>();
+        //获取传来的类型
+        final  String scoreType_name=map.get("typeName").toString();
+        //根据用户id查询积分表中是否有数据
+       Collection<Score> scores1 = scoreService.listByMap(maps);
+        //根据类型编号查询相对于的积分值
+        Map<String,Object>map1=new HashMap<String,Object>();
+        map1.put("scoreType_name",scoreType_name);
+        Collection<ScoreType> collection = score_typeService.listByMap(map1);
+        Iterator iterator = collection.iterator();
+        ScoreType scoreType=null;
+        while(iterator.hasNext()){
+            scoreType=(ScoreType)iterator.next();
+        }
+        if(scores1.size()!=0){       //有数据修改
+            if(scoreType_name.equals("购物")){
+                Double money = new Double(map.get("money").toString());
+                BigDecimal big = new BigDecimal(Double.valueOf(scoreType.getValue().toString()));
+                //计算购物积分值
+                double score=Math.ceil(money*big.setScale(1,BigDecimal.ROUND_HALF_UP).doubleValue());
+                Map<String,Object>update=new HashMap<String,Object>();
+                update.put("userId",uid);
+                update.put("score_sum",score);
+                return  scoreService.updateCartScoreSum(update);
+            }else{
+                return  scoreService.updateScoreSum(map);
+            }
+
+        }else{//没有数据新增
             Score scores=new Score();
             scores.setUserId(uid);
-            //查询相关积分值
-            final  String scoreType_name=map.get("typeName").toString();
-            //判断是否是购物
-            map1.put("scoreType_name",scoreType_name);
-            Collection<ScoreType> collection = score_typeService.listByMap(map1);
-            Iterator iterator = collection.iterator();
-            ScoreType scoreType=null;
-            while(iterator.hasNext()){
-                scoreType=(ScoreType)iterator.next();
-            }
             if(scoreType_name.equals("购物")){
-                Integer money=new Integer(map.get("money").toString());
-                double score=Math.ceil(money*Integer.valueOf(scoreType.getValue().toString()));
+                Double money = new Double(map.get("money").toString());
+                BigDecimal big = new BigDecimal(Double.valueOf(scoreType.getValue().toString()));
+                double score=Math.ceil(money*big.setScale(1,BigDecimal.ROUND_HALF_UP).doubleValue());
                 scores.setScores(Integer.valueOf(String.valueOf(score)));
             }else{
                 scores.setScores(Integer.valueOf(scoreType.getValue().toString()));

@@ -15,4 +15,5 @@ import java.util.Map;
  */
 public interface ScoreMapper extends BaseMapper<Score> {
     int   updateScoreSum(Map map);
+    int updateCartScoreSum(Map map);
 }
