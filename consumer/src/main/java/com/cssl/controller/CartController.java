@@ -58,7 +58,11 @@ public class CartController {
     @ResponseBody
     public Integer cartCount(HttpSession session) {
         Users users = (Users) session.getAttribute("user");
-        return userFeignInterface.cartCount(users.getId());
+        if(users==null){   //用户未登录
+            return 0;
+        }else {    //用户已登录
+            return userFeignInterface.cartCount(users.getId());
+        }
     }
 
     //把我的购物车中的商品删除
