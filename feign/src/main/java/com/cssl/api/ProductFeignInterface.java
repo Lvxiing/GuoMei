@@ -167,6 +167,9 @@ public interface ProductFeignInterface {
     @RequestMapping("goods/goodsInfoSale")
     List<Goods> goodsInfoSale(@RequestParam("cid") Integer cid);
 
+    //查询当前商品是否是当前用户享有的会员商品
+    @RequestMapping("goods/selectVipGoods")
+    int selectVipGoods(@RequestParam Integer gid);
 
     //会员商品
     @RequestMapping("vip_goods/vipGoodsFindAllQian")
@@ -222,6 +225,9 @@ public interface ProductFeignInterface {
     @RequestMapping("coupon/addCoupon")
     String addCoupon(@RequestParam Map<String,Object> map);
 
+    //查询所有的优惠券
+    @RequestMapping("coupon/couponFindAll")
+    PageInfo<Map<String, Object>> couponFindAll(@RequestParam Map<String, Object> param, @RequestParam("page") int page, @RequestParam("limit") int limit);
 
     //---------------------------新闻后台模块--------------------------------
     //新闻查询
@@ -289,7 +295,7 @@ public interface ProductFeignInterface {
     //--------------------------商品模块后台-------------------------------
     //查询商品
     @RequestMapping("goods/findGoods")
-    PageInfo<Map<String, Object>> findGoods(@RequestParam Map<String,Object> param);
+    PageInfo<Map<String, Object>> findGoods(@RequestParam Map<String,Object> param,@RequestParam("page")int page, @RequestParam("limit")int limit);
 
     //新增商品
     @RequestMapping("goods/addGoods")

@@ -5,6 +5,7 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.cssl.api.ProductFeignInterface;
+import com.cssl.entity.Users;
 import com.cssl.util.AlipayConfig;
 import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,8 @@ public class PayController {
     //支付请求接口
     @RequestMapping("ali/{no}/{money}/45798651653253846584563218*&&&45445")
     public void ali(HttpSession session, @PathVariable("no") String no, @PathVariable("money") String money, HttpServletResponse response, HttpServletRequest request) throws Exception {
-        if(orderSuccess(no)){
+        Users user = (Users) session.getAttribute("user");
+        if(orderSuccess(user.getId(),no)){
             //设置编码
             response.setContentType("text/html;charset=utf-8");
             PrintWriter out = response.getWriter();
@@ -66,7 +68,7 @@ public class PayController {
         }
     }
 
-    public boolean orderSuccess(String orderNo){
+    public boolean orderSuccess(Integer uid,String orderNo){
         String s = productFeignInterface.orderSuccess(orderNo);
         if("success".equals(s)){
             return true;

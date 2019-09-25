@@ -121,19 +121,54 @@ function info() {
         $("#detailHtml").append(image);
         //最近浏览
         var browse=json.browseGoods;
-        for(var i=0;i<browse.length;i++){
-            var li="<li><div class='img-w'> <a href='product_details.html?gid="+browse[i].id+"' target='_blank' title=''>";
-            li+="<img src='"+browse[i].mainImg+"' alt='"+browse[i].title+"'></a></div>";
-            li+="<p class='title'><a href='product_details.html?gid="+browse[i].id+"'target='_blank'title='"+browse[i].title+"'><span>"+browse[i].title+"</span></a></p>";
-            li+="<p class='yuan colprice fb'>¥<span>"+browse[i].price+"</span></p>";
-            li+="<p></p></li>";
-            $("#rangedBrowsedProd").append(li);
+        if(browse!=null){
+            for(var i=0;i<browse.length;i++){
+                var li="<li><div class='img-w'> <a href='product_details.html?gid="+browse[i].id+"' target='_blank' title=''>";
+                li+="<img src='"+browse[i].mainImg+"' alt='"+browse[i].title+"'></a></div>";
+                li+="<p class='title'><a href='product_details.html?gid="+browse[i].id+"'target='_blank'title='"+browse[i].title+"'><span>"+browse[i].title+"</span></a></p>";
+                li+="<p class='yuan colprice fb'>¥<span>"+browse[i].price+"</span></p>";
+                li+="<p></p></li>";
+                $("#rangedBrowsedProd").append(li);
+            }
         }
         //分类
         findCategory(json.goodsDes.title);
+
+        //获取是否时会员商品标识
+        goods(json.vip,json.leven,re.gid);
+
     });
 }
+function goods(vip,leven,gid) {
+    $.getJSON("../../Goods/vipInfo",{"gid":parseInt(gid)},function(json){
+        var id=parseInt(json.grade_name.substring(1));
+        if(leven>id){
+            var vipprice=json.goods_price-json.Discount_money;
+            vipPrices(vip,json.goods_price,json.grade_name,vipprice,leven);
+        }else{
+            vipPrices(vip,json.goods_price,"","",leven);
+        }
+    });
+}
+function vipPrices(vip,price,gradeName,vipprice,leven) {
+    if (vip!="yes"){
+        $("#vip").hide();
+    }else{
+        $("#vip").show();
+        $.getJSON("../../Goods/findGradeById",{"id":leven},function(json){
+            //判断
+            if(gradeName!=""&&vipprice!=""){
+                $("#huiYuanDJ").text("此商品为"+gradeName+"会员价");
+                $(".huiYuanTeJia_text").html("¥<span name=vipPrice>"+vipprice+"</span>").css("color","#e3101e");
+            }else{
+                $("#huiYuanDJ").text("您享受"+json.gradeName+"会员价");
+                var vip_price=price-json.money;
+                $(".huiYuanTeJia_text").html("¥<span name=vipPrice>"+vip_price+"</span>").css("color","#e3101e");
+            }
 
+        });
+    }
+}
 //显示商品所属的所有分类
 function findCategory(name) {
     var re =GetRequest();

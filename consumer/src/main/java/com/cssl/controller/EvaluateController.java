@@ -33,7 +33,7 @@ public class EvaluateController {
     @Autowired
     private ProductFeignInterface productFeignInterface;
 
-    //查看订单详情购买商品信息
+    //评论
     @RequestMapping("/evaluateFindAll/{content}/{num}/{name}")
     @ResponseBody
     public Map<String,Object> evaluateFindAll(@PathVariable("num") String num, @PathVariable("name") String name, @PathVariable("content") String content, @RequestParam("page")int page, @RequestParam("limit")int limit){

@@ -31,6 +31,9 @@
             <if test="title != 'null' and title != '' ">
                 AND g.`goods_title` LIKE concat('%',#{title},'%')
             </if>
+            <if test="state!='null' and state!='' ">
+                and g.`goods_state`= #{state}
+            </if>
         </where>
         order by goods_state desc,g.`goods_create_time` DESC
     </select>

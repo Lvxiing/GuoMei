@@ -49,10 +49,10 @@ public class GoodsController {
     //首页商品通用接口
     @RequestMapping("findGoodsByCategoryName")
     @ResponseBody
-    public List<Goods> findGoodsByCategoryName(@RequestParam("categoryName") String categoryName,@RequestParam("bs") String bs) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("list",collectionCategoryName(categoryName));
-        map.put("bs",bs);
+    public List<Goods> findGoodsByCategoryName(@RequestParam("categoryName") String categoryName, @RequestParam("bs") String bs) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", collectionCategoryName(categoryName));
+        map.put("bs", bs);
         return goodsService.findGoodsByCategoryName(map);
     }
 
@@ -114,8 +114,8 @@ public class GoodsController {
     //最近浏览商品
     @ResponseBody
     @RequestMapping("browseGoods")
-    public List<Goods> browseGoods(@RequestBody(required=false) String value) {
-       List<Goods> goods = new ArrayList<>();
+    public List<Goods> browseGoods(@RequestBody(required = false) String value) {
+        List<Goods> goods = new ArrayList<>();
         if (value != null) {
             String[] id = value.split("#");
             for (int i = 0; i < id.length; i++) {
@@ -124,6 +124,14 @@ public class GoodsController {
         }
         return goods;
     }
+
+    //查询当前商品是否是当前用户享有的会员商品
+    @RequestMapping("selectVipGoods")
+    @ResponseBody
+    public int selectVipGoods(@RequestParam Integer gid) {
+        return vipGoodsService.count(new QueryWrapper<VipGoods>().eq("goods_id", gid));
+    }
+
 
     //商品详情的热销榜
     @RequestMapping("goodsInfoSale")
@@ -135,21 +143,15 @@ public class GoodsController {
     //--------------------------后台模块-------------------------------
     @RequestMapping("findGoods")
     @ResponseBody
-    public PageInfo<Map<String, Object>> findGoods(@RequestParam Map<String, Object> param)throws Exception {
-        Map<String, Object> map = new HashMap<>();
-        map.put("cname", param.get("cname"));
-        map.put("title", param.get("title"));
-        Integer pageIndex = new Integer(param.get("pageIndex").toString());
-        Integer pageSize = new Integer(param.get("pageSize").toString());
-        Page<Map<String, Object>> goods = goodsService.findGoods(map, pageIndex, pageSize);
-
-        PageInfo<Map<String, Object>> page = new PageInfo<>();
+    public PageInfo<Map<String, Object>> findGoods(@RequestParam Map<String, Object> param, @RequestParam("page") int page, @RequestParam("limit") int limit) throws Exception {
+        Page<Map<String, Object>> goods = goodsService.findGoods(param, page, limit);
+        PageInfo<Map<String, Object>> pages = new PageInfo<>();
         List<Map<String, Object>> result = goods.getResult();
         //封装查询数据
-        page.setList(result);
+        pages.setList(result);
         //封装总记录数
-        page.setTotalCount((int) goods.getTotal());
-        return page;
+        pages.setTotalCount((int) goods.getTotal());
+        return pages;
     }
 
 
@@ -174,7 +176,7 @@ public class GoodsController {
         goods.setMainImg(map.get("imgmain").toString());
         goods.setDesImg(map.get("imginfo").toString());
         BigDecimal decimal = new BigDecimal(price);
-        goods.setPrice(decimal.setScale(2,BigDecimal.ROUND_HALF_UP));
+        goods.setPrice(decimal.setScale(2, BigDecimal.ROUND_HALF_UP));
         goods.setStock(stock);
         goods.setDes(map.get("desc").toString());
         goods.setState(state);
@@ -232,7 +234,7 @@ public class GoodsController {
         goods.setDesImg(map.get("imginfo").toString());
         goods.setId(id);
         BigDecimal decimal = new BigDecimal(price);
-        goods.setPrice(decimal.setScale(2,BigDecimal.ROUND_HALF_UP));
+        goods.setPrice(decimal.setScale(2, BigDecimal.ROUND_HALF_UP));
         goods.setStock(stock);
         goods.setDes(map.get("desc").toString());
         goods.setState(state);
@@ -294,9 +296,10 @@ public class GoodsController {
         map.put("vipInfo", vip != null ? vip : null);
         return map;
     }
+
     @ResponseBody
     @RequestMapping("findAllSolrData")
-    public List<SolrPo> findAllSolrData(){
+    public List<SolrPo> findAllSolrData() {
         return goodsService.findAllSolrData();
     }
 
