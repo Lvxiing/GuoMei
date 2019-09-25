@@ -5,6 +5,8 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.cssl.api.ProductFeignInterface;
+import com.cssl.api.RedisFeignInterface;
+import com.cssl.api.UserFeignInterface;
 import com.cssl.entity.Users;
 import com.cssl.util.AlipayConfig;
 import com.netflix.discovery.converters.Auto;
@@ -18,6 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -26,6 +32,11 @@ public class PayController {
 
     @Autowired
     private ProductFeignInterface productFeignInterface;
+    @Autowired
+    private UserFeignInterface userFeignInterface;
+
+    @Autowired
+    private RedisFeignInterface redisFeignInterface;
 
     @RequestMapping("NotifyServlet")
     protected void service(HttpServletRequest request, HttpServletResponse response) throws AlipayApiException, IOException {
@@ -40,7 +51,7 @@ public class PayController {
     @RequestMapping("ali/{no}/{money}/45798651653253846584563218*&&&45445")
     public void ali(HttpSession session, @PathVariable("no") String no, @PathVariable("money") String money, HttpServletResponse response, HttpServletRequest request) throws Exception {
         Users user = (Users) session.getAttribute("user");
-        if(orderSuccess(user.getId(),no)){
+        if(orderSuccess(user.getId(),no,money)){
             //设置编码
             response.setContentType("text/html;charset=utf-8");
             PrintWriter out = response.getWriter();
@@ -68,9 +79,30 @@ public class PayController {
         }
     }
 
-    public boolean orderSuccess(Integer uid,String orderNo){
+    public boolean orderSuccess(Integer uid,String orderNo,String money){
         String s = productFeignInterface.orderSuccess(orderNo);
         if("success".equals(s)){
+            Map maps = new HashMap();
+            maps.put("userId", uid);
+            final String typeName = "购物";
+            maps.put("typeName", typeName);
+            int ucount = userFeignInterface.updateGrowupSum(maps);
+            int scount = userFeignInterface.saveGrowupdetail(maps);
+            maps.put("momey",money);
+            userFeignInterface.updateScoreSum(maps);
+            userFeignInterface.saveScoreDetail(maps);
+            //时间格式转换
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            //将此次获得的成长值详细说明存入redis中
+            Map desMap = userFeignInterface.detailDescription();
+            Object gdetailId = desMap.get("gdetailId");
+            Object gdetailTime = desMap.get("gdetailTime");
+            try {
+                Date parse = sdf.parse(gdetailTime.toString());
+                redisFeignInterface.set(gdetailId.toString(),"订单号:"+orderNo,-1);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             return true;
         }
         return false;
