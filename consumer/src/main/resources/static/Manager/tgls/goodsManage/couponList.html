@@ -133,39 +133,43 @@
                     console.log(res);
                 }
                 , cols: [[ //表头
-                    {field: 'num', title: '订单编号', fixed: 'left', sort: true}
-                    , {field: 'name', title: '用户名'}
-                    , {field: 'content', title: '评价内容'}
+                    {type: 'numbers', width: 80, title: "序号"},
+                    {field: 'coupon_name', title: '优惠券名称'}
+                    , {field: 'coupon_remarks', title: '描述'}
                     , {
-                        field: 'etime', title: '评价时间',
+                        field: 'start_time', title: '开始时间',
                         templet: function (d) {
-                            return util.toDateString(d.etime, "yyyy-MM-dd HH:mm:ss");
+                            return util.toDateString(d.start_time, "yyyy-MM-dd HH:mm:ss");
                         }
                     }
-                    , {
-                        field: 'img', title: '商品主图',
-                        templet: "#imgtmp"
+                    ,{
+                        field: 'end_time', title: '结束时间',
+                        templet: function (d) {
+                            return util.toDateString(d.end_time, "yyyy-MM-dd HH:mm:ss");
+                        }
                     }
-                    ,{field: 'right', title: '操作', toolbar: '#barDemo'},
+                    , {field: 'coupon_money', title: '优惠金额',templet:'#color'}
+                     ,{field: "coupon_type", title: "类型", templet: '#state'}
+                    ,{field: 'right', title: '操作', toolbar: '#barDemo'}
                 ]]
             });
 
             //根据用户名模糊查询
             form.on('submit(formDemo)', function (data) {
-                if (data.field.content == '') {
-                    data.field.content = null;
+                if (data.field.cname == '') {
+                    data.field.cname = null;
                 }
-                if (data.field.num == '') {
-                    data.field.num = null;
+                if (data.field.startTime == '') {
+                    data.field.startTime = null;
                 }
-                if (data.field.name == '') {
-                    data.field.name = null;
+                if (data.field.endTime == '') {
+                    data.field.endTime = null;
                 }
                 table.reload("table", {
                     page: {
                         curr: 1
                     },
-                    url: '/evaluate/evaluateFindAll/' + data.field.content + "/" + data.field.num + "/" + data.field.name
+                    url: '/coupon/couponFindAll/' + data.field.cname + "/" + data.field.startTime + "/" + data.field.endTime
                 })
                 return false;
             });
@@ -198,6 +202,17 @@
         <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">订单详情</a>
     </script>
 
+    <script id="state" type="text/html">
+        {{#  if(d.coupon_type == 1){ }}
+        <span style="color: #f20257;">满减</span>
+        {{#  } else { }}
+        <span style="color: #c8c2c0;">无门槛</span>
+        {{#  } }}
+    </script>
+
+    <script id="color" type="text/html">
+        <span style="color: #f2001f;"> {{ d.coupon_money }}</span>
+    </script>
 </div>
 </body>
 
