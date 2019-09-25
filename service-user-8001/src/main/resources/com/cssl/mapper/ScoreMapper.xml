@@ -14,4 +14,9 @@
                                                      WHERE  `scoreType_name`=#{typeName})
         WHERE `user_id`=#{userId}
     </update>
+    <!--修改购物时的积分-->
+    <update id="updateCartScoreSum">
+        UPDATE  `score` SET `score_sum`=score_sum+#{score_sum}
+        WHERE `user_id`=#{userId}
+    </update>
 </mapper>

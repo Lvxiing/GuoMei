@@ -88,7 +88,7 @@ public class PayController {
             maps.put("typeName", typeName);
             int ucount = userFeignInterface.updateGrowupSum(maps);
             int scount = userFeignInterface.saveGrowupdetail(maps);
-            maps.put("momey",money);
+            maps.put("money",money);
             userFeignInterface.updateScoreSum(maps);
             userFeignInterface.saveScoreDetail(maps);
             //时间格式转换

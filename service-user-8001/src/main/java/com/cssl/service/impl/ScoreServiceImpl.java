@@ -26,4 +26,9 @@ public class ScoreServiceImpl extends ServiceImpl<ScoreMapper, Score> implements
     public int updateScoreSum(Map map) {
         return scoreMapper.updateScoreSum(map);
     }
+
+    @Override
+    public int updateCartScoreSum(Map map) {
+        return scoreMapper.updateCartScoreSum(map);
+    }
 }
