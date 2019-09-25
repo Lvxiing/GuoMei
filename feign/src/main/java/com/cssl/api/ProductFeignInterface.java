@@ -225,6 +225,9 @@ public interface ProductFeignInterface {
     @RequestMapping("coupon/addCoupon")
     String addCoupon(@RequestParam Map<String,Object> map);
 
+    //查询所有的优惠券
+    @RequestMapping("coupon/couponFindAll")
+    PageInfo<Map<String, Object>> couponFindAll(@RequestParam Map<String, Object> param, @RequestParam("page") int page, @RequestParam("limit") int limit);
 
     //---------------------------新闻后台模块--------------------------------
     //新闻查询
