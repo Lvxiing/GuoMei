@@ -19,4 +19,21 @@
         <result column="coupon_type" property="cType" />
     </resultMap>
 
+    <select id="couponFindAll" parameterType="map" resultType="map">
+        SELECT * FROM coupon
+        <where>
+            <if test="name!='null' and name!='' ">
+                and coupon_name = #{name}
+            </if>
+            <if test="start!='null' and start!='' ">
+                and STR_TO_DATE(#{start}, '%Y-%m-%d %H') =start_time
+            </if>
+            <if test="end!='null' and end!='' ">
+                and STR_TO_DATE(#{end}, '%Y-%m-%d %H') =end_time
+            </if>
+            <if test="end!='null' and end!='' and  start!='null' and start!='' ">
+                and STR_TO_DATE(#{start}, '%Y-%m-%d %H') &gt;=start_time AND STR_TO_DATE(#{end}, '%Y-%m-%d %H') &lt;=end_time
+            </if>
+        </where>
+    </select>
 </mapper>

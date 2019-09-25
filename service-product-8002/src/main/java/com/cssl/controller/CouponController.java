@@ -4,8 +4,10 @@ package com.cssl.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.entity.Category;
 import com.cssl.entity.Coupon;
+import com.cssl.entity.PageInfo;
 import com.cssl.service.CategoryService;
 import com.cssl.service.CouponService;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,6 +19,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -73,4 +76,19 @@ public class CouponController {
         }
         return "{\"msg\":\"新增失败\"}";
     }
+
+
+    @RequestMapping("couponFindAll")
+    @ResponseBody
+    public PageInfo<Map<String, Object>> couponFindAll(@RequestParam Map<String, Object> param, @RequestParam("page") int page, @RequestParam("limit") int limit) {
+        PageInfo<Map<String, Object>> pages = new PageInfo<>();
+        Page<Map<String, Object>> maps = couponService.couponFindAll(param, page, limit);
+        List<Map<String, Object>> result = maps.getResult();
+        //封装查询数据
+        pages.setList(result);
+        //封装总记录数
+        pages.setTotalCount((int) maps.getTotal());
+        return pages;
+    }
+
 }
