@@ -69,6 +69,11 @@
         select count(0) from coupon c
         inner join coupon_receive r
         on c.coupon_id = r.coupon_id
-        where c.coupon_type= #{type} and r.user_id=#{uid}
+        <where>
+            and r.user_id=#{uid}
+            <if test="type!=-1 ">
+                and c.coupon_type= #{type}
+            </if>
+        </where>
     </select>
 </mapper>
