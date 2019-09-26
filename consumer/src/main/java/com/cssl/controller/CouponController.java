@@ -34,6 +34,15 @@ public class CouponController {
         return productFeignInterface.couponFindAllQian(map);
     }
 
+    //优惠券总数
+    @RequestMapping("userCouponCount")
+    @ResponseBody
+    public Map<String,Object> userCouponCount(HttpSession session){
+        Users users = (Users)session.getAttribute("users");
+        return productFeignInterface.userCouponCount(users.getId());
+    }
+
+
     @RequestMapping("addCouponReceive")
     @ResponseBody
     public String addCouponReceive(HttpSession session,@RequestParam Map<String,Object>map){
