@@ -47,6 +47,18 @@ public class CouponController {
 
     //---------------------------前台-------------------------
 
+    //优惠券总数
+    @RequestMapping("userCouponCount")
+    @ResponseBody
+    public Map<String,Object> userCouponCount(@RequestParam Integer uid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("mj",couponService.userCouponCount(1,uid));
+        map.put("wmk",couponService.userCouponCount(0,uid));
+        map.put("sum",couponService.userCouponCount(-1,uid));
+        return map;
+    }
+
+
     @ResponseBody
     @RequestMapping("couponFindAllQian")
     public Map<String,Object> couponFindAllQian(@RequestParam Map<String, Object> map) {
