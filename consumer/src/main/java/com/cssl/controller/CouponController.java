@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -20,6 +21,14 @@ public class CouponController {
 
     @Autowired
     private ProductFeignInterface productFeignInterface;
+
+    //-------------------------前台--------------------
+    @ResponseBody
+    @RequestMapping("couponFindAllQian")
+    public List<Map<String, Object>> couponFindAllQian(Map<String, Object> map) {
+        return productFeignInterface.couponFindAllQian(map);
+    }
+
 
 
     // ------------------------后台--------------------
