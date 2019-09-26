@@ -330,6 +330,8 @@
                 $.getJSON("/coupon/addCouponReceive",{"id":coupon_id},function (json) {
                     if(json.code=="success"){
                         layer.msg("领取成功",{icon:1});
+                        //刷新
+                        load("null","null");
                     }else{
                         layer.msg("已领取",{icon:2});
                     }
@@ -363,7 +365,7 @@
                       }else{
                           li+=" <div class='cMc_style cmblue_bg'>";
                       }
-                       li+=" <div class='cMPrice'><em>¥</em> <strong>"+c.coupon_money+".</strong> <span>00</span></div> <p class='cMInfo'><em>【线上专享】</em>"+c.coupon_name+" </p> <p class='cMTime'>"+times.substring(0,10)+" - "+times2.substring(0,10)+"</p></div>";
+                       li+=" <div class='cMPrice'><em>¥</em> <strong>"+c.coupon_money+".</strong> <span>00</span></div> <p class='cMInfo'><em>【线上专享】</em>"+c.coupon_name+" </p> <p class='cMTime'>"+times.substring(0,10)+"  -  "+times2.substring(0,10)+"</p></div>";
                       li+="<div class='cM_text'><p style='padding:10px 20px 0px 18px;height:50px;white-space:inherit;text-overflow:inherit' title='"+manjian+"'>使用范围："+manjian+"</p>";
                        //判断没有卷时不显示立即领卷
                       if(c.coupon_count>0){
