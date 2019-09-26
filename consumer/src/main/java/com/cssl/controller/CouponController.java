@@ -41,6 +41,14 @@ public class CouponController {
         map.put("uid",user.getId());
         return productFeignInterface.addCouponReceive(map);
     }
+    //查询当前用户所有优惠券
+    @RequestMapping("userCouponList")
+    @ResponseBody
+    public PageInfo<Map<String, Object>>userCouponList(HttpSession session,@RequestParam Map<String,Object> map){
+        Users user = (Users)session.getAttribute("user");
+        map.put("uid",31);
+        return productFeignInterface.userCouponList(map);
+    }
 
 
 

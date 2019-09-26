@@ -11,12 +11,9 @@ import com.cssl.service.CouponService;
 import com.cssl.service.Coupon_receiveService;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -46,6 +43,24 @@ public class CouponController {
 
     @Autowired
     private Coupon_receiveService couponReceiveService;
+
+
+    //---------------------------前台-------------------------
+
+    //查询当前用户所有优惠券
+    @RequestMapping("userCouponList")
+    @ResponseBody
+    public PageInfo<Map<String, Object>>userCouponList(@RequestParam Map<String,Object> map){
+        PageInfo<Map<String, Object>> pages = new PageInfo<>();
+        Page<Map<String, Object>> page = couponService.userCouponList(map);
+        pages.setList(page.getResult());
+        pages.setPageNo(page.getPageNum());
+        pages.setTotalCount((int) page.getTotal());
+        pages.setPageSize(page.getPageSize());
+        pages.setPageCount(page.getPages());
+        return pages;
+    }
+
 
     //--------------------------后台--------------------------
     @RequestMapping("addCoupon")

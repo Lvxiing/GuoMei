@@ -49,4 +49,23 @@
             ORDER BY coupon_money DESC
         </if>
     </select>
+
+    <select id="userCouponList" parameterType="map" resultType="map">
+        SELECT c.*,g.category_name cname FROM coupon c
+        INNER JOIN coupon_receive r ON c.coupon_id = r.coupon_id
+        INNER JOIN category g ON c.category_id = g.category_id
+        <where>
+            and r.user_id = #{uid}
+            <if test="status!=null and status!='null' and status!='' ">
+                AND r.status= #{status}
+            </if>
+        </where>
+    </select>
+
+    <select id="userCouponCount" resultType="int">
+        select count(0) from coupon c
+        inner join coupon_receive r
+        on c.coupon_id = r.coupon_id
+        where c.coupon_type= #{type} and r.user_id=#{uid}
+    </select>
 </mapper>

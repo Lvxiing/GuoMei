@@ -38,6 +38,9 @@ public interface ProductFeignInterface {
     @RequestMapping("coupon/addCouponReceive")
     String addCouponReceive(@RequestParam  Map<String,Object>map);
 
+    @RequestMapping("coupon/userCouponList")
+    PageInfo<Map<String, Object>>userCouponList(@RequestParam Map<String,Object> map);
+
     //--------------------前台收货地址-------------------------
     //查询所有省份
     @RequestMapping("province/findProvince")
