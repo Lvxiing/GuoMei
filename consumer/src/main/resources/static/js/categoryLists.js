@@ -214,12 +214,12 @@ function xunhuan(json) {
         // alert(lists[i].title);
         var li="<li class='product-item'> <ul class='arbitrage clearfix'></ul> ";
         li+="<div class='item-tab-warp'>";
-        li+="<p class='item-pic'><a class='emcodeItem item-link' target='_blank' track='产品列表图片' href='product_details.html?gid="+lists[i].id+"'>";
+        li+="<p class='item-pic'><span name='goodsId' style='display: none;'>"+lists[i].id+"</span><a class='emcodeItem item-link' target='_blank' track='产品列表图片' href='product_details.html?gid="+lists[i].id+"'>";
         li+="<img src='"+lists[i].img+"' width='210px' height='210px'></a></p> <div class='item-price-info'> <div class='item-price'>";
-        li+="<span class='price asynPrice'>¥"+lists[i].price+"</span></div></div>";
+        li+="<span class='price asynPrice'>¥<span name='price'>"+lists[i].price+"</span></span></div></div>";
         li+="<p class='item-name'> <a class='emcodeItem item-link' href='product_details.html?gid="+lists[i].id+"'>"+lists[i].title+"</a></p>";
-        li+=" <p class='item-option clearfix' style='margin-left: 53px;'> <span class='add-collection'><i class='icon'></i></span>";
-        li+=" <span class='add-cart addTo-cart'><i class='icon'></i></span> </p> </div> </li>";
+        li+=" <p class='item-option clearfix' style='margin-left: 53px;'> <span class='add-collection' name='toCollection'><i class='icon'></i></span>";
+        li+=" <span class='add-cart addTo-cart' name='toCart' ><i class='icon'></i></span> </p> </div> </li>";
         $("#product-box").append(li);
     }
 
