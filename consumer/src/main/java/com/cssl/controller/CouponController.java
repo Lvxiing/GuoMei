@@ -25,7 +25,7 @@ public class CouponController {
     //-------------------------前台--------------------
     @ResponseBody
     @RequestMapping("couponFindAllQian")
-    public Map<String,Object> couponFindAllQian(Map<String, Object> map) {
+    public Map<String,Object> couponFindAllQian(@RequestParam Map<String, Object> map) {
         return productFeignInterface.couponFindAllQian(map);
     }
 
