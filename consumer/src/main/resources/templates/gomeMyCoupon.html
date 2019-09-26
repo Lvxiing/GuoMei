@@ -21,22 +21,9 @@
     <link rel="shortcut icon" href="//app.gomein.net.cn/favicon.ico" type="image/x-icon">
     <link rel="stylesheet"
           href="//css.gomein.net.cn/??gmlib/reset/1.1.0/reset.css,gmpro/1.0.0/public/1.0.0/css/top.min.css,gmpro/1.0.0/cart/1.0.0/css/headCart.min.css,gmpro/1.0.0/public/member/css/memberHead.css,gmpro/1.0.0/public/1.0.0/css/foot.min.css,gmpro/1.0.0/public/1.0.0/css/aside.min.css?v=201908291743">
-
-
-    <script async="" src="https://js.gomein.net.cn/sitemonitor/tjs/sensorsdata/sensorsdata.min.js"
-            charset="UTF-8"></script>
-    <script type="text/javascript">var dynSite = '//g.gome.com.cn', staSite = '//www.gome.com.cn',
-        gomeplusDomain = '.gome.com.cn', contextPath = '/ec/homeus', cookieDomain = '.gome.com.cn',
-        imgServer = '//app.gomein.net.cn/images', stageJsServer = '//js.gomein.net.cn',
-        stageImageServer = '//img.gomein.net.cn', stageCssServer = '//css.gomein.net.cn',
-        gomeplusCdn = '//js.meixincdn.com/m/pc/', versionData = '1908300535';</script>
-
-
-    <script type="text/javascript">var gfeJsCdn = "//js.gomein.net.cn", gfeCssCdn = "//css.gomein.net.cn",
-        gfeProjectPath = "/gmpro/2.0.0/member/4.4.4";</script>
     <link rel="stylesheet"
           href="//css.gomein.net.cn/??gmpro/2.0.0/member/4.4.4/css/common/h_b_c.css,gmpro/2.0.0/member/4.4.4/css/common/vipMainHeader.css,gmpro/1.0.0/cart/1.0.0/css/headCart.min.css,gmpro/2.0.0/member/4.4.4/css/common/mygome_new.css,gmpro/2.0.0/member/4.4.4/css/common/pager.css,gmpro/2.0.0/member/4.4.4/css/common/navTab.css,gmpro/2.0.0/member/4.4.4/css/common/popbox.css,gmpro/2.0.0/member/4.4.4/css/common/selectNav.css,gmpro/2.0.0/member/4.4.4/css/gomeMyCoupon/acountBalance.css,gmpro/2.0.0/member/4.4.4/css/gomeMyCoupon/myCouponImg.css">
-
+    <script src="js/jquery-1.8.3.js"></script>
 </head>
 <body class="gomeMyCoupon" data-page="myhome">
 <script type="text/javascript">
@@ -154,56 +141,30 @@
                         <div class="tabs">
                             <div class="tabsHeader">
                                 <ul>
-                                    <li class="cur">未使用</li>
-                                    <li>已使用</li>
+                                    <li class="cur" num="0">未使用</li>
+                                    <li num="1">已使用</li>
                                 </ul>
                             </div>
                             <div class="clearfix">
                                 <div class="uc_overdue">
-                                    <div class="uc_overdue-Left"><p id="uc_overdue-btn"><a href="javascript:void(0);">全部类型券<span>2</span></a><i
-                                            class="icon_09"></i></p>
+                                    <div class="uc_overdue-Left">
+                                        <p id="uc_overdue-btn"></p>
                                         <ul id="uc_overdue-uls" style="display: none;">
-                                            <li class="on"><a datanum="" href="javascript:void(0);">全部类型券<span>2</span></a><i
-                                                    class=""></i></li>
-                                            <li><a datanum="102" href="javascript:void(0);">无门槛<span>1</span></a><i
-                                                    class=""></i></li>
-                                            <li><a datanum="103" href="javascript:void(0);">满减<span>0</span></a><i
-                                                    class=""></i></li>
+                                            <li class="on"></li>
+                                            <li></li>
+                                            <li></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="voucherListBox clearfix">
-                                    <div class="voucherList" style="height: 239px">
-                                        <div class="voucherList-information"><h3
-                                                class="information-title">厨房卫浴满2588减500</h3>
-                                            <h2 class="amountMoney"><b>¥</b><a
-                                                    href="javascript:void;">200.</a><span>00</span></h2>
-                                            <h5 class="vouchertitle"><a class="selfred" href="javascript:(void);">海信</a> 满2588可用 </h5>
-                                            <p class="voucherTime">2019.08.27 00:00 - 2019.09.01 23:59</p>
 
-                                        </div>
-                                        <div class="voucherList-rule" style="height: 58px;">
-                                            <a class="voucherList-btn" target="_blank" href="juan_product.html">使用</a></div>
-                                    </div>
-                                    <div class="voucherList" style="height: 239px">
-                                        <div class="voucherList-information voucher-expired"><h3
-                                                class="information-title">促销活动派发，特例品不可用</h3>
-                                            <h2 class="amountMoney"><b>¥</b><a
-                                                    href="javascript:void;">50.</a><span>00</span></h2>
-                                            <h5 class="vouchertitle"><a class="selfred" href="javascript:(void);">蓝券</a>
-                                                满100可用 </h5>
-                                            <p class="voucherTime">2019.08.01 00:00 - 2019.08.31 00:00</p>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div></div>
                                 <div class="pager">
-                                    <a class="prev disable" href="javascript:void(0);">&nbsp;上一页<s
-                                            class="icon-prev"></s><i></i></a><span class="cur">1</span><a
-                                        class="next disable" href="javascript:void(0);">下一页<s
-                                        class="icon-next"></s><i></i></a><label for="pagenum" class="txt-wrap">到<input
-                                        type="text" id="pNum" class="txt" bnum="1" value="1">页</label><a
-                                        href="javascript:void(0)" zdx="nBtn" class="btn">确定</a></div>
+                                    <a class="prev disable" href="javascript:void(0);">&nbsp;上一页<s class="icon-prev"></s><i></i></a>
+                                    <a class="next " href="javascript:void(0);">下一页<s class="icon-next"></s><i></i></a>
+                                    <label for="pagenum" class="txt-wrap">到<input type="text" id="pNum" class="txt" bnum="1" value="1">页</label>
+                                    <a  href="javascript:void(0)" zdx="nBtn" id="sure" class="btn">确定</a></div>
                             </div>
                         </div>
                     </div>
@@ -393,8 +354,7 @@
     <!-- gome-bar-box -->
 </div>
 <!--aside-->
-<script src="//js.gomein.net.cn/??gmlib/jq/1.7.1/jquery.js,sitemonitor/sa-sdk/sa.js,gmlib/cookie/1.0.0/cookie.js,gmpro/1.0.0/public/1.0.0/js/signtop.min.js,gmlib/unit/bigcode/1.0.0/bigcode.min.js,gmlib/unit/serviceEntrance/1.0.0/serviceEntrance.min.js,gmlib/ui/arttemplate/2.0.1/template.min.js,gmpro/1.0.0/public/member/js/searchautopoint.min.js,gmpro/1.0.0/cart/1.0.0/js/head-cart/cart.min.js,gmpro/1.0.0/cart/1.0.0/js/head-cart/mCart.min.js,gmpro/1.0.0/public/member/js/memberHead.min.js,gmpro/1.0.0/public/1.0.0/js/foot.min.js,gmpro/1.0.0/public/1.0.0/js/aside.min.js?v=201908281731,gmlib/unit/g/1.0.0/g.min.js,gmlib/unit/gomelib/1.0.0/gomelib.min.js,gmlib/unit/templatenav/1.0.0/templatenav.min.js,gmlib/ui/form/1.0.0/form.min.js,gmlib/ui/json3/3.3.2/json3.js,gmlib/ui/gload/1.0.0/gload.min.js,gmlib/ui/gclickshow/1.0.0/gclickshow.min.js,gmlib/ui/ghover/1.0.0/ghover.min.js,gmlib/ui/ginputfocus/1.0.0/ginputfocus.min.js,gmlib/ui/glaterimg/1.0.0/glaterimg.min.js,gmlib/ui/greplaceimg/1.0.0/greplaceimg.min.js,gmlib/ui/gshowhide/1.0.0/gshowhide.min.js,gmlib/ui/gbacktop/1.0.0/gbacktop.min.js,gmlib/ui/curnav/1.0.0/curnav.min.js,gmlib/ui/gslider/1.0.2/gslider.min.js,gmlib/ui/gpop/1.0.0/gpop.min.js,gmlib/unit/gcollect/1.0.0/gcollect.min.js,gmlib/unit/live800/1.0.0/live800.min.js,gmpro/2.0.0/memberClub/1.2.2/js/common/include/search.js,gmpro/2.0.0/memberClub/1.2.2/js/common/config.js,gmpro/2.0.0/memberClub/1.2.2/js/common/component.js,gmpro/2.0.0/memberClub/1.2.2/js/common/component/navTab.js,gmpro/2.0.0/memberClub/1.2.2/js/common/component/pager.js,gmpro/2.0.0/memberClub/1.2.2/js/common/component/combox.js,gmpro/2.0.0/memberClub/1.2.2/js/common/richTreasure/popBox.js,gmlib/unit/cart/1.0.0/addCart.min.js,gmpro/2.0.0/memberClub/1.2.2/js/memberClub/opSliderMemberClub.js,gmpro/2.0.0/memberClub/1.2.2/js/memberClub/gscroll.js,gmpro/2.0.0/memberClub/1.2.2/js/memberClub/memberClubTpl.js,gmpro/2.0.0/memberClub/1.2.2/js/memberClub/calendar.js,gmpro/2.0.0/memberClub/1.2.2/js/memberClub/memberClub.js"></script>
-
+<!--特效-->
 <script type="text/javascript">
     $(function () {
         $("a#a").attr("href", "car.html");
@@ -409,11 +369,7 @@
         //悬浮三种状态的下划线
         $(".tabsHeader ul li").hover(
             function () {
-                $(this).addClass("cur");
-                $(this).siblings().removeClass("cur");
-            }, function () {
-                $(".tabsHeader ul li:first").addClass("cur");
-                $(this).removeClass("cur");
+                $(this).addClass("cur").siblings().removeClass("cur");
             }
         );
         //悬浮字体变色
@@ -425,9 +381,151 @@
                 $(this).removeClass("active");
             }
         );
+        //悬浮显示头上下拉款
+        $(".gomeNav li").hover(
+            function () {
+                $(this).addClass("navCur").siblings().removeClass("navCur");
+            }, function () {
+                $(this).removeClass("navCur");
+            }
+        );
+
     });
 </script>
 
+<!--脚本-->
+<script type="text/javascript">
+    $(function () {
+        //默认查询未使用的全部类型优惠卷
+        var status=0;
+        var type="null";
+        var pageSize=1;
+        //页面一加载
+        load(1,pageSize,status,type);
+        //查询卷数量
+         volumeCount();
+        //未使用和使用点击切换事件
+        $(".tabsHeader ul li").click(function () {
+            $(this).addClass("cur").siblings().removeClass("cur");
+              status=$(this).attr("num");
+              load(1,pageSize,status,type);
+        });
+        //点击切换类型
+        $("#uc_overdue-uls li").click(function () {
+           var datanum=$(this).find("a").attr("datanum");
+           var text=$(this).find("a").text();
+           var input=text.substring(0,text.length-1);
+            type=$(this).find("a").attr("types");
+            if(type==-1){
+                type="null";
+            }
+            $("#uc_overdue-btn").empty();
+            $("#uc_overdue-btn").append("<a href='javascript:void(0);'>"+input+"<span>"+datanum+"</span></a>");
+            $("#uc_overdue-uls").hide();
+            load(1,pageSize,status,type);
+        });
 
+        //上下分页
+        $(".prev").click(function () {
+            var pageNo=$(this).attr("pageNo");
+            if(pageNo>1){
+                pageNo--;
+            }
+            load(pageNo,pageSize,status,type);
+        });
+
+        $(".next").click(function () {
+            var pageNo=$(this).attr("pageNo");
+            if(pageNo<pageCount){
+                pageNo++;
+            }
+            load(pageNo,pageSize,status,type);
+        });
+        //到几页去
+        $("#sure").click(function () {
+            var pageNo=$("#pNum").val();
+            if(pageNo>0){
+                load(pageNo,pageSize,status,type);
+            }
+        });
+
+    });
+     //通用方法
+    var pageCount=0;
+    function load(pageIndex,pageSize,status,type) {
+        $.getJSON("/coupon/userCouponList",{"pageIndex":pageIndex,"pageSize":pageSize,"status":status,"type":type},function (json) {
+            $(".voucherListBox").empty();
+            if(json.pageNo==1){
+                $(".prev").addClass("disable");
+            }else{
+                $(".prev").removeClass("disable");
+            }
+            if(json.pageNo==json.pageCount){
+                $(".next").addClass("disable");
+            }else{
+                $(".next").removeClass("disable");
+            }
+            if(json.pageCount==1){
+                $(".prev").addClass("disable");
+                $(".next").addClass("disable");
+            }
+            pageCount=json.pageCount;
+            $(".prev").attr("pageNo",json.pageNo);
+            $(".next").attr("pageNo",json.pageNo);
+            $("#pNum").val(json.pageNo);
+            var list=json.list;
+            if(list.length>0){
+                for(var i=0;i<list.length;i++){
+                    //转换时间格式
+                    var dateee = new Date(list[i].start_time).toJSON();
+                    var times= new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+                    var dateee2 = new Date(list[i].end_time).toJSON();
+                    var times2= new Date(+new Date(dateee2) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+                    var div="<div class='voucherList' style='height: 239px'>";
+                    //判断状态
+                    if(status==0){
+                        div+=" <div class='voucherList-information'>";
+                    }else{
+                        div+=" <div class='voucherList-information voucher-expired'>";
+                    }
+                    div+="<h3 class='information-title'>"+list[i].coupon_name+"</h3> <h2 class='amountMoney'><b>¥</b><a href='javascript:void;'>"+list[i].coupon_money+".</a><span>00</span></h2>";
+                    var momey="";
+                    if(list[i].full_money==0){
+                        momey="减"
+                    }else{
+                        momey=list[i].full_money;
+                    }
+                    div+="<h5 class='vouchertitle'><a class='selfred' href='javascript:(void);'>"+list[i].cname+"</a> 满"+momey+"可用</h5>";
+                    div+="<p class='voucherTime'>"+times.substring(0,times.length-3)+" - "+times2.substring(0,times.length-3)+"</p></div>";
+                    //判断是否是用完状态
+                    if(status==0){
+                        div+="<div class='voucherList-rule' style='height: 58px;'><a class='voucherList-btn' target='_blank' href='juan_product.html'>使用</a></div>";
+                    }
+                    div+="</div>";
+                    $(".voucherListBox").append(div);
+                }
+            }else{
+                noData();
+            }
+
+
+        });
+    }
+
+    //查询卷类型总数
+    function volumeCount() {
+        $.getJSON("/coupon/userCouponCount",function (json) {
+            $("#uc_overdue-btn").append("<a href='javascript:void(0);'>全部类型券<span>"+json.sum+"</span></a>");
+            $("#uc_overdue-uls li").eq(0).append("<a datanum='"+json.sum+"'types='-1' href='javascript:void(0);'>全部类型券<span>"+json.sum+"</span></a>");
+            $("#uc_overdue-uls li").eq(1).append("<a datanum='"+json.wmk+"' types='0' href='javascript:void(0);'>无门槛<span>"+json.wmk+"</span></a>");
+            $("#uc_overdue-uls li").eq(2).append("<a datanum='"+json.mj+"' types='1' href='javascript:void(0);'>满减<span>"+json.mj+"</span></a>");
+        });
+    }
+    //无数据显示
+   function noData() {
+       var div="<div class='voucherEmpty'><p>亲，您这里好空荡哟~~~</p><a  href='juan.html' target='_blank'>领券中心</a></div>";
+       $(".voucherListBox").append(div);
+   }
+</script>
 </body>
 </html>
