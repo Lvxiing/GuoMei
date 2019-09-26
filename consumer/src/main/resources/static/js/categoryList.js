@@ -116,7 +116,7 @@ $(function () {
 
 });
 //定义每页数量
-   var pageSize=2;
+   var pageSize=12;
 //显示商品一级
 function findParentCategory() {
     $.getJSON("../../category/findParentCategory?pid=0", function (json) {

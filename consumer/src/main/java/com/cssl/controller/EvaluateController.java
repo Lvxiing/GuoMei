@@ -63,8 +63,7 @@ public class EvaluateController {
         Users users = (Users)session.getAttribute("user");
         Object orderno = map.get("order_no");
         Object gid = map.get("goods_id");
-        //添加成长值
-        addGrowth(users.getId(),orderno,gid);
+
         boolean b = productFeignInterface.addEvaluate(map);
         String json="{\"abc\":\"false\"}";
         if(b){
@@ -88,7 +87,6 @@ public class EvaluateController {
         Map desMap = userFeignInterface.detailDescription();
         Object gdetailId = desMap.get("gdetailId");
         Object gdetailTime = desMap.get("gdetailTime");
-        System.out.println("orderno:"+order_no+",gid:"+goods_id+",uid:"+uid);
         try {
             Date parse = sdf.parse(gdetailTime.toString());
             redisFeignInterface.set(gdetailId.toString(),"订单号:"+order_no+",商品id:"+ goods_id,-1);

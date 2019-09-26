@@ -132,8 +132,9 @@ public class GoodsController {
 
         Map<String, Object> map = productFeignInterface.GoodInfoShow(gid);
         int count = productFeignInterface.selectVipGoods(gid);
-        if (count == 1) { //享有会员商品
+        if (count == 1 && session.getAttribute("userGradeId")!=null) { //享有会员商品
             map.put("vip", "yes");
+
             map.put("leven",Integer.valueOf(session.getAttribute("userGradeId").toString()));
         }
         if (bs) {

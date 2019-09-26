@@ -18,13 +18,9 @@
     <meta http-equiv="expires" content="0">
     <meta name="applicable-device" content="pc">
     <link rel="canonical" href="https://lingquan.gome.com.cn/">
+    <script src="js/jquery-1.8.3.js"></script>
+    <script src="js/menu.js"></script>
 
-
-    <script type="text/javascript">var dynSite = '//g.gome.com.cn', staSite = '//www.gome.com.cn',
-        gomeplusDomain = '.gome.com.cn', contextPath = '/ec/homeus', cookieDomain = '.gome.com.cn',
-        imgServer = '//app.gomein.net.cn/images', stageJsServer = '//js.gomein.net.cn',
-        stageImageServer = '//img.gomein.net.cn', stageCssServer = '//css.gomein.net.cn',
-        gomeplusCdn = '//js.meixincdn.com/m/pc/', versionData = '1908210608';</script>
     <link rel="stylesheet" href="css/201908211806.css">
     <link href="css/Css.css" rel="stylesheet">
     <style>
@@ -39,43 +35,6 @@
     </style>
 </head>
 <body data-page='prom67' data-channelid="channel67">
-<script type="text/javascript">
-    var winWidth = window.screen.width, objb = document.body;
-    if (winWidth <= 1024) {
-        objb.className += " " + "w1000";
-    } else {
-        objb.className = objb.className.replace("w1000", '');
-    }
-    ;
-</script>
-<!-- 返利的导航 -->
-<!--头部end--><!--newads-->
-<script>window.publicdefault = {
-    "poster": [],
-    "gif": [],
-    "category": [{
-        "id": "16893",
-        "href": "//prom.gome.com.cn/html/prodhtml/topics/201908/14/5740912200.html",
-        "src": "//gfs12.gomein.net.cn/T1.dKXB5CT1RCvBVdK.png",
-        "code": "publicdefault_category-1",
-        "bgcolor": "#FFF"
-    }, {
-        "id": "16925",
-        "href": "//prom.gome.com.cn/html/prodhtml/topics/201908/14/1191693216.html",
-        "src": "//gfs10.gomein.net.cn/T1mdbXB7D_1RCvBVdK.png",
-        "code": "publicdefault_category-2",
-        "bgcolor": "#FFF"
-    }, {
-        "id": "16929",
-        "href": "//prom.gome.com.cn/html/prodhtml/topics/201908/12/1037892281.html",
-        "src": "//gfs13.gomein.net.cn/T14IhXB5CT1RCvBVdK.png",
-        "code": "publicdefault_category-3",
-        "bgcolor": "#FFF"
-    }],
-    "top": [],
-    "layer": []
-}</script>
-<script> window.publica32 = {"gif": [], "category": [], "top": []}</script>
 <!--newads-->
 <div id="gome-topad-sm" class="gome-topad">
 </div>
@@ -94,36 +53,16 @@
     <div id="slogan"></div>
     <div id="topSearch" class="topsearch">
         <div id="topSearchHover" class="searchbox" data-visitor="hover">
-            <form id="searchForm" method="get" action="//search.gome.com.cn/search" onsubmit="return doSearch();">
+            <form id="searchForm" method="get" action="//search.gome.com.cn/search">
                 <div id="search-type-dropdown">
                     <div class="search-type">
-                        <span class="search-type-selected" data-selected=""></span>
-                        <i></i>
+                        <span class="search-type-selected" data-selected="">商品</span>
                     </div>
-                    <ul class="search-type-list">
-                        <li class="search-type-item" data-selector="goods">商品</li>
-                        <li class="search-type-item" data-selector="shop">店铺</li>
-                        <li class="search-type-item" data-selector="topic">话题</li>
-                        <li class="search-type-item" data-selector="group">圈子</li>
-                    </ul>
                 </div>
-                <label id="keyLabel" default="香肠派对,1;空调,1;冰箱,1;手机,1;洗衣机,1"></label>
                 <input type="text" id="searchInput" name="question" value="" autocomplete="off"
                        onpropertychange="if(this.value.length>200){this.value=this.value.slice(0,199)}">
-                <button type="button" class="search-btn" onclick="doSearch();">搜索</button>
+                <button type="button" class="search-btn">搜索</button>
             </form>
-        </div>
-        <div class="hotkeyword">
-            <a data-code="1000043098-0" rel="nofollow" target="_blank" href="javascript:;">荣耀9X</a>
-            <a data-code="1000043098-1" rel="nofollow" target="_blank" href="javascript:;">低至5折</a>
-            <a data-code="1000043098-2" rel="nofollow" target="_blank" href="javascript:;">彩电领劵</a>
-            <a data-code="1000043098-3" rel="nofollow" target="_blank" href="javascript:;">厨房卫浴</a>
-            <a data-code="1000043098-4" rel="nofollow" target="_blank" href="javascript:;">家电39元</a>
-            <a data-code="1000043098-5" rel="nofollow" target="_blank" href="javascript:;">手机领券</a>
-            <a data-code="1000043098-6" rel="nofollow" target="_blank" href="javascript:;">空调1499元</a>
-            <a data-code="1000043098-7" rel="nofollow" target="_blank" href="javascript:;">套购7.5折</a>
-            <a data-code="public03003" href="javascript:;" target="_blank">商品排行榜</a>
-            <a data-code="public03005" href="javascript:;" target="_blank">热门推荐</a>
         </div>
         <div id="searchTips" class="searchtips">
             <div id="his_title" class="hisTitle">
@@ -136,7 +75,6 @@
             var environment = 'commerce', targetType = 'Production', contentLabels = 'Catalog', language = 'chinese';
         </script>
     </div>
-
 </div>
 <!--gome_head -->
 <div class="category-box">
@@ -146,103 +84,10 @@
             <div id="navBox" class='lisnav'>
                 <div class="lisbg"></div>
                 <ul class="lisnav-ul" id="lisnav">
-                    <li class="first edit-mode nav-item" data-index="0" modeltype="4" modelid="1000037040">
-                        <h3>
-                            <a data-code="1000037040-0" href="javascript:;" target="_blank">手机</a>
-                            <a data-code="1000037040-1" href="javascript:;" target="_blank">充值</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="1" modeltype="4" modelid="1000037283">
-                        <h3>
-                            <a data-code="1000037283-0" href="javascript:;" target="_blank">相机</a>
-                            <a data-code="1000037283-1" href="javascript:;" target="_blank">智能数码</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="2" modeltype="4" modelid="1000037067">
-                        <h3>
-                            <a data-code="1000037067-0" href="javascript:;" target="_blank">电脑</a>
-                            <a data-code="1000037067-1" href="javascript:;" target="_blank">办公配件</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="3" modeltype="4" modelid="1000036959">
-                        <h3>
-                            <a data-code="1000036959-0" href="javascript:;" target="_blank">电视 影音</a>
-                            <a data-code="1000036959-1" href="javascript:;" target="_blank">智能</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="4" modeltype="4" modelid="1000036986">
-                        <h3>
-                            <a data-code="1000036986-0" href="javascript:;" target="_blank">空调</a>
-                            <a data-code="1000036986-1" href="javascript:;" target="_blank">冰箱</a>
-                            <a data-code="1000036986-2" href="javascript:;" target="_blank">洗衣机</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="5" modeltype="4" modelid="1000037013">
-                        <h3>
-                            <a data-code="1000037013-0" href="javascript:;" target="_blank">厨房卫浴</a>
-                            <a data-code="1000037013-1" href="javascript:;" target="_blank">生活电器</a>
-                            <a data-code="1000037013-2" href="javascript:;" target="_blank">环境</a>
-                            <p class="line"></p>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="6" modeltype="4" modelid="1000037094">
-                        <h3>
-                            <a data-code="1000037094-0" href="javascript:;" target="_blank">家具</a>
-                            <a data-code="1000037094-1" href="javascript:;" target="_blank">建材</a>
-                            <a data-code="1000037094-2" href="javascript:;" target="_blank">欧洲厨房</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="7" modeltype="4" modelid="1000037121">
-                        <h3>
-                            <a data-code="1000037121-0" href="javascript:;" target="_blank">家居家纺</a>
-                            <a data-code="1000037121-1" href="javascript:;" target="_blank">家居家装</a>
-                            <p class="line"></p>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="8" modeltype="4" modelid="1000037148">
-                        <h3>
-                            <a data-code="1000037148-0" href="javascript:;" target="_blank">食品酒水</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="9" modeltype="4" modelid="1000037310">
-                        <h3>
-                            <a data-code="1000037310-0" href="javascript:;" target="_blank">母婴玩具</a>
-                            <p class="line"></p>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="10" modeltype="4" modelid="1000037175">
-                        <h3>
-                            <a data-code="1000037175-0" href="javascript:;" target="_blank">美妆个护</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="11" modeltype="4" modelid="1000037202">
-                        <h3>
-                            <a data-code="1000037202-0" href="javascript:;" target="_blank">服饰鞋帽</a>
-                            <a data-code="1000037202-1" href="javascript:;" target="_blank">箱包奢品</a>
-                            <p class="line"></p>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="12" modeltype="4" modelid="1000037229">
-                        <h3>
-                            <a data-code="1000037229-0" href="javascript:;" target="_blank">运动户外</a>
-                            <a data-code="1000037229-1" href="javascript:;" target="_blank">钟表首饰</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="13" modeltype="4" modelid="1000037256">
-                        <h3>
-                            <a data-code="1000037256-0" href="javascript:;" target="_blank">汽车整车</a>
-                            <a data-code="1000037256-1" href="javascript:;" target="_blank">汽车用品</a>
-                        </h3>
-                    </li>
-                    <li class="lst edit-mode nav-item" data-index="14" modeltype="4" modelid="1000037337">
-                        <h3>
-                            <a data-code="1000037337-0" href="javascript:;" target="_blank">国美管家</a>
-                        </h3>
-                    </li>
+
                 </ul>
                 <div class="subnav" id="subnav" flag="0">
                     <div class="loading1-sync" id="loading1-sync">
-                        <p></p>
                     </div>
                 </div>
             </div>
@@ -250,10 +95,6 @@
         <ul class="mainnav">
 
         </ul>
-        <!--nav-->
-        <div class="hdrsideRoll">
-        </div>
-        <!--scroll-->
     </div>
 </div>
 <!--category-->
@@ -268,43 +109,7 @@
             </style>
             <div class="bg_grey quancenter" data-code-id="3771399057347635">
                 <div class="wbox">
-                    <h1>新用户专享</h1>
-                    <div class="coupon_wbox_img">
-                        <div class="product-waiting" id="product-waiting" style="display: none;"></div>
-                        <ul>
-                            <li class="coupon_wbox_bg hq_blue" data-quanid="fc86bd2104ac469aaff4d07d9e9b940d"
-                                data-coupontype="blue" data-couponrule="P16376039">
-                                <div class="coupon_wbox_red_s_img"><img
-                                        src="//gfs13.gomein.net.cn/T1aNKXBjhT1RCvBVdK.jpg"
-                                        style="width:140px; height:140px; margin-top: 0px; display: block;"></div>
-                                <div class="coupon_wbox_s_content">
-                                    <div class="coupon_wbox_price">￥<span>200.</span>00</div>
-                                    <div class="coupon_wbox_txt"><p class="coupon_wbox_t_txt t_txt_color"><span
-                                            class="hq_name">【线上专享】</span>消费满2588.00元可用</p>
-                                        <p class="b_txt_color" title="厨房卫浴满2588减200">厨房卫浴满2588减200</p></div>
-                                    <!--该div无实际用处,只用于页面美观-->
-                                    <div class="coupon_wbox_content_line"></div>
-                                </div>
-                                <a class="coupon_bg_img"> <i class="red_coupon_bg_txt">立即领券</i> </a>
-                            </li>
-                            <li class="coupon_wbox_bg hq_blue" data-quanid="731e37727fb7400da8625f147f672517"
-                                data-coupontype="blue" data-couponrule="P16409685">
-                                <div class="coupon_wbox_red_s_img"><img
-                                        src="//gfs13.gomein.net.cn/T1fIKXBmxv1RCvBVdK.jpg"
-                                        style="width:140px; height:140px; margin-top: 0px; display: block;"></div>
-                                <div class="coupon_wbox_s_content">
-                                    <div class="coupon_wbox_price">￥<span>300.</span>00</div>
-                                    <div class="coupon_wbox_txt"><p class="coupon_wbox_t_txt t_txt_color"><span
-                                            class="hq_name">【线上专享】</span>消费满2798.00元可用</p>
-                                        <p class="b_txt_color" title="vivo指定型号满2798减300">vivo指定型号满2798减300</p></div>
-                                    <!--该div无实际用处,只用于页面美观-->
-                                    <div class="coupon_wbox_content_line"></div>
-                                </div>
-                                <a class="coupon_bg_img"> <i class="red_coupon_bg_txt">立即领券</i> </a>
 
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </div>
             <!-- 校验码 -->
@@ -316,22 +121,16 @@
                 <div class="wbox cMarket">
                     <div class="cM_herder clearfix">
                         <h2 class="cM_tit">领券集市</h2>
-                        <p class="cM_navOne"><a href="javascript:;" data-value="0" class="active">全部商品</a> <a
-                                href="javascript:;" data-value="1">彩电</a> <a href="javascript:;" data-value="2">冰洗</a>
-                            <a href="javascript:;" data-value="3">空调</a> <a href="javascript:;" data-value="4">手机</a> <a
-                                    href="javascript:;" data-value="5">电脑</a> <a href="javascript:;"
-                                                                                 data-value="7">厨卫</a> <a
-                                    href="javascript:;" data-value="8">小家电</a></p>
+
                     </div>
                     <div class="cM_navTwo">
                         <div class="cM_Type">
-                            <a href="javascript:;" data-value="0" class="sort active">默认</a>
+                            <a href="javascript:;" data-value="0" class="sort active">全部</a>
                             <a href="javascript:;" data-value="1" class="sort">即将过期</a>
                             <a href="javascript:;" data-value="2" class="sort">面值最大</a>
                             <a href="javascript:;" data-value="99" class="type active" style="display:none">全部类型</a>
                         </div>
                     </div>
-                    <!----->
                     <div class="cM_couponWrap">
                         <div class="product-waiting" id="product-waiting" style="display: none;"></div>
                         <ul class="cM_coupon clearfix">
@@ -536,29 +335,9 @@
         <em class="turst-gome"></em>
     </div>
 </div>
-<!--foot-->
-<!--aside-->
-<script type="text/javascript" src="js/juan/Js1.js"></script>
-<script type="text/javascript" src="js/juan/Js.js"></script>
-<script src="js/juan/201908211806gmlibseaseajs3.0.0se.js"></script>
 
-<script>
-    $("[lazy-id='F0'],[lazy-id='F1']").lazyload({source: "data-lazy-img"});
-    seajs.use(["gmlib/unit/scode/1.0.0/scode.min.js", "gmlib/unit/bigdata/1.0.0/bigdata.min.js", "gmlib/unit/scodecommon/1.0.0/scodecommon.min.js"], function () {
-        s.pageName = "商品列表:";
-        s.channel = "商品列表";
-        s.prop1 = "商品列表:";
-        s.prop2 = "商品列表:";
-        s.prop3 = "商品列表:";
-        s.prop4 = "商品列表";
-        s.eVar3 = "分类浏览";
-        var s_code = s.t();
-        if (s_code) {
-            document.write(s_code);
-        }
-    });
-</script>
-<script>
+<script type="text/javascript">
+
 
 </script>
 </body>
