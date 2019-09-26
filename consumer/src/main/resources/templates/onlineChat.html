@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
     <title>在线聊天对话框网页</title>
     <link rel="stylesheet" type="text/css" href="css/chat.css" />
-    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/jquery-1.8.3.js"></script>
    <!-- <script type="text/javascript" src="js/chat.js"></script>-->
 
 
@@ -229,7 +229,7 @@
             var nickname = document.getElementById("nickname").value;
             var e = new Date, f = "";
             f += e.getFullYear() + "-", f += e.getMonth() + 1 + "-", f += e.getDate() + "  ", f += e.getHours() + ":", f += e.getMinutes() + ":", f += e.getSeconds();
-            websocket.send("<div style='margin-bottom: 3px;'><span style='color: #369;font-weight: bold;'>"+nickname+"</span>"+"<span style='color: #A6A6A6;'>("+f+"):</span>"+"<br/><span style='font-size:14px;font-weight:bolder;padding-left:10px;'>"+message+"</span></div>");
+            websocket.send("<div style='margin-bottom: 3px;'><span style='color: #369;font-weight: bold;'>"+nickname+"</span>"+"<span style='color: #A6A6A6;'>("+f+"):</span>"+"<br/><span style='font-size:13px;font-weight:bolder;padding-left:10px;'>"+message+"</span></div>");
         });
 
         //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
