@@ -769,51 +769,51 @@
                 $ = layui.jquery;
 
 //点击按钮加入购物车
-        $("ul.club-items-box").on("click",".go-buy",function() {
-    var goodsId = $(this).parents("li.club-item").find("[name='goodsId']").text();
-    var vipPrice = $(this).parents("li.club-item").find("[name='vipPrice']").text();
+            $("ul.club-items-box").on("click",".go-buy",function() {
+                var goodsId = $(this).parents("li.club-item").find("[name='goodsId']").text();
+                var vipPrice = $(this).parents("li.club-item").find("[name='vipPrice']").text();
 //默认加入数量为1
-    var num = 1;
-    var total = parseInt(num) * vipPrice;
+                var num = 1;
+                var total = parseInt(num) * vipPrice;
 
 //该会员的等级id
-            var leven=parseInt($("[name=gradeId]").text());
-          //该会员商品属于的会员等级id
-           var  grade=parseInt($(this).parents("li.club-item").find("[name=grade]").text());
-           //该会员的等级名称
-            var levenName=$("#gradeName").text();
-            //该会员商品属于的会员等级名称
-            var  gradeName=$(this).parents("li.club-item").find("[name=gradeName]").text();
-if (leven<grade){
-    layer.alert("你的会员等级太低,不足够享受"+gradeName+"会员价哦",{ btn: ['知道了','以'+levenName+'会员价购买']
-            ,btn2: function(){
-            location.href="product_details.html?gid="+goodsId+"&vip=yes&leven="+leven;
-            }
-        }
-    );
-} else{
-    //添加会员专享价商品到购物车
-    $.getJSON("/cart/saveCart", {
-        "goodsId": goodsId,
-        "num": num,
-        "price": vipPrice,
-        "total": total
-    }, function (result) {
-        layer.msg("加入购物车成功",{icon:1});
-        if (result.msg == "新增到购物车") {
-            //如果购物车内没有该商品,则购物车内商品的件数加1
-            $("[name=num]").text(parseInt($("[name=num]").text()) + 1);
-        }
-        showNum();
-    });
-}
-        });
+                var leven=parseInt($("[name=gradeId]").text());
+                //该会员商品属于的会员等级id
+                var  grade=parseInt($(this).parents("li.club-item").find("[name=grade]").text());
+                //该会员的等级名称
+                var levenName=$("#gradeName").text();
+                //该会员商品属于的会员等级名称
+                var  gradeName=$(this).parents("li.club-item").find("[name=gradeName]").text();
+                if (leven<grade){
+                    layer.alert("你的会员等级太低,不足够享受"+gradeName+"会员价哦",{ btn: ['知道了','以'+levenName+'会员价购买']
+                            ,btn2: function(){
+                                location.href="product_details.html?gid="+goodsId+"&vip=yes&leven="+leven;
+                            }
+                        }
+                    );
+                } else{
+                    //添加会员专享价商品到购物车
+                    $.getJSON("/cart/saveCart", {
+                        "goodsId": goodsId,
+                        "num": num,
+                        "price": vipPrice,
+                        "total": total
+                    }, function (result) {
+                        layer.msg("加入购物车成功",{icon:1});
+                        if (result.msg == "新增到购物车") {
+                            //如果购物车内没有该商品,则购物车内商品的件数加1
+                            $("[name=num]").text(parseInt($("[name=num]").text()) + 1);
+                        }
+                        showNum();
+                    });
+                }
+            });
 
             //a链接加入购物车
             $("ul.club-items-box").on("click","a",function() {
                 var leven=parseInt($("[name=gradeId]").text());
                 var goodsId=  $(this).parents("li.club-item").find("[name='goodsId']").text();
-                    location.href="product_details.html?gid="+goodsId+"&vip=yes&leven="+leven;
+                location.href="product_details.html?gid="+goodsId+"&vip=yes&leven="+leven;
             });
 
 

@@ -5,82 +5,56 @@
     <title>Title</title>
 
     <script src="js/jquery-1.8.3.js"></script>
-    <script src="layui/layui.js"></script>
-    <link rel="stylesheet" href="layui/css/layui.css">
-
 
 </head>
 <body>
 
 
-    <div id="gome-top-body" class="wbox">
-        <ul>
-            <li id="gome-entry-link">
-                <a data-code="public01001" href="index.html" target="_blank"><i
-                        class="icon-gome-logo"></i>国美首页</a></li>
-            <li class="gome-spacer"></li>
+<div id="gome-top-body" class="wbox">
+    <ul>
+        <li id="gome-entry-link">
+            <a data-code="public01001" href="index.html" target="_blank"><i
+                    class="icon-gome-logo"></i>国美首页</a></li>
+        <li class="gome-spacer"></li>
 
 
-        </ul>
+    </ul>
 
-        <ul id="gome-top-right">
-            <li class="gome-link"><a rel="nofollow" data-code="public01004" href="gm-myOrder.html">我的订单</a></li>
-            <li data-load="mygome" class="gome-link" data-open="true">
-                <a rel="nofollow" data-code="public01050" href="gm-myindex.html" target="_blank">我的国美</a></li>
-            <li data-load="mygome" class="gome-link" data-open="true">
-                <a rel="nofollow" data-code="public01050" href="gm-indexsever.html" target="_blank">新闻资讯</a></li>
+    <ul id="gome-top-right">
+        <li class="gome-link"><a rel="nofollow" data-code="public01004" href="gm-myOrder.html">我的订单</a></li>
+        <li data-load="mygome" class="gome-link" data-open="true">
+            <a rel="nofollow" data-code="public01050" href="gm-myindex.html" target="_blank">我的国美</a></li>
+        <li data-load="mygome" class="gome-link" data-open="true">
+            <a rel="nofollow" data-code="public01050" href="gm-indexsever.html" target="_blank">新闻资讯</a></li>
+        <li data-load="mygome" class="gome-link" data-open="true">
+            <a rel="nofollow" data-code="public01050" href="vip_club.html" target="_blank">会员俱乐部</a></li>
+        <li data-load="mygome" class="gome-link" data-open="true">
+            <a rel="nofollow" data-code="public01050" href="gm-ranking.html" target="_blank">排行榜</a></li>
+    </ul>
 
-            <li data-load="mygome" class="gome-link" data-open="true">
-                <a rel="nofollow" data-code="public01050" href="javascript:void(0);"  name="onlineChat">在线客服</a></li>
+    <script type="text/javascript">
 
-            <li data-load="mygome" class="gome-link" data-open="true">
-                <a rel="nofollow" data-code="public01050" href="vip_club.html" target="_blank">会员俱乐部</a></li>
-            <li data-load="mygome" class="gome-link" data-open="true">
-                <a rel="nofollow" data-code="public01050" href="gm-ranking.html" target="_blank">排行榜</a></li>
-        </ul>
+        $(function(){
 
-        <script type="text/javascript">
+            //一加载就得到session中的用户
+            $.getJSON("/users/getSessionUser",function(json){
+                var li;
+                if(json!=null){
+                    li=' <li id="gome-user" data-load="user" class="" data-open="true"  > <b id="loginDiv-name">Hi,&nbsp;<a data-code="public01054" href="vip_club.html" target="_blank">  <span  style="display: none;">'+json.id+'</span>  <span class="sign-top-member-name" >'+json.userName+'</span></a></b>  </li>  <li  class="gome-link"   >  <a rel="nofollow" data-code="public01035" class="gome-link-logout" href="/users/outUser">退出</a> </li>';
 
-            $(function(){
+                }else{
+                    li='<li id="loginDiv-link" class="gome-link" name="logReg">  <a rel="nofollow" data-code="public01002" href="gm-login.html">登录</a><a class="gome-link-register"  rel="nofollow"  data-code="public01003"  href="gm-reg.html">注册有礼<i></i></a>  </li>';
 
-                //一加载就得到session中的用户
-                $.getJSON("/users/getSessionUser",function(json){
-                    var li;
-                    if(json!=null){
-                        li=' <li id="gome-user" data-load="user" class="" data-open="true"  > <b id="loginDiv-name">Hi,&nbsp;<a data-code="public01054" href="vip_club.html" target="_blank">  <span  style="display: none;">'+json.id+'</span>  <span class="sign-top-member-name" >'+json.userName+'</span></a></b>  </li>  <li  class="gome-link"   >  <a rel="nofollow" data-code="public01035" class="gome-link-logout" href="/users/outUser">退出</a> </li>';
+                }
+                $("li#gome-entry-link").after(li);
+            });
 
-                    }else{
-                        li='<li id="loginDiv-link" class="gome-link" name="logReg">  <a rel="nofollow" data-code="public01002" href="gm-login.html">登录</a><a class="gome-link-register"  rel="nofollow"  data-code="public01003"  href="gm-reg.html">注册有礼<i></i></a>  </li>';
+        })
 
-                    }
-                    $("li#gome-entry-link").after(li);
-                });
-
-                layui.use(['layer','upload','form'], function() {
-                    var layer = layui.layer,  //弹层
-                        $ = layui.jquery;
+    </script>
 
 
-                    $("[name=onlineChat]").click(function () {
-                    layer.open({
-                        //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                        type:2,
-                        title: "国美在线客服聊天",
-                        area: [ '400px', '325px' ],
-                        content:['onlineChat.html' ,'no']
-                    });
-
-                })
-
-
-                })
-
-            })
-
-        </script>
-
-
-    </div>
+</div>
 
 
 
