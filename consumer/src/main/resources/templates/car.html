@@ -290,7 +290,7 @@ $("[name=goodDiv]  input[name='good']:checked").each(function(){
 //合计的钱
    var sumPrice= $("[name=sumPrice]").text();
 
-    sumPrice = Math.floor(parseFloat(sumPrice) * 100) / 100;
+    sumPrice = Math.floor(money * 100) / 100;
     if ($("[name=diYongCheck]").get(0).checked==true) {   //使用美豆抵钱
 
         //把该用户的美豆减掉
@@ -451,7 +451,7 @@ var num=$(this).parents("[name=goodDiv]").find("input[name='num']").val();
 var  price=$(this).parents("[name=goodDiv]").find("[name=price]").text();
 //合计
 sumPrice+=num*price;
-sumPrice = Math.floor(parseFloat(money) * 100) / 100;
+sumPrice = Math.floor(money * 100) / 100;
 sumNum+=parseInt(num);
 });
 $("[name=sumPrice]").text(sumPrice);
