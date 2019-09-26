@@ -1,7 +1,7 @@
 $(function () {
     display();
     info();
-    userInfo();
+    // userInfo();
 });
 
 //获取url中"?"符后的字串
@@ -83,6 +83,7 @@ function display () {
               li+="<li>支付时间："+times+"</li><li>订单创建时间："+order_time+"</li><li>订单总额：<em>¥</em> "+list[i].order_total+"</li>";
               li+="<li class='bd-top'><strong class='bold'>应付金额：</strong> <span class='red-bold'><em>¥</em>"+list[i].order_total+"</span></li>";
               $(".cont-r-body ul").append(li);
+              userInfo(list[i].user_id,list[i].address_id);
               break;
           }
        }
@@ -114,14 +115,13 @@ function info() {
 
 
 //显示右侧下部分用户的收货信息
-function userInfo() {
-    var re=GetRequest();
-    $.getJSON("../../Orders/findAddressByOrder",{"oid":re.oid},function (json) {
-         $("#userName").text(json.address_name);
-         var phone1=json.user_phone.substring(0,3);
-         var phone2=json.user_phone.substring(json.user_phone.length-4,json.user_phone.length);
+function userInfo(uid,aid) {
+    $.getJSON("../../myGuoMei/showAddress",{"userid":uid,"aid":aid},function (json) {
+         $("#userName").text(json[0].userName);
+         var phone1=json[0].phone.substring(0,3);
+         var phone2=json[0].phone.substring(json[0].phone.length-4,json[0].phone.length);
          $("#phone").text(phone1+"****"+phone2);
-         $("#email").text(json.user_email);
-         $("#address").text(json.address_detail);
+         $("#email").text(json[0].email);
+         $("#address").text(json[0].provinceAddress.provinceName+json[0].provinceAddress.districtName+json[0].provinceAddress.streetName+json[0].address);
     });
 }

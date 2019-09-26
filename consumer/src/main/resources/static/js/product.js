@@ -249,7 +249,7 @@ function sellWell(id) {
     $.getJSON("../../Goods/goodsInfoSale",{"cid":id} ,function (json){
           if(json.length>0){
               for(var i=0;i<json.length;i++){
-                  var li=" <li><div class='tonglei_sz'>"+i+1+"</div>";
+                  var li=" <li><div class='tonglei_sz'>"+(i+1)+"</div>";
                       li+=" <div class='tonglei_img'><a target='_blank' href='product_details.html?gid="+json[i].id+"' title='"+json[i].title+"'><img src='"+json[i].mainImg+"' width='50' height='50'></a></div>";
                       li+="<div class='tonglei_link'><p class='tonglei_link_name'><a target='_blank' href='product_details.html?gid="+json[i].id+"'>"+json[i].title+"</a></p>";
                      li+="<p class='tonglei_jg'><span class='tonglei_jg_val'>¥"+json[i].price+"</span></p></div></li>";

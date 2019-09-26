@@ -11,6 +11,7 @@ import com.cssl.service.CouponService;
 import com.cssl.service.Coupon_receiveService;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
@@ -143,9 +144,32 @@ public class CouponController {
 
     @ResponseBody
     @RequestMapping("couponFindAllQian")
-    public Map<String,Object> couponFindAllQian(Map<String, Object> map) {
+    public Map<String,Object> couponFindAllQian(@RequestParam Map<String, Object> map) {
         Map<String,Object> data = new HashMap<>();
         data.put("list",couponService.couponFindAllQian(map));
         return data;
+    }
+    @RequestMapping("addCouponReceive")
+    @ResponseBody
+    public String addCouponReceive(@RequestParam  Map<String,Object>map){
+        CouponReceive couponReceive = new CouponReceive();
+        couponReceive.setStatus(0);
+        couponReceive.setTime(new Date());
+        Integer id = Integer.valueOf(map.get("id").toString());
+        Integer uid = Integer.valueOf(map.get("uid").toString());
+        couponReceive.setUserId(uid);
+        couponReceive.setCouponId(id);
+        //查询用户要领取的优惠券
+        Coupon coupon= couponService.getOne(new QueryWrapper<Coupon>().eq("coupon_id", id));
+        int userCount = couponReceiveService.count(new QueryWrapper<CouponReceive>().eq("user_id", uid));
+        if(userCount >= coupon.getCouponLimit() ){
+            String json = "{\"code\":\"error\"}";
+            return json;
+        }
+        if (couponReceiveService.save(couponReceive)) {
+            String json = "{\"code\":\"success\"}";
+            return json;
+        }
+        return "{\"msg\":\"修改失败\"}";
     }
 }

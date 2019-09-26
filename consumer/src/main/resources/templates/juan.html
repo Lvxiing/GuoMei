@@ -128,24 +128,24 @@
                             <a href="javascript:;" data-value="0" class="sort active">全部</a>
                             <a href="javascript:;" data-value="1" class="sort">即将过期</a>
                             <a href="javascript:;" data-value="2" class="sort">面值最大</a>
-                            <a href="javascript:;" data-value="99" class="type active" style="display:none">全部类型</a>
                         </div>
                     </div>
                     <div class="cM_couponWrap">
                         <div class="product-waiting" id="product-waiting" style="display: none;"></div>
                         <ul class="cM_coupon clearfix" id="coupon">
-                           <li data-quanid="1e681a3b68384f9a89d2ad5efa65af63" data-coupontype="blue" data-bustype=""
-                                data-couponrule="P16351668">
-                                <div class="cMc_style cmblue_bg cmgray_bg">
-                                    <div class="cMPrice"><em>¥</em> <strong>30.</strong> <span>00</span></div>
-                                    <p class="cMInfo"><em>【线上专享】</em>满100.00可用 </p>
-                                    <p class="cMTime">2019.8.16 - 2019.8.31</p></div>
-                                <div class="cM_text"><p
-                                        style="padding:10px 20px 0px 18px;height:50px;white-space:inherit;text-overflow:inherit"
-                                        title="仅自营冰箱洗衣机app端指定商品可用">使用范围：仅自营冰箱洗衣机app端指定商品可用</p>
-                                    <a href="javascript:;">立即领券</a></div>
-                                <div class="broughtout"></div>
-                            </li>
+                           <!--<li data-quanid="1e681a3b68384f9a89d2ad5efa65af63" data-coupontype="blue" data-bustype=""-->
+                                <!--data-couponrule="P16351668">-->
+                                <!--<div class="cMc_style cmblue_bg cmgray_bg">-->
+                                    <!--<div class="cMPrice"><em>¥</em> <strong>30.</strong> <span>00</span></div>-->
+                                    <!--<p class="cMInfo"><em>【线上专享】</em>满100.00可用 </p>-->
+                                    <!--<p class="cMTime">2019.8.16 - 2019.8.31</p></div>-->
+                                <!--<div class="cM_text"><p-->
+                                        <!--style="padding:10px 20px 0px 18px;height:50px;white-space:inherit;text-overflow:inherit"-->
+                                        <!--title="仅自营冰箱洗衣机app端指定商品可用">使用范围：仅自营冰箱洗衣机app端指定商品可用</p>-->
+                                  <!--</div>-->
+                                <!--<div class="broughtout"></div>-->
+                            <!--</li>-->
+                        <!---->
                         </ul>
                     </div>
                 </div>
@@ -320,22 +320,65 @@
 
 <script type="text/javascript">
     $(function(){
-        $.getJSON("/coupon/couponFindAllQian",function(json){
+         load("null","null");
+        //点击显示不同的查条件
+        $(".cM_Type a").click(function () {
+             var num=$(this).attr("data-value");
+            //判断值  0：全部  1：即将过期  2：面值最大
+            if(num==1){
+                load("time","null");
+            }else if(num==2){
+                load("null","more");
+            }else{
+                load("null","null");
+            }
+        });
+
+        //点击领取
+    });
+
+    function load(time,more) {
+        $.getJSON("/coupon/couponFindAllQian",{"time":time,"more":more},function(json){
             if(json!=null){
+                $("ul#coupon").empty();
                 for(var i = 0;i<json.list.length;i++){
                     var c  = json.list[i];
                     //转换时间格式
                     var dateee = new Date(c.start_time).toJSON();
                     var times= new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-                    var dateee2 = new Date(c.start_time).toJSON();
+                    var dateee2 = new Date(c.end_time).toJSON();
                     var times2= new Date(+new Date(dateee2) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-                    var li="<li data-quanid='fc86bd2104ac469aaff4d07d9e9b940d' data-coupontype='blue' data-bustype=''data-couponrule='P16376039'> <div class='cMc_style cmblue_bg'> <div class='cMPrice'><em>¥</em> <strong>"+c.coupon_money+".</strong> <span>00</span></div> <p class='cMInfo'><em>【线上专享】</em>"+c.coupon_name+" </p> <p class='cMTime'>"+times+" - "+times2+"</p></div> <div class='cM_text'><p style='padding:10px 20px 0px 18px;height:50px;white-space:inherit;text-overflow:inherit' title='厨房卫浴满2588减200'>使用范围："+c.category_name+"满"+c.full_money+"减"+c.coupon_money+"</p><a href='javascript:;'>立即领券</a> </div> <div class='coupon_wbox_content_line' style='margin-left: 17px;margin-top: 6px'> <div class='line'> <b class='red_line' style='width: "+c.count/c.coupon_count*100+"%;'></b> </div> <div class='red_line_r'>剩余"+(c.coupon_count-c.count)/c.coupon_count*100+"%</div> </div> </li>";
-                    $("ul#coupon").append(li);
+                    var manjian;
+                    if(c.coupon_type==1){
+                        manjian=""+c.category_name+"满"+c.full_money+"减"+c.coupon_money+"";
+                    }else{
+                        manjian="无门槛"
+                    }
+                    var li="<li data-quanid='fc86bd2104ac469aaff4d07d9e9b940d' data-coupontype='blue' data-bustype=''data-couponrule='P16376039'>";
+                       //判断改变卷上面的样式
+                      if(c.coupon_count==0){
+                          li+=" <div class='cMc_style cmblue_bg cmgray_bg'>";
+                      }else{
+                          li+=" <div class='cMc_style cmblue_bg'>";
+                      }
+                       li+=" <div class='cMPrice'><em>¥</em> <strong>"+c.coupon_money+".</strong> <span>00</span></div> <p class='cMInfo'><em>【线上专享】</em>"+c.coupon_name+" </p> <p class='cMTime'>"+times.substring(0,10)+" - "+times2.substring(0,10)+"</p></div>";
+                      li+="<div class='cM_text'><p style='padding:10px 20px 0px 18px;height:50px;white-space:inherit;text-overflow:inherit' title='"+manjian+"'>使用范围："+manjian+"</p>";
+                       //判断没有卷时不显示立即领卷
+                      if(c.coupon_count>0){
+                          li+="<a href='javascript:;'>立即领券</a>";
+                       }
+                      li+="</div>";
+                      //判断没有卷时不显示进度条
+                     if(c.coupon_count>0){
+                        li+=" <div class='coupon_wbox_content_line' style='margin-left: 17px;margin-top: 6px'> <div class='line'> <b class='red_line' style='width: "+c.count/c.coupon_count*100+"%;'></b> </div> <div class='red_line_r'>剩余"+(c.coupon_count-c.count)/c.coupon_count*100+"%</div> </div> </li>";
+                     }else{
+                         li+="<div class='broughtout'></div>";
+                     }
+                       $("ul#coupon").append(li);
                 }
             }
         });
-    })
-
+    }
 </script>
 </body>
 </html>

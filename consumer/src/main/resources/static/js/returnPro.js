@@ -26,6 +26,21 @@ $(function () {
         findOrdersByUserId(1,pageSize,days,status,order_no);
     });
 
+   //上下页
+    $(".prev").click(function () {
+        var pageNo=$(this).attr("pageNo");
+        if(pageNo>1){
+            pageNo--;
+        }
+        findOrdersByUserId(pageNo,pageSize,days,status,order_no);
+    });
+    $(".next").click(function () {
+        var pageNo=$(this).attr("pageNo");
+        if(pageNo<pageCount){
+            pageNo++;
+        }
+        findOrdersByUserId(pageNo,pageSize,days,status,order_no);
+    });
 });
 
 //查询所有订单
@@ -54,33 +69,30 @@ function findOrdersByUserId(pageIndex,pageSize,days,status,ono) {
             noData();
         }else{
             for(var i=0;i<list.length;i++){
-                userInfo(list[i].user_id,list[i].address_id);
-                findOrdersDetail(list[i].order_id,list[i].order_time,list[i].order_no,list[i].order_status,list[i].order_total,i);
+                userInfo(list[i].user_id,list[i].address_id,list[i].order_id,list[i].order_time,list[i].order_no,list[i].order_status,list[i].order_total,i);
             }
         }
     });
 }
 
 //查询用户相关信息
-var userName=new Array();
-var phone=new Array();
-var provinceAddress=new Array();
-function userInfo(uid,aid) {
+function userInfo(uid,aid,order_id,time,order_no,status,order_total,num) {
     $.ajax({
         type:"get",
         url:"../../myGuoMei/showAddress",
         data:{"userid":uid,"aid":aid},
         dataType:"json",
         success:function (json) {
-            userName.push(json[0].userName);
-            phone.push(json[0].phone)
-            provinceAddress.push(json[0].provinceAddress.provinceName+json[0].provinceAddress.districtName+json[0].provinceAddress.streetName+json[0].address);
+            var userName=json[0].userName;
+            var phone=json[0].phone;
+            var provinceAddress=json[0].provinceAddress.provinceName+json[0].provinceAddress.districtName+json[0].provinceAddress.streetName+json[0].address;
+            findOrdersDetail(order_id,time,order_no,status,order_total,num,userName,phone,provinceAddress);
         }
     });
 }
 
 //根据订单号查询订单详情信息
-function findOrdersDetail(order_id,time,order_no,status,order_total,num) {
+function findOrdersDetail(order_id,time,order_no,status,order_total,num,userName,phone,provinceAddress) {
     $.getJSON("../../Orders/findOrdersDetail",{"oid":order_id},function (data) {
         var order_nos=order_no.substring(0,12);
         //转换时间格式
@@ -89,7 +101,7 @@ function findOrdersDetail(order_id,time,order_no,status,order_total,num) {
 
         //头部信息(标题信息)
         var tr="";
-        tr=" <table  style='width: 164%;margin-top: 15px'><tbody><tr class='item-info'> <td style='width:40%;padding-left:10px;' class='orderTd1_11926392274'>";
+        tr=" <table  style='width: 164%;margin-top: 5px'><tbody><tr class='item-info'> <td style='width:40%;padding-left:10px;' class='orderTd1_11926392274'>";
         tr+=" <input type='checkbox' class='orderNumcheck' disabled='' > <span class='ico-qiang ' ordertype='2'title='普通订单'>普</span> ";
         tr+="<span class='order-time'>"+times+"</span> ";
         tr+="<span class='order-number'>订单编号：<a target='_blank' title='"+order_no+"' href='gm-orederList.html?oid="+data[0].oid+"&ono="+guid()+order_no+"'>"+order_nos+"..</a></span></td>";
@@ -108,7 +120,7 @@ function findOrdersDetail(order_id,time,order_no,status,order_total,num) {
             trr+="<td class='pd-lft-10 pd-bottom-10'style='width:40%; border-right:none;'><div class='marg-top-10 order-list-proImg' pid='A0006561232'sid='pop8012773624'>";
             trr+="<a target='_blank' href='product_details.html?gid="+data[j].gid+"'itemtype='0'><img src='"+data[j].img+"'style='width:50px;height:50px;'></a></div>";
             trr+="<div class='pd-lft-10 order-list-proName'><a class='order-list-proName-font' target='_blank 'href='product_details.html?gid="+data[j].gid+"'style='display:block;'>"+data[j].title+"</a>";
-            trr+="<p class='big-same-collocation marg-top-10'> <i class='collocation-icon'></i><span>申请</span></p></div></td>";
+            trr+="<p class='big-same-collocation marg-top-10'> <i class='collocation-icon'></i><span   onclick=\"location.href='myRefundDetail.html'\">申请</span></p></div></td>";
             trr+="<td class='pd-lft-10' style='border-right:none;width:20%;'> <div class='order-list-num'>x<span>"+data[j].num+"</span></div> </td></tr>";
         }
         trr+="</tbody>";
@@ -123,10 +135,10 @@ function findOrdersDetail(order_id,time,order_no,status,order_total,num) {
         tr+="</td>";
         //右侧信息(用户)
         tr+="<td style='width:10%;color:#888;padding-left:15px;border-bottom: 1px solid #e6e6e6;' class='name_11926392274' num='"+num+"'>";
-        tr+="<div class='customer-receiver clearfix' orderid='11926392274' shipid=''><i class='order-list-consignee'></i><span class='receive-name'>"+userName[num]+"</span>";
+        tr+="<div class='customer-receiver clearfix' orderid='11926392274' shipid=''><i class='order-list-consignee'></i><span class='receive-name'>"+userName+"</span>";
         tr+="<div class='pop consignee' style='left: 736px; z-index: 13; display: none;' id='info-"+num+"'><h4>收货人信息</h4>";
-        tr+="<p class='grayfont'>"+userName[num]+"<span class='mobile'>"+phone[num]+"</span></p><h4>配送地址</h4>";
-        tr+="<p class='grayfont'>"+provinceAddress[num]+"</p></div> </div> </td>";
+        tr+="<p class='grayfont'>"+userName+"<span class='mobile'>"+phone+"</span></p><h4>配送地址</h4>";
+        tr+="<p class='grayfont'>"+provinceAddress+"</p></div> </div> </td>";
         tr+="</tr></tbody></table>";
         $("#tables").append(tr);
     });

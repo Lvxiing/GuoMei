@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +33,10 @@ public interface ProductFeignInterface {
 
     //--------------------前台优惠券模块-----------------------
     @RequestMapping("coupon/couponFindAllQian")
-    Map<String,Object> couponFindAllQian(Map<String, Object> map);
+    Map<String,Object> couponFindAllQian(@RequestParam Map<String, Object> map);
+
+    @RequestMapping("coupon/addCouponReceive")
+    String addCouponReceive(@RequestParam  Map<String,Object>map);
 
     //--------------------前台收货地址-------------------------
     //查询所有省份
