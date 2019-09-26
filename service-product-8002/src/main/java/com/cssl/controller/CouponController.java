@@ -151,7 +151,7 @@ public class CouponController {
     }
     @RequestMapping("addCouponReceive")
     @ResponseBody
-    public String addCouponReceive(Map<String,Object>map){
+    public String addCouponReceive(@RequestParam  Map<String,Object>map){
         CouponReceive couponReceive = new CouponReceive();
         couponReceive.setStatus(0);
         couponReceive.setTime(new Date());
@@ -162,7 +162,7 @@ public class CouponController {
         //查询用户要领取的优惠券
         Coupon coupon= couponService.getOne(new QueryWrapper<Coupon>().eq("coupon_id", id));
         int userCount = couponReceiveService.count(new QueryWrapper<CouponReceive>().eq("user_id", uid));
-        if(userCount >= coupon.getCouponCount() ){
+        if(userCount >= coupon.getCouponLimit() ){
             String json = "{\"code\":\"error\"}";
             return json;
         }
