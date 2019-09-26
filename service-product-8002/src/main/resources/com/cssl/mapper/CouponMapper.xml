@@ -59,6 +59,9 @@
             <if test="status!=null and status!='null' and status!='' ">
                 AND r.status= #{status}
             </if>
+            <if test="type!=null and type!='null' and type!='' ">
+                AND c.coupon_type=#{type}
+            </if>
         </where>
     </select>
 
