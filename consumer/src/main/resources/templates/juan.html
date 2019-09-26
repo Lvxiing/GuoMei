@@ -20,9 +20,10 @@
     <link rel="canonical" href="https://lingquan.gome.com.cn/">
     <script src="js/jquery-1.8.3.js"></script>
     <script src="js/menu.js"></script>
-
     <link rel="stylesheet" href="css/201908211806.css">
     <link href="css/Css.css" rel="stylesheet">
+    <script src="layui/layui.js"></script>
+    <link rel="stylesheet" href="layui/css/layui.css">
     <style>
         .template-html img {
             background: url(static/image/juan/T18hDvBj_g1RCvBVdK.png) #efefef no-repeat center;
@@ -133,19 +134,6 @@
                     <div class="cM_couponWrap">
                         <div class="product-waiting" id="product-waiting" style="display: none;"></div>
                         <ul class="cM_coupon clearfix" id="coupon">
-                           <!--<li data-quanid="1e681a3b68384f9a89d2ad5efa65af63" data-coupontype="blue" data-bustype=""-->
-                                <!--data-couponrule="P16351668">-->
-                                <!--<div class="cMc_style cmblue_bg cmgray_bg">-->
-                                    <!--<div class="cMPrice"><em>¥</em> <strong>30.</strong> <span>00</span></div>-->
-                                    <!--<p class="cMInfo"><em>【线上专享】</em>满100.00可用 </p>-->
-                                    <!--<p class="cMTime">2019.8.16 - 2019.8.31</p></div>-->
-                                <!--<div class="cM_text"><p-->
-                                        <!--style="padding:10px 20px 0px 18px;height:50px;white-space:inherit;text-overflow:inherit"-->
-                                        <!--title="仅自营冰箱洗衣机app端指定商品可用">使用范围：仅自营冰箱洗衣机app端指定商品可用</p>-->
-                                  <!--</div>-->
-                                <!--<div class="broughtout"></div>-->
-                            <!--</li>-->
-                        <!---->
                         </ul>
                     </div>
                 </div>
@@ -335,6 +323,20 @@
         });
 
         //点击领取
+        layui.use(['layer'], function () {
+            var layer = layui.layer; //弹层
+            $(".cM_text a").live("click",this,function () {
+                var coupon_id=$(this).attr("coupon_id");
+                $.getJSON("/coupon/addCouponReceive",{"id":coupon_id},function (json) {
+                    if(json.code=="success"){
+                        layer.msg("领取成功",{icon:1});
+                    }else{
+                        layer.msg("已领取",{icon:2});
+                    }
+                });
+            });
+        });
+
     });
 
     function load(time,more) {
@@ -365,7 +367,7 @@
                       li+="<div class='cM_text'><p style='padding:10px 20px 0px 18px;height:50px;white-space:inherit;text-overflow:inherit' title='"+manjian+"'>使用范围："+manjian+"</p>";
                        //判断没有卷时不显示立即领卷
                       if(c.coupon_count>0){
-                          li+="<a href='javascript:;'>立即领券</a>";
+                          li+="<a href='javascript:;' coupon_id='"+c.coupon_id+"'>立即领券</a>";
                        }
                       li+="</div>";
                       //判断没有卷时不显示进度条
