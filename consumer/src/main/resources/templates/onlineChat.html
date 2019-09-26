@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title>在线聊天对话框网页</title>
+    <link rel="stylesheet" type="text/css" href="css/chat.css" />
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+   <!-- <script type="text/javascript" src="js/chat.js"></script>-->
+
+
+
+    <![endif]-->
+</head>
+<body style="width:400px;height: 325px;margin-top: -50px;margin-left: -50px;">
+
+<div class="kePublic" >
+    <!--效果html开始-->
+    <div class="content">
+        <div class="chatBox" style="width:400px;">
+            <div class="chatLeft" style="width:400px;">
+                <div class="chat01">
+                    <div class="chat01_title">
+                        <ul>
+                            <li style="padding-top:5px;padding-left:20px;">昵称:  <input type="text" id="nickname"  style="width:100px;" >
+                                <button  name="con">连接</button>
+
+                                </li></ul>
+
+                    </div>
+                    <div class="chat01_content">
+                        <div class="message_box mes1">
+                        </div>
+                        <div class="message_box mes2">
+                        </div>
+                        <div class="message_box mes3" style="display: block;" id="message">
+
+
+                        </div>
+                        <div class="message_box mes4">
+                        </div>
+                        <div class="message_box mes5">
+                        </div>
+                        <div class="message_box mes6">
+                        </div>
+                        <div class="message_box mes7">
+                        </div>
+                        <div class="message_box mes8">
+                        </div>
+                        <div class="message_box mes9">
+                        </div>
+                        <div class="message_box mes10">
+                        </div>
+                    </div>
+                </div>
+                <div class="chat02">
+                    <div class="chat02_title">
+                        <a class="chat02_title_btn ctb01" href="javascript:;"></a>
+
+                        <div class="wl_faces_box">
+                            <div class="wl_faces_content">
+                                <div class="title">
+                                    <ul>
+                                        <li class="title_name">常用表情</li><li class="wl_faces_close"><span>&nbsp;</span></li></ul>
+                                </div>
+                                <div class="wl_faces_main">
+                                    <ul>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_01.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_02.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_03.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_04.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_05.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_06.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_07.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_08.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_09.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_10.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_11.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_12.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_13.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_14.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_15.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_16.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_17.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_18.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_19.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_20.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_21.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_22.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_23.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_24.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_25.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_26.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_27.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_28.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_29.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_30.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_31.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_32.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_33.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_34.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_35.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_36.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_37.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_38.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_39.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_40.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_41.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_42.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_43.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_44.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_45.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_46.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_47.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_48.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_49.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_50.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_51.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_52.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_53.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_54.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_55.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_56.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_57.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_58.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_59.gif" /></a></li><li><a href="javascript:;">
+                                        <img src="img/emo_60.gif" /></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="wlf_icon">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat02_content">
+                        <textarea id="textarea" placeholder="请输入您要咨询的问题"  ></textarea>
+                    </div>
+                    <div class="chat02_bar">
+                        <ul>
+
+                            <li style="right: 5px; top: 5px;"><a href="javascript:void(0);" name="send">
+                                <img src="img/send_btn.jpg"></a></li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+
+            <div style="clear: both;">
+            </div>
+        </div>
+    </div>
+    <!--效果html结束-->
+</div>
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+
+
+
+    $(function () {
+
+        var websocket = null;
+
+        $("[name=con]").click(function () {
+            var nickname = document.getElementById("nickname").value;
+
+            if(nickname=="") {
+              alert("请设置您的昵称哦");
+              return false;
+            }
+            //判断当前浏览器是否支持WebSocket
+            if ('WebSocket'in window) {
+                websocket = new WebSocket("ws://localhost:9001/websocket/"+nickname);
+            } else {
+                alert('Not support websocket')
+            }
+            //连接发生错误的回调方法
+            websocket.onerror = function() {
+                setMessageInnerHTML("error");
+            };
+            //连接成功建立的回调方法
+            websocket.onopen = function(event) {
+                setMessageInnerHTML("Loc MSG: 成功建立连接");
+            }
+            //接收到消息的回调方法
+            websocket.onmessage = function(event) {
+                setMessageInnerHTML(event.data);
+            }
+            //连接关闭的回调方法
+            websocket.onclose = function() {
+                setMessageInnerHTML("Loc MSG:关闭连接");
+            }
+            //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+            window.onbeforeunload = function() {
+                websocket.close();
+            }
+        });
+
+
+        $("[name=send]").click(function () {
+            var message = document.getElementById('textarea').value;
+            if (message==""){
+               alert("请输入您要咨询的问题");
+                return false;
+            }
+            var nickname = document.getElementById("nickname").value;
+            var e = new Date, f = "";
+            f += e.getFullYear() + "-", f += e.getMonth() + 1 + "-", f += e.getDate() + "  ", f += e.getHours() + ":", f += e.getMinutes() + ":", f += e.getSeconds();
+            websocket.send("<div style='margin-bottom: 3px;'><span style='color: #369;font-weight: bold;'>"+nickname+"</span>"+"<span style='color: #A6A6A6;'>("+f+"):</span>"+"<br/><span style='font-size:14px;font-weight:bolder;padding-left:10px;'>"+message+"</span></div>");
+        });
+
+        //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+        window.onbeforeunload = function () {
+            websocket.close();
+        }
+
+
+    })
+
+    //将消息显示在网页上
+    function setMessageInnerHTML(innerHTML) {
+        $("#textarea").val("");
+        document.getElementById('message').innerHTML += innerHTML +'<br/>';
+    }
+
+
+</script>

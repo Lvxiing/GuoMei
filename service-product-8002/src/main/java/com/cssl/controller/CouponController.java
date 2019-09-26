@@ -58,7 +58,11 @@ public class CouponController {
         coupon.setCouponMoney(BigDecimal.valueOf(Double.valueOf(map.get("price").toString())));
         coupon.setType(Integer.valueOf(map.get("type").toString()));
         if (map.get("fullPrice").toString() != null) {
-            coupon.setFullMoney(BigDecimal.valueOf(Double.valueOf(map.get("fullPrice").toString())));
+
+        }
+        if (map.get("fullPrice") != null && !"".equals(map.get("fullPrice"))) {
+            double price = Double.valueOf(map.get("fullPrice").toString());
+            coupon.setFullMoney(BigDecimal.valueOf(price));
         }
         //判断开始时间和结束时间是否相同,
         //返回1:begin大于end;
@@ -91,4 +95,49 @@ public class CouponController {
         return pages;
     }
 
+    //获取当前进行修改的优惠券信息
+    @RequestMapping("getCouponUpdateInfo")
+    @ResponseBody
+    public Coupon getCouponUpdateInfo(@RequestParam Integer id) {
+        return couponService.getOne(new QueryWrapper<Coupon>().eq("coupon_id", id));
+    }
+
+    @RequestMapping("modifyCoupon")
+    @ResponseBody
+    public String modifyCoupon(@RequestParam Map<String, Object> map) throws Exception {
+        Coupon coupon = new Coupon();
+        coupon.setId(Integer.valueOf(map.get("cid").toString()));
+        coupon.setCouponName(map.get("cname").toString());
+        coupon.setRemarks(map.get("cdes").toString());
+        Category one = categoryService.getOne(new QueryWrapper<Category>().eq("category_name", map.get("catename").toString()));
+        coupon.setCategoryId(one.getCid());
+        coupon.setType(Integer.valueOf(map.get("type").toString()));
+        if (map.get("fullPrice") != null && !"".equals(map.get("fullPrice"))) {
+            double price = Double.valueOf(map.get("fullPrice").toString());
+            coupon.setFullMoney(BigDecimal.valueOf(price));
+        }
+        Double price = new Double(map.get("price").toString());
+        BigDecimal decimal = new BigDecimal(price);
+        coupon.setCouponMoney(decimal.setScale(2, BigDecimal.ROUND_HALF_UP));
+        //时间转换
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date end = simpleDateFormat.parse(map.get("endTime").toString());
+        Date start = simpleDateFormat.parse(map.get("startTime").toString());
+        coupon.setStartTime(start);
+        coupon.setEndTime(end);
+        coupon.setCouponCount(Integer.valueOf(map.get("number").toString()));
+        coupon.setCouponLimit(Integer.valueOf(map.get("limit").toString()));
+        boolean b = couponService.updateById(coupon);
+        if (b) {
+            String json = "{\"code\":\"success\"}";
+            return json;
+        }
+        return "{\"msg\":\"修改失败\"}";
+    }
+
+    @ResponseBody
+    @RequestMapping("couponFindAllQian")
+    public List<Map<String, Object>> couponFindAllQian(Map<String, Object> map) {
+        return couponService.couponFindAllQian(map);
+    }
 }

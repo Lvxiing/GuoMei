@@ -36,4 +36,17 @@
             </if>
         </where>
     </select>
+
+    <select id="couponFindAllQian" parameterType="map" resultType="map">
+        SELECT * FROM category c
+        INNER JOIN coupon p ON c.category_id = p.category_id
+        <where>
+            <if test="time!=null and time!='' ">
+                and TO_DAYS(p.end_time)-TO_DAYS(NOW())&lt;=2
+            </if>
+        </where>
+        <if test="more!=null and more!='' ">
+            ORDER BY coupon_money DESC
+        </if>
+    </select>
 </mapper>

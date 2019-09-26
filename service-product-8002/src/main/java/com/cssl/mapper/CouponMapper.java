@@ -15,7 +15,9 @@ import java.util.Map;
  * @since 2019-09-10
  */
 public interface CouponMapper extends BaseMapper<Coupon> {
-    //查询全部评论
+    //查询全部优惠券(后台)
     List<Map<String,Object>> couponFindAll(Map<String,Object> map);
 
+    //查询全部优惠券(前台)
+    List<Map<String,Object>> couponFindAllQian(Map<String,Object> map);
 }

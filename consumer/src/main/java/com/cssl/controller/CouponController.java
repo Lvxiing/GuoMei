@@ -1,6 +1,8 @@
 package com.cssl.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.api.ProductFeignInterface;
+import com.cssl.entity.Coupon;
 import com.cssl.entity.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -18,6 +21,14 @@ public class CouponController {
 
     @Autowired
     private ProductFeignInterface productFeignInterface;
+
+    //-------------------------前台--------------------
+    @ResponseBody
+    @RequestMapping("couponFindAllQian")
+    public List<Map<String, Object>> couponFindAllQian(Map<String, Object> map) {
+        return productFeignInterface.couponFindAllQian(map);
+    }
+
 
 
     // ------------------------后台--------------------
@@ -42,7 +53,19 @@ public class CouponController {
         map.put("msg", "");
         map.put("data",mapPageInfo.getList());
         map.put("count",mapPageInfo.getTotalCount());
-        System.out.println("mapPageInfo.getList() ***= " + mapPageInfo.getList());
         return map;
     }
+    //获取当前进行修改的优惠券信息
+    @RequestMapping("getCouponUpdateInfo")
+    @ResponseBody
+    public Coupon getCouponUpdateInfo(@RequestParam Integer id){
+      return productFeignInterface.getCouponUpdateInfo(id);
+    }
+
+    @RequestMapping("modifyCoupon")
+    @ResponseBody
+    public String modifyCoupon(@RequestParam Map<String,Object>map){
+        return productFeignInterface.modifyCoupon(map);
+    }
+
 }

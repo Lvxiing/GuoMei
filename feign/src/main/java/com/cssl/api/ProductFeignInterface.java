@@ -30,6 +30,9 @@ public interface ProductFeignInterface {
     @RequestMapping("index/mainImagesData")
     public List<ImagesInfo> mainImagesData();
 
+    //--------------------前台优惠券模块-----------------------
+    @RequestMapping("coupon/couponFindAllQian")
+    List<Map<String, Object>> couponFindAllQian(Map<String, Object> map);
 
     //--------------------前台收货地址-------------------------
     //查询所有省份
@@ -229,6 +232,13 @@ public interface ProductFeignInterface {
     @RequestMapping("coupon/couponFindAll")
     PageInfo<Map<String, Object>> couponFindAll(@RequestParam Map<String, Object> param, @RequestParam("page") int page, @RequestParam("limit") int limit);
 
+    //获取当前进行修改的优惠券信息
+    @RequestMapping("coupon/getCouponUpdateInfo")
+    Coupon getCouponUpdateInfo(@RequestParam Integer id);
+
+    @RequestMapping("coupon/modifyCoupon")
+    String modifyCoupon(@RequestParam Map<String,Object>map);
+
     //---------------------------新闻后台模块--------------------------------
     //新闻查询
     @RequestMapping("news/findByNewsPage")
@@ -251,6 +261,11 @@ public interface ProductFeignInterface {
 
 
     //--------------------------商品分类模块后台-------------------------------
+
+    //查询当前分类信息
+    @RequestMapping("category/findCategoryByInfo")
+    Category findCategoryByInfo(@RequestParam Integer id);
+
     //查询所有分类
     @RequestMapping("category/findCategory")
     String findCategory();
