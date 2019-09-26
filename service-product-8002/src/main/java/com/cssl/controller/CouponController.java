@@ -47,6 +47,14 @@ public class CouponController {
 
     //---------------------------前台-------------------------
 
+    @ResponseBody
+    @RequestMapping("couponFindAllQian")
+    public Map<String,Object> couponFindAllQian(@RequestParam Map<String, Object> map) {
+        Map<String,Object> data = new HashMap<>();
+        data.put("list",couponService.couponFindAllQian(map));
+        return data;
+    }
+
     //查询当前用户所有优惠券
     @RequestMapping("userCouponList")
     @ResponseBody
@@ -60,6 +68,31 @@ public class CouponController {
         pages.setPageCount(page.getPages());
         return pages;
     }
+
+    @RequestMapping("addCouponReceive")
+    @ResponseBody
+    public String addCouponReceive(@RequestParam  Map<String,Object>map){
+        CouponReceive couponReceive = new CouponReceive();
+        couponReceive.setStatus(0);
+        couponReceive.setTime(new Date());
+        Integer id = Integer.valueOf(map.get("id").toString());
+        Integer uid = Integer.valueOf(map.get("uid").toString());
+        couponReceive.setUserId(uid);
+        couponReceive.setCouponId(id);
+        //查询用户要领取的优惠券
+        Coupon coupon= couponService.getOne(new QueryWrapper<Coupon>().eq("coupon_id", id));
+        int userCount = couponReceiveService.count(new QueryWrapper<CouponReceive>().eq("user_id", uid).eq("coupon_id",id));
+        if(userCount >= coupon.getCouponLimit() ){
+            String json = "{\"code\":\"error\"}";
+            return json;
+        }
+        if (couponReceiveService.save(couponReceive)) {
+            String json = "{\"code\":\"success\"}";
+            return json;
+        }
+        return "{\"msg\":\"修改失败\"}";
+    }
+
 
 
     //--------------------------后台--------------------------
@@ -157,34 +190,6 @@ public class CouponController {
         return "{\"msg\":\"修改失败\"}";
     }
 
-    @ResponseBody
-    @RequestMapping("couponFindAllQian")
-    public Map<String,Object> couponFindAllQian(@RequestParam Map<String, Object> map) {
-        Map<String,Object> data = new HashMap<>();
-        data.put("list",couponService.couponFindAllQian(map));
-        return data;
-    }
-    @RequestMapping("addCouponReceive")
-    @ResponseBody
-    public String addCouponReceive(@RequestParam  Map<String,Object>map){
-        CouponReceive couponReceive = new CouponReceive();
-        couponReceive.setStatus(0);
-        couponReceive.setTime(new Date());
-        Integer id = Integer.valueOf(map.get("id").toString());
-        Integer uid = Integer.valueOf(map.get("uid").toString());
-        couponReceive.setUserId(uid);
-        couponReceive.setCouponId(id);
-        //查询用户要领取的优惠券
-        Coupon coupon= couponService.getOne(new QueryWrapper<Coupon>().eq("coupon_id", id));
-        int userCount = couponReceiveService.count(new QueryWrapper<CouponReceive>().eq("user_id", uid));
-        if(userCount >= coupon.getCouponLimit() ){
-            String json = "{\"code\":\"error\"}";
-            return json;
-        }
-        if (couponReceiveService.save(couponReceive)) {
-            String json = "{\"code\":\"success\"}";
-            return json;
-        }
-        return "{\"msg\":\"修改失败\"}";
-    }
+
+
 }
