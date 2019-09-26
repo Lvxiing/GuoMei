@@ -133,7 +133,7 @@
                     </div>
                     <div class="cM_couponWrap">
                         <div class="product-waiting" id="product-waiting" style="display: none;"></div>
-                        <ul class="cM_coupon clearfix">
+                        <ul class="cM_coupon clearfix" id="coupon">
                             <li data-quanid="fc86bd2104ac469aaff4d07d9e9b940d" data-coupontype="blue" data-bustype=""
                                 data-couponrule="P16376039">
                                 <div class="cMc_style cmblue_bg">
@@ -337,7 +337,22 @@
 </div>
 
 <script type="text/javascript">
-
+    $(function(){
+        $.getJSON("/coupon/couponFindAllQian",function(json){
+            if(json!=null){
+                for(var i = 0;i<json.length;i++){
+                    var c  = json[i];
+                    //转换时间格式
+                    var dateee = new Date(c.start_time).toJSON();
+                    var times= new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+                    var dateee2 = new Date(c.start_time).toJSON();
+                    var times2= new Date(+new Date(end_time) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+                    var li="<li data-quanid='fc86bd2104ac469aaff4d07d9e9b940d' data-coupontype='blue' data-bustype=''data-couponrule='P16376039'> <div class='cMc_style cmblue_bg'> <div class='cMPrice'><em>¥</em> <strong>"+c.coupon_money+".</strong> <span>00</span></div> <p class='cMInfo'><em>【线上专享】</em>"+c.coupon_name+" </p> <p class='cMTime'>"+times+" - "+times2+"</p></div> <div class='cM_text'><p style='padding:10px 20px 0px 18px;height:50px;white-space:inherit;text-overflow:inherit' title='厨房卫浴满2588减200'>使用范围："+c.category_name+"满"+c.full_money+"减"+c.coupon_money+"</p><a href='javascript:;'>立即领券</a> </div> <div class='coupon_wbox_content_line' style='margin-left: 17px;margin-top: 6px'> <div class='line'> <b class='red_line' style='width: 3px;'></b> </div> <div class='red_line_r'>剩余98.34%</div> </div> </li>";
+                    $("div#coupon").append(li);
+                }
+            }
+        });
+    })
 
 </script>
 </body>

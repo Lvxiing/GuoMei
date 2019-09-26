@@ -214,7 +214,8 @@
     function pay(){
         var ordNo = $("#ordNo").text();
         var yfPayMoney = $("#yfPayMoney").text();
-        location.href="pay/ali/"+ordNo+"/"+yfPayMoney+"/45798651653253846584563218*&&&45445";
+        var ifUseScore = GetRequest().ifUseScore;
+        location.href="pay/ali/"+ordNo+"/"+yfPayMoney+"/45798651653253846584563218*&&&45445/"+ifUseScore+"";
 
     }
     var reg = /^(\d{3})(\d*)(\d{4})$/;//电话号码中间4位为*

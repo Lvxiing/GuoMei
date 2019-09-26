@@ -48,8 +48,8 @@ public class PayController {
     }
 
     //支付请求接口
-    @RequestMapping("ali/{no}/{money}/45798651653253846584563218*&&&45445")
-    public void ali(HttpSession session, @PathVariable("no") String no, @PathVariable("money") String money, HttpServletResponse response, HttpServletRequest request) throws Exception {
+    @RequestMapping("ali/{no}/{money}/45798651653253846584563218*&&&45445/{ifUseScore}")
+    public void ali(HttpSession session, @PathVariable("no") String no, @PathVariable("money") String money,@PathVariable("ifUseScore")String ifUseScore, HttpServletResponse response, HttpServletRequest request) throws Exception {
         Users user = (Users) session.getAttribute("user");
         if(orderSuccess(user.getId(),no,money)){
             //设置编码
