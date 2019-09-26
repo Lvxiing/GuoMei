@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,5 +31,10 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
         Page<Map<String, Object>> page = PageHelper.startPage(pageIndex, pageSize,"start_time DESC");
         couponMapper.couponFindAll(map);
         return page;
+    }
+
+    @Override
+    public List<Map<String, Object>> couponFindAllQian(Map<String, Object> map) {
+        return couponMapper.couponFindAllQian(map);
     }
 }

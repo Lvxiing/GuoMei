@@ -4,6 +4,7 @@ import com.cssl.entity.Coupon;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.Page;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,4 +19,6 @@ public interface CouponService extends IService<Coupon> {
     //查询所有评论
     Page<Map<String,Object>> couponFindAll(Map<String,Object>map, int pageIndex, int pageSize);
 
+    //查询全部优惠券(前台)
+    List<Map<String,Object>> couponFindAllQian(Map<String,Object> map);
 }

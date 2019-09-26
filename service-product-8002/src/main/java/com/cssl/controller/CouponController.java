@@ -135,4 +135,9 @@ public class CouponController {
         return "{\"msg\":\"修改失败\"}";
     }
 
+    @ResponseBody
+    @RequestMapping("couponFindAllQian")
+    public List<Map<String, Object>> couponFindAllQian(Map<String, Object> map) {
+        return couponService.couponFindAllQian(map);
+    }
 }
