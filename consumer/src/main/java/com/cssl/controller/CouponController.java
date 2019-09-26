@@ -3,7 +3,10 @@ package com.cssl.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.api.ProductFeignInterface;
 import com.cssl.entity.Coupon;
+import com.cssl.entity.CouponReceive;
 import com.cssl.entity.PageInfo;
+import com.cssl.entity.Users;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +32,14 @@ public class CouponController {
     @RequestMapping("couponFindAllQian")
     public Map<String,Object> couponFindAllQian(@RequestParam Map<String, Object> map) {
         return productFeignInterface.couponFindAllQian(map);
+    }
+
+    @RequestMapping("addCouponReceive")
+    @ResponseBody
+    public String addCouponReceive(HttpSession session, Map<String,Object>map){
+        Users user = (Users)session.getAttribute("user");
+        map.put("uid",user.getId());
+        return productFeignInterface.addCouponReceive(map);
     }
 
 
