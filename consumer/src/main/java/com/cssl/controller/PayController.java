@@ -52,6 +52,12 @@ public class PayController {
     public void ali(HttpSession session, @PathVariable("no") String no, @PathVariable("money") String money,@PathVariable("ifUseScore")String ifUseScore, HttpServletResponse response, HttpServletRequest request) throws Exception {
         Users user = (Users) session.getAttribute("user");
         if(orderSuccess(user.getId(),no,money)){
+
+            //如果购物时消费了所有美豆,则把该用户的美豆清零
+            if("yes".equals(ifUseScore)){
+                int count = userFeignInterface.consumeScore(user.getId());
+            }
+
             //设置编码
             response.setContentType("text/html;charset=utf-8");
             PrintWriter out = response.getWriter();
