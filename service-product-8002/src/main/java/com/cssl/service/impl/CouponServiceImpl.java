@@ -37,4 +37,16 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
     public List<Map<String, Object>> couponFindAllQian(Map<String, Object> map) {
         return couponMapper.couponFindAllQian(map);
     }
+
+    @Override
+    public Page<Map<String, Object>> userCouponList(Map<String, Object> map) {
+        Page<Map<String, Object>>  page = PageHelper.startPage(Integer.valueOf(map.get("pageIndex").toString()), Integer.valueOf(map.get("pageSize").toString()));
+        couponMapper.userCouponList(map);
+        return page;
+    }
+
+    @Override
+    public int userCouponCount(Integer type, Integer uid) {
+        return couponMapper.userCouponCount(type,uid);
+    }
 }

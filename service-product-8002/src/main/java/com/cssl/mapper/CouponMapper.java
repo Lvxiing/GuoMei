@@ -20,4 +20,10 @@ public interface CouponMapper extends BaseMapper<Coupon> {
 
     //查询全部优惠券(前台)
     List<Map<String,Object>> couponFindAllQian(Map<String,Object> map);
+
+    //查询当前用户的优惠券
+    List<Map<String,Object>> userCouponList(Map<String,Object> map);
+
+    //查询当前用户的优惠券总数
+    int userCouponCount(Integer type,Integer uid);
 }
