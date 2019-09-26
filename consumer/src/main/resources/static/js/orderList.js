@@ -1,7 +1,6 @@
 $(function () {
     display();
     info();
-    // userInfo();
 });
 
 //获取url中"?"符后的字串
@@ -22,7 +21,6 @@ function GetRequest() {
 function display () {
      var ono=GetRequest().ono;
        ono=ono.substring(36,ono.length);
-
     $.getJSON("../../Orders/findOrdersByUserId",{"pageIndex":1,"pageSize":3,"order_no":ono},function(json){
         var list=json.list;
         for(var i=0;i<list.length;i++){
