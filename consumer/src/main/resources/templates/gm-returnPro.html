@@ -384,6 +384,24 @@
 
 <script type="text/javascript">
     $(function () {
+        //悬浮字体变色
+        $(".side-nav  div ul li").hover(
+            function () {
+                $(this).addClass("active");
+            },
+            function () {
+                $(this).removeClass("active");
+            }
+        );
+        //悬浮显示头上下拉款
+        $(".gomeNav li").hover(
+            function () {
+                $(this).addClass("navCur").siblings().removeClass("navCur");
+            }, function () {
+                $(this).removeClass("navCur");
+            }
+        );
+
         //悬浮特效
         $(".tabsHeader ul li").hover(
            function () {
