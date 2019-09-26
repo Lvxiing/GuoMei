@@ -21,10 +21,13 @@
     <link rel="shortcut icon" href="font/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/gm-returnPro.css">
     <link rel="stylesheet" href="css/gm-returnPro1.css">
+    <link rel="stylesheet" href="css/myorder1.css">
+    <link rel="stylesheet" href="css/myOrder.css">
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
-    <script type="text/javascript" src="js/gm-returnPro.js"></script>
+    <!--<script type="text/javascript" src="js/gm-returnPro.js"></script>-->
+    <script src="js/returnPro.js"></script>
 
 </head>
 <body class="myReturnGoodList">
@@ -66,7 +69,6 @@
 </div>
 <!--gome_head -->
 <!--head-->
-
 <div class="content">
     <!--nav-->
     <div class="wbox">
@@ -183,55 +185,39 @@
                 <div class="tabs">
                     <div class="tabsHeader">
                         <ul>
-                            <li class="cur">申请退/换货</li>
-                            <li>退/换货记录</li>
-                            <li>退款/取消订单记录</li>
+                            <li class="cur" num="0">申请退/换货</li>
+                            <li num="1">退/换货记录</li>
+                            <li num="2">退款/取消订单记录</li>
                         </ul>
                     </div>
                     <div class="searchList search-box">
-                        <input type="text" value="请输入配送单号" class="seach_inpt" id="searchText">
+                        <input type="text" placeholder="请输入订单号" class="seach_inpt" id="searchText">
                         <a href="javascript:;" id="searchBtn"></a>
                     </div>
                     <div class="tabsContent">
-                        <div class="applyImg">
-                            <table>
+                        <div class="applyImg" style="margin-top: 25px">
+                            <table id="tables">
                                 <thead>
                                 <tr>
-                                    <td width="540">商品</td>
-                                    <td width="232">涉及配送单</td>
-                                    <td width="208"><select class="applyTime">
-                                        <option>下单时间</option>
+                                    <td width="620px">商品</td>
+                                    <td width="232px">涉及单号</td>
+                                    <td width="208px">
+                                        <select class="applyTime">
+                                            <option value="90">下单时间</option>
+                                            <option value="30">近一个月</option>
+                                            <option value="60">近二个月</option>
+                                            <option value="90">近三个月</option>
                                     </select></td>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <td width="540">
-                                        <ul class="applyImgUl">
-                                            <li>
-                                                <div class="applyImgDiv"
-                                                     title="【限量2000件】维达抽纸3层3包120抽餐巾纸面巾纸巾卫生纸中规格M码153mmx195mm(V2889抽纸3包)">
-                                                    <a target="_blank"
-                                                       href="//item.gome.com.cn/A0006508839-pop8012377392.html"> <img
-                                                            src="image/T16NVgBvxv1RCvBVdK_80.png" alt=""
-                                                            onerror="this.src='picture/grey.gif';">
-                                                    </a> <a
-                                                        href="myReturnGoodApply?returnOrderId=11926392274&amp;shipId=2839137287&amp;commerceItemId=5459197616&amp;detailId=1451338947"
-                                                        target="_blank" class="applyHref">申请</a></div>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td width="232">
-                                        <div><span class="ico-qiang">普</span> <a href="//mall.gome.com.cn/80015919/">卓美百尚纸品专营店</a>
-                                        </div>
-                                        <p>2839137287</p></td>
-                                    <td width="208"><p>2019-08-23 16:18:51</p></td>
-                                </tr>
-                                </tbody>
+
                             </table>
-                            <div class="pager"></div>
+                            <div class="pager dn" style="display: block;margin-top: 15px">
+                                <a class="prev disable" href="javascript:void(0);">&nbsp;上一页<s class="icon-prev"></s><i></i></a>
+                                <a class="next" href="javascript:void(0);">下一页<s class="icon-next"></s><i></i></a>
+                            </div>
                         </div>
-                        <div class="listContent returnRecord">
+                        <div style="display: none" class="listContent returnRecord">
                             <table>
                                 <thead>
                                 <tr>
@@ -260,7 +246,7 @@
                             </table>
                             <div class="pager"></div>
                         </div>
-                        <div class="listContent refund">
+                        <div style="display: none" class="listContent refund">
                             <table>
                                 <thead>
                                 <tr>
@@ -292,8 +278,8 @@
                             </table>
                             <div class="pager"></div>
                         </div>
-                        <div class="supplement-shading"></div>
-                        <div class="supplement-dialog"></div>
+                        <div style="display: none" class="supplement-shading"></div>
+                        <div style="display: none" class="supplement-dialog"></div>
                     </div>
                 </div>
 
@@ -395,114 +381,28 @@
         <em class="turst-gome"></em>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        //悬浮特效
+        $(".tabsHeader ul li").hover(
+           function () {
+               $(this).addClass("cur").siblings().removeClass("cur");
+           }
+        );
+        //点击切换div
+        $(".tabsHeader ul li").click(function () {
+          var num= $(this).attr("num");
+          if(num==0){
+              $(".applyImg").show().siblings().hide();
+          }else if(num==1){
+              $(".returnRecord").show().siblings().hide();
+          }else{
+              $(".refund").show().siblings().hide();
+          }
+        });
+    });
+</script>
 <!--foot-->
-<div id="gome-bar">
-    <div class="gome-aside">
-        <ul>
-            <li id="gome-aside-cart" class="lang">
-                <b></b><a href="javascript:void(0)" class="lang"><i class="caricon"></i><b class="car_num car_num_0"><s>0</s><span
-                    class="point"></span></b><span class="text">购物车</span></a>
-            </li>
-            <li id="gome-aside-coupon">
-                <b></b><a href="javascript:void(0)"><i></i></a>
-                <div><a>我的优惠券</a></div>
-            </li>
-            <li id="gome-aside-survey">
-                <b></b><a rel="nofollow" data-code="1000043132" href="//survey.gome.com.cn/wj/dfe09aacc3.html"
-                          target="_blank"><i></i></a>
-                <div><p><a rel="nofollow" data-code="1000043132" href="//survey.gome.com.cn/wj/dfe09aacc3.html"
-                           target="_blank">有奖调研</a></p></div>
-            </li>
-            <li id="gome-aside-service">
-                <b></b><a class="live800-service" customer-entry="composite" customer-service-button-id><i></i></a>
-                <div><p><a class="live800-service" customer-entry="composite" customer-service-button-id>在线客服</a></p>
-                </div>
-            </li>
-            <li id="gome-aside-backtop">
-                <b></b><a href="javascript:void(0)"><i></i></a>
-                <div><p><a>返回顶部</a></p></div>
-            </li>
-        </ul>
-    </div>
-    <!-- gome-aside -->
-    <div id="gome-bar-border">
-        <ul id="gome-bar-border-tab">
-            <li class="gome-bar-btn-member" data-open="member"><b></b><i class="membericon"></i><a
-                    class="gome-bar-btn-tip" rel="nofollow" href="javascript:void(0);">国美会员</a></li>
-            <li class="gome-bar-btn-cart" data-open="cart" id="gome-bar-btn-cart"><b class="car_arrow"></b><i
-                    class="caricon"></i><b class="car_num car_num_0"><s>0</s><span class="point"></span></b><span
-                    class="text">购物车</span></li>
-            <li class="gome-bar-btn-coupon" data-open="coupon"><b></b><i class="caricon"></i></li>
-            <li class="gome-bar-btn-favorites" data-open="favorites" id="gome-bar-btn-favorites"><b></b><i
-                    class="favorites-icon"></i><a class="gome-bar-btn-tip" href="javascript:void(0);">我的收藏</a></li>
-        </ul>
-    </div>
-    <!-- gome-bar-border -->
-    <div id="gome-bar-box">
-        <div id="gome-bar-member" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="member-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif"
-                         gome-src="image/loading.gif">
-                </div>
-            </div>
-        </div>
-        <div id="gome-bar-cart" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="cart-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif"
-                         gome-src="image/loading.gif">
-                </div>
-            </div>
-        </div>
-        <div id="gome-bar-coupon" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="coupon-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif"
-                         gome-src="image/loading.gif">
-                </div>
-            </div>
-        </div>
-        <div id="gome-bar-favorites" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span><span class="gome-bar-title">我的收藏</span></h3>
-            <ul class="favorites-tab">
-                <li class="tab-item tab-item-goods selected">商品</li>
-                <li class="tab-item tab-item-shop">店铺</li>
-                <li class="tab-item tab-item-brand">品牌</li>
-            </ul>
-            <div id="favorites-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif"
-                         gome-src="image/loading.gif">
-                </div>
-
-                <div id="favorites-main-scrool" class="favorites-main">
-                    <div class="main-item main-item-goods">
-                    </div>
-                    <div class="main-item main-item-shop">
-                    </div>
-                    <div class="main-item main-item-brand">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- gome-bar-coupon -->
-    </div>
-    <!-- gome-bar-box -->
-</div>
-<!--aside-->
-
-<!--<script>setTimeout(function () {-->
-<!--$.ajax({-->
-<!--url: stageJsServer + "/??/gmlib/unit/scodecommon/1.0.0/scodecommon.min.js?",-->
-<!--dataType: "script"-->
-<!--}).done(function () {-->
-<!--})-->
-<!--}, 700);</script>-->
-
-
 </body>
 </html>
