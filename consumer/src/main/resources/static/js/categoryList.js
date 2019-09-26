@@ -210,7 +210,7 @@ function categoryGoodsShow() {
         //热销榜
         var list=json.salaRanking;
         for(var i=0;i<list.length;i++){
-            var li="<li class='active'><p class='num num1'>"+i+1+"</p>";
+            var li="<li class='active'><p class='num num1'>"+(i+1)+"</p>";
             li+="<p class='pname'><a class='bigD_item' href='product_details.html?gid="+list[i].id+"' target='_blank'>"+list[i].title+"</a></p>";
             li+="<div class='pdetail'><p class='pic'><a class='bigD_item'  href='product_details.html?gid="+list[i].id+"' target='_blank'><img  src='"+list[i].mainImg+"'></a></p>";
             li+="<p class='name'><a class='bigD_item'  href='product_details.html?gid="+list[i].id+"' target='_blank'>"+list[i].title+"</a></p>";

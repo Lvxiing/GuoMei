@@ -75,4 +75,62 @@
         INNER JOIN category c ON c.category_id = b.`category_id`
         WHERE g.`goods_id`= #{gid}
     </select>
+
+    <select id="selectCategoryByLevel1" resultType="int">
+        SELECT DISTINCT(b.category_id)
+        FROM goods g
+                 INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
+        WHERE b.`category_id` IN (
+            SELECT category_id
+            FROM category
+            WHERE category_parent_id IN (
+                SELECT category_id
+                FROM category
+                WHERE category_id IN
+                      (
+                          SELECT category_id
+                          FROM category
+                          WHERE category_parent_id IN
+                                (
+                                    SELECT category_id
+                                    FROM category
+                                    WHERE category_parent_id = (
+                                        SELECT category_id
+                                        FROM category
+                                        WHERE category_id = #{cid}
+                                    )
+                                )
+                      )
+            )
+        )
+    </select>
+
+    <select id="selectCategoryByLevel2" resultType="int">
+
+        SELECT DISTINCT(b.category_id)
+        FROM goods g
+                 INNER JOIN brand b ON b.`brand_id` = g.`brand_id`
+        WHERE b.`category_id` IN (
+            SELECT category_id
+            FROM category
+            WHERE category_parent_id IN (
+                SELECT category_id
+                FROM category
+                WHERE category_id IN
+                      (
+                          SELECT category_id
+                          FROM category
+                          WHERE category_parent_id =
+                                (
+                                    SELECT category_id
+                                    FROM category
+                                    WHERE category_id = #{cid}
+                                )
+                      )
+            )
+        )
+
+
+    </select>
+
 </mapper>
