@@ -143,7 +143,7 @@ public class CouponController {
 
     @ResponseBody
     @RequestMapping("couponFindAllQian")
-    public Map<String,Object> couponFindAllQian(Map<String, Object> map) {
+    public Map<String,Object> couponFindAllQian(@RequestParam Map<String, Object> map) {
         Map<String,Object> data = new HashMap<>();
         data.put("list",couponService.couponFindAllQian(map));
         return data;
