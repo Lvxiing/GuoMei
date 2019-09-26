@@ -1,6 +1,8 @@
 package com.cssl.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.cssl.entity.Growup;
 import com.cssl.entity.Score;
 import com.cssl.entity.ScoreType;
@@ -25,7 +27,7 @@ import java.util.Map;
  * @author lx
  * @since 2019-09-10
  */
-@Controller
+@RestController
 @RequestMapping("/score")
 public class ScoreController {
     @Autowired
@@ -34,7 +36,6 @@ public class ScoreController {
     private Score_typeService score_typeService;
 
     @RequestMapping("/updateScoreSum")
-    @ResponseBody
     public int updateScoreSum(@RequestParam Map map)
     {
         //判断数据库里有没有该用户的相关记录
@@ -84,4 +85,15 @@ public class ScoreController {
         }
 
     }
+
+    @RequestMapping("/consumeScore/{userId}")
+    public  int  consumeScore(@PathVariable("userId") Integer userId){
+        return scoreService.consumeScore(userId);
+    }
+
+
+
+
+
+
 }

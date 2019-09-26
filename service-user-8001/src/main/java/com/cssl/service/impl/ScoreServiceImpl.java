@@ -6,6 +6,7 @@ import com.cssl.service.ScoreService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import java.util.Map;
  * @since 2019-09-10
  */
 @Service
+@Transactional
 public class ScoreServiceImpl extends ServiceImpl<ScoreMapper, Score> implements ScoreService {
     @Autowired
     private  ScoreMapper scoreMapper;
@@ -30,5 +32,10 @@ public class ScoreServiceImpl extends ServiceImpl<ScoreMapper, Score> implements
     @Override
     public int updateCartScoreSum(Map map) {
         return scoreMapper.updateCartScoreSum(map);
+    }
+
+    @Override
+    public int consumeScore(Integer userId) {
+        return scoreMapper.consumeScore(userId);
     }
 }
