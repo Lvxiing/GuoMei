@@ -421,6 +421,7 @@ $("#container").on("click","[name=toCollect]",function () {
             var sumPrice=$("[name=sumPrice]").text();
             if (sumPrice!=0){
                 sumPrice=sumPrice- $("[name=diQian]").text();
+                sumPrice = Math.floor(sumPrice * 100) / 100;
                 $("[name=sumPrice]").text(sumPrice);
             }
         }else{     //不使用美豆抵钱

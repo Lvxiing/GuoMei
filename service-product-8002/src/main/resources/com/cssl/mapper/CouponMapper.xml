@@ -38,7 +38,7 @@
     </select>
 
     <select id="couponFindAllQian" parameterType="map" resultType="map">
-        SELECT * FROM category c
+        SELECT *,(SELECT  COUNT(0) FROM  coupon_receive r WHERE  r.`coupon_id` = p.coupon_id ) AS count FROM category c
         INNER JOIN coupon p ON c.category_id = p.category_id
         <where>
             <if test="time!=null and time!='' ">
