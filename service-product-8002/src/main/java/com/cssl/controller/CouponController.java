@@ -11,6 +11,7 @@ import com.cssl.service.CouponService;
 import com.cssl.service.Coupon_receiveService;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
@@ -147,5 +148,19 @@ public class CouponController {
         Map<String,Object> data = new HashMap<>();
         data.put("list",couponService.couponFindAllQian(map));
         return data;
+    }
+    @RequestMapping("addCouponReceive")
+    @ResponseBody
+    public String addCouponReceive(Map<String,Object>map){
+        CouponReceive couponReceive = new CouponReceive();
+        couponReceive.setStatus(0);
+        couponReceive.setTime(new Date());
+        couponReceive.setUserId(Integer.valueOf(map.get("uid").toString()));
+        couponReceive.setCouponId(Integer.valueOf(map.get("id").toString()));
+        if (couponReceiveService.save(couponReceive)) {
+            String json = "{\"code\":\"success\"}";
+            return json;
+        }
+        return "{\"msg\":\"修改失败\"}";
     }
 }
