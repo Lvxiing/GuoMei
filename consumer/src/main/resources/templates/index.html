@@ -26,7 +26,12 @@
     <script src="js/jquery-1.8.3.js"></script>
     <script src="js/index/201908251728gmlibseaseajs3.0.0se.js"></script>
     <script src="js/index.js"></script>
+
+    <script src="layui/layui.js"></script>
+    <link rel="stylesheet" href="layui/css/layui.css">
+
 </head>
+
 <body class="home" v="201509v1" data-page="sy">
 <!-- 返利的导航 -->
 <!--头部end--><!--newads-->
@@ -786,6 +791,60 @@
         <em class="turst-gome"></em>
     </div>
 </div>
+
+
+<div id="gome-bar">
+    <div class="gome-aside">
+        <ul>
+
+            <li id="gome-aside-service">
+                <b></b><a name="onlineChat" class="live800-service"  href="javascript:void(0);" ><i></i></a>
+                <div><p><a name="onlineChat" class="live800-service" href="javascript:void(0);" >在线客服</a></p>
+                </div>
+            </li>
+            <li id="gome-aside-backtop">
+                <b></b><a href="javascript:void(0)"><i></i></a>
+                <div><p><a>返回顶部</a></p></div>
+            </li>
+        </ul>
+
+        <script>
+
+            $(function(){
+
+                layui.use(['layer'],function () {
+                    var layer = layui.layer ,
+                        $ = layui.jquery; //弹层
+
+
+                    $("[name=onlineChat]").click(function () {
+                        layer.open({
+                            //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                            type:2,
+                            title: "国美在线客服聊天",
+                            area: [ '400px', '325px' ],
+                            content:['onlineChat.html' ,'no']
+                        });
+
+                    })
+
+                })
+
+
+            })
+
+        </script>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
 
 <!--楼层导航栏--->
 <div id="elevator" class="elevator" style="z-index: 960; position: fixed; left: 5px; top: 128.5px; display: none;">

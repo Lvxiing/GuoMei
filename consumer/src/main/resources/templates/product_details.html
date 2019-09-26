@@ -1019,65 +1019,51 @@
 <!--foot-->
 <div id="gome-bar">
     <div class="gome-aside">
-    </div>
-    <!-- gome-aside -->
-    <div id="gome-aside-app-code">
-        <a data-code="1000043134" href="javascript:;" target="_blank">
-            <img src="picture/grey.gif" gome-src="//gfs11.gomein.net.cn/T1uBW_B5hv1RCvBVdK.png">
-            <strong>moren</strong></a>
-    </div>
+        <ul>
 
-    <div id="gome-bar-box">
-        <div id="gome-bar-member" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="member-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
+            <li id="gome-aside-service">
+                <b></b><a name="onlineChat" class="live800-service"  href="javascript:void(0);" ><i></i></a>
+                <div><p><a name="onlineChat" class="live800-service" href="javascript:void(0);" >在线客服</a></p>
                 </div>
-            </div>
-        </div>
-        <div id="gome-bar-cart" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="cart-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
-                </div>
-            </div>
-        </div>
-        <div id="gome-bar-coupon" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="coupon-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
-                </div>
-            </div>
-        </div>
-        <div id="gome-bar-favorites" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span><span class="gome-bar-title">我的收藏</span></h3>
-            <ul class="favorites-tab">
-                <li class="tab-item tab-item-goods selected">商品</li>
-                <li class="tab-item tab-item-shop">店铺</li>
-                <li class="tab-item tab-item-brand">品牌</li>
-            </ul>
-            <div id="favorites-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
-                </div>
+            </li>
+            <li id="gome-aside-backtop">
+                <b></b><a href="javascript:void(0)"><i></i></a>
+                <div><p><a>返回顶部</a></p></div>
+            </li>
+        </ul>
 
-                <div id="favorites-main-scrool" class="favorites-main">
-                    <div class="main-item main-item-goods">
-                    </div>
-                    <div class="main-item main-item-shop">
-                    </div>
-                    <div class="main-item main-item-brand">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- gome-bar-coupon -->
+        <script>
+
+            $(function(){
+
+                layui.use(['layer'],function () {
+                    var layer = layui.layer ,
+                        $ = layui.jquery; //弹层
+
+
+                    $("[name=onlineChat]").click(function () {
+                        layer.open({
+                            //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                            type:2,
+                            title: "国美在线客服聊天",
+                            area: [ '400px', '325px' ],
+                            content:['onlineChat.html' ,'no']
+                        });
+
+                    })
+
+                })
+
+
+            })
+
+        </script>
+
+
     </div>
-    <!-- gome-bar-box -->
 </div>
+
+
 <!--收藏信息弹出时背后阴影部分-->
 <div id="popLock"
      style="opacity: 0.15; position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgb(0, 0, 0); z-index: 9999; display: none;"></div>

@@ -19,4 +19,10 @@
         UPDATE  `score` SET `score_sum`=score_sum+#{score_sum}
         WHERE `user_id`=#{userId}
     </update>
+
+
+    <update id="consumeScore">
+        UPDATE  score  SET  `score_sum`=0  WHERE   `user_id`=#{userId}
+    </update>
+
 </mapper>

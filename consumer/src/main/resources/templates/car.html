@@ -522,21 +522,10 @@ $("[name=sumNum]").text(sumNum);
 <div id="gome-bar">
     <div class="gome-aside">
         <ul>
-            <li id="gome-aside-cart" class="lang">
-                <b></b><a href="javascript:void(0)" class="lang"><i class="caricon"></i><b class="car_num car_num_0"><s>0</s><span
-                    class="point"></span></b><span class="text">购物车</span></a>
-            </li>
-            <li id="gome-aside-coupon">
-                <b></b><a href="javascript:void(0)"><i></i></a>
-                <div><a>我的优惠券</a></div>
-            </li>
-            <li id="gome-aside-survey">
-                <b></b><a rel="nofollow" data-code="1000043132" href="javascript:;" target="_blank"><i></i></a>
-                <div><p><a rel="nofollow" data-code="1000043132" href="javascript:;" target="_blank">有奖调研</a></p></div>
-            </li>
+
             <li id="gome-aside-service">
-                <b></b><a class="live800-service" customer-entry="composite" customer-service-button-id=""><i></i></a>
-                <div><p><a class="live800-service" customer-entry="composite" customer-service-button-id="">在线客服</a></p>
+                <b></b><a name="onlineChat" class="live800-service"  href="javascript:void(0);" ><i></i></a>
+                <div><p><a name="onlineChat" class="live800-service" href="javascript:void(0);" >在线客服</a></p>
                 </div>
             </li>
             <li id="gome-aside-backtop">
@@ -544,71 +533,36 @@ $("[name=sumNum]").text(sumNum);
                 <div><p><a>返回顶部</a></p></div>
             </li>
         </ul>
-    </div>
-    <!-- gome-aside -->
-    <div id="gome-bar-border">
-        <ul id="gome-bar-border-tab">
-            <li class="gome-bar-btn-member" data-open="member"><b></b><i class="membericon"></i><a
-                    class="gome-bar-btn-tip" rel="nofollow" href="javascript:void(0);">国美会员</a></li>
-            <li class="gome-bar-btn-cart" data-open="cart" id="gome-bar-btn-cart"><b class="car_arrow"></b><i
-                    class="caricon"></i><b class="car_num car_num_0"><s>0</s><span class="point"></span></b><span
-                    class="text">购物车</span></li>
-            <li class="gome-bar-btn-coupon" data-open="coupon"><b></b><i class="caricon"></i></li>
-            <li class="gome-bar-btn-favorites" data-open="favorites" id="gome-bar-btn-favorites"><b></b><i
-                    class="favorites-icon"></i><a class="gome-bar-btn-tip" href="javascript:void(0);">我的收藏</a></li>
-        </ul>
-    </div>
-    <!-- gome-bar-border -->
-    <div id="gome-bar-box">
-        <div id="gome-bar-member" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="member-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
-                </div>
-            </div>
-        </div>
-        <div id="gome-bar-cart" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="cart-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
-                </div>
-            </div>
-        </div>
-        <div id="gome-bar-coupon" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="coupon-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
-                </div>
-            </div>
-        </div>
-        <div id="gome-bar-favorites" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span><span class="gome-bar-title">我的收藏</span></h3>
-            <ul class="favorites-tab">
-                <li class="tab-item tab-item-goods selected">商品</li>
-                <li class="tab-item tab-item-shop">店铺</li>
-                <li class="tab-item tab-item-brand">品牌</li>
-            </ul>
-            <div id="favorites-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
-                </div>
 
-                <div id="favorites-main-scrool" class="favorites-main">
-                    <div class="main-item main-item-goods">
-                    </div>
-                    <div class="main-item main-item-shop">
-                    </div>
-                    <div class="main-item main-item-brand">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- gome-bar-coupon -->
+        <script>
+
+            $(function(){
+
+                layui.use(['layer'],function () {
+                    var layer = layui.layer ,
+                        $ = layui.jquery; //弹层
+
+
+                    $("[name=onlineChat]").click(function () {
+                        layer.open({
+                            //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                            type:2,
+                            title: "国美在线客服聊天",
+                            area: [ '400px', '325px' ],
+                            content:['onlineChat.html' ,'no']
+                        });
+
+                    })
+
+                })
+
+
+            })
+
+        </script>
+
+
     </div>
-    <!-- gome-bar-box -->
 </div>
 <!--aside-->
 <script>

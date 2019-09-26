@@ -16,4 +16,6 @@ import java.util.Map;
 public interface ScoreService extends IService<Score> {
     int   updateScoreSum(Map map);
     int updateCartScoreSum(Map map);
+
+    int consumeScore(Integer userId);
 }

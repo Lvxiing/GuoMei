@@ -98,6 +98,11 @@ public interface UserFeignInterface {
     @RequestMapping("/collection/delCollection/{collectionId}")
      boolean  delCollection(@PathVariable("collectionId") Integer collectionId);
 
+    @RequestMapping("/score/consumeScore/{userId}")
+      int  consumeScore(@PathVariable("userId") Integer userId);
+
+
+
     //**********后台***********
 
     @RequestMapping("/users/adminLogin")
