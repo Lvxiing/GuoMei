@@ -127,7 +127,7 @@ public class CategoryController {
             Category goodsCate = categoryService.getOne(new QueryWrapper<Category>().eq("category_id", catId));
             //父级分类id
             Integer catParentId = goodsCate.getParentId();
-            if (goodsCate != null && catParentId != 0) {//注意Long值比较
+            if (goodsCate != null && catParentId != 0) {
                 //父级分类名称
                 Category pCategory = categoryService.getOne(new QueryWrapper<Category>().eq("category_id", catParentId));
                 String catParentName = pCategory.getName();
@@ -148,6 +148,9 @@ public class CategoryController {
     }
 
 
+
+
+
     //根据分类显示商品
     @RequestMapping("categoryGoodsShow")
     @ResponseBody
@@ -157,16 +160,28 @@ public class CategoryController {
         Integer level = new Integer(map.get("level").toString());
         Category category = categoryService.getOne(new QueryWrapper<Category>().eq("category_id", cid));
         PageInfo<Map<String, Object>> pages = new PageInfo<>();
-        List list = new ArrayList();
+        List<Integer> list=null;
+
+        if(level == 1){
+            list = categoryService.selectCategoryByLevel1(cid);
+        }
+
+        if(level == 2){
+            list = categoryService.selectCategoryByLevel2(cid);
+        }
+
         if (level == 3) {
+            list= new ArrayList();
             List<TreeCategory> categoryAndChild = findCategoryAndChild(cid);
             for (TreeCategory t : categoryAndChild) {
                 list.add(t.getCid());
             }
         }
         if (level == 4) {
+            list= new ArrayList();
             list.add(cid);
         }
+
         Page<Map<String, Object>> page = goodsService.categoryGoodsShow(map, list);
         pages.setList(page.getResult());
         pages.setPageNo(page.getPageNum());

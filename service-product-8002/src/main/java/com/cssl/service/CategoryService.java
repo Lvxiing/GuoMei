@@ -53,4 +53,9 @@ public interface CategoryService extends IService<Category> {
 
     //查询当前品牌的父分类
     Map findBrandIsParentCategory(Integer id);
+
+
+    List<Integer> selectCategoryByLevel1(Integer cid);
+
+    List<Integer> selectCategoryByLevel2(Integer cid);
 }

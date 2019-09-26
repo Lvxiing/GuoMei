@@ -51,4 +51,9 @@ public interface CategoryMapper extends BaseMapper<Category> {
 
     //根据商品编号查询该商品所在的分类信息
     Category findCategoryByGoodsId(Integer gid);
+
+
+    List<Integer> selectCategoryByLevel1(Integer cid);
+
+    List<Integer> selectCategoryByLevel2(Integer cid);
 }
