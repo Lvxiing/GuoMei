@@ -38,7 +38,7 @@ public class CouponController {
     @ResponseBody
     public String addCouponReceive(HttpSession session,@RequestParam Map<String,Object>map){
         Users user = (Users)session.getAttribute("user");
-        map.put("uid",31);
+        map.put("uid",user.getId());
         return productFeignInterface.addCouponReceive(map);
     }
 
