@@ -36,7 +36,7 @@ public interface ProductFeignInterface {
     Map<String,Object> couponFindAllQian(@RequestParam Map<String, Object> map);
 
     @RequestMapping("coupon/addCouponReceive")
-    String addCouponReceive(Map<String,Object>map);
+    String addCouponReceive(@RequestParam  Map<String,Object>map);
 
     //--------------------前台收货地址-------------------------
     //查询所有省份
