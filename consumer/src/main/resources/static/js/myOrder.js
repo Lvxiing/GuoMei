@@ -1,6 +1,6 @@
 $(function () {
     //定义页面显示数量
-    var pageSize=1;
+    var pageSize=5;
     var days =90;  //默认三个月
     var order_no="null";
     var status="null";
