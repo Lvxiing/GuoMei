@@ -5,17 +5,17 @@
     <title>在线聊天对话框网页</title>
     <link rel="stylesheet" type="text/css" href="css/chat.css" />
     <script src="js/jquery-1.8.3.js"></script>
-   <!-- <script type="text/javascript" src="js/chat.js"></script>-->
+
 
 
 
     <![endif]-->
 </head>
-<body style="width:400px;height: 325px;margin-top: -50px;margin-left: -50px;">
+<body style="width:400px;height: 325px;">
 
-<div class="kePublic" >
+
     <!--效果html开始-->
-    <div class="content">
+    <div class="content" style="width:400px;height:325px;padding-left:60px;padding-top:60px;margin-left:0px;">
         <div class="chatBox" style="width:400px;">
             <div class="chatLeft" style="width:400px;">
                 <div class="chat01">
@@ -60,7 +60,7 @@
                             <div class="wl_faces_content">
                                 <div class="title">
                                     <ul>
-                                        <li class="title_name">常用表情</li><li class="wl_faces_close"><span>&nbsp;</span></li></ul>
+                                        <li class="title_name">常用表情</li></ul>
                                 </div>
                                 <div class="wl_faces_main">
                                     <ul>
@@ -170,15 +170,13 @@
         </div>
     </div>
     <!--效果html结束-->
-</div>
+
 
 </body>
 </html>
 
 
 <script type="text/javascript">
-
-
 
     $(function () {
 
@@ -220,8 +218,36 @@
         });
 
 
+        var a = 3, b = "img/head/2024.jpg", c = "img/head/2015.jpg", d = "\u738b\u65ed";
+        $(".ctb01").mouseover(function () {
+            $(".wl_faces_box").show()
+        }).mouseout(function () {
+            $(".wl_faces_box").hide()
+        }), $(".wl_faces_box").mouseover(function () {
+            $(".wl_faces_box").show()
+        }).mouseout(function () {
+            $(".wl_faces_box").hide()
+        }), $(".wl_faces_close").click(function () {
+            $(".wl_faces_box").hide()
+        }), $(".wl_faces_main img").click(function () {
+            var a = $(this).attr("src");
+            $("#textarea").val($("#textarea").val() + "*#" + a.substr(a.indexOf("img/") + 4, 6) + "#*"), $(".wl_faces_box").hide()
+        })
+
+//发送消息
         $("[name=send]").click(function () {
-            var message = document.getElementById('textarea').value;
+            function h() {
+                -1 != message.indexOf("*#emo_") && (message = message.replace("*#", "<img src='img/").replace("#*", ".gif'/>"), h())
+            }
+
+            var message = $("#textarea").val();
+            h();
+
+            if (websocket == null){
+                alert("请先连接");
+                return false;
+            }
+
             if (message==""){
                alert("请输入您要咨询的问题");
                 return false;
