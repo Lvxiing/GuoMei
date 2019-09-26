@@ -32,7 +32,7 @@ public interface ProductFeignInterface {
 
     //--------------------前台优惠券模块-----------------------
     @RequestMapping("coupon/couponFindAllQian")
-    Map<String,Object> couponFindAllQian(Map<String, Object> map);
+    Map<String,Object> couponFindAllQian(@RequestParam Map<String, Object> map);
 
     //--------------------前台收货地址-------------------------
     //查询所有省份
