@@ -30,6 +30,9 @@ public interface ProductFeignInterface {
     @RequestMapping("index/mainImagesData")
     public List<ImagesInfo> mainImagesData();
 
+    //--------------------前台优惠券模块-----------------------
+    @RequestMapping("coupon/couponFindAllQian")
+    List<Map<String, Object>> couponFindAllQian(Map<String, Object> map);
 
     //--------------------前台收货地址-------------------------
     //查询所有省份
