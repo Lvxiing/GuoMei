@@ -155,8 +155,17 @@ public class CouponController {
         CouponReceive couponReceive = new CouponReceive();
         couponReceive.setStatus(0);
         couponReceive.setTime(new Date());
-        couponReceive.setUserId(Integer.valueOf(map.get("uid").toString()));
-        couponReceive.setCouponId(Integer.valueOf(map.get("id").toString()));
+        Integer id = Integer.valueOf(map.get("id").toString());
+        Integer uid = Integer.valueOf(map.get("uid").toString());
+        couponReceive.setUserId(uid);
+        couponReceive.setCouponId(id);
+        //查询用户要领取的优惠券
+        Coupon coupon= couponService.getOne(new QueryWrapper<Coupon>().eq("coupon_id", id));
+        int userCount = couponReceiveService.count(new QueryWrapper<CouponReceive>().eq("user_id", uid));
+        if(userCount >= coupon.getCouponCount() ){
+            String json = "{\"code\":\"error\"}";
+            return json;
+        }
         if (couponReceiveService.save(couponReceive)) {
             String json = "{\"code\":\"success\"}";
             return json;
