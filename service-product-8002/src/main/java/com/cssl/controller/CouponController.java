@@ -4,9 +4,11 @@ package com.cssl.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cssl.entity.Category;
 import com.cssl.entity.Coupon;
+import com.cssl.entity.CouponReceive;
 import com.cssl.entity.PageInfo;
 import com.cssl.service.CategoryService;
 import com.cssl.service.CouponService;
+import com.cssl.service.Coupon_receiveService;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +42,9 @@ public class CouponController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private Coupon_receiveService couponReceiveService;
 
     //--------------------------后台--------------------------
     @RequestMapping("addCoupon")
@@ -137,7 +143,9 @@ public class CouponController {
 
     @ResponseBody
     @RequestMapping("couponFindAllQian")
-    public List<Map<String, Object>> couponFindAllQian(Map<String, Object> map) {
-        return couponService.couponFindAllQian(map);
+    public Map<String,Object> couponFindAllQian(Map<String, Object> map) {
+        Map<String,Object> data = new HashMap<>();
+        data.put("list",couponService.couponFindAllQian(map));
+        return data;
     }
 }
