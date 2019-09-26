@@ -1140,7 +1140,7 @@
                 var dateee = new Date(data.times).toJSON();
                 var times = new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
                 if (data.code == 'yes') {
-                    location.href = "order_succeed.html?orderNo=" + guid() + data.orderNo + "&times=" + times + "&payno=" + guid() + data.payno+"ifUseScore="+GetRequest().ifUseScore;
+                    location.href = "order_succeed.html?orderNo=" + guid() + data.orderNo + "&times=" + times + "&payno=" + guid() + data.payno+"&ifUseScore="+GetRequest().ifUseScore;
                 } else {
                     location.href = "gm-ferror.html";
                 }
