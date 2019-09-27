@@ -25,6 +25,8 @@
 
     <link rel="stylesheet" href="//g.alicdn.com/tp/refund/1.6.3/aio-tmall.css"/>
     <script src="js/jquery-1.8.3.js"></script>
+    <script src="layui/layui.js"></script>
+    <link rel="stylesheet" href="layui/css/layui.css">
 </head>
 <body class="myRefundDetail" data-page="myhome">
 <script type="text/javascript">
@@ -161,7 +163,7 @@
                              style="margin:0 28px 0 0;padding-bottom:18px;width:450px;">
                             <div id="applyTypesLeftContainer_8"
                                  class="mod-applytype-item applyTypeItem applyrouter-applyTypesLeftContainer">
-                                <a href=""
+                                <a href="#" id="tk"
                                    title="我要退款(无需退货)"><img
                                         src="//img.alicdn.com/tps/TB1a6D0KFXXXXXvXFXXXXXXXXXX-98-88.png"
                                         alt="我要退款(无需退货)">
@@ -177,7 +179,7 @@
                          style="padding-bottom:18px;width:450px;">
                         <div id="applyTypesRightContainer_6"
                              class="mod-applytype-item applyTypeItem applyrouter-applyTypesRightContainer">
-                            <a href="" title="我要退货退款"><img
+                            <a href="#" title="我要退货退款" id="tkth"><img
                                     src="//img.alicdn.com/tps/TB1NHfKKFXXXXaUaXXXXXXXXXXX-102-102.png" alt="我要退货退款">
                                 <div class="mod-applytype-col">
                                     <h3 class="mod-applytype-tit" style="margin-top: 16px">我要退货退款</h3></div>
@@ -333,6 +335,8 @@
         ono = ono.substring(36, ono.length);
         var gid = url.gid;
         selectGoodsInfo(gid, ono);
+        returnInfo1();
+        returnInfo2();
     })
 
     //查询当前进行退货的商品信息
@@ -354,6 +358,50 @@
             }
         }
         return theRequest;
+    }
+
+    function returnInfo1() {
+        layui.use(['layer'], function () {
+            var layer = layui.layer; //弹层
+            var re=GetRequest();
+            $("#tk").click(function () {
+                layer.confirm('确定退款?', function(){
+                     var non=re.ono.substring(36);
+                     var gid=re.gid;
+                     $.getJSON("/Orders/returnMoney",{"no":non,"gid":gid,"bs":1},function (json) {
+                         if(json.code=="success"){
+                             layer.msg("申请成功.....",{icon:1});
+                         }else{
+                             layer.msg("申请提交失败....",{icon:2});
+                         }
+                     });
+
+                });
+            });
+        });
+
+    }
+
+    function returnInfo2() {
+        layui.use(['layer'], function () {
+            var layer = layui.layer; //弹层
+            var re=GetRequest();
+            $("#tkth").click(function () {
+                layer.confirm('确定退货退款?', function(){
+                    var non=re.ono.substring(36);
+                    var gid=re.gid;
+                    $.getJSON("/Orders/returnMoney",{"no":non,"gid":gid,"bs":2},function (json) {
+                        if(json.code=="success"){
+                            layer.msg("申请成功.....",{icon:1});
+                        }else{
+                            layer.msg("申请提交失败....",{icon:2});
+                        }
+                    });
+
+                });
+            });
+        });
+
     }
 </script>
 </body>
