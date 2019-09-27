@@ -79,4 +79,18 @@
             </if>
         </where>
     </select>
+
+    <select id="findMyCoupon" resultType="map" parameterType="map">
+
+        SELECT * FROM category c
+        INNER JOIN  coupon p ON c.category_id = p.category_id
+        INNER JOIN coupon_receive r ON r.coupon_id = p.coupon_id
+        where p.category_id IN
+            <foreach item="item" index="index" collection="list"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+
+        AND user_id = #{uid} AND r.status = 0
+    </select>
 </mapper>

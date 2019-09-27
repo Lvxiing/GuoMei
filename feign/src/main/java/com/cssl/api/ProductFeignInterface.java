@@ -44,6 +44,9 @@ public interface ProductFeignInterface {
     @RequestMapping("coupon/userCouponCount")
     Map<String,Object> userCouponCount(@RequestParam Integer uid);
 
+    @RequestMapping("category/findCoupon")
+    List<Map<String, Object>> findCoupon(@RequestParam("uid")Integer uid,@RequestParam("goodsId") String goodsId);
+
     //--------------------前台收货地址-------------------------
     //查询所有省份
     @RequestMapping("province/findProvince")

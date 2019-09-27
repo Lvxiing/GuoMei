@@ -49,4 +49,9 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
     public int userCouponCount(Integer type, Integer uid) {
         return couponMapper.userCouponCount(type,uid);
     }
+
+    @Override
+    public List<Map<String, Object>> findMyCoupon(Map<String, Object> map) {
+        return couponMapper.findMyCoupon(map);
+    }
 }
