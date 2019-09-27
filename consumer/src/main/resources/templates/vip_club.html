@@ -687,17 +687,15 @@
                 $("#userName").text(result[i].userName);
                 $("[name=gradeId]").text(result[i].gradeId);
                 $("#gradeName").text(result[i].gradeName);
-                $("#growupSum").text(result[i].growupSum + " / " + result[i].high);
                 $("#scoreSum").text(result[i].scoreSum);
                 $("#headImg").attr("src", result[i].headImg);
-                var balance = result[i].high - result[i].growupSum;
-                $("#balance").text(balance);
                 var percent = result[i].growupSum / result[i].high * 100;
                 $("#length").attr("style", "width: " + percent.toFixed(0) + "%;");
                 $("[name=couponCount]").text(result[i].userCouponCount);
             }
-
-
+            $("#growupSum").text(result[0].growupSum + " / " + result[0].high);
+            var balance = result[0].high - result[0].growupSum;
+            $("#balance").text(balance);
             vipGood();
         });
 
