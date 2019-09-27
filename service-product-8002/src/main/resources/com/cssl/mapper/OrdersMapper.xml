@@ -26,7 +26,7 @@
     </resultMap>
     <!--查询申请退货信息-->
      <select id="returnInfo" resultType="map">
-         SELECT o.`order_no`,o.`order_id`,u.`user_id`,a.`address_name`,a.`address_detail`,o.`order_time`,d.`detail_money`,g.`goods_main_img`,g.`goods_title`,d.`detail_num`,d.`detail_status`,goods_price
+         SELECT  d.`detail_id`,o.`order_no`,o.`order_id`,u.`user_id`,a.`address_name`,a.`address_detail`,o.`order_time`,d.`detail_money`,g.`goods_main_img`,g.`goods_title`,d.`detail_num`,d.`detail_status`,goods_price
          FROM orders o
                   INNER JOIN order_detail d ON o.`order_id`=d.`order_id`
                   INNER JOIN users u ON u.`user_id`=o.`user_id`

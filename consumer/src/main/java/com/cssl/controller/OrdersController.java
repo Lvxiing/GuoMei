@@ -183,5 +183,15 @@ public class OrdersController {
         return map;
     }
 
-
+    //申请退款修改状态
+    @RequestMapping("/updateReturnStatus")
+    @ResponseBody
+    public String updateReturnStatus(@RequestParam("detail_id")Integer detail_id){
+        boolean b = productFeignInterface.updateReturnStatus(detail_id);
+        String json="{\"abc\":\"false\"}";
+        if(b){
+            json="{\"abc\":\"true\"}";
+        }
+        return json;
+    };
 }

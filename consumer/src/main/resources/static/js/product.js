@@ -20,7 +20,7 @@ $(function () {
         evaluate(pageNo);
     });
 
-    good();
+    // good();
 
 
 });
@@ -139,6 +139,7 @@ function info() {
 
     });
 }
+
 function goods(vip,leven,gid) {
     $.getJSON("../../Goods/vipInfo",{"gid":parseInt(gid)},function(json){
         var id=parseInt(json.grade_name.substring(1));
@@ -275,18 +276,18 @@ function besimilarGoods(name) {
 }
 
 //判断点击商品是否低于会员等级
-function good() {
-    var re=GetRequest();
-    $.getJSON("../../Goods/vipInfo",{"gid":parseInt(re.gid)},function(json){
-        var id=parseInt(json.grade_name.substring(1));
-        if(re.leven>id){
-            var vipprice=json.goods_price-json.Discount_money;
-            vipPrice(json.goods_price,json.grade_name,vipprice);
-        }else{
-            vipPrice(json.goods_price,"","");
-        }
-    });
-}
+// function good() {
+//     var re=GetRequest();
+//     $.getJSON("../../Goods/vipInfo",{"gid":parseInt(re.gid)},function(json){
+//         var id=parseInt(json.grade_name.substring(1));
+//         if(re.leven>id){
+//             var vipprice=json.goods_price-json.Discount_money;
+//             vipPrice(json.goods_price,json.grade_name,vipprice);
+//         }else{
+//             vipPrice(json.goods_price,"","");
+//         }
+//     });
+// }
 
 
 //显示会员价
