@@ -145,7 +145,7 @@
     <div class="clearfix commitOrderBody">
         <p class="text-right  clearfix"><span class="w185 fr pr20" id="totalMoney">¥20.80</span><span class="fr"><em
                 class="fontRed" id="num">1</em>件商品，总金额：</span></p>
-        <p class="text-right  clearfix"><span class="w185 fr pr20" id="volume">-¥0.00</span><span class="fr">优惠券：</span></p>
+        <p class="text-right  clearfix"><span class="w185 fr pr20" id="volume">-¥0.00</span><span class="fr">优惠券：</span><input type="hidden" id="input"/></p>
         <p class="text-right  clearfix"><span class="w185 fr pr20" id="meidou">-¥0.00</span><span class="fr">美豆：</span>
         </p>
         <div style="height:28px;"></div>
@@ -1015,25 +1015,55 @@
         //选中优惠卷
         var couponMoney = 0;
         var num=0;
+        var couponIdList=[];
+        var id="";
         $(".coupon-group li").live("click", this, function () {
             $(this).toggle(function () {
                 num++;
+                //获取卷id
+                 id=id+$(this).attr("couponId")+",";
+                couponIdList.push({"id":$(this).attr("couponId")});
+                //设置input隐藏域的属性值(优惠卷id)
+                $("#input").attr("couponIds",id);
+
                 $(this).append("<em class='c-i coupon-select'></em>");
                 $(this).find("div#select").addClass("checkcoupon");
-                couponMoney = couponMoney +parseInt( $(this).attr("couponMoney"));
+                var couponMoneys=parseInt( $(this).attr("couponMoney"));
+                 couponMoney = couponMoney +couponMoneys;
                 $("#money").text("¥" + couponMoney + "");
                 $("#dictMoney").text("¥" + couponMoney + "");
                 $("#nums").text(num);
-                $("#volume").text(couponMoney);
+                $("#volume").text("-¥"+couponMoney);
+                var sum=$("#sum").text();
+                 sum=parseInt(sum.substring(1));
+                $("#sum").text("¥"+(sum-couponMoneys));
             }, function () {
                 num--;
                 $(this).find("em").remove();
                 $(this).find("div#select").removeClass("checkcoupon");
-                couponMoney = couponMoney -parseInt( $(this).attr("couponMoney"));
+                var couponMoneys=parseInt( $(this).attr("couponMoney"));
+                couponMoney = couponMoney -couponMoneys;
                 $("#money").text("¥" + couponMoney + "");
                 $("#dictMoney").text("¥" + couponMoney + "");
                 $("#nums").text(num);
-                $("#volume").text(couponMoney);
+                $("#volume").text("-¥"+couponMoney);
+                var sum=$("#sum").text();
+                sum=parseInt(sum.substring(1));
+                $("#sum").text("¥"+(sum+couponMoneys));
+                var cid=$(this).attr("couponId");
+                for(var i=0;i<couponIdList.length;i++){
+                    if (couponIdList[i].id == cid) {
+                        couponIdList.splice(i, 1);//删除元素
+                        break;
+                    }
+                }
+                var d="";
+                for (var i = 0; i < couponIdList.length; i++) {
+                    d += couponIdList[i].id + ",";
+                }
+                //重新设置input隐藏域的属性值(优惠卷id)
+                id=d;
+                $("#input").attr("couponIds",d);
             });
             //先触发click，不然第一次失效
             $(this).trigger("click");
@@ -1048,17 +1078,25 @@
                     data: {"goodsId": url.goodsId},
                     async: false,
                     success: function (json) {
+                        if(json.length>0){
+                            $("#juan").show();
+                            $("#juans").show();
+                        }else{
+                            $("#juan").hide();
+                            $("#juans").hide();
+                        }
                         for (var i = 0; i < json.length; i++) {  //选中画勾 class="checkcoupon"选中样式
                             var dateee2 = new Date(json[i].end_time).toJSON();
                             var times2 = new Date(+new Date(dateee2) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-                            var li = "<li class='coupon-red  easy coupon-select'  couponMoney='" + json[i].coupon_money + "'><p class='c-i coupon-border-select'></p><p class='c-i coupon-border-red'></p>";
+                            var li = "<li class='coupon-red  easy coupon-select'  couponMoney='" + json[i].coupon_money + "' couponId='"+json[i].coupon_id+"'><p class='c-i coupon-border-select'></p><p class='c-i coupon-border-red'></p>";
                             li += " <div id='select'><div class='coupon normal' g-click='changeCvsitem vrbsos.cvs.0 N 5'><span style='font-size: 14px;'>¥</span> <span class='num mr5'>" + json[i].coupon_money + "</span>  ";
                             li += "<p><span class='info infonormal'>线上专享</span><span class='condition'>满" + json[i].full_money + "</span> <span class='expiredate enormal'>    ";
                             li += "有效期至<em class='fontArial'>" + times2 + "</em> </span></p></div> ";
-                            li += "<div class='txt name_over2 useInfoBox'><span class='useInfoT' >  [ 使用说明 ]  </span>";
-                            li += " <span class='useListT'>[ 可用商品 ]</span> </div></div><p class='unavailReason'></p></li>";
+                            li += "<div class='txt name_over2 useInfoBox'>";
+                            li += "<span class='useListT'>[ "+json[i].coupon_name+"]</span> </div></div><p class='unavailReason'></p></li>";
                             $(".coupon-group").append(li);
                         }
+
                     }
                 }
             );
