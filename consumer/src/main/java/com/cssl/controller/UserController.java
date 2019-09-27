@@ -173,7 +173,13 @@ public  Map   redisGetgdetailId(@PathVariable("gdetailId") String gdetailId){
       Users  users =  (Users) session.getAttribute("user");
       Map map=new HashMap();
       map.put("userId",users.getId());
-        return userFeignInterface.findVip(map);
+        List<Map> vipList = userFeignInterface.findVip(map);
+        Map hm=new HashMap();
+        //该用户获得的可以使用的优惠券数量
+        int userCouponCount = userFeignInterface.userCouponCount(users.getId());
+        hm.put("userCouponCount",userCouponCount);
+vipList.add(hm);
+        return vipList;
     }
 
     //该会员获得的成长值明细
@@ -259,7 +265,6 @@ public boolean  dayIfSignIn(HttpSession session) throws Exception{
        return false;
     }
 }
-
 
 
 

@@ -183,7 +183,7 @@
 
                 <ul class="club-info-coupon">
                     <li js-data="userShopInt">我的美豆：<b id="scoreSum"></b></li>
-                    <li js-data="userCoupon">优<i class="char"></i>惠<i class="char"></i>券：<b>0</b>张</li>
+                    <li js-data="userCoupon">优<i class="char"></i>惠<i class="char"></i>券：<b  name="couponCount">0</b>张</li>
                 </ul>
             </div>
 
@@ -694,9 +694,13 @@
                 $("#balance").text(balance);
                 var percent = result[i].growupSum / result[i].high * 100;
                 $("#length").attr("style", "width: " + percent.toFixed(0) + "%;");
+                $("[name=couponCount]").text(result[i].userCouponCount);
             }
+
+
             vipGood();
         });
+
 
         //判断该用户今日是否已签到过了
         $.getJSON("/users/dayIfSignIn",function (result) {

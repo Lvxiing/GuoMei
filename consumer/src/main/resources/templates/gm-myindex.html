@@ -184,10 +184,10 @@
                                 <div class="myGome-gomeb clearfix"></div>
                                 <div class="clearfix" style="padding:10px 0;">
                                     <div class="myGome-fanli fl">
-                                        <p class="clearfix"><span>美&nbsp;&nbsp;&nbsp;豆：</span> <span class="gomefavourable"> <a href="gm-myMD.html" target="_blank" class="myGome-fanli-num moreZeroNum" name="scoreSum">0</a> </span></p>
+                                        <p class="clearfix"><span>美&nbsp;&nbsp;&nbsp;豆：</span> <span class="gomefavourable"> <a href="javascript:void(0);" class="myGome-fanli-num moreZeroNum" name="scoreSum">0</a> </span></p>
                                     </div>
                                     <div class="myGome-QMK fl">
-                                        <p class="clearfix"><span>优惠券：</span> <span class="gomefavourable"> <a href="gomeMyCoupon.html" target="_blank" class="myGome-fanli-num moreZeroNum">0</a> 张 </span></p>
+                                        <p class="clearfix"><span>优惠券：</span> <span class="gomefavourable"> <a href="javascript:void(0);" class="myGome-fanli-num moreZeroNum" name="couponCount">0</a> 张 </span></p>
                                        </div>
                                 </div>
                             </div>
@@ -243,7 +243,9 @@
                                 $("[name=userName]").text(result[i].userName);
                                 $("[name=gradeName]").text(result[i].gradeName);
                                 $("[name=scoreSum]").text(result[i].scoreSum);
+                                $("[name=couponCount]").text(result[i].userCouponCount);
                             }
+
                         });
 
                         //我的收藏显示3个商品

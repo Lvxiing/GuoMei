@@ -101,7 +101,8 @@ public interface UserFeignInterface {
     @RequestMapping("/score/consumeScore/{userId}")
       int  consumeScore(@PathVariable("userId") Integer userId);
 
-
+    @RequestMapping("/coupon_receive/userCouponCount/{userId}")
+     int   userCouponCount(@PathVariable("userId") Integer userId);
 
     //**********后台***********
 

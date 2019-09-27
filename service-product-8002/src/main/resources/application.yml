@@ -45,7 +45,7 @@ spring:
     database: 0
     host: 47.101.130.148
     password: lv85208520
-    timeout: 10s
+    timeout: 120s
     jedis:
       pool:
         max-active: 8
