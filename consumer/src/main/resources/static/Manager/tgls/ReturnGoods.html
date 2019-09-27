@@ -127,7 +127,7 @@
                 var mess = "确认同意退款吗?";
                 var msg = "退款成功";
                 layer.confirm(mess, function () {
-                    $.getJSON("/Orders/updateReturnStatus?detail_id="+data.detail_id, function (json) {
+                    $.getJSON("/Orders/updateReturnStatus?",{"detail_id":data.detail_id,"order_no":order_no,"detail_money":detail_money}, function (json) {
                         if (json.abc == 'true') {
                             layer.closeAll('dialog');//关闭当前confirm窗口
                             layer.msg(msg, {time: 800}, function () {
