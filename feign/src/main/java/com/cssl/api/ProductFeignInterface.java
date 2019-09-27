@@ -34,7 +34,7 @@ public interface ProductFeignInterface {
     //--------------------前台优惠券模块-----------------------
 
     @RequestMapping("coupon/findCouponQuanInfo")
-    Coupon findCouponQuanInfo(@RequestParam("cid") Integer cid);
+    Map<String,Object> findCouponQuanInfo(@RequestParam("cid") Integer cid);
 
     @RequestMapping("coupon/couponFindAllQian")
     Map<String,Object> couponFindAllQian(@RequestParam Map<String, Object> map);
