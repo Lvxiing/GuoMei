@@ -31,4 +31,5 @@ public class AlipayConfig {
 
     // 支付宝网关
     public static String log_path = "C:\\";
+
 }
