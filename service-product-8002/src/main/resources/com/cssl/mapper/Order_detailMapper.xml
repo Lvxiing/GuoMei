@@ -9,6 +9,7 @@
         <result column="goods_id" property="goodsId" />
         <result column="detail_money" property="money" />
         <result column="detail_num" property="num" />
+        <result column="detail_status" property="dstatus"/>
     </resultMap>
     <!--删除订单详情-->
     <delete id="deletOrderDetail" parameterType="int">

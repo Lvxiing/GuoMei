@@ -452,6 +452,9 @@
     </div>
 </div>
 <script type="text/javascript">
+    var userEmail = "1179765743@qq.com";
+    var uName;
+    var eSubject = "商品信息订单提交";
     $(function () {
         var userid;
         //从服务器拿到session
@@ -462,9 +465,10 @@
                 async: false,
                 success: function (data) {
                     userid = data.id;
+                    uName = data.userName;
                 }
             }
-        )
+        );
 
         //查看当前用户是否有地址
         $.getJSON("myGuoMei/selectAddressExist", {"uid": userid}, function (json) {
@@ -978,6 +982,8 @@
     });
 </script>
 <script type="text/javascript">
+    var gEImg;
+    var geTitle;
     $(function () {
         goodsList();
         selectCoupon();//查询是否有可用的优惠券
@@ -998,6 +1004,7 @@
                 var dateee = new Date(data.times).toJSON();
                 var times = new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
                 if (data.code == 'yes') {
+                    Send_Email();
                     location.href = "order_succeed.html?orderNo=" + guid() + data.orderNo + "&times=" + times + "&payno=" + guid() + data.payno + "&ifUseScore=" + GetRequest().ifUseScore;
                 } else {
                     location.href = "gm-ferror.html";
@@ -1130,6 +1137,8 @@
                             num += parseInt(g.num);
                             $("div.infoH").append(div);
                         }
+                        gEImg = g.img;
+                        geTitle = g.title;
                         $("#num").text(num);
                         money = Math.floor(money * 100) / 100;
                         $("#totalMoney").text("¥" + money);
@@ -1144,6 +1153,17 @@
                 }
             );
         }
+        //发送邮件
+    function Send_Email(){
+        $.ajax({
+            type:"post",
+            url:"email/send_email",
+            data: {"userEmail": userEmail, "uName": uName, "eSubject": eSubject,"Eimg":gEImg,"gTitle":geTitle},
+            success:function (json) {
+                alert("发送成功");
+            }
+        });
+    }
 
         function GetRequest() {
             var url = location.search; //获取url中"?"符后的字串
