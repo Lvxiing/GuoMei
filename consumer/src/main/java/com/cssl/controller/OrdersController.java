@@ -96,6 +96,7 @@ public class OrdersController {
     public Map<String,Object> findGoodsByOno(HttpSession session,@RequestParam Map<String,Object> map){
         Users users = (Users)session.getAttribute("user");
         map.put("uid",users.getId());
+        System.out.println("productFeignInterface.findGoodsByOno(map) = " + productFeignInterface.findGoodsByOno(map));
         return productFeignInterface.findGoodsByOno(map);
     }
 
