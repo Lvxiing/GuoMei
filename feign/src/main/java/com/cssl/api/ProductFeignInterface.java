@@ -205,6 +205,10 @@ public interface ProductFeignInterface {
 
     //----------------------------订单前台模块-----------------------------
 
+    //退款成功后
+    @RequestMapping("orders/returnSuccess")
+    String returnSuccess(@RequestParam Integer cid);
+
     //用户进行退款
     @RequestMapping("orders/returnMoney")
     String returnMoney(@RequestParam Map<String, Object> map);
