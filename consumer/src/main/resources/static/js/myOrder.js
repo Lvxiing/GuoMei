@@ -106,6 +106,16 @@ $(function () {
          findOrdersByUserId(1,pageSize,days,status,order_no);
      }
     total();
+    //取消订单
+    $("#cancel").live("click",this,function () {
+        //获取订单编号
+        var orderId=$(this).attr("orderId");
+        //获取订单状态
+        var status=$(this).attr("status");
+        $.getJSON("../../Orders/deleteOrders",{"orderId":orderId,"status":status},function (json) {
+                findOrdersByUserId(1,pageSize,days,"null","null");
+        });
+    });
 });
 
 
@@ -252,7 +262,7 @@ function findOrdersDetail(order_id,time,order_no,status,order_total,num,userName
 
         tr+="<td style='width:10%;text-align:center;'><p class='status'>"+statu+"</p>";
         tr+="<p class='car-logistics'></p> <div class='pop logistics' style='position:absolute'></div>";
-        tr+="<p class='pd-top-10'><a class='order-list-btn02 v-o' target='_blank' href='gm-orederList.html?oid="+data[0].oid+"&ono="+guid()+order_no+"' title='查看订单' style='color:#006699;'>查看订单</a></p></td>";
+        tr+="<p class='pd-top-10'><a class='order-list-btn02 v-o' target='_blank' href='gm-orederList.html?oid="+order_id+"' title='查看订单' style='color:#006699;'>查看订单</a></p></td>";
         //右侧信息(用户)
         tr+="<td style='width:10%;color:#888;padding-left:15px;' class='name_11926392274' id='num"+num+"' num='"+num+"'>";
         tr+="<div class='customer-receiver clearfix' orderid='11926392274' shipid=''><i class='order-list-consignee'></i><span class='receive-name'>"+userName+"</span>";
@@ -263,8 +273,8 @@ function findOrdersDetail(order_id,time,order_no,status,order_total,num,userName
         //判断是否为未付款订单
         tr+="<td style='width:10%;'>";
         tr+=" <div class='button_11926392274' style='padding-bottom:10px;' ordertype='2' orderid='11926392274'>";
-        tr+="<a class='modify v-o' style='display:block;' target='_blank' href='car.html' title='再次购买' buttontype=''>再次购买</a> ";
-        tr+="<a class='modify v-o' style='display:block;' title='取消订单' buttontype='1'>取消订单</a></div></td>";
+        tr+="<a class='modify v-o' style='display:block;' target='_blank' href='index.html' title='再次购买' buttontype=''>再次购买</a> ";
+        tr+="<a class='modify v-o' style='display:block;' title='取消订单' buttontype='1' id='cancel' orderId='"+order_id+"' status='"+status+"'>取消订单</a></div></td>";
 
 
         //
