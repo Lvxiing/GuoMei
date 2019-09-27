@@ -36,6 +36,8 @@ public class OrderDetail extends Model<OrderDetail> {
     @TableField(value = "detail_num")
     private Integer num;              //数量
 
+    @TableField(value= "detail_status") //订单中商品的状态
+    private Integer dstatus;
 
     @Override
     protected Serializable pkVal() {
