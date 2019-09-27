@@ -4,16 +4,20 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.alipay.api.request.AlipayTradeRefundRequest;
 import com.cssl.api.ProductFeignInterface;
 import com.cssl.api.RedisFeignInterface;
 import com.cssl.api.UserFeignInterface;
 import com.cssl.entity.Users;
 import com.cssl.util.AlipayConfig;
+import com.mongodb.util.JSON;
 import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("pay")
@@ -47,6 +52,35 @@ public class PayController {
         response.getWriter().write("success");
     }
 
+    @RequestMapping("refund")
+    public String refund(@RequestParam Map<String,Object> map, HttpServletResponse response,HttpSession session) throws IOException, AlipayApiException {
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        //获得初始化的AlipayClient
+        AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
+        //设置请求参数
+        AlipayTradeRefundRequest alipayRequest = new AlipayTradeRefundRequest();
+        //商户订单号，必填
+        String out_trade_no = new String(map.get("no").toString());
+        //需要退款的金额，该金额不能大于订单金额，必填
+        String refund_amount = new String(map.get("price").toString());
+        //标识一次退款请求，同一笔交易多次退款需要保证唯一，如需部分退款，则此参数必传
+        String out_request_no = new String(UUID.randomUUID().toString());
+
+        alipayRequest.setBizContent("{\"out_trade_no\":\""+ out_trade_no +"\","
+                + "\"refund_amount\":\""+ refund_amount +"\","
+                + "\"out_request_no\":\""+ out_request_no +"\"}");
+        //请求
+        String result = alipayClient.execute(alipayRequest).getBody();
+
+        //退款成功后的操作
+        String cid = productFeignInterface.returnSuccess(Integer.valueOf(map.get("cid").toString()));
+        if("success".equals(cid)){
+            return "redirect:/pay-success.html";
+        }
+        return null;
+
+    }
     //支付请求接口
     @RequestMapping("ali/{no}/{money}/45798651653253846584563218*&&&45445/{ifUseScore}")
     public void ali(HttpSession session, @PathVariable("no") String no, @PathVariable("money") String money,@PathVariable("ifUseScore")String ifUseScore, HttpServletResponse response, HttpServletRequest request) throws Exception {
