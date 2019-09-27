@@ -107,6 +107,7 @@
             <version>3.0.0</version>
         </dependency>
 
+
         <!--邮件发送工具-->
         <!--Apache-->
         <dependency>
@@ -120,7 +121,6 @@
             <version>1.5</version>
         </dependency>
 
-
         <!-- websocket依赖web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -133,8 +133,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
-
-
 
     </dependencies>
 
