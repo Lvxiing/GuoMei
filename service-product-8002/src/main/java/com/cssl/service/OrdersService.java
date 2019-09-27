@@ -2,6 +2,7 @@ package com.cssl.service;
 
 import com.cssl.entity.Orders;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.cssl.entity.PageInfo;
 import com.github.pagehelper.Page;
 
 import java.util.List;
@@ -41,6 +42,8 @@ public interface OrdersService extends IService<Orders> {
 
 
     //-----------------------后台-----------------------
+    //查询申请退货信息
+    public Page<Map<String,Object>> returnInfo(int pageIndex, int pageSize);
     //根据订单编号查询用户id，商品id,订单id
     public List<Map<String,Object>>byGoodId(String order_no);
     /**

@@ -71,8 +71,8 @@
 <div class="container payment" id="payment">
     <h3 class="title-color font14">支付方式</h3>
     <div class="content">
-        <div class="clearfix ml40">
-            <div class="fl pr mr15" hoverup>
+        <div class="clearfix ml40" id="zf">
+            <div  pay="1" class="fl pr mr15" hoverup>
                 <a href="javascript:void(0)" class="btn pr btn-check btn-checked mw84">
                     <span class="name">在线支付</span>
                     <b class="c-i tips_icon pabs payway_tips hide" hover="" g-hoverup-tip="onlinePayment"
@@ -81,16 +81,14 @@
                 </a>
 
             </div>
-            <div class="fl pr mr15" hoverup>
-                <a href="javascript:void(0)" class="btn pr btn-check btn-disabled mw84"><span class="name">货到付款</span>
-                    <b class="c-i pabs payway_tips hide tips_icon" hover="" g-hoverup-tip="cashOnDelivery"
+            <div pay="0" class="fl pr mr15" hoverup>
+                <a href="javascript:void(0)" class="btn pr btn-check  mw84">
+                    <span class="name">门店自提</span>
+                    <b class="c-i tips_icon pabs payway_tips hide" hover="" g-hoverup-tip="onlinePayment"
                        style="display: none;"></b>
+                    <i class="c-i"></i>
                 </a>
-                <div class="tips_detail pabs hide box-sd1" g-hover-tip="cashOnDelivery" style="display: none;">
-                    <div class="white-arrow" style="top: -9px;left: 86px;font-size:15px;">◆</div>
-                    支持现金、POS机刷卡&nbsp;&nbsp; <a href="//help.gome.com.cn/article/232-0-0.html" target="_blank">
-                    查看运费及配送范围</a>
-                </div>
+
             </div>
         </div>
     </div>
@@ -1071,6 +1069,17 @@
             //先触发click，不然第一次失效
             $(this).trigger("click");
         });
+        //选择在线支付或门店自提
+        $("#zf div").click(
+            function () {
+                $(this).find("a").addClass("btn-checked");
+                $(this).find("a i").addClass("chose_icon");
+                $(this).siblings().find("a").removeClass("btn-checked");
+                $(this).siblings().find("a i").removeClass("chose_icon");
+                var pay=$(this).attr("pay");
+                alert(pay);
+            }
+        );
     });
         function selectCoupon() {
             var url = GetRequest();

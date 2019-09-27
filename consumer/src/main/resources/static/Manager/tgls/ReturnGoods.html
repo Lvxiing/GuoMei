@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <!-- Google Chrome Frame也可以让IE用上Chrome的引擎: -->
+    <meta name="renderer" content="webkit">
+    <!--国产浏览器高速模式-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="国美电器"/>
+    <!-- 作者 -->
+    <meta name="revised" content="国美电器.v3, 2019/05/01"/>
+    <!-- 定义页面的最新版本 -->
+    <meta name="description" content="网站简介"/>
+    <!-- 网站简介 -->
+    <meta name="keywords" content="搜索关键字，以半角英文逗号隔开"/>
+    <title>国美电器</title>
+
+    <!-- 公共样式 开始 -->
+    <link rel="stylesheet" type="text/css" href="../../css/base.css">
+    <link rel="stylesheet" type="text/css" href="../../css/iconfont.css">
+    <script type="text/javascript" src="../../framework/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+    <script type="text/javascript" src="../../layui/layui.js"></script>
+    <!-- 滚动条插件 -->
+    <link rel="stylesheet" type="text/css" href="../../css/jquery.mCustomScrollbar.css">
+    <script src="../../framework/jquery-ui-1.10.4.min.js"></script>
+    <script src="../../framework/jquery.mousewheel.min.js"></script>
+    <script src="../../framework/jquery.mCustomScrollbar.min.js"></script>
+    <script src="../../framework/cframe.js"></script><!-- 仅供所有子页面使用 -->
+    <!-- 公共样式 结束 -->
+
+    <style>
+        .layui-table img {
+            max-width: none;
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="cBody">
+    <div class="console">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">订单号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="orderNo" id="orderNo" placeholder="请输入" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">收货人</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="name" id="name" placeholder="请输入" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+
+                <button type="button" class="layui-btn" id="serch" onclick="query()" data-type="reload" style="margin-bottom: 6px">搜索</button>
+
+            </div>
+        </form>
+    </div>
+
+    <table class="layui-table" id="table" lay-filter="table"></table>
+
+    </table>
+    <script>
+        layui.use(['laypage', 'layer','table','upload','form'], function() {
+            var laypage = layui.laypage,  //分页
+                layer = layui.layer ,  //弹层
+                table = layui.table , //表格
+                form = layui.form,
+                $ = layui.jquery
+                ,upload = layui.upload;
+              var util = layui.util;
+            //执行一个 table 实例
+            table.render({
+                elem: '#table'
+                ,url:"/Orders/returnInfo"
+                ,even: true //隔行背景
+                ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem）
+                    layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip'] //自定义排版
+                    ,limit: 5 //每页默认显示的数量
+                }
+                ,done: function(res, curr, count) { //表格数据加载完后的事件
+                    //调用示例
+                    layer.photos({//点击图片弹出
+                        photos: '.layer-photos-demo'
+                        ,anim: 1 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+                    });
+                    //如果是异步请求数据方式，res即为你接口返回的信息。
+                    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                    console.log(res);
+                }
+                ,cols: [[ //表头
+                    {field: "uid", title: "user_id",hide:true},
+                    {field: 'order_no', title: '订单编号'},
+                    {field: 'address_name', title: '收货人'},
+                    {field: 'goods_title', title: '商品名称'},
+                    ,{field: 'goods_main_img', title: '购买商品',templet:"#imgtmp",width:150}
+                    ,{field: 'detail_num', title: '购买数量'}
+                    ,{field: 'goods_price', title: '单价'}
+                    ,{field: 'detail_money', title: '退款金额'}
+                    ,{field: "orderTime", title: "订单时间",
+                        templet: function(d){
+                            return util.toDateString(d.orderTime, "yyyy-MM-dd HH:mm:ss");
+                        }
+                    },
+                    {field: "detail_status", title: "状态",
+                        templet: function(d){
+                            if(d.detail_status == '1'){
+                                return '待审核'
+                            }
+                        }},
+                    ,{field: 'right', title: '操作', toolbar: '#barDemo'}
+                ]]
+            });
+        });
+
+
+    </script>
+
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">同意通过</a>
+    </script>
+
+    <script type="text/html" id="imgtmp">
+        <div class="layer-photos-demo"  onclick="img_click()" style="cursor:pointer; width: 120px;">
+            <img  width="50px" height="35px" layer-src="{{d.goods_main_img}}" src="{{d.goods_main_img}}" alt="购买商品"  >
+        </div>
+    </script>
+</div>
+</body>
+</html>

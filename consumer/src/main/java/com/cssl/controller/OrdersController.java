@@ -170,5 +170,18 @@ public class OrdersController {
         map.put("count",mapPageInfo.getTotalCount());
         return map;
     }
+    //   //查询申请退货信息
+    @RequestMapping("/returnInfo")
+    @ResponseBody
+    public Map<String,Object>returnInfo(@RequestParam("page") int page, @RequestParam("limit") int limit){
+        Map<String,Object> map=new HashMap<String,Object>();
+        PageInfo<Map<String, Object>> mapPageInfo = productFeignInterface.returnInfo(page,limit);
+        map.put("code",0);
+        map.put("msg", "");
+        map.put("data",mapPageInfo.getList());
+        map.put("count",mapPageInfo.getTotalCount());
+        return map;
+    }
+
 
 }

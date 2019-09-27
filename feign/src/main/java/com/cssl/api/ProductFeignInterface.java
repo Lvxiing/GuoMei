@@ -388,8 +388,9 @@ public interface ProductFeignInterface {
    //查看订单详情购买商品信息
    @RequestMapping("/orders/orderDetail")
    PageInfo<Map<String, Object>> orderDetail(@RequestParam("order_no")String order_no,@RequestParam("page")int page,@RequestParam("limit")int limit);
-
-
+    //查询申请退货信息
+    @RequestMapping("/orders/returnInfo")
+    PageInfo<Map<String, Object>>returnInfo(@RequestParam("page") int page, @RequestParam("limit") int limit);
     //---------------------------商品评论后台模块--------------------------------
     @RequestMapping("/evaluate/evaluateFindAll")
     PageInfo<Map<String, Object>> evaluateFindAll(@RequestParam Map<String,Object> param, @RequestParam("page")int page, @RequestParam("limit")int limit);

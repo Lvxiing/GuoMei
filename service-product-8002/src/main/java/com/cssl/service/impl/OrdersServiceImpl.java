@@ -134,6 +134,13 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         return ordersMapper.findGoodsByOno(map);
     }
 
+    @Override
+    public Page<Map<String, Object>> returnInfo(int pageIndex, int pageSize) {
+        Page<Map<String, Object>> page = PageHelper.startPage(pageIndex, pageSize);
+        ordersMapper.returnInfo();
+        return page;
+    }
+
 
     @Override
     public List<Map<String, Object>> byGoodId(String order_no) {

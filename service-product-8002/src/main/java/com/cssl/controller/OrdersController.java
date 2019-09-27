@@ -212,6 +212,8 @@ public class OrdersController {
     }
 
     //-----------------------------后台模块----------------------------
+
+
     //查询所有订单详情
     @RequestMapping("/orderList/{pageIndex}/{pageSize}/{orderNo}/{name}")
     @ResponseBody
@@ -317,5 +319,17 @@ public class OrdersController {
         return pages;
     }
 
-
+   //查询申请退货信息
+   @RequestMapping("/returnInfo")
+   @ResponseBody
+    public PageInfo<Map<String, Object>>returnInfo(@RequestParam("page") int page, @RequestParam("limit") int limit){
+       PageInfo<Map<String, Object>> pages = new PageInfo<>();
+       Page<Map<String, Object>> maps = ordersService.returnInfo(page, limit);
+       List<Map<String, Object>> result = maps.getResult();
+       //封装查询数据
+       pages.setList(result);
+       //封装总记录数
+       pages.setTotalCount((int) maps.getTotal());
+       return pages;
+    }
 }

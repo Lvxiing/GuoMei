@@ -34,6 +34,8 @@ public interface OrdersMapper extends BaseMapper<Orders> {
     Map<String,Object> findGoodsByOno(Map<String,Object> map);
 
     //-----------------------后台---------------------------
+    //查询申请退货信息
+    public List<Map<String,Object>>returnInfo();
     //根据订单编号查询用户id，商品id,订单id
     public List<Map<String,Object>>byGoodId(String order_no);
     //查询所有订单详情
