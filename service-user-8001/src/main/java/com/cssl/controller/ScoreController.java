@@ -78,7 +78,8 @@ public class ScoreController {
                 double score=Math.ceil(money*big.setScale(1,BigDecimal.ROUND_HALF_UP).doubleValue());
                 scores.setScores(Integer.valueOf(String.valueOf(score)));
             }else{
-                scores.setScores(Integer.valueOf(scoreType.getValue().toString()));
+                BigDecimal big = new BigDecimal(Double.valueOf(scoreType.getValue().toString()));
+                scores.setScores(Integer.valueOf(big.toString()));
             }
 
             return   scoreService.save(scores)?1:0;
