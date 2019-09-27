@@ -120,7 +120,7 @@ function findOrdersDetail(order_id,time,order_no,status,order_total,num,userName
             trr+="<td class='pd-lft-10 pd-bottom-10'style='width:40%; border-right:none;'><div class='marg-top-10 order-list-proImg' pid='A0006561232'sid='pop8012773624'>";
             trr+="<a target='_blank' href='product_details.html?gid="+data[j].gid+"'itemtype='0'><img src='"+data[j].img+"'style='width:50px;height:50px;'></a></div>";
             trr+="<div class='pd-lft-10 order-list-proName'><a class='order-list-proName-font' target='_blank 'href='product_details.html?gid="+data[j].gid+"'style='display:block;'>"+data[j].title+"</a>";
-            trr+="<p class='big-same-collocation marg-top-10'> <i class='collocation-icon'></i><span   onclick=\"location.href='myRefundDetail.html'\">申请</span></p></div></td>";
+            trr+="<p class='big-same-collocation marg-top-10'> <i class='collocation-icon'></i><span   onclick=\"location.href='myRefundDetail.html?&ono="+guid()+order_no+"&gid="+data[j].gid+"'\">申请</span></p></div></td>";
             trr+="<td class='pd-lft-10' style='border-right:none;width:20%;'> <div class='order-list-num'>x<span>"+data[j].num+"</span></div> </td></tr>";
         }
         trr+="</tbody>";
