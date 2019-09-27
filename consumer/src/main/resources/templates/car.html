@@ -400,7 +400,7 @@ $("#container").on("click","[name=toCollect]",function () {
             }else{
                 $("[name=diYongP]").show();
                 $("[name=scoreSum]").text(result[i].scoreSum);
-                $("[name=diQian]").text(result[i].scoreSum/100);
+                $("[name=diQian]").text(result[0].scoreSum/100);
             }
         }
     });
