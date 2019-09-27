@@ -1032,27 +1032,27 @@
 
                 $(this).append("<em class='c-i coupon-select'></em>");
                 $(this).find("div#select").addClass("checkcoupon");
-                var couponMoneys=parseInt( $(this).attr("couponMoney"));
+                var couponMoneys=parseFloat( $(this).attr("couponMoney"));
                  couponMoney = couponMoney +couponMoneys;
                 $("#money").text("¥" + couponMoney + "");
                 $("#dictMoney").text("¥" + couponMoney + "");
                 $("#nums").text(num);
                 $("#volume").text("-¥"+couponMoney);
                 var sum=$("#sum").text();
-                 sum=parseInt(sum.substring(1));
+                 sum=parseFloat(sum.substring(1));
                 $("#sum").text("¥"+(sum-couponMoneys));
             }, function () {
                 num--;
                 $(this).find("em").remove();
                 $(this).find("div#select").removeClass("checkcoupon");
-                var couponMoneys=parseInt( $(this).attr("couponMoney"));
+                var couponMoneys=parseFloat( $(this).attr("couponMoney"));
                 couponMoney = couponMoney -couponMoneys;
                 $("#money").text("¥" + couponMoney + "");
                 $("#dictMoney").text("¥" + couponMoney + "");
                 $("#nums").text(num);
                 $("#volume").text("-¥"+couponMoney);
                 var sum=$("#sum").text();
-                sum=parseInt(sum.substring(1));
+                sum=parseFloat(sum.substring(1));
                 $("#sum").text("¥"+(sum+couponMoneys));
                 var cid=$(this).attr("couponId");
                 for(var i=0;i<couponIdList.length;i++){
