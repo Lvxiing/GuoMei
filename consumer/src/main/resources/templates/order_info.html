@@ -994,12 +994,14 @@
             var aid = $("#aid").val(); //收获地址id
             var sum = $("#sum").text();
             var price = sum.substring(1);
+            var couId=$("#input").attr("couponIds");
             $.getJSON("Orders/addOrders", {
                 "aid": aid,
                 "goodsId": url.goodsId,
                 "num": url.num,
                 "vipIdArr": url.vipIdArr,
-                "sumPrice": price
+                "sumPrice": price,
+                "couId":couId
             }, function (data) {
                 //转换时间格式
                 var dateee = new Date(data.times).toJSON();
