@@ -255,12 +255,20 @@ function findOrdersDetail(order_id,time,order_no,status,order_total,num,userName
             case 6:
                 statu="已退货";
                 break;
+            case 7:
+                statu="门店自提";
+                break;
             default:
                 statu="已取消";
                 break;
         }
 
-        tr+="<td style='width:10%;text-align:center;'><p class='status'>"+statu+"</p>";
+        tr+="<td style='width:10%;text-align:center;'>";
+        if(status==7){
+            tr+="<a class='status' href='amap.html' target='_blank'>"+statu+"</a>";
+        }else{
+            tr+="<p class='status'>"+statu+"</p>";
+        }
         tr+="<p class='car-logistics'></p> <div class='pop logistics' style='position:absolute'></div>";
         tr+="<p class='pd-top-10'><a class='order-list-btn02 v-o' target='_blank' href='gm-orederList.html?oid="+order_id+"' title='查看订单' style='color:#006699;'>查看订单</a></p></td>";
         //右侧信息(用户)
