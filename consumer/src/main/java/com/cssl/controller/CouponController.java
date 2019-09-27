@@ -28,6 +28,16 @@ public class CouponController {
     private ProductFeignInterface productFeignInterface;
 
     //-------------------------前台--------------------
+
+    //查询当前用户购买商品在中可用的优惠券
+    @RequestMapping("findCoupon")
+    @ResponseBody
+    public List<Map<String, Object>> findCoupon(HttpSession session, @RequestParam("goodsId") String goodsId) {
+        Users user = (Users) session.getAttribute("user");
+        return productFeignInterface.findCoupon(user.getId(),goodsId);
+    }
+
+
     @ResponseBody
     @RequestMapping("couponFindAllQian")
     public Map<String,Object> couponFindAllQian(@RequestParam Map<String, Object> map) {

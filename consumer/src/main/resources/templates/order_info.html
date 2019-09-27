@@ -1123,6 +1123,7 @@
 <script type="text/javascript">
     $(function () {
         goodsList();
+        selectCoupon();//查询是否有可用的优惠券
         //提交订单
         $("#id_commit").click(function () {
             var url = GetRequest();
@@ -1147,6 +1148,21 @@
             });
         });
     });
+
+    function selectCoupon(){
+        var url = GetRequest();
+        $.ajax(
+            {
+                type: "post",
+                url: "coupon/findCoupon",
+                data: {"goodsId": url.goodsId},
+                async: false,
+                success: function (result) {
+                    alert(result);
+                }
+            }
+        );
+    }
 
     function goodsList() {
         var url = GetRequest();
