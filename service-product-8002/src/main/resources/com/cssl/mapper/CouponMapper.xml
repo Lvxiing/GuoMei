@@ -95,4 +95,10 @@
 
         AND user_id = #{uid} AND r.status = 0
     </select>
+
+    <select id="findCouponQuanInfo" resultType="map">
+        SELECT * FROM coupon  c
+        INNER JOIN category g ON c.category_id= g.category_id
+        WHERE coupon_id=#{cid}
+    </select>
 </mapper>

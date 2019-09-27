@@ -60,8 +60,8 @@ public class CouponController {
 
     @RequestMapping("findCouponQuanInfo")
     @ResponseBody
-    public Coupon findCouponQuanInfo(@RequestParam("cid") Integer cid){
-        return couponService.getOne(new QueryWrapper<Coupon>().eq("coupon_id",cid));
+    public Map<String,Object> findCouponQuanInfo(@RequestParam("cid") Integer cid){
+        return couponService.findCouponQuanInfo(cid);
     }
 
 
