@@ -106,7 +106,6 @@ public class CategoryController {
                 }
             }
         }
-        System.out.println("set********************** = " + set);
         List<Integer> list = new ArrayList<>(set);
         Map<String,Object>param = new HashMap<>();
         param.put("list",list);
@@ -214,7 +213,9 @@ public class CategoryController {
         pages.setPageCount(page.getPages());
         json.put("page", pages);
         json.put("categoryInfo", category);
-        json.put("salaRanking", goodsService.categorySalaRankingGoods(list));
+        if(map.get("norank")==null){
+            json.put("salaRanking", goodsService.categorySalaRankingGoods(list));
+        }
         return json;
     }
 
