@@ -71,6 +71,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
 
     @Override
     public Map<String, Object> addOrder(Map<String, Object> map) {
+        Integer zfbs = Integer.valueOf(map.get("zfbs").toString());
         boolean res = false; //表示下单是否成功
         Orders orders = new Orders();
         orders.setUserId(Integer.valueOf(map.get("uid").toString()));
@@ -85,6 +86,9 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         //金额转换,保留两位小数
         BigDecimal decimal = new BigDecimal(totalMoney);
         orders.setTotal(decimal.setScale(2, BigDecimal.ROUND_HALF_UP));
+        if(zfbs == 0){
+            orders.setStatus(7);
+        }
         //新增订单
         int result = ordersMapper.addOrder(orders);
         if (result > 0) { //订单下单成功

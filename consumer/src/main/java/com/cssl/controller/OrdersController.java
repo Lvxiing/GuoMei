@@ -1,11 +1,9 @@
 package com.cssl.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.cssl.api.ProductFeignInterface;
-import com.cssl.entity.Address;
-import com.cssl.entity.Orders;
-import com.cssl.entity.PageInfo;
-import com.cssl.entity.Users;
+import com.cssl.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +24,13 @@ public class OrdersController {
 
     //-------------------------前台------------------------
 
+    //用户申请退款
+    @RequestMapping("returnMoney")
+    @ResponseBody
+    public String returnMoney(@RequestParam Map<String, Object> map) {
+
+        return productFeignInterface.returnMoney(map);
+    }
 
 
     //用户下单信息
