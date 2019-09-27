@@ -259,26 +259,26 @@ function xunhuan(bs,json) {
         for(var i=0;i<lists.length;i++){
             var li="<li class='product-item' already='true'>  <input class='productInfo' type='hidden'> <ul class='arbitrage clearfix'></ul>";
             li+="<div class='item-tab-warp'><p class='item-pic'>";
-            li+="<a class='emcodeItem item-link' rel='nofollow'  href='product_details.html?gid="+lists[i].goods_id+"' track='产品列表图片' target='_blank' title='"+lists[i].goods_title+"'>";
+            li+="<span name='goodsId' style='display: none;'>"+lists[i].goods_id+"</span><a class='emcodeItem item-link' rel='nofollow'  href='product_details.html?gid="+lists[i].goods_id+"' track='产品列表图片' target='_blank' title='"+lists[i].goods_title+"'>";
             li+="<img src='"+lists[i].goods_main_img+"'alt='"+lists[i].goods_title+"' width='210px' height='210px'></a></p>";
-            li+=" <p class='item-price'><span class='price'>￥"+lists[i].goods_price+"</span></p>";
+            li+=" <p class='item-price'><span class='price'>￥<span name='price'>"+lists[i].goods_price+"</span></span></p>";
             li+="<p class='item-name'> <a rel='nofollow' class='emcodeItem item-link' track='产品列表名称'href='product_details.html?gid="+lists[i].goods_id+"' target='_blank'title='"+lists[i].goods_title+"'>"+lists[i].goods_title+"</a></p>";
             li+="<p class='item-option clearfix'>";
-            li+="<span class='add-collection emcodeProp17' track='商品列表:收藏'>收藏</span> <span track='添加购物车' class='add-cart addTo-cart'>加入购物车</span></p>";
-            li+="<p class='item-shop'><span class='nname'>国美自营</span></p></div> </li>";
+            li+="</p>";
+            li+="<p class='item-shop'></p></div> </li>";
             $("#product-box").append(li);
         }
     }else{
         for(var i=0;i<lists.length;i++){
             var li="<li class='product-item' already='true'>  <input class='productInfo' type='hidden'> <ul class='arbitrage clearfix'></ul>";
             li+="<div class='item-tab-warp'><p class='item-pic'>";
-            li+="<a class='emcodeItem item-link' rel='nofollow'  href='product_details.html?gid="+lists[i].id+"' track='产品列表图片' target='_blank' title='"+lists[i].title+"'>";
+            li+="<span name='goodsId' style='display: none;'>"+lists[i].id+"</span><a class='emcodeItem item-link' rel='nofollow'  href='product_details.html?gid="+lists[i].id+"' track='产品列表图片' target='_blank' title='"+lists[i].title+"'>";
             li+="<img src='"+lists[i].mainImg+"'alt='"+lists[i].title+"' width='210px' height='210px'></a></p>";
-            li+=" <p class='item-price'><span class='price'>￥"+lists[i].price+"</span></p>";
+            li+=" <p class='item-price'><span class='price'>￥<span name='price'>"+lists[i].price+"</span></span></p>";
             li+="<p class='item-name'> <a rel='nofollow' class='emcodeItem item-link' track='产品列表名称'href='product_details.html?gid="+lists[i].id+"' target='_blank'title='"+lists[i].title+"'>"+lists[i].title+"</a></p>";
             li+="<p class='item-option clearfix'>";
-            li+="<span class='add-collection emcodeProp17' track='商品列表:收藏'>收藏</span> <span track='添加购物车' class='add-cart addTo-cart'>加入购物车</span></p>";
-            li+="<p class='item-shop'><span class='nname'>国美自营</span></p></div> </li>";
+            li+="</p>";
+            li+="<p class='item-shop'></p></div> </li>";
             $("#product-box").append(li);
         }
     }
