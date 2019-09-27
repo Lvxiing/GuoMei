@@ -54,7 +54,7 @@ public class CouponController {
 
     @RequestMapping("findCouponQuanInfo")
     @ResponseBody
-    public Coupon findCouponQuanInfo(@RequestParam("cid") Integer cid){
+    public Map<String,Object>  findCouponQuanInfo(@RequestParam("cid") Integer cid){
         return productFeignInterface.findCouponQuanInfo(cid);
    }
 
