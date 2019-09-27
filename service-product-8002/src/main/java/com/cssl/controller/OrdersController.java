@@ -57,6 +57,24 @@ public class OrdersController {
 
     //-----------------------------前台模块----------------------------
 
+    //用户申请退款
+    @RequestMapping("returnMoney")
+    @ResponseBody
+    public String returnMoney(@RequestParam Map<String, Object> map) {
+        Orders orders = ordersService.getOne(new QueryWrapper<Orders>().eq("order_no", map.get("no")));
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setDstatus(1);
+        boolean update = orderDetailService.update(orderDetail, new UpdateWrapper<OrderDetail>().eq("order_id", orders.getId()).eq("goods_id", map.get("gid")));
+        if (update) {
+            String json = "{\"code\":\"success\"}";
+            return json;
+        }
+        return "{\"msg\":\"error\"}";
+    }
+
+
+
+
     //用户支付成功,更新数据库的支付时间
     @RequestMapping("orderSuccess")
     @ResponseBody
@@ -65,9 +83,9 @@ public class OrdersController {
         //支付成功时间
         Orders order = ordersService.getOne(new QueryWrapper<Orders>().eq("order_no", orderNo));
         order.setPayDate(new Date());
-        if(order.getStatus() == 7){
+        if (order.getStatus() == 7) {
             order.setStatus(7);//门店自提
-        }else{
+        } else {
             order.setStatus(2);//已付款
         }
 
@@ -129,7 +147,7 @@ public class OrdersController {
             for (int i = 0; i < couId.length; i++) {
                 CouponReceive couponReceive = new CouponReceive();
                 couponReceive.setStatus(1);
-                coupon_receiveService.update(couponReceive,new UpdateWrapper<CouponReceive>().eq("user_id",uid).eq("coupon_id",couId[i]));
+                coupon_receiveService.update(couponReceive, new UpdateWrapper<CouponReceive>().eq("user_id", uid).eq("coupon_id", couId[i]));
             }
         }
         if (b != null) {
@@ -325,17 +343,17 @@ public class OrdersController {
         return pages;
     }
 
-   //查询申请退货信息
-   @RequestMapping("/returnInfo")
-   @ResponseBody
-    public PageInfo<Map<String, Object>>returnInfo(@RequestParam("page") int page, @RequestParam("limit") int limit){
-       PageInfo<Map<String, Object>> pages = new PageInfo<>();
-       Page<Map<String, Object>> maps = ordersService.returnInfo(page, limit);
-       List<Map<String, Object>> result = maps.getResult();
-       //封装查询数据
-       pages.setList(result);
-       //封装总记录数
-       pages.setTotalCount((int) maps.getTotal());
-       return pages;
+    //查询申请退货信息
+    @RequestMapping("/returnInfo")
+    @ResponseBody
+    public PageInfo<Map<String, Object>> returnInfo(@RequestParam("page") int page, @RequestParam("limit") int limit) {
+        PageInfo<Map<String, Object>> pages = new PageInfo<>();
+        Page<Map<String, Object>> maps = ordersService.returnInfo(page, limit);
+        List<Map<String, Object>> result = maps.getResult();
+        //封装查询数据
+        pages.setList(result);
+        //封装总记录数
+        pages.setTotalCount((int) maps.getTotal());
+        return pages;
     }
 }
