@@ -28,4 +28,7 @@ public interface CouponService extends IService<Coupon> {
     //查询当前用户的优惠券总数
     int userCouponCount(Integer type,Integer uid);
 
+    //查询当前用户可使用的优惠券
+    List<Map<String,Object>> findMyCoupon(Map<String,Object>map);
+
 }

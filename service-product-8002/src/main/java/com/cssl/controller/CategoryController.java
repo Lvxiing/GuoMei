@@ -9,6 +9,7 @@ import com.cssl.entity.TreeCategory;
 import com.cssl.mapper.GoodsMapper;
 import com.cssl.service.BrandService;
 import com.cssl.service.CategoryService;
+import com.cssl.service.CouponService;
 import com.cssl.service.GoodsService;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class CategoryController {
 
     @Autowired
     private BrandService brandService;
+
+    @Autowired
+    private CouponService couponService;
 
     //--------------------------前台模块-------------------------------
 
@@ -87,6 +91,29 @@ public class CategoryController {
         return list;
     }
 
+    //查询当前用户购买商品在中可用的优惠券
+    @RequestMapping("findCoupon")
+    @ResponseBody
+    public List<Map<String, Object>> findCoupon(@RequestParam("uid")Integer uid,@RequestParam("goodsId") String goodsId) {
+        Set<Integer> set = new HashSet<>();
+        String[] gid = goodsId.split(",");
+        for (int i = 0; i < gid.length; i++) {
+            Map<String, Object> categoryByGoodsId = findCategoryByGoodsId(Integer.valueOf(gid[i]));
+            if (categoryByGoodsId.get("cid") != null) {
+                String[] cid = categoryByGoodsId.get("cid").toString().split(">");
+                for (int j = 0; j < cid.length; j++) {
+                    set.add(Integer.valueOf(cid[j]));
+                }
+            }
+        }
+        System.out.println("set********************** = " + set);
+        List<Integer> list = new ArrayList<>(set);
+        Map<String,Object>param = new HashMap<>();
+        param.put("list",list);
+        param.put("uid",uid);
+        return  couponService.findMyCoupon(param);
+    }
+
     //根据商品编号查询该商品所在的分类以及全部父分类信息
     @RequestMapping("findCategoryByGoodsId")
     @ResponseBody
@@ -121,7 +148,7 @@ public class CategoryController {
     public Map<String, Object> getAllParentInfo(Map<String, Object> paramMap) {
         String catId = paramMap.get("cid").toString();
         String catName = (String) paramMap.get("cname");
-        String clevel =  paramMap.get("clevel").toString();
+        String clevel = paramMap.get("clevel").toString();
         try {
             //根据分类id查询分类信息
             Category goodsCate = categoryService.getOne(new QueryWrapper<Category>().eq("category_id", catId));
@@ -134,7 +161,7 @@ public class CategoryController {
                 //拼接所有分类名称,和分类编号
                 catName = catParentName + ">" + catName;
                 catId = pCategory.getCid() + ">" + catId;
-                clevel = pCategory.getCLevel() +">"+clevel;
+                clevel = pCategory.getCLevel() + ">" + clevel;
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("cname", catName);
                 map.put("cid", catId);
@@ -148,9 +175,6 @@ public class CategoryController {
     }
 
 
-
-
-
     //根据分类显示商品
     @RequestMapping("categoryGoodsShow")
     @ResponseBody
@@ -160,25 +184,25 @@ public class CategoryController {
         Integer level = new Integer(map.get("level").toString());
         Category category = categoryService.getOne(new QueryWrapper<Category>().eq("category_id", cid));
         PageInfo<Map<String, Object>> pages = new PageInfo<>();
-        List<Integer> list=null;
+        List<Integer> list = null;
 
-        if(level == 1){
+        if (level == 1) {
             list = categoryService.selectCategoryByLevel1(cid);
         }
 
-        if(level == 2){
+        if (level == 2) {
             list = categoryService.selectCategoryByLevel2(cid);
         }
 
         if (level == 3) {
-            list= new ArrayList();
+            list = new ArrayList();
             List<TreeCategory> categoryAndChild = findCategoryAndChild(cid);
             for (TreeCategory t : categoryAndChild) {
                 list.add(t.getCid());
             }
         }
         if (level == 4) {
-            list= new ArrayList();
+            list = new ArrayList();
             list.add(cid);
         }
 
@@ -189,8 +213,8 @@ public class CategoryController {
         pages.setPageSize(page.getPageSize());
         pages.setPageCount(page.getPages());
         json.put("page", pages);
-        json.put("categoryInfo",category);
-        json.put("salaRanking",goodsService.categorySalaRankingGoods(list));
+        json.put("categoryInfo", category);
+        json.put("salaRanking", goodsService.categorySalaRankingGoods(list));
         return json;
     }
 
@@ -200,8 +224,8 @@ public class CategoryController {
     //查询当前分类信息
     @RequestMapping("findCategoryByInfo")
     @ResponseBody
-    public Category findCategoryByInfo(@RequestParam Integer id){
-        return categoryService.getOne(new QueryWrapper<Category>().eq("category_id",id)) ;
+    public Category findCategoryByInfo(@RequestParam Integer id) {
+        return categoryService.getOne(new QueryWrapper<Category>().eq("category_id", id));
     }
 
 
