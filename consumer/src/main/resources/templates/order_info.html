@@ -71,7 +71,8 @@
 <div class="container payment" id="payment">
     <h3 class="title-color font14">支付方式</h3>
     <div class="content">
-        <div class="clearfix ml40" id="zf">
+        <div class="clearfix ml40" id="zf" >
+            <input type="hidden" id="zfbs" pay="1"/>
             <div  pay="1" class="fl pr mr15" hoverup>
                 <a href="javascript:void(0)" class="btn pr btn-check btn-checked mw84">
                     <span class="name">在线支付</span>
@@ -1077,7 +1078,7 @@
                 $(this).siblings().find("a").removeClass("btn-checked");
                 $(this).siblings().find("a i").removeClass("chose_icon");
                 var pay=$(this).attr("pay");
-
+                $("#zfbs").attr("pay",pay);
             }
         );
     });
