@@ -1072,23 +1072,24 @@
                     async: false,
                     success: function (json) {
                         if(json.length>0){
+                            for (var i = 0; i < json.length; i++) {  //选中画勾 class="checkcoupon"选中样式
+                                var dateee2 = new Date(json[i].end_time).toJSON();
+                                var times2 = new Date(+new Date(dateee2) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+                                var li = "<li class='coupon-red  easy coupon-select'  couponMoney='" + json[i].coupon_money + "' couponId='"+json[i].coupon_id+"'><p class='c-i coupon-border-select'></p><p class='c-i coupon-border-red'></p>";
+                                li += " <div id='select'><div class='coupon normal' g-click='changeCvsitem vrbsos.cvs.0 N 5'><span style='font-size: 14px;'>¥</span> <span class='num mr5'>" + json[i].coupon_money + "</span>  ";
+                                li += "<p><span class='info infonormal'>线上专享</span><span class='condition'>满" + json[i].full_money + "</span> <span class='expiredate enormal'>    ";
+                                li += "有效期至<em class='fontArial'>" + times2 + "</em> </span></p></div> ";
+                                li += "<div class='txt name_over2 useInfoBox'>";
+                                li += "<span class='useListT'>[ "+json[i].coupon_name+"]</span> </div></div><p class='unavailReason'></p></li>";
+                                $(".coupon-group").append(li);
+                            }
                             $("#juan").show();
                             $("#juans").show();
                         }else{
                             $("#juan").hide();
                             $("#juans").hide();
                         }
-                        for (var i = 0; i < json.length; i++) {  //选中画勾 class="checkcoupon"选中样式
-                            var dateee2 = new Date(json[i].end_time).toJSON();
-                            var times2 = new Date(+new Date(dateee2) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-                            var li = "<li class='coupon-red  easy coupon-select'  couponMoney='" + json[i].coupon_money + "' couponId='"+json[i].coupon_id+"'><p class='c-i coupon-border-select'></p><p class='c-i coupon-border-red'></p>";
-                            li += " <div id='select'><div class='coupon normal' g-click='changeCvsitem vrbsos.cvs.0 N 5'><span style='font-size: 14px;'>¥</span> <span class='num mr5'>" + json[i].coupon_money + "</span>  ";
-                            li += "<p><span class='info infonormal'>线上专享</span><span class='condition'>满" + json[i].full_money + "</span> <span class='expiredate enormal'>    ";
-                            li += "有效期至<em class='fontArial'>" + times2 + "</em> </span></p></div> ";
-                            li += "<div class='txt name_over2 useInfoBox'>";
-                            li += "<span class='useListT'>[ "+json[i].coupon_name+"]</span> </div></div><p class='unavailReason'></p></li>";
-                            $(".coupon-group").append(li);
-                        }
+
 
                     }
                 }
