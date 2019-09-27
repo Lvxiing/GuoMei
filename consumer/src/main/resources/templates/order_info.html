@@ -983,16 +983,20 @@
         selectCoupon();//查询是否有可用的优惠券
         //提交订单
         $("#id_commit").click(function () {
+            var cid=$("#input").attr("couponIds");
+            alert(cid);
             var url = GetRequest();
             var sumPrice = url.sumPrice;
             sumPrice = sumPrice.substring(36, sumPrice.length);
             var aid = $("#aid").val(); //收获地址id
+            var sum = $("#sum").text();
+            alert(sumPrice);
             $.getJSON("Orders/addOrders", {
                 "aid": aid,
                 "goodsId": url.goodsId,
                 "num": url.num,
                 "vipIdArr": url.vipIdArr,
-                "sumPrice": sumPrice
+                "sumPrice": sum
             }, function (data) {
                 //转换时间格式
                 var dateee = new Date(data.times).toJSON();
