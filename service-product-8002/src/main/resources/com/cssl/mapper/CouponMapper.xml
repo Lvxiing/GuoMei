@@ -47,7 +47,6 @@
             <if test="cid!=null and cid!='null' and cid!='' ">
                 and p.coupon_id=#{cid}
             </if>
-            and p.coupon_status = 1 or p.coupon_status = 0
         </where>
         <if test="more!=null and more!=''and more!='null' ">
             ORDER BY coupon_money DESC
@@ -66,7 +65,6 @@
             <if test="type!=null and type!='null' and type!='' ">
                 AND c.coupon_type=#{type}
             </if>
-            and c.coupon_status = 1 or c.coupon_status = 0
         </where>
     </select>
 
