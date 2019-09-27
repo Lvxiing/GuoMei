@@ -127,12 +127,15 @@
                 var mess = "确认同意退款吗?";
                 var msg = "退款成功";
                 layer.confirm(mess, function () {
-                    $.getJSON("/Orders/updateReturnStatus?",{"detail_id":data.detail_id,"order_no":order_no,"detail_money":detail_money}, function (json) {
+                    $.getJSON("/Orders/updateReturnStatus?",{"detail_id":data.detail_id}, function (json) {
                         if (json.abc == 'true') {
                             layer.closeAll('dialog');//关闭当前confirm窗口
                             layer.msg(msg, {time: 800}, function () {
                                 layer.close(layer.index); //关闭当前窗口
                                 location.reload();//刷新
+                            });
+                            $.getJSON("/pay/",{"detail_id":data.detail_id,"order_no":order_no,"detail_money":detail_money},function (data) {
+
                             });
                         }else{
                             layer.msg("失败");

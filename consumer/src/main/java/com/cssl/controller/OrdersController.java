@@ -191,9 +191,8 @@ public class OrdersController {
     //申请退款修改状态
     @RequestMapping("/updateReturnStatus")
     @ResponseBody
-    public String updateReturnStatus(@RequestParam("detail_id")Integer detail_id,@RequestParam("order_no")String order_no,@RequestParam("detail_money")Integer detail_money){
+    public String updateReturnStatus(@RequestParam("detail_id")Integer detail_id){
         boolean b = productFeignInterface.updateReturnStatus(detail_id);
-        System.out.println("order_no:"+order_no+";detail_money"+detail_money);
         String json="{\"abc\":\"false\"}";
         if(b){
             json="{\"abc\":\"true\"}";
