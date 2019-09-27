@@ -72,966 +72,1014 @@
     <h3 class="title-color font14">支付方式</h3>
     <div class="content">
         <div class="clearfix ml40">
-            <div class="fl pr mr15" hoverup>
-                <a href="javascript:void(0)" class="btn pr btn-check btn-checked mw84">
-                    <span class="name">在线支付</span>
-                    <b class="c-i tips_icon pabs payway_tips hide" hover="" g-hoverup-tip="onlinePayment"
-                       style="display: none;"></b>
-                    <i class="c-i chose_icon"></i>
-                </a>
+            <div class="fl pr mr15" hoverup=""><a href="javascript:void(0)" class="btn pr btn-check    mw84" name="fk"  pay="zaiXian">
+                <span class="name">在线支付</span> <b class="c-i tips_icon pabs payway_tips hide" hover=""
+                                                  g-hoverup-tip="onlinePayment" style="display: none;"></b> </a></div>
 
-            </div>
-            <div class="fl pr mr15" hoverup>
-                <a href="javascript:void(0)" class="btn pr btn-check btn-disabled mw84"><span class="name">货到付款</span>
-                    <b class="c-i pabs payway_tips hide tips_icon" hover="" g-hoverup-tip="cashOnDelivery"
-                       style="display: none;"></b>
-                </a>
-                <div class="tips_detail pabs hide box-sd1" g-hover-tip="cashOnDelivery" style="display: none;">
-                    <div class="white-arrow" style="top: -9px;left: 86px;font-size:15px;">◆</div>
-                    支持现金、POS机刷卡&nbsp;&nbsp; <a href="//help.gome.com.cn/article/232-0-0.html" target="_blank">
-                    查看运费及配送范围</a>
-                </div>
-            </div>
+            <!--门店自提-->
+            <div class="fl pr mr15" hoverup=""><a href="javascript:void(0)" class="btn pr btn-check   mw84" name="fk" pay="menDian">
+                <span class="name" >门店自提</span> <b class="c-i tips_icon pabs payway_tips hide" hover=""
+                                                  g-hoverup-tip="onlinePayment" style="display: none;"></b></a></div>
+
+
+            <script>
+
+                $(function(){
+
+                /*    //选择是否门店自提
+                    $("[name=fk]").toggle(function () {
+                        $(this).append("<i class='c-i chose_icon'></i>");
+                        $(this).removeClass("btn pr btn-check mw84");
+                        $(this).addClass("btn pr btn-check btn-checked mw84");
+                        $(this).parent().siblings().find("a").removeClass("btn pr btn-check btn-checked mw84");
+                        $(this).parent().siblings().find("[name=fk]").addClass("btn pr btn-check mw84");
+                        $(this).parent().siblings().find("i").remove();
+                    },function () {
+                        $(this).find("i").remove();
+                        $(this).removeClass("btn pr btn-check btn-checked mw84");
+                        $(this).addClass("btn pr btn-check mw84");
+                    });
+                    $(this).trigger("click");
+*/
+
+
+
+
+
+
+                })
+
+
+
+            </script>
+
+
+
+
+
+
         </div>
     </div>
-</div>
-<!--送货清单-->
-<div class="container listOfItem" id="listOfItem">
-    <div class="clearfix">
-        <h3 class="title-color font14 fl shopfontb">商品清单</h3>
-        <a href="car.html" id="back-cart" class="fr tip cl" style="margin-right:29px;"> 返回购物车修改 </a>
+
+
+    <!--送货清单-->
+    <div class="container listOfItem" id="listOfItem">
+        <div class="clearfix">
+            <h3 class="title-color font14 fl shopfontb">商品清单</h3>
+            <a href="car.html" id="back-cart" class="fr tip cl" style="margin-right:29px;"> 返回购物车修改 </a>
+        </div>
     </div>
-</div>
-<div class="infoH">
-</div>
-<!--优惠-->
-<div class="container coupon-chooes" id="preferential">
-    <div class="yonghuzichan">
-        <div g-pipe="" class="yhzc_title">
-            <h3 class="title-color font14" g-click="setOrState userAsset Y,render">
-                <span class="tit-span">使用优惠 / 抵用<em class="c-i up ml5 mb2"></em></span>
-            </h3>
-        </div>
-        <div id="juan" style=" display: none" class="info-bd" g-pipe="">
-            <!-- 优惠券 -->
-            <div class="coupon-box" style="padding-top:20px;margin-left: 0px">
-                <dl class="redCard-act clearfix" id="actRedcard">
-                    <!--当没有可用优惠券的时候不展示最优组合选项-->
-                    <dd class="use-combine"><span class="" g-click="setOrState,useBestComCanel yhj_com N,render"><i
-                            class="c-i checkbox_chose"></i>使用最优组合</span> &nbsp;&nbsp;&nbsp; <span
-                            class="discount-total">已抵用                                       <i
-                            class="fontRed fontArial" id="money">¥ 0.00</i> 元                                                                            &nbsp;&nbsp;(使用<em
-                            class="fontArial" id="nums">0</em>张优惠券)                                                                                                                                                        </span>
-                    </dd>
-                </dl>
-                <!-- 运费劵->红劵->蓝劵->美劵->店铺劵->商品劵 -->
-                <div class="coupon-group-wrap" coupon-group-wrap style="">
-                    <ul class="coupon-group  clearfix">
+    <div class="infoH">
+    </div>
+    <!--优惠-->
+    <div class="container coupon-chooes" id="preferential">
+        <div class="yonghuzichan">
+            <div g-pipe="" class="yhzc_title">
+                <h3 class="title-color font14" g-click="setOrState userAsset Y,render">
+                    <span class="tit-span">使用优惠 / 抵用<em class="c-i up ml5 mb2"></em></span>
+                </h3>
+            </div>
+            <div id="juan" style=" display: none" class="info-bd" g-pipe="">
+                <!-- 优惠券 -->
+                <div class="coupon-box" style="padding-top:20px;margin-left: 0px">
+                    <dl class="redCard-act clearfix" id="actRedcard">
+                        <!--当没有可用优惠券的时候不展示最优组合选项-->
+                        <dd class="use-combine"><span class="" g-click="setOrState,useBestComCanel yhj_com N,render"><i
+                                class="c-i checkbox_chose"></i>使用最优组合</span> &nbsp;&nbsp;&nbsp; <span
+                                class="discount-total">已抵用                                       <i
+                                class="fontRed fontArial" id="money">¥ 0.00</i> 元                                                                            &nbsp;&nbsp;(使用<em
+                                class="fontArial" id="nums">0</em>张优惠券)                                                                                                                                                        </span>
+                        </dd>
+                    </dl>
+                    <!-- 运费劵->红劵->蓝劵->美劵->店铺劵->商品劵 -->
+                    <div class="coupon-group-wrap" coupon-group-wrap style="">
+                        <ul class="coupon-group  clearfix">
 
 
-                    </ul>
-                </div>
-            </div>    <!-- 门店积分 -->
-        </div>
-        <div id="juans" style=" display: none" class="jedy info-bd">
+                        </ul>
+                    </div>
+                </div>    <!-- 门店积分 -->
+            </div>
+            <div id="juans" style=" display: none" class="jedy info-bd">
             <span class="strong">              金额抵用：<em
-                    class="fontRed font16 fontArial"id="dictMoney">¥0.00</em>              &nbsp;                            &nbsp;                            &nbsp;                            &nbsp;
+                    class="fontRed font16 fontArial" id="dictMoney">¥0.00</em>              &nbsp;                            &nbsp;                            &nbsp;                            &nbsp;
                 <!-- &nbsp;               -->          </span></div>
-        <!-- 推荐号 -->
-    </div>
-</div>
-<!--提交订单-->
-<div class="container commitOrder" id="commitOrder">
-    <div class="clearfix commitOrderBody">
-        <p class="text-right  clearfix"><span class="w185 fr pr20" id="totalMoney">¥20.80</span><span class="fr"><em
-                class="fontRed" id="num">1</em>件商品，总金额：</span></p>
-        <p class="text-right  clearfix"><span class="w185 fr pr20" id="volume">-¥0.00</span><span class="fr">优惠券：</span></p>
-        <p class="text-right  clearfix"><span class="w185 fr pr20" id="meidou">-¥0.00</span><span class="fr">美豆：</span>
-        </p>
-        <div style="height:28px;"></div>
-        <div class="text-right play pr18 border-no-bootom clearfix">
-            <span class="fr mt15 mb5">     应付款总金额：<em id="sum" class="fontRed strong font20">¥35.80</em></span>
-        </div>
-        <div class="commitOrder-ds">
-            <div class="fr ds_address">
-            </div>
-        </div>
-        <div class="text-right play clearfix" style="background: #fff;margin-bottom: 30px;">
-            <div class="w185 fr" id="id_commit_div">
-                <a href="javascript:void 0" class="btn btn-primary btn-large fr" id="id_commit"
-                   style="border-bottom-right-radius: 0;">提交订单</a>
-            </div>
+            <!-- 推荐号 -->
         </div>
     </div>
-</div>
+    <!--提交订单-->
+    <div class="container commitOrder" id="commitOrder">
+        <div class="clearfix commitOrderBody">
+            <p class="text-right  clearfix"><span class="w185 fr pr20" id="totalMoney">¥20.80</span><span class="fr"><em
+                    class="fontRed" id="num">1</em>件商品，总金额：</span></p>
+            <p class="text-right  clearfix"><span class="w185 fr pr20" id="volume">-¥0.00</span><span
+                    class="fr">优惠券：</span></p>
+            <p class="text-right  clearfix"><span class="w185 fr pr20" id="meidou">-¥0.00</span><span
+                    class="fr">美豆：</span>
+            </p>
+            <div style="height:28px;"></div>
+            <div class="text-right play pr18 border-no-bootom clearfix">
+                <span class="fr mt15 mb5">     应付款总金额：<em id="sum" class="fontRed strong font20">¥35.80</em></span>
+            </div>
+            <div class="commitOrder-ds">
+                <div class="fr ds_address">
+                </div>
+            </div>
+            <div class="text-right play clearfix" style="background: #fff;margin-bottom: 30px;">
+                <div class="w185 fr" id="id_commit_div">
+                    <a href="javascript:void 0" class="btn btn-primary btn-large fr" id="id_commit"
+                       style="border-bottom-right-radius: 0;">提交订单</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div id="gome-foot">
-    <div id="gome-foot-box">
-        <ul class="foot_small_zdy_w">
-            <li><a data-code="1000043124-0" href="javascript:;" target="_blank" rel="nofollow">国美集团</a></li>
-            <li><a data-code="1000043124-1" href="javascript:;" target="_blank">国美管家</a></li>
-            <li><a data-code="1000043124-2" href="javascript:;" target="_blank">关于国美</a></li>
-            <li><a data-code="1000043124-3" href="javascript:;" target="_blank">加入我们</a></li>
-            <li>|</li>
-            <li><a data-code="1000043124-4" href="javascript:;" target="_blank">品牌大全</a></li>
-            <li><a data-code="1000043124-5" href="javascript:;" target="_blank">商品专题</a></li>
-            <li><a data-code="1000043124-6" href="javascript:;" target="_blank">商品词</a></li>
-            <li><a data-code="1000043124-7" href="javascript:;" target="_blank">热词搜索</a></li>
-            <li><a data-code="1000043124-8" href="javascript:;" target="_blank">友情链接</a></li>
-            <li><a data-code="1000043124-9" href="javascript:;" target="_blank">风险监测</a></li>
-            <li>|</li>
-            <li><a data-code="1000043124-10" href="javascript:;" target="_blank">销售联盟</a></li>
-            <li><a data-code="1000043124-11" href="javascript:;" target="_blank">商家入驻</a></li>
-            <li><a data-code="1000043124-12" href="javascript:;" target="_blank">广告营销</a></li>
-        </ul>
-        <p>本公司游戏产品适合18岁以上成年人使用&nbsp;&nbsp;违法和不良信息举报电话：021-39900132&nbsp;&nbsp;<a class="interDrug" href="javascript:;"
-                                                                                 target="_blank">互联网药品信息服务资格证编号（沪）-经营性-2019-0006</a>
-        </p>
-        <p>网络食品销售第三方平台提供者备案：沪网食备A0015号&nbsp;&nbsp;<a class="interDrug" href="javascript:;" target="_blank">网络文化经营许可证沪网文[2017]5537-436号</a>&nbsp;&nbsp;<a
-                class="interDrug" href="javascript:;" target="_blank">增值电信业务经营许可证</a></p>
-        <p>客服电话:4008113333&nbsp;&nbsp;<a class="interDrug" href="javascript:;" target="_blank">沪ICP备11009419号/京ICP备
-            19011786号</a>&nbsp;&nbsp;<a class="interDrug" href="javascript:;" target="_blank">京B2-20191290</a>&nbsp;&nbsp;<a
-                class="interDrug" href="javascript:;" target="_blank">经营执照</a>&nbsp;&nbsp;<a class="interDrug"
-                                                                                             href="javascript:;"
-                                                                                             target="_blank">营业执照</a>&nbsp;&nbsp;<a
-                class="interDrug" href="javascript:;" target="_blank">出版物经营许可证</a></p>
-        <p>©2000-2019&nbsp;&nbsp;国美在线电子商务有限公司版权所有&nbsp;&nbsp;<a class="interDrug tw-w-ico-wrap" href="javascript:;"
-                                                                target="_blank"><i class="tw-w-mark-icon"></i>京公网安备
-            11010502038379号</a></p>
-        <div class="gome-foot-credit">
-            <a class="credit-baxx" href="javascript:;" target="_blank" rel="nofollow"><i></i><b>经营性网站备案信息</b></a>
-            <a class="credit-xypj" href="javascript:;" target="_blank" rel="nofollow"><i></i><b>可信网站信用评价</b></a>
-            <a class="credit-cxwz" href="javascript:;" target="_blank" rel="nofollow"><i></i><b>诚信网站</b></a>
-            <a class="credit-hdjc" href="javascript:;" target="_blank" rel="nofollow"><i></i><b>朝阳网络警察</b></a>
-            <a class="credit-wgdj" href="javascript:;" target="_blank" rel="nofollow"><i></i><b>网购大家评</b></a>
-            <a class="credit-report" href="javascript:;" target="_blank" rel="nofollow"><i></i><b>上海市互联网违法和不良信息举报中心</b></a>
-            <!-- <a class="credit-syxy" href="https://sz.yhxy.org.cn/credit/verifyseal.php?sn=2008070300100000031&ct=df&pa=33&check=y" target="_blank" rel="nofollow"><i></i><b>炎黄鸿志商业信用认证体系</b></a> -->
-        </div>
-        <em class="turst-gome"></em>
-    </div>
-</div>
-<!--foot-->
-<div id="gome-bar">
-    <div class="gome-aside">
-        <ul>
-            <li id="gome-aside-cart" class="lang">
-                <b></b><a href="javascript:void(0)" class="lang"><i class="caricon"></i><b class="car_num car_num_0"><s>0</s><span
-                    class="point"></span></b><span class="text">购物车</span></a>
-            </li>
-            <li id="gome-aside-coupon">
-                <b></b><a href="javascript:void(0)"><i></i></a>
-                <div><a>我的优惠券</a></div>
-            </li>
-            <li id="gome-aside-survey">
-                <b></b><a rel="nofollow" data-code="1000043132" href="javascript:;" target="_blank"><i></i></a>
-                <div><p><a rel="nofollow" data-code="1000043132" href="javascript:;" target="_blank">有奖调研</a></p></div>
-            </li>
-            <li id="gome-aside-service">
-                <b></b><a class="live800-service" customer-entry="composite" customer-service-button-id=""><i></i></a>
-                <div><p><a class="live800-service" customer-entry="composite" customer-service-button-id="">在线客服</a></p>
-                </div>
-            </li>
-            <li id="gome-aside-backtop">
-                <b></b><a href="javascript:void(0)"><i></i></a>
-                <div><p><a>返回顶部</a></p></div>
-            </li>
-        </ul>
-    </div>
-    <!-- gome-aside -->
-    <div id="gome-bar-border">
-        <ul id="gome-bar-border-tab">
-            <li class="gome-bar-btn-member" data-open="member"><b></b><i class="membericon"></i><a
-                    class="gome-bar-btn-tip" rel="nofollow" href="javascript:void(0);">国美会员</a></li>
-            <li class="gome-bar-btn-cart" data-open="cart" id="gome-bar-btn-cart"><b class="car_arrow"></b><i
-                    class="caricon"></i><b class="car_num car_num_0"><s>0</s><span class="point"></span></b><span
-                    class="text">购物车</span></li>
-            <li class="gome-bar-btn-coupon" data-open="coupon"><b></b><i class="caricon"></i></li>
-            <li class="gome-bar-btn-favorites" data-open="favorites" id="gome-bar-btn-favorites"><b></b><i
-                    class="favorites-icon"></i><a class="gome-bar-btn-tip" href="javascript:void(0);">我的收藏</a></li>
-        </ul>
-    </div>
-    <!-- gome-bar-border -->
-    <div id="gome-bar-box">
-        <div id="gome-bar-member" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="member-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
-                </div>
-            </div>
-        </div>
-        <div id="gome-bar-cart" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="cart-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
-                </div>
-            </div>
-        </div>
-        <div id="gome-bar-coupon" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="coupon-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
-                </div>
-            </div>
-        </div>
-        <div id="gome-bar-favorites" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span><span class="gome-bar-title">我的收藏</span></h3>
-            <ul class="favorites-tab">
-                <li class="tab-item tab-item-goods selected">商品</li>
-                <li class="tab-item tab-item-shop">店铺</li>
-                <li class="tab-item tab-item-brand">品牌</li>
+    <div id="gome-foot">
+        <div id="gome-foot-box">
+            <ul class="foot_small_zdy_w">
+                <li><a data-code="1000043124-0" href="javascript:;" target="_blank" rel="nofollow">国美集团</a></li>
+                <li><a data-code="1000043124-1" href="javascript:;" target="_blank">国美管家</a></li>
+                <li><a data-code="1000043124-2" href="javascript:;" target="_blank">关于国美</a></li>
+                <li><a data-code="1000043124-3" href="javascript:;" target="_blank">加入我们</a></li>
+                <li>|</li>
+                <li><a data-code="1000043124-4" href="javascript:;" target="_blank">品牌大全</a></li>
+                <li><a data-code="1000043124-5" href="javascript:;" target="_blank">商品专题</a></li>
+                <li><a data-code="1000043124-6" href="javascript:;" target="_blank">商品词</a></li>
+                <li><a data-code="1000043124-7" href="javascript:;" target="_blank">热词搜索</a></li>
+                <li><a data-code="1000043124-8" href="javascript:;" target="_blank">友情链接</a></li>
+                <li><a data-code="1000043124-9" href="javascript:;" target="_blank">风险监测</a></li>
+                <li>|</li>
+                <li><a data-code="1000043124-10" href="javascript:;" target="_blank">销售联盟</a></li>
+                <li><a data-code="1000043124-11" href="javascript:;" target="_blank">商家入驻</a></li>
+                <li><a data-code="1000043124-12" href="javascript:;" target="_blank">广告营销</a></li>
             </ul>
-            <div id="favorites-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading">
-                    <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
-                </div>
-
-                <div id="favorites-main-scrool" class="favorites-main">
-                    <div class="main-item main-item-goods">
+            <p>本公司游戏产品适合18岁以上成年人使用&nbsp;&nbsp;违法和不良信息举报电话：021-39900132&nbsp;&nbsp;<a class="interDrug"
+                                                                                     href="javascript:;"
+                                                                                     target="_blank">互联网药品信息服务资格证编号（沪）-经营性-2019-0006</a>
+            </p>
+            <p>网络食品销售第三方平台提供者备案：沪网食备A0015号&nbsp;&nbsp;<a class="interDrug" href="javascript:;" target="_blank">网络文化经营许可证沪网文[2017]5537-436号</a>&nbsp;&nbsp;<a
+                    class="interDrug" href="javascript:;" target="_blank">增值电信业务经营许可证</a></p>
+            <p>客服电话:4008113333&nbsp;&nbsp;<a class="interDrug" href="javascript:;" target="_blank">沪ICP备11009419号/京ICP备
+                19011786号</a>&nbsp;&nbsp;<a class="interDrug" href="javascript:;" target="_blank">京B2-20191290</a>&nbsp;&nbsp;<a
+                    class="interDrug" href="javascript:;" target="_blank">经营执照</a>&nbsp;&nbsp;<a class="interDrug"
+                                                                                                 href="javascript:;"
+                                                                                                 target="_blank">营业执照</a>&nbsp;&nbsp;<a
+                    class="interDrug" href="javascript:;" target="_blank">出版物经营许可证</a></p>
+            <p>©2000-2019&nbsp;&nbsp;国美在线电子商务有限公司版权所有&nbsp;&nbsp;<a class="interDrug tw-w-ico-wrap" href="javascript:;"
+                                                                    target="_blank"><i class="tw-w-mark-icon"></i>京公网安备
+                11010502038379号</a></p>
+            <div class="gome-foot-credit">
+                <a class="credit-baxx" href="javascript:;" target="_blank" rel="nofollow"><i></i><b>经营性网站备案信息</b></a>
+                <a class="credit-xypj" href="javascript:;" target="_blank" rel="nofollow"><i></i><b>可信网站信用评价</b></a>
+                <a class="credit-cxwz" href="javascript:;" target="_blank" rel="nofollow"><i></i><b>诚信网站</b></a>
+                <a class="credit-hdjc" href="javascript:;" target="_blank" rel="nofollow"><i></i><b>朝阳网络警察</b></a>
+                <a class="credit-wgdj" href="javascript:;" target="_blank" rel="nofollow"><i></i><b>网购大家评</b></a>
+                <a class="credit-report" href="javascript:;" target="_blank"
+                   rel="nofollow"><i></i><b>上海市互联网违法和不良信息举报中心</b></a>
+                <!-- <a class="credit-syxy" href="https://sz.yhxy.org.cn/credit/verifyseal.php?sn=2008070300100000031&ct=df&pa=33&check=y" target="_blank" rel="nofollow"><i></i><b>炎黄鸿志商业信用认证体系</b></a> -->
+            </div>
+            <em class="turst-gome"></em>
+        </div>
+    </div>
+    <!--foot-->
+    <div id="gome-bar">
+        <div class="gome-aside">
+            <ul>
+                <li id="gome-aside-cart" class="lang">
+                    <b></b><a href="javascript:void(0)" class="lang"><i class="caricon"></i><b
+                        class="car_num car_num_0"><s>0</s><span
+                        class="point"></span></b><span class="text">购物车</span></a>
+                </li>
+                <li id="gome-aside-coupon">
+                    <b></b><a href="javascript:void(0)"><i></i></a>
+                    <div><a>我的优惠券</a></div>
+                </li>
+                <li id="gome-aside-survey">
+                    <b></b><a rel="nofollow" data-code="1000043132" href="javascript:;" target="_blank"><i></i></a>
+                    <div><p><a rel="nofollow" data-code="1000043132" href="javascript:;" target="_blank">有奖调研</a></p>
                     </div>
-                    <div class="main-item main-item-shop">
+                </li>
+                <li id="gome-aside-service">
+                    <b></b><a class="live800-service" customer-entry="composite"
+                              customer-service-button-id=""><i></i></a>
+                    <div><p><a class="live800-service" customer-entry="composite" customer-service-button-id="">在线客服</a>
+                    </p>
                     </div>
-                    <div class="main-item main-item-brand">
+                </li>
+                <li id="gome-aside-backtop">
+                    <b></b><a href="javascript:void(0)"><i></i></a>
+                    <div><p><a>返回顶部</a></p></div>
+                </li>
+            </ul>
+        </div>
+        <!-- gome-aside -->
+        <div id="gome-bar-border">
+            <ul id="gome-bar-border-tab">
+                <li class="gome-bar-btn-member" data-open="member"><b></b><i class="membericon"></i><a
+                        class="gome-bar-btn-tip" rel="nofollow" href="javascript:void(0);">国美会员</a></li>
+                <li class="gome-bar-btn-cart" data-open="cart" id="gome-bar-btn-cart"><b class="car_arrow"></b><i
+                        class="caricon"></i><b class="car_num car_num_0"><s>0</s><span class="point"></span></b><span
+                        class="text">购物车</span></li>
+                <li class="gome-bar-btn-coupon" data-open="coupon"><b></b><i class="caricon"></i></li>
+                <li class="gome-bar-btn-favorites" data-open="favorites" id="gome-bar-btn-favorites"><b></b><i
+                        class="favorites-icon"></i><a class="gome-bar-btn-tip" href="javascript:void(0);">我的收藏</a></li>
+            </ul>
+        </div>
+        <!-- gome-bar-border -->
+        <div id="gome-bar-box">
+            <div id="gome-bar-member" class="gome-bar-box-wrap">
+                <h3><span class="gome-bar-close"></span></h3>
+                <div id="member-body" class="gome-bar-box-body">
+                    <div class="gome-bar-box-loading">
+                        <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- gome-bar-coupon -->
-    </div>
-    <!-- gome-bar-box -->
-</div>
-<!--aside-->
-<script>
-    var $page = {
-        site: "home"
-        , name: "shopping"
-    }
-</script>
-<script type="text/javascript">
-    var dynSite = '//g.gome.com.cn', staSite = '//www.gome.com.cn',
-        gomeplusDomain = '.gome.com.cn', contextPath = '/ec/homeus', cookieDomain = '.gome.com.cn',
-        imgServer = '//app.gomein.net.cn/images', stageJsServer = '//js.gomein.net.cn',
-        stageImageServer = '//img.gomein.net.cn', stageCssServer = '//css.gomein.net.cn',
-        gomeplusCdn = '//js.meixincdn.com/m/pc/', versionData = '1908220612';</script>
-
-
-<script src="js/order_details/201908221810.js"></script>
-<script src="js/order_details/Js.js"></script>
-<script src="js/order_details/Js1.js"></script>
-<!--[if lte IE 9]>
-<script type="text/javascript" src="js/order_details/placeholders.js"></script>
-<![endif]-->
-
-
-<!--信息填写-->
-<div class="gui-modal"
-     style="width: 1349px; height: 640px; position: fixed; left: 0px; top: 0px; background-color: rgb(0, 0, 0); opacity: 0.2; display: none; z-index: 1000;"
-     id="info"></div>
-<div id="infos" style="position: fixed; display: none; z-index: 1000; left: 337.5px; top: 128px;">
-    <div class="addpop addpopwarp pr bgwhite box-sd2" id="id_newAddress">
-        <div class="addInput popbd pr">
-            <a id="closeaddress" class="closed c-i pabs closebtn-new" href="javascript:void(0)"></a>
-            <div class="consigneeContentTab">
-                <div class="add_table">
-                    <div class="pr">
-                        <div class="pabs" style="top:132px;right:-43px;width:193px">
-                            <div style="height:6px;"></div>
-                            <p class="hide" style="margin-left:5px;" g-tip-validate="phone"></p>
-                            <p class="hide" style="margin-left:5px;" g-tip-validate="call"></p></div>
+            <div id="gome-bar-cart" class="gome-bar-box-wrap">
+                <h3><span class="gome-bar-close"></span></h3>
+                <div id="cart-body" class="gome-bar-box-body">
+                    <div class="gome-bar-box-loading">
+                        <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
                     </div>
-                    <table width="100%" cellspacing="0" cellpadding="0">
-                        <tbody>
-                        <tr>
-                            <td align="right"><i class="fontRed">* </i>收货人：</td>
-                            <td colspan="4"><input name="consignee" g-validate="consignee" type="text"
-                                                   style="width:142px" class="form-control fl" value="">
-                                <p class="ntishi fl" g-tip-validate="consignee"></p></td>
-                        </tr>
-                        <tr>
-                            <td align="right"><i class="fontRed">* </i>所在地：</td>
-                            <td colspan="4 ">
-                                <div style="float:left;" class="pr" id="id_address_select">
+                </div>
+            </div>
+            <div id="gome-bar-coupon" class="gome-bar-box-wrap">
+                <h3><span class="gome-bar-close"></span></h3>
+                <div id="coupon-body" class="gome-bar-box-body">
+                    <div class="gome-bar-box-loading">
+                        <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
+                    </div>
+                </div>
+            </div>
+            <div id="gome-bar-favorites" class="gome-bar-box-wrap">
+                <h3><span class="gome-bar-close"></span><span class="gome-bar-title">我的收藏</span></h3>
+                <ul class="favorites-tab">
+                    <li class="tab-item tab-item-goods selected">商品</li>
+                    <li class="tab-item tab-item-shop">店铺</li>
+                    <li class="tab-item tab-item-brand">品牌</li>
+                </ul>
+                <div id="favorites-body" class="gome-bar-box-body">
+                    <div class="gome-bar-box-loading">
+                        <img src="picture/grey.gif" gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
+                    </div>
+
+                    <div id="favorites-main-scrool" class="favorites-main">
+                        <div class="main-item main-item-goods">
+                        </div>
+                        <div class="main-item main-item-shop">
+                        </div>
+                        <div class="main-item main-item-brand">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- gome-bar-coupon -->
+        </div>
+        <!-- gome-bar-box -->
+    </div>
+    <!--aside-->
+    <script>
+        var $page = {
+            site: "home"
+            , name: "shopping"
+        }
+    </script>
+    <script type="text/javascript">
+        var dynSite = '//g.gome.com.cn', staSite = '//www.gome.com.cn',
+            gomeplusDomain = '.gome.com.cn', contextPath = '/ec/homeus', cookieDomain = '.gome.com.cn',
+            imgServer = '//app.gomein.net.cn/images', stageJsServer = '//js.gomein.net.cn',
+            stageImageServer = '//img.gomein.net.cn', stageCssServer = '//css.gomein.net.cn',
+            gomeplusCdn = '//js.meixincdn.com/m/pc/', versionData = '1908220612';</script>
+
+
+    <script src="js/order_details/201908221810.js"></script>
+    <script src="js/order_details/Js.js"></script>
+    <script src="js/order_details/Js1.js"></script>
+    <!--[if lte IE 9]>
+    <script type="text/javascript" src="js/order_details/placeholders.js"></script>
+    <![endif]-->
+
+
+    <!--信息填写-->
+    <div class="gui-modal"
+         style="width: 1349px; height: 640px; position: fixed; left: 0px; top: 0px; background-color: rgb(0, 0, 0); opacity: 0.2; display: none; z-index: 1000;"
+         id="info"></div>
+    <div id="infos" style="position: fixed; display: none; z-index: 1000; left: 337.5px; top: 128px;">
+        <div class="addpop addpopwarp pr bgwhite box-sd2" id="id_newAddress">
+            <div class="addInput popbd pr">
+                <a id="closeaddress" class="closed c-i pabs closebtn-new" href="javascript:void(0)"></a>
+                <div class="consigneeContentTab">
+                    <div class="add_table">
+                        <div class="pr">
+                            <div class="pabs" style="top:132px;right:-43px;width:193px">
+                                <div style="height:6px;"></div>
+                                <p class="hide" style="margin-left:5px;" g-tip-validate="phone"></p>
+                                <p class="hide" style="margin-left:5px;" g-tip-validate="call"></p></div>
+                        </div>
+                        <table width="100%" cellspacing="0" cellpadding="0">
+                            <tbody>
+                            <tr>
+                                <td align="right"><i class="fontRed">* </i>收货人：</td>
+                                <td colspan="4"><input name="consignee" g-validate="consignee" type="text"
+                                                       style="width:142px" class="form-control fl" value="">
+                                    <p class="ntishi fl" g-tip-validate="consignee"></p></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><i class="fontRed">* </i>所在地：</td>
+                                <td colspan="4 ">
+                                    <div style="float:left;" class="pr" id="id_address_select">
                                     <span style="border-color:#e5e5e5;">
                                     <a href="javascript:void(0)" name="address" g-validate="address" id="adrs"
                                        class="add_select error"><span show-label="" class="fl"
                                                                       id="stockaddress">请选择收货地点</span>
                                         <i class="c-i select_arrowup ml10 mt10"></i></a></span>
-                                    <div class="pr add_out hide" style="display: none;" id="adrss">
-                                        <div class="gCity clearfix" id="address-details"
-                                             style="margin-top: -20px; margin-left: 1px; display: block;">
-                                            <div id="citySelect" class="gctSelect clearfix">
-                                                <a href="javascript:;" class="provin1 cur" id="pct_1" data-val="1"
-                                                   class="cur" data-lnk=""><b id="province_title" pid="">请选择</b><i></i></a>
-                                                <a href="javascript:;" class="provin2" id="pct_2" data-val="2"
-                                                   data-lnk=""><b id="city_title" cid>请选择</b><i></i></a>
-                                                <a href="javascript:;" class="provin3" id="pct_3" data-val="3"
-                                                   data-lnk=""><b id="area_title" did="">请选择</b><i></i></a>
-                                                <a href="javascript:;" class="provin4" id="pct_4" data-val="4"
-                                                   data-lnk=""
-                                                ><b id="street_title" sid="">请选择</b><i></i></a>
-                                                <a href="javascript:;" id="cityClose" class="close"></a>
-                                            </div>
-                                            <div id="cityMBox">
-                                                <!--省-->
-                                                <div class="gctBox" id="ctbox_1" style="display: block;">
-                                                    <!--<span>-->
-                                                    <!--<a href="javascript:;" title="北京" id="ct11000000"-->
-                                                    <!--data-val="11000000,2,1">北京</a>-->
-                                                    <!--</span>-->
-                                                    <!--<span><a href="javascript:;" title="天津" id="ct12000000"-->
-                                                    <!--data-val="12000000,2,1">天津</a></span>-->
+                                        <div class="pr add_out hide" style="display: none;" id="adrss">
+                                            <div class="gCity clearfix" id="address-details"
+                                                 style="margin-top: -20px; margin-left: 1px; display: block;">
+                                                <div id="citySelect" class="gctSelect clearfix">
+                                                    <a href="javascript:;" class="provin1 cur" id="pct_1" data-val="1"
+                                                       class="cur" data-lnk=""><b id="province_title"
+                                                                                  pid="">请选择</b><i></i></a>
+                                                    <a href="javascript:;" class="provin2" id="pct_2" data-val="2"
+                                                       data-lnk=""><b id="city_title" cid>请选择</b><i></i></a>
+                                                    <a href="javascript:;" class="provin3" id="pct_3" data-val="3"
+                                                       data-lnk=""><b id="area_title" did="">请选择</b><i></i></a>
+                                                    <a href="javascript:;" class="provin4" id="pct_4" data-val="4"
+                                                       data-lnk=""
+                                                    ><b id="street_title" sid="">请选择</b><i></i></a>
+                                                    <a href="javascript:;" id="cityClose" class="close"></a>
                                                 </div>
-                                                <!--市-->
-                                                <div class="gctBox" id="ctbox_2" style="display: none;">
-                                                    <!--<span><a href="javascript:;" title="北京市" id="ct11010000"-->
-                                                    <!--data-val="11010000,3,2">北京市</a></span>-->
-                                                </div>
-                                                <!--区-->
-                                                <div class="gctBox" id="ctbox_3" style="display: none;">
-                                                    <!--<span><a href="javascript:;" title="朝阳区" id="ct11010200"-->
-                                                    <!--data-val="11010200,4,3">朝阳区</a></span>-->
-                                                    <!--<span><a href="javascript:;" title="丰台区" d="ct11010300"-->
-                                                    <!--data-val="11010300,4,3">丰台区</a></span>-->
-                                                </div>
-                                                <!---街-->
-                                                <div class="gctBox" id="ctbox_4" style="display: none;">
-                                                    <!--<span><a href="javascript:;" title="朝外街道" id="ct110102002"-->
-                                                    <!--data-val="110102002,5,4">朝外街道</a></span>-->
-                                                    <!--<span><a href="javascript:;" title="劲松街道" id="ct110102003"-->
-                                                    <!--data-val="110102003,5,4">劲松街道</a></span>-->
+                                                <div id="cityMBox">
+                                                    <!--省-->
+                                                    <div class="gctBox" id="ctbox_1" style="display: block;">
+                                                        <!--<span>-->
+                                                        <!--<a href="javascript:;" title="北京" id="ct11000000"-->
+                                                        <!--data-val="11000000,2,1">北京</a>-->
+                                                        <!--</span>-->
+                                                        <!--<span><a href="javascript:;" title="天津" id="ct12000000"-->
+                                                        <!--data-val="12000000,2,1">天津</a></span>-->
+                                                    </div>
+                                                    <!--市-->
+                                                    <div class="gctBox" id="ctbox_2" style="display: none;">
+                                                        <!--<span><a href="javascript:;" title="北京市" id="ct11010000"-->
+                                                        <!--data-val="11010000,3,2">北京市</a></span>-->
+                                                    </div>
+                                                    <!--区-->
+                                                    <div class="gctBox" id="ctbox_3" style="display: none;">
+                                                        <!--<span><a href="javascript:;" title="朝阳区" id="ct11010200"-->
+                                                        <!--data-val="11010200,4,3">朝阳区</a></span>-->
+                                                        <!--<span><a href="javascript:;" title="丰台区" d="ct11010300"-->
+                                                        <!--data-val="11010300,4,3">丰台区</a></span>-->
+                                                    </div>
+                                                    <!---街-->
+                                                    <div class="gctBox" id="ctbox_4" style="display: none;">
+                                                        <!--<span><a href="javascript:;" title="朝外街道" id="ct110102002"-->
+                                                        <!--data-val="110102002,5,4">朝外街道</a></span>-->
+                                                        <!--<span><a href="javascript:;" title="劲松街道" id="ct110102003"-->
+                                                        <!--data-val="110102003,5,4">劲松街道</a></span>-->
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <p class="ntishi fl" g-tip-validate="address" style="display: block;">
-                                    <span style="color:#f00;">请选择所在地</span>
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right"><i class="fontRed">* </i>详细地址：</td>
-                            <td colspan="4"><input name="detailAddress" g-validate="detailAddress" type="text"
-                                                   style="width:520px" class="form-control fl">
-                                <p class="ntishi fl" g-tip-validate="detailAddress"></p></td>
-                        </tr>
-                        <tr class="ntelEmail">
-                            <td width="110" align="right"><i class="fontRed">* </i>手机号码：</td>
-                            <td width="245"><input type="text" name="phone" g-validate="phone" style="width:209px"
-                                                   class="form-control fl"></td>
-                        </tr>
-                        <tr>
-                            <td align="right">邮件：</td>
-                            <td colspan="4"><input name="email" type="text" g-validate="email" style="width:209px"
-                                                   class="form-control fl">
-                                <p class="ntishi fl"><span class="nLowLeight">方便您实时接收订单状态提醒</span></p>
-                                <p class="ntishi fl" g-tip-validate="email"></p></td>
-                        </tr>
-                        <tr>
-                            <td align="right"></td>
-                            <td colspan="4"><span class="default_address">
+                                    <p class="ntishi fl" g-tip-validate="address" style="display: block;">
+                                        <span style="color:#f00;">请选择所在地</span>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right"><i class="fontRed">* </i>详细地址：</td>
+                                <td colspan="4"><input name="detailAddress" g-validate="detailAddress" type="text"
+                                                       style="width:520px" class="form-control fl">
+                                    <p class="ntishi fl" g-tip-validate="detailAddress"></p></td>
+                            </tr>
+                            <tr class="ntelEmail">
+                                <td width="110" align="right"><i class="fontRed">* </i>手机号码：</td>
+                                <td width="245"><input type="text" name="phone" g-validate="phone" style="width:209px"
+                                                       class="form-control fl"></td>
+                            </tr>
+                            <tr>
+                                <td align="right">邮件：</td>
+                                <td colspan="4"><input name="email" type="text" g-validate="email" style="width:209px"
+                                                       class="form-control fl">
+                                    <p class="ntishi fl"><span class="nLowLeight">方便您实时接收订单状态提醒</span></p>
+                                    <p class="ntishi fl" g-tip-validate="email"></p></td>
+                            </tr>
+                            <tr>
+                                <td align="right"></td>
+                                <td colspan="4"><span class="default_address">
                                     <input type="checkbox" class="c-i checkboxs fl" id="inputCeckbox"
                                            style="height: 22px">
                                 <em class="fl">设置默认地址</em></span>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a class="btn btn-primary btn-large" href="javascript:;" data-type="addInsert" data-id=""
+                       id="saveAddress"
+                       style="display: block;margin-left: 110px;margin-top: 10px; height: 36px;width: 206px">保存收货人地址</a>
+                    <a class="btn btn-primary btn-large" href="javascript:;" data-type="update"
+                       id="updaAddress"
+                       style="display: none;margin-left: 110px;margin-top: 10px;height: 36px;width: 206px">修改收货人地址</a>
                 </div>
-                <a class="btn btn-primary btn-large" href="javascript:;" data-type="addInsert" data-id=""
-                   id="saveAddress" style="display: block;margin-left: 110px;margin-top: 10px; height: 36px;width: 206px" >保存收货人地址</a>
-                <a class="btn btn-primary btn-large" href="javascript:;" data-type="update"
-                   id="updaAddress" style="display: none;margin-left: 110px;margin-top: 10px;height: 36px;width: 206px">修改收货人地址</a>
-            </div>
-            <div class="consigneeContentTab" style="display:none">
-                <div id="add-address-stores"></div>
+                <div class="consigneeContentTab" style="display:none">
+                    <div id="add-address-stores"></div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<script type="text/javascript">
-    $(function () {
-        var userid;
-        //从服务器拿到session
-        $.ajax(
-            {
-                type: "post",
-                url: "users/getSessionUser",
-                async: false,
-                success: function (data) {
-                    userid = data.id;
+    <script type="text/javascript">
+        $(function () {
+            var userid;
+            //从服务器拿到session
+            $.ajax(
+                {
+                    type: "post",
+                    url: "users/getSessionUser",
+                    async: false,
+                    success: function (data) {
+                        userid = data.id;
+                    }
                 }
-            }
-        )
+            )
 
-        //查看当前用户是否有地址
-        $.getJSON("myGuoMei/selectAddressExist", {"uid": userid}, function (json) {
+            //查看当前用户是否有地址
+            $.getJSON("myGuoMei/selectAddressExist", {"uid": userid}, function (json) {
 
-            if (json.code == "no") {
-                $("#infos").show();
-            } else {
-                $("#infos").hide();
-            }
-
-        });
-
-        findAllAddress(userid);
-
-        var title1 = "";//省名称
-        var title2 = "";//市
-        var title3 = "";//区
-        var title4 = "";//街
-        var pid = "";//省Id
-        var cid = "";//市id
-        var did = "";//区id
-        var sid = "";//街id
-
-        //清除新增与修改的回显数据
-        function clearAddress() {
-            $("input[name=consignee]").val("");//收货人
-            $("input[name=detailAddress]").val("");//详细地址
-            $("input[name=phone]").val("");//电话号码
-            $("input[name=email]").val("");
-            $("div.add_table input[type=checkbox]").removeAttr("checked");
-            $("#stockaddress").text("请选择收货地址");
-            $("#stockaddress").attr("title", "");
-            $("div#citySelect a b").text("请选择");
-            $("#saveAddress").attr("data-type", "");
-            $("#updaAddress").attr("data-type","");
-            //显示选择收货地址信息
-            $("body").on('click', '#adrs', function () {
-                $("#address-details").css("display", "block");
-                $(".provin1").addClass("cur").siblings().removeClass("cur");
-                $("div#ctbox_4").empty();
-            });
-        }
-
-
-        //选中省市区街联动
-        $("body").on('click', '.provin1', function () {
-            $(this).addClass("cur").siblings().removeClass("cur");
-            $("div#ctbox_1").css("display", "block");
-            // var index1 = $(this).attr(1)1
-            //当选完地点后,再次重新点击收货地址重新选择,点击省时清除其他数据,只保留省数据,避免二次数据显示
-            //点击省显示市
-            //当选完地址重新点击的时候,清空所有数据,防止数据再次添加一下同理,下面再运行方法查询数据
-            $("div#ctbox_1").empty();
-            $("div#ctbox_2").empty();
-            $("div#ctbox_3").empty();
-            $("div#ctbox_4").empty();
-            findProvince();
-            $("body").on('click', '.province', function () {
-                $('.provin2').addClass("cur").siblings().removeClass("cur");
-                pid = $(this).attr("code");
-                title1 = $(this).attr("title");
-                $("#province_title").text(title1);
-                $("#province_title").attr("pid", pid);
-                //当选完地址重新点击的时候,清空所有数据,防止数据再次添加一下同理,下面再运行方法查询数据
-                $("div#ctbox_1").empty();
-                $("div#ctbox_2").empty();
-                $("div#ctbox_3").empty();
-                $("div#ctbox_4").empty();
-                findCityByPro(pid);
-                $("div#ctbox_1").css("display", "none");
-                $("div#ctbox_2").css("display", "block");
-                //
-            });
-            //点击市显示区
-            $("body").on('click', '.cityId', function () {
-                $('.provin3').addClass("cur").siblings().removeClass("cur");
-                cid = $(this).attr("code");
-                title2 = $(this).attr("title");
-                $("#city_title").text(title2);
-                $("#city_title").attr("cid", cid);
-                //当选完地址重新点击的时候,清空所有数据,防止数据再次添加一下同理,下面再运行方法查询数据
-                $("div#ctbox_1").empty();
-                $("div#ctbox_2").empty();
-                $("div#ctbox_3").empty();
-                $("div#ctbox_4").empty();
-                findAreaByCity(cid);
-                $("div#ctbox_2").css("display", "none");
-                $("div#ctbox_3").css("display", "block");
-                //
-            });
-            //点击区显示街道
-            $("body").on('click', '.areaId', function () {
-                $('.provin4').addClass("cur").siblings().removeClass("cur");
-                did = $(this).attr("code");
-                title3 = $(this).attr("title");
-                $("#area_title").text(title3);
-                $("#area_title").attr("did", did);
-                //当选完地址重新点击的时候,清空所有数据,防止数据再次添加一下同理,下面再运行方法查询数据
-                $("div#ctbox_1").empty();
-                $("div#ctbox_2").empty();
-                $("div#ctbox_3").empty();
-                $("div#ctbox_4").empty();
-                findStreetByArea(did);
-                $("div#ctbox_3").css("display", "none");
-                $("div#ctbox_4").css("display", "block");
-            });
-            //点击街道,关闭窗口 吧所有数据显示出来
-            $("body").on('click', '.streetId', function () {
-                sid = $(this).attr("code");
-                title4 = $(this).attr("title");
-                $("#street_title").text(title4);
-                $("#street_title").attr("sid", sid);
-                $("#address").removeClass("gctCur");
-                $("#address-details").hide();
-                $("#stockaddress").attr("title", title1 + title2 + title3 + title4);
-                $("#stockaddress").text(title1 + title2 + title3 + title4);
-
-            });
-            $("body").on('click', '.provin2', function () {
-                $(this).addClass("cur").siblings().removeClass("cur");
-                $("div#ctbox_1").empty();
-                $("div#ctbox_3").empty();
-                $("div#ctbox_4").empty();
-                $("div#ctbox_1").css("display", "none");
-                $("div#ctbox_2").css("display", "block");
-                findCityByPro(pid);
-            });
-            $("body").on('click', '.provin3', function () {
-                $("div#ctbox_1").empty();
-                $("div#ctbox_2").empty();
-                $("div#ctbox_4").empty();
-                $(this).addClass("cur").siblings().removeClass("cur");
-                $("div#ctbox_2").css("display", "none");
-                $("div#ctbox_3").css("display", "block");
-                findAreaByCity(cid);
-            });
-            $("body").on('click', '.provin4', function () {
-                $("div#ctbox_1").empty();
-                $("div#ctbox_2").empty();
-                $("div#ctbox_3").empty();
-                $(this).addClass("cur").siblings().removeClass("cur");
-                $("div#ctbox_3").css("display", "none");
-                $("div#ctbox_4").css("display", "block");
-                findStreetByArea(did);
-            });
-        });
-
-
-        //查询所有省份
-        function findProvince() {
-            $.getJSON('myGuoMei/findProvince', function (json) {
-                $("div#ctbox_1").empty();
-                for (var i = 0; i < json.length; i++) {
-                    var span = "";
-                    var cate = json[i];
-                    span += "<span>";
-                    span += "<a href='javascript:;' title='" + cate.name + "' code='" + cate.id + "' class='province' >" + cate.name + "</a>";
-                    span += "</span>";
-                    $("div#ctbox_1").append(span);
-                }
-            });
-
-        }
-
-        //根据省份id查询城市
-        function findCityByPro(id) {
-            //根据省份id查询城市
-            $.getJSON('myGuoMei/findCityByProvince?province_id=' + id, function (json) {
-                $("div#ctbox_2").empty();
-                for (var i = 0; i < json.length; i++) {
-                    var span = "";
-                    var cate = json[i];
-                    span += "<span>";
-                    span += "<a href='javascript:;' title='" + cate.cname + "' code='" + cate.id + "' class='cityId' >" + cate.cname + "</a>";
-                    span += "</span>";
-                    $("div#ctbox_2").append(span);
-                }
-            });
-        }
-
-        //根据城市id查询区
-        function findAreaByCity(id) {
-
-            $.getJSON('myGuoMei/findAreaByCity?city_id=' + id, function (json) {
-                $("div#ctbox_3").empty();
-                for (var i = 0; i < json.length; i++) {
-                    var span = "";
-                    var cate = json[i];
-                    span += "<span>";
-                    span += "<a href='javascript:;' title='" + cate.dname + "' code='" + cate.id + "' class='areaId' >" + cate.dname + "</a>";
-                    span += "</span>";
-                    $("div#ctbox_3").append(span);
-                }
-            })
-        }
-
-        //根据区id查询街
-        function findStreetByArea(id) {
-            //根据区id查询街
-            $.getJSON('myGuoMei/findStreetByArea?district_id=' + id, function (json) {
-                $("div#ctbox_4").empty();
-
-                for (var i = 0; i < json.length; i++) {
-                    var span = "";
-                    var cate = json[i];
-                    span += "<span>";
-                    span += "<a href='javascript:;' title='" + cate.sname + "' code='" + cate.id + "' class='streetId' >" + cate.sname + "</a>";
-                    span += "</span>";
-                    $("div#ctbox_4").append(span);
-                }
-            });
-        }
-
-
-        //新增收货人地址ajax方法
-        $("body").on('click', '#saveAddress', function () {
-            //新增收货人地址
-            var userName = $("input[name=consignee]").val();//收货人
-            var address = $("input[name=detailAddress]").val();//详细地址
-            var phone = $("input[name=phone]").val();//电话号码
-            var email = $("input[name=email]").val();
-            var isdefault = "";//是否为默认地址 1为默认地址 2为普通地址
-            if ($("#inputCeckbox").is(":checked")) {
-                isdefault = 1;
-            } else {
-                isdefault = 2;
-            }
-            $.getJSON('myGuoMei/addAddressPage', {
-                "province_id": pid,
-                "city_id": cid,
-                "district_id": did,
-                "street_id": sid,
-                "user_id": userid,
-                "address_name": userName,
-                "address_detail": address,
-                "user_phone": phone,
-                "user_email": email,
-                "address_isdefault": isdefault
-            }, function (json) {
-                if (json == 1) {
-                    $(".icon-box-suc").css("display", "inline");
-                    $("#infos").hide();
-                    $(".gui-modal").hide();
-                    findAllAddress(userid);
-                    clearAddress();
+                if (json.code == "no") {
+                    $("#infos").show();
                 } else {
-                    $(".icon-box-error").css("display", "inline");
+                    $("#infos").hide();
                 }
-            })
-        });
 
-        var reg = /^(\d{3})(\d*)(\d{4})$/;//电话号码中间4位为*
-
-        //显示所有地址
-        function findAllAddress(userid) {
-            //查询所有收货地址
-            $("ul.addname").empty();
-            $.getJSON('myGuoMei/showAddress?userid=' + userid, function (json) {
-                for (var i = 0; i < json.length; i++) {
-                    var li = "";
-                    var subCate = json[i];
-                    var myPhone = subCate.phone;
-                    myPhone = myPhone.replace(reg, function (a, b, c, d) {
-                        return b + c.replace(/\d/g, "*") + d;
-                    });
-                    li += "<li class='addr-box addr-boos' aid='" + subCate.id + "'>";
-                    li += "<input type='hidden' value='" + subCate.id + "' name='address_id'>";
-                    if (i == 0) {
-                        li += "<div class='addr-box-content active' >";
-                    } else {
-                        li += "<div class='addr-box-content' >";
-                    }
-
-                    li += "<div class='addr-header'>";
-                    if (subCate.isdefault == 1) {
-                        li += "<span>默认地址</span>";
-                    }
-                    li += "</div>";
-                    li += "<div class='addr-hd'>";
-                    li += "<span class='name'>" + subCate.userName + "</span>";
-                    li += "<span>" + subCate.provinceAddress.provinceName + "</span>";
-                    li += "</div>";
-                    li += "<div class='addr-hd hd-detail' title=''><span class=''>" + subCate.provinceAddress.cityName + "</span>";
-                    li += "<span class=''>" + subCate.provinceAddress.districtName + "</span><span class=''>" + subCate.provinceAddress.streetName + "</span><span class=''>" + subCate.address + "</span><br/>";
-                    li += "<span class=''> " + myPhone + "</span>";
-                    li += "</div>";
-                    li += "<div class='addr-manage'>";
-                    //判断是否为默认地址,是默认地址则不显示设定默认地址
-                    if (subCate.isdefault == 1) {
-                        li += "<span class='addr-btn  hide deleAdress' g-hover=''style='display: none;' asid='"+subCate.id+"'>删除</span>";
-                        li += "<span class='addr-btn  hide updaAddress' g-hover=''style='display: none;' asid='"+subCate.id+"'>修改</span>";
-                    } else {
-                        li += "<span class='addr-btn hide onlyAddress'  g-hover='' style='display: none;' asid='"+subCate.id+"'>设为默认</span>";
-                        li += "<span class='addr-btn  hide deleAdress' g-hover='' style='display: none;' asid='"+subCate.id+"'>删除</span>";
-                        li += "<span class='addr-btn  hide updaAddress' g-hover='' style='display: none;' asid='"+subCate.id+"'>修改</span>";
-                    }
-                    li += "</div>";
-                    li += "<div class='addr-footer'>";
-                    li += "<i class='c-i big_chose_icon'></i>";
-                    li += "</div>";
-                    li += "</div>";
-                    li += "</li>";
-                    $("ul.addname").append(li);
-
-                }
-                var li1 = "<li class='addr-box addr-box-add' new-address='' id='addAddress'> <div class='addr-box-content'> <div class='add-content'><div class='add-add'>+</div><div class='add-title'>添加新地址</div></div></div></li>";
-                $("ul.addname").append(li1);
-                var jid = json.length;//判断是否有数据
-                showOnlyAddress(jid);
-                orderAddress(json[0], json[0].id);//默认加载第一个
             });
 
-        }
+            findAllAddress(userid);
 
-        function orderAddress(json, id) {
-            //加载页面后,提交订单显示默认地址
-            var myPhone = json.phone;
-            myPhone = myPhone.replace(reg, function (a, b, c, d) {
-                return b + c.replace(/\d/g, "*") + d;
-            });
-            $("div.ds_address ").empty();
-            var add = "";
-            add += "<div class='text-right mr8' style='margin-bottom: -8px;'>";
-            add += "<div class='i-block name_over1'>送货地址：" + json.provinceAddress.provinceName + "&nbsp;&nbsp;" + json.provinceAddress.cityName + "&nbsp;&nbsp;" + json.provinceAddress.districtName + "&nbsp;&nbsp;" + json.provinceAddress.streetName + "</div>&nbsp;";
-            add += "<div class='mr10 i-block name_over2 ' title='" + json.address + "'>" + json.address + "</div>";
-            add += "</div>";
-            add += "<div class='text-right mb15 mr8'>";
-            add += "<span class='name_over3'>收货人：" + json.userName + "</span>&nbsp;";
-            add += "<span class='mr10 name_over4'>" + myPhone + "</span><input id='aid'  type='hidden' value='" + id + "'>";
-            add += "</div>";
-            $("div.ds_address ").append(add);
-        }
-        //当只有一个地址显示时,鼠标悬浮上去,删除和修改数据将不会出现
-        function showOnlyAddress(jid) {
-            $("body").on('mouseover mouseout', '.addr-boos', function (event) {
-                if (jid != 1) {
-                    if (event.type == "mouseover") {
-                        //鼠标悬浮显示设定默认地址修改删除地址
-                        $(this).find('.addr-btn').css("display","inline");
-                    } else if (event.type == "mouseout") {
-                        //鼠标离开
-                        $(".addr-btn").css("display","none");
-                    }
-                }
-            })
-        }
-        //删除收货地址
-        layui.use(['layer'], function () {
-            var layer = layui.layer;
-            $ = layui.jquery;
-            $("body").on('click', '.deleAdress', function () {
-                var addresid = $(this).attr("asid");
-                layer.confirm('确认是否删除?', function (index) {
-                    $.getJSON('myGuoMei/deleteAddress?address_id=' + addresid, function (json) {
-                        if (json == true) {
-                            layer.close(index);
-                            layer.msg("删除成功!");
-                            findAllAddress(userid);
-                        }
-                    });
-                    layer.close(index);
+            var title1 = "";//省名称
+            var title2 = "";//市
+            var title3 = "";//区
+            var title4 = "";//街
+            var pid = "";//省Id
+            var cid = "";//市id
+            var did = "";//区id
+            var sid = "";//街id
+
+            //清除新增与修改的回显数据
+            function clearAddress() {
+                $("input[name=consignee]").val("");//收货人
+                $("input[name=detailAddress]").val("");//详细地址
+                $("input[name=phone]").val("");//电话号码
+                $("input[name=email]").val("");
+                $("div.add_table input[type=checkbox]").removeAttr("checked");
+                $("#stockaddress").text("请选择收货地址");
+                $("#stockaddress").attr("title", "");
+                $("div#citySelect a b").text("请选择");
+                $("#saveAddress").attr("data-type", "");
+                $("#updaAddress").attr("data-type", "");
+                //显示选择收货地址信息
+                $("body").on('click', '#adrs', function () {
+                    $("#address-details").css("display", "block");
+                    $(".provin1").addClass("cur").siblings().removeClass("cur");
+                    $("div#ctbox_4").empty();
+                });
+            }
+
+
+            //选中省市区街联动
+            $("body").on('click', '.provin1', function () {
+                $(this).addClass("cur").siblings().removeClass("cur");
+                $("div#ctbox_1").css("display", "block");
+                // var index1 = $(this).attr(1)1
+                //当选完地点后,再次重新点击收货地址重新选择,点击省时清除其他数据,只保留省数据,避免二次数据显示
+                //点击省显示市
+                //当选完地址重新点击的时候,清空所有数据,防止数据再次添加一下同理,下面再运行方法查询数据
+                $("div#ctbox_1").empty();
+                $("div#ctbox_2").empty();
+                $("div#ctbox_3").empty();
+                $("div#ctbox_4").empty();
+                findProvince();
+                $("body").on('click', '.province', function () {
+                    $('.provin2').addClass("cur").siblings().removeClass("cur");
+                    pid = $(this).attr("code");
+                    title1 = $(this).attr("title");
+                    $("#province_title").text(title1);
+                    $("#province_title").attr("pid", pid);
+                    //当选完地址重新点击的时候,清空所有数据,防止数据再次添加一下同理,下面再运行方法查询数据
+                    $("div#ctbox_1").empty();
+                    $("div#ctbox_2").empty();
+                    $("div#ctbox_3").empty();
+                    $("div#ctbox_4").empty();
+                    findCityByPro(pid);
+                    $("div#ctbox_1").css("display", "none");
+                    $("div#ctbox_2").css("display", "block");
+                    //
+                });
+                //点击市显示区
+                $("body").on('click', '.cityId', function () {
+                    $('.provin3').addClass("cur").siblings().removeClass("cur");
+                    cid = $(this).attr("code");
+                    title2 = $(this).attr("title");
+                    $("#city_title").text(title2);
+                    $("#city_title").attr("cid", cid);
+                    //当选完地址重新点击的时候,清空所有数据,防止数据再次添加一下同理,下面再运行方法查询数据
+                    $("div#ctbox_1").empty();
+                    $("div#ctbox_2").empty();
+                    $("div#ctbox_3").empty();
+                    $("div#ctbox_4").empty();
+                    findAreaByCity(cid);
+                    $("div#ctbox_2").css("display", "none");
+                    $("div#ctbox_3").css("display", "block");
+                    //
+                });
+                //点击区显示街道
+                $("body").on('click', '.areaId', function () {
+                    $('.provin4').addClass("cur").siblings().removeClass("cur");
+                    did = $(this).attr("code");
+                    title3 = $(this).attr("title");
+                    $("#area_title").text(title3);
+                    $("#area_title").attr("did", did);
+                    //当选完地址重新点击的时候,清空所有数据,防止数据再次添加一下同理,下面再运行方法查询数据
+                    $("div#ctbox_1").empty();
+                    $("div#ctbox_2").empty();
+                    $("div#ctbox_3").empty();
+                    $("div#ctbox_4").empty();
+                    findStreetByArea(did);
+                    $("div#ctbox_3").css("display", "none");
+                    $("div#ctbox_4").css("display", "block");
+                });
+                //点击街道,关闭窗口 吧所有数据显示出来
+                $("body").on('click', '.streetId', function () {
+                    sid = $(this).attr("code");
+                    title4 = $(this).attr("title");
+                    $("#street_title").text(title4);
+                    $("#street_title").attr("sid", sid);
+                    $("#address").removeClass("gctCur");
+                    $("#address-details").hide();
+                    $("#stockaddress").attr("title", title1 + title2 + title3 + title4);
+                    $("#stockaddress").text(title1 + title2 + title3 + title4);
+
+                });
+                $("body").on('click', '.provin2', function () {
+                    $(this).addClass("cur").siblings().removeClass("cur");
+                    $("div#ctbox_1").empty();
+                    $("div#ctbox_3").empty();
+                    $("div#ctbox_4").empty();
+                    $("div#ctbox_1").css("display", "none");
+                    $("div#ctbox_2").css("display", "block");
+                    findCityByPro(pid);
+                });
+                $("body").on('click', '.provin3', function () {
+                    $("div#ctbox_1").empty();
+                    $("div#ctbox_2").empty();
+                    $("div#ctbox_4").empty();
+                    $(this).addClass("cur").siblings().removeClass("cur");
+                    $("div#ctbox_2").css("display", "none");
+                    $("div#ctbox_3").css("display", "block");
+                    findAreaByCity(cid);
+                });
+                $("body").on('click', '.provin4', function () {
+                    $("div#ctbox_1").empty();
+                    $("div#ctbox_2").empty();
+                    $("div#ctbox_3").empty();
+                    $(this).addClass("cur").siblings().removeClass("cur");
+                    $("div#ctbox_3").css("display", "none");
+                    $("div#ctbox_4").css("display", "block");
+                    findStreetByArea(did);
                 });
             });
-        });
 
-        //修改地址
-        //获取address_id值== aaid
-        var aaid;
-        $("body").on('click', '.updaAddress', function () {
-            $("#updaAddress").attr("data-type", "update");
-            $("#info").show();
-            $("#infos").show();
-            $("#updaAddress").css("display","block");
-            $("#saveAddress").css("display","none");
-            //先根据address_id回显数据
-            aaid = $(this).attr("asid");
-            showAddressByid(aaid);
-        });
 
-        //保存地址a标签放一个属性data-type判断是否为修改还市新增
-        //点击保存,运行修改数据
-        $("body").on('click', '#updaAddress', function () {
-            var userName = $("input[name=consignee]").val();//收货人
-            var address = $("input[name=detailAddress]").val();//详细地址
-            var phone = $("input[name=phone]").val();//电话号码
-            var email = $("input[name=email]").val();
-            var isdefault = "";//是否为默认地址 1为默认地址 2为普通地址
-            var pid = $("b#province_title").attr("pid");
-            var cid = $("b#city_title").attr("cid");
-            var sid = $("b#street_title").attr("sid");
-            var did = $("b#area_title").attr("did");
-            if ($("#inputCeckbox").is(":checked")) {
-                isdefault = 1;
-            } else {
-                isdefault = 2;
+            //查询所有省份
+            function findProvince() {
+                $.getJSON('myGuoMei/findProvince', function (json) {
+                    $("div#ctbox_1").empty();
+                    for (var i = 0; i < json.length; i++) {
+                        var span = "";
+                        var cate = json[i];
+                        span += "<span>";
+                        span += "<a href='javascript:;' title='" + cate.name + "' code='" + cate.id + "' class='province' >" + cate.name + "</a>";
+                        span += "</span>";
+                        $("div#ctbox_1").append(span);
+                    }
+                });
+
             }
-            if ($("#updaAddress").data('type') == "update") {
-                $.getJSON('myGuoMei/updateAddress', {
-                    "id": aaid,
-                    "provinceId": pid,
-                    "cityId": cid,
-                    "districtId": did,
-                    "streetId": sid,
-                    "userId": userid,
-                    "userName": userName,
-                    "address": address,
-                    "phone": phone,
-                    "email": email,
-                    "isdefault": isdefault
+
+            //根据省份id查询城市
+            function findCityByPro(id) {
+                //根据省份id查询城市
+                $.getJSON('myGuoMei/findCityByProvince?province_id=' + id, function (json) {
+                    $("div#ctbox_2").empty();
+                    for (var i = 0; i < json.length; i++) {
+                        var span = "";
+                        var cate = json[i];
+                        span += "<span>";
+                        span += "<a href='javascript:;' title='" + cate.cname + "' code='" + cate.id + "' class='cityId' >" + cate.cname + "</a>";
+                        span += "</span>";
+                        $("div#ctbox_2").append(span);
+                    }
+                });
+            }
+
+            //根据城市id查询区
+            function findAreaByCity(id) {
+
+                $.getJSON('myGuoMei/findAreaByCity?city_id=' + id, function (json) {
+                    $("div#ctbox_3").empty();
+                    for (var i = 0; i < json.length; i++) {
+                        var span = "";
+                        var cate = json[i];
+                        span += "<span>";
+                        span += "<a href='javascript:;' title='" + cate.dname + "' code='" + cate.id + "' class='areaId' >" + cate.dname + "</a>";
+                        span += "</span>";
+                        $("div#ctbox_3").append(span);
+                    }
+                })
+            }
+
+            //根据区id查询街
+            function findStreetByArea(id) {
+                //根据区id查询街
+                $.getJSON('myGuoMei/findStreetByArea?district_id=' + id, function (json) {
+                    $("div#ctbox_4").empty();
+
+                    for (var i = 0; i < json.length; i++) {
+                        var span = "";
+                        var cate = json[i];
+                        span += "<span>";
+                        span += "<a href='javascript:;' title='" + cate.sname + "' code='" + cate.id + "' class='streetId' >" + cate.sname + "</a>";
+                        span += "</span>";
+                        $("div#ctbox_4").append(span);
+                    }
+                });
+            }
+
+
+            //新增收货人地址ajax方法
+            $("body").on('click', '#saveAddress', function () {
+                //新增收货人地址
+                var userName = $("input[name=consignee]").val();//收货人
+                var address = $("input[name=detailAddress]").val();//详细地址
+                var phone = $("input[name=phone]").val();//电话号码
+                var email = $("input[name=email]").val();
+                var isdefault = "";//是否为默认地址 1为默认地址 2为普通地址
+                if ($("#inputCeckbox").is(":checked")) {
+                    isdefault = 1;
+                } else {
+                    isdefault = 2;
+                }
+                $.getJSON('myGuoMei/addAddressPage', {
+                    "province_id": pid,
+                    "city_id": cid,
+                    "district_id": did,
+                    "street_id": sid,
+                    "user_id": userid,
+                    "address_name": userName,
+                    "address_detail": address,
+                    "user_phone": phone,
+                    "user_email": email,
+                    "address_isdefault": isdefault
                 }, function (json) {
-                    if (json == true) {
+                    if (json == 1) {
+                        $(".icon-box-suc").css("display", "inline");
                         $("#infos").hide();
                         $(".gui-modal").hide();
                         findAllAddress(userid);
                         clearAddress();
+                    } else {
+                        $(".icon-box-error").css("display", "inline");
+                    }
+                })
+            });
+
+            var reg = /^(\d{3})(\d*)(\d{4})$/;//电话号码中间4位为*
+
+            //显示所有地址
+            function findAllAddress(userid) {
+                //查询所有收货地址
+                $("ul.addname").empty();
+                $.getJSON('myGuoMei/showAddress?userid=' + userid, function (json) {
+                    for (var i = 0; i < json.length; i++) {
+                        var li = "";
+                        var subCate = json[i];
+                        var myPhone = subCate.phone;
+                        myPhone = myPhone.replace(reg, function (a, b, c, d) {
+                            return b + c.replace(/\d/g, "*") + d;
+                        });
+                        li += "<li class='addr-box addr-boos' aid='" + subCate.id + "'>";
+                        li += "<input type='hidden' value='" + subCate.id + "' name='address_id'>";
+                        if (i == 0) {
+                            li += "<div class='addr-box-content active' >";
+                        } else {
+                            li += "<div class='addr-box-content' >";
+                        }
+
+                        li += "<div class='addr-header'>";
+                        if (subCate.isdefault == 1) {
+                            li += "<span>默认地址</span>";
+                        }
+                        li += "</div>";
+                        li += "<div class='addr-hd'>";
+                        li += "<span class='name'>" + subCate.userName + "</span>";
+                        li += "<span>" + subCate.provinceAddress.provinceName + "</span>";
+                        li += "</div>";
+                        li += "<div class='addr-hd hd-detail' title=''><span class=''>" + subCate.provinceAddress.cityName + "</span>";
+                        li += "<span class=''>" + subCate.provinceAddress.districtName + "</span><span class=''>" + subCate.provinceAddress.streetName + "</span><span class=''>" + subCate.address + "</span><br/>";
+                        li += "<span class=''> " + myPhone + "</span>";
+                        li += "</div>";
+                        li += "<div class='addr-manage'>";
+                        //判断是否为默认地址,是默认地址则不显示设定默认地址
+                        if (subCate.isdefault == 1) {
+                            li += "<span class='addr-btn  hide deleAdress' g-hover=''style='display: none;' asid='" + subCate.id + "'>删除</span>";
+                            li += "<span class='addr-btn  hide updaAddress' g-hover=''style='display: none;' asid='" + subCate.id + "'>修改</span>";
+                        } else {
+                            li += "<span class='addr-btn hide onlyAddress'  g-hover='' style='display: none;' asid='" + subCate.id + "'>设为默认</span>";
+                            li += "<span class='addr-btn  hide deleAdress' g-hover='' style='display: none;' asid='" + subCate.id + "'>删除</span>";
+                            li += "<span class='addr-btn  hide updaAddress' g-hover='' style='display: none;' asid='" + subCate.id + "'>修改</span>";
+                        }
+                        li += "</div>";
+                        li += "<div class='addr-footer'>";
+                        li += "<i class='c-i big_chose_icon'></i>";
+                        li += "</div>";
+                        li += "</div>";
+                        li += "</li>";
+                        $("ul.addname").append(li);
+
+                    }
+                    var li1 = "<li class='addr-box addr-box-add' new-address='' id='addAddress'> <div class='addr-box-content'> <div class='add-content'><div class='add-add'>+</div><div class='add-title'>添加新地址</div></div></div></li>";
+                    $("ul.addname").append(li1);
+                    var jid = json.length;//判断是否有数据
+                    showOnlyAddress(jid);
+                    orderAddress(json[0], json[0].id);//默认加载第一个
+                });
+
+            }
+
+            function orderAddress(json, id) {
+                //加载页面后,提交订单显示默认地址
+                var myPhone = json.phone;
+                myPhone = myPhone.replace(reg, function (a, b, c, d) {
+                    return b + c.replace(/\d/g, "*") + d;
+                });
+                $("div.ds_address ").empty();
+                var add = "";
+                add += "<div class='text-right mr8' style='margin-bottom: -8px;'>";
+                add += "<div class='i-block name_over1'>送货地址：" + json.provinceAddress.provinceName + "&nbsp;&nbsp;" + json.provinceAddress.cityName + "&nbsp;&nbsp;" + json.provinceAddress.districtName + "&nbsp;&nbsp;" + json.provinceAddress.streetName + "</div>&nbsp;";
+                add += "<div class='mr10 i-block name_over2 ' title='" + json.address + "'>" + json.address + "</div>";
+                add += "</div>";
+                add += "<div class='text-right mb15 mr8'>";
+                add += "<span class='name_over3'>收货人：" + json.userName + "</span>&nbsp;";
+                add += "<span class='mr10 name_over4'>" + myPhone + "</span><input id='aid'  type='hidden' value='" + id + "'>";
+                add += "</div>";
+                $("div.ds_address ").append(add);
+            }
+
+            //当只有一个地址显示时,鼠标悬浮上去,删除和修改数据将不会出现
+            function showOnlyAddress(jid) {
+                $("body").on('mouseover mouseout', '.addr-boos', function (event) {
+                    if (jid != 1) {
+                        if (event.type == "mouseover") {
+                            //鼠标悬浮显示设定默认地址修改删除地址
+                            $(this).find('.addr-btn').css("display", "inline");
+                        } else if (event.type == "mouseout") {
+                            //鼠标离开
+                            $(".addr-btn").css("display", "none");
+                        }
                     }
                 })
             }
-        });
 
-        //点击修改回显数据
-        function showAddressByid(aaid) {
-            $.getJSON("myGuoMei/showAddress?aid=" + aaid, function (json) {
-                $("b#province_title").attr("pid", json[0].provinceAddress.provinceId);
-                $("b#area_title").attr("did", json[0].provinceAddress.districtId);
-                $("b#city_title").attr("cid", json[0].provinceAddress.cityId);
-                $("b#street_title").attr("sid", json[0].provinceAddress.streetId);
-                var provinceName = json[0].provinceAddress.provinceName;
-                var cityName = json[0].provinceAddress.cityName;
-                var districtName = json[0].provinceAddress.districtName;
-                var streetName = json[0].provinceAddress.streetName;
-                $("input[name=consignee]").val(json[0].userName);//收货人
-                $("input[name=detailAddress]").val(json[0].address);//详细地址
-                $("input[name=phone]").val(json[0].phone);//电话号码
-                $("input[name=email]").val(json[0].email);//邮箱
-                if (json[0].isdefault == 1) {
-                    $("div.add_table input[type=checkbox]").attr("checked", "checked");
+            //删除收货地址
+            layui.use(['layer'], function () {
+                var layer = layui.layer;
+                $ = layui.jquery;
+                $("body").on('click', '.deleAdress', function () {
+                    var addresid = $(this).attr("asid");
+                    layer.confirm('确认是否删除?', function (index) {
+                        $.getJSON('myGuoMei/deleteAddress?address_id=' + addresid, function (json) {
+                            if (json == true) {
+                                layer.close(index);
+                                layer.msg("删除成功!");
+                                findAllAddress(userid);
+                            }
+                        });
+                        layer.close(index);
+                    });
+                });
+            });
+
+            //修改地址
+            //获取address_id值== aaid
+            var aaid;
+            $("body").on('click', '.updaAddress', function () {
+                $("#updaAddress").attr("data-type", "update");
+                $("#info").show();
+                $("#infos").show();
+                $("#updaAddress").css("display", "block");
+                $("#saveAddress").css("display", "none");
+                //先根据address_id回显数据
+                aaid = $(this).attr("asid");
+                showAddressByid(aaid);
+            });
+
+            //保存地址a标签放一个属性data-type判断是否为修改还市新增
+            //点击保存,运行修改数据
+            $("body").on('click', '#updaAddress', function () {
+                var userName = $("input[name=consignee]").val();//收货人
+                var address = $("input[name=detailAddress]").val();//详细地址
+                var phone = $("input[name=phone]").val();//电话号码
+                var email = $("input[name=email]").val();
+                var isdefault = "";//是否为默认地址 1为默认地址 2为普通地址
+                var pid = $("b#province_title").attr("pid");
+                var cid = $("b#city_title").attr("cid");
+                var sid = $("b#street_title").attr("sid");
+                var did = $("b#area_title").attr("did");
+                if ($("#inputCeckbox").is(":checked")) {
+                    isdefault = 1;
                 } else {
-                    $("div.add_table input[type=checkbox]").removeAttr("checked");
+                    isdefault = 2;
                 }
-                $("#stockaddress").text(provinceName + cityName + districtName + streetName);//给收货地址赋值
-                $("#stockaddress").attr("title", provinceName + cityName + districtName + streetName);
-                $("b#province_title").text(provinceName);//给省赋值
-                $("b#city_title").text(cityName);//给市赋值
-                $("b#area_title").text(districtName);//给区赋值
-                $("b#street_title").text(streetName);//给街赋值
+                if ($("#updaAddress").data('type') == "update") {
+                    $.getJSON('myGuoMei/updateAddress', {
+                        "id": aaid,
+                        "provinceId": pid,
+                        "cityId": cid,
+                        "districtId": did,
+                        "streetId": sid,
+                        "userId": userid,
+                        "userName": userName,
+                        "address": address,
+                        "phone": phone,
+                        "email": email,
+                        "isdefault": isdefault
+                    }, function (json) {
+                        if (json == true) {
+                            $("#infos").hide();
+                            $(".gui-modal").hide();
+                            findAllAddress(userid);
+                            clearAddress();
+                        }
+                    })
+                }
             });
-        }
 
-        //点击设定默认地址 自动改变其他地址为普通地址
-        $("body").on('click', '.onlyAddress', function () {
-            var addid = $(this).attr("asid");
-            $.getJSON('myGuoMei/updateMRAddress', {"address_id": addid, "userid": userid}, function (json) {
-                findAllAddress(userid);
-            })
-        });
-
-
-        //点击收货地址,显示下方数据
-        $("body").on('click', '.addr-boos', function () {
-            $(this).find(".addr-box-content").addClass("active");
-            $(this).siblings().find(".addr-box-content").removeClass("active");
-            var aid = $(this).attr("aid");
-
-            $.getJSON("myGuoMei/showAddress?aid=" + aid, function (json) {
-                orderAddress(json[0], aid);
-            });
-        });
-        $("body").on('click', '.addr-box-add', function () {
-            $(this).find(".addr-box-content").addClass("active");
-            $(this).siblings().find(".addr-box-content").removeClass("active");
-        });
-        //点击新增收货地址
-        $("body").on('click', '#addAddress', function () {
-            $("#info").show();
-            $("#infos").show();
-            $(".gui-modal").show();
-            clearAddress();
-            $("#saveAddress").css("display","block");
-            $("#updaAddress").css("display","none");
-            $("#updaAddress").attr("data-type","addInsert");
-        });
-        //显示选择收货地址信息
-        $("body").on('click', '#adrs', function () {
-            $("#adrss").show();
-            $("#adrsss").show();
-        });
-        //关闭选择地址信息
-        $("body").on('click', '#cityClose', function () {
-            $("#adrss").hide();
-            $("#adrsss").hide();
-        });
-
-        //关闭收货地址详情页面
-        $("#closeaddress").click(function () {
-            $("#info").hide();
-            $("#infos").hide();
-        });
-
-
-        //优惠卷显示
-        $(".tit-span").click(function () {
-            if ($("#juan").is(':hidden') || $("#juans").is(':hidden')) {
-                $("#juan").show();
-                $("#juans").show();
-            } else {
-                $("#juan").hide();
-                $("#juans").hide();
+            //点击修改回显数据
+            function showAddressByid(aaid) {
+                $.getJSON("myGuoMei/showAddress?aid=" + aaid, function (json) {
+                    $("b#province_title").attr("pid", json[0].provinceAddress.provinceId);
+                    $("b#area_title").attr("did", json[0].provinceAddress.districtId);
+                    $("b#city_title").attr("cid", json[0].provinceAddress.cityId);
+                    $("b#street_title").attr("sid", json[0].provinceAddress.streetId);
+                    var provinceName = json[0].provinceAddress.provinceName;
+                    var cityName = json[0].provinceAddress.cityName;
+                    var districtName = json[0].provinceAddress.districtName;
+                    var streetName = json[0].provinceAddress.streetName;
+                    $("input[name=consignee]").val(json[0].userName);//收货人
+                    $("input[name=detailAddress]").val(json[0].address);//详细地址
+                    $("input[name=phone]").val(json[0].phone);//电话号码
+                    $("input[name=email]").val(json[0].email);//邮箱
+                    if (json[0].isdefault == 1) {
+                        $("div.add_table input[type=checkbox]").attr("checked", "checked");
+                    } else {
+                        $("div.add_table input[type=checkbox]").removeAttr("checked");
+                    }
+                    $("#stockaddress").text(provinceName + cityName + districtName + streetName);//给收货地址赋值
+                    $("#stockaddress").attr("title", provinceName + cityName + districtName + streetName);
+                    $("b#province_title").text(provinceName);//给省赋值
+                    $("b#city_title").text(cityName);//给市赋值
+                    $("b#area_title").text(districtName);//给区赋值
+                    $("b#street_title").text(streetName);//给街赋值
+                });
             }
-        });
-    });
-</script>
-<script type="text/javascript">
-    $(function () {
-        goodsList();
-        selectCoupon();//查询是否有可用的优惠券
-        //提交订单
-        $("#id_commit").click(function () {
-            var url = GetRequest();
-            var sumPrice = url.sumPrice;
-            sumPrice = sumPrice.substring(36, sumPrice.length);
-            var aid = $("#aid").val(); //收获地址id
-            $.getJSON("Orders/addOrders", {
-                "aid": aid,
-                "goodsId": url.goodsId,
-                "num": url.num,
-                "vipIdArr": url.vipIdArr,
-                "sumPrice": sumPrice
-            }, function (data) {
-                //转换时间格式
-                var dateee = new Date(data.times).toJSON();
-                var times = new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
-                if (data.code == 'yes') {
-                    location.href = "order_succeed.html?orderNo=" + guid() + data.orderNo + "&times=" + times + "&payno=" + guid() + data.payno + "&ifUseScore=" + GetRequest().ifUseScore;
+
+            //点击设定默认地址 自动改变其他地址为普通地址
+            $("body").on('click', '.onlyAddress', function () {
+                var addid = $(this).attr("asid");
+                $.getJSON('myGuoMei/updateMRAddress', {"address_id": addid, "userid": userid}, function (json) {
+                    findAllAddress(userid);
+                })
+            });
+
+
+            //点击收货地址,显示下方数据
+            $("body").on('click', '.addr-boos', function () {
+                $(this).find(".addr-box-content").addClass("active");
+                $(this).siblings().find(".addr-box-content").removeClass("active");
+                var aid = $(this).attr("aid");
+
+                $.getJSON("myGuoMei/showAddress?aid=" + aid, function (json) {
+                    orderAddress(json[0], aid);
+                });
+            });
+            $("body").on('click', '.addr-box-add', function () {
+                $(this).find(".addr-box-content").addClass("active");
+                $(this).siblings().find(".addr-box-content").removeClass("active");
+            });
+            //点击新增收货地址
+            $("body").on('click', '#addAddress', function () {
+                $("#info").show();
+                $("#infos").show();
+                $(".gui-modal").show();
+                clearAddress();
+                $("#saveAddress").css("display", "block");
+                $("#updaAddress").css("display", "none");
+                $("#updaAddress").attr("data-type", "addInsert");
+            });
+            //显示选择收货地址信息
+            $("body").on('click', '#adrs', function () {
+                $("#adrss").show();
+                $("#adrsss").show();
+            });
+            //关闭选择地址信息
+            $("body").on('click', '#cityClose', function () {
+                $("#adrss").hide();
+                $("#adrsss").hide();
+            });
+
+            //关闭收货地址详情页面
+            $("#closeaddress").click(function () {
+                $("#info").hide();
+                $("#infos").hide();
+            });
+
+
+            //优惠卷显示
+            $(".tit-span").click(function () {
+                if ($("#juan").is(':hidden') || $("#juans").is(':hidden')) {
+                    $("#juan").show();
+                    $("#juans").show();
                 } else {
-                    location.href = "gm-ferror.html";
+                    $("#juan").hide();
+                    $("#juans").hide();
                 }
             });
         });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            goodsList();
+            selectCoupon();//查询是否有可用的优惠券
 
-        //选中优惠卷
-        var couponMoney = 0;
-        var num=0;
-        $(".coupon-group li").live("click", this, function () {
-            $(this).toggle(function () {
-                num++;
-                $(this).append("<em class='c-i coupon-select'></em>");
-                $(this).find("div#select").addClass("checkcoupon");
-                couponMoney = couponMoney +parseInt( $(this).attr("couponMoney"));
-                $("#money").text("¥" + couponMoney + "");
-                $("#dictMoney").text("¥" + couponMoney + "");
-                $("#nums").text(num);
-                $("#volume").text(couponMoney);
-            }, function () {
-                num--;
-                $(this).find("em").remove();
-                $(this).find("div#select").removeClass("checkcoupon");
-                couponMoney = couponMoney -parseInt( $(this).attr("couponMoney"));
-                $("#money").text("¥" + couponMoney + "");
-                $("#dictMoney").text("¥" + couponMoney + "");
-                $("#nums").text(num);
-                $("#volume").text(couponMoney);
+
+
+            //提交订单
+            $("#id_commit").click(function () {
+
+
+               var url = GetRequest();
+                var sumPrice = url.sumPrice;
+                sumPrice = sumPrice.substring(36, sumPrice.length);
+                var aid = $("#aid").val(); //收获地址id
+                $.getJSON("Orders/addOrders", {
+                    "aid": aid,
+                    "goodsId": url.goodsId,
+                    "num": url.num,
+                    "vipIdArr": url.vipIdArr,
+                    "sumPrice": sumPrice
+                }, function (data) {
+                    //转换时间格式
+                    var dateee = new Date(data.times).toJSON();
+                    var times = new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+                    if (data.code == 'yes') {
+                        location.href = "order_succeed.html?orderNo=" + guid() + data.orderNo + "&times=" + times + "&payno=" + guid() + data.payno + "&ifUseScore=" + GetRequest().ifUseScore;
+                    } else {
+                        location.href = "gm-ferror.html";
+                    }
+                });
+          });
+
+
+
+            //选中优惠卷
+            var couponMoney = 0;
+            var num = 0;
+            $(".coupon-group li").live("click", this, function () {
+                $(this).toggle(function () {
+                    num++;
+                    $(this).append("<em class='c-i coupon-select'></em>");
+                    $(this).find("div#select").addClass("checkcoupon");
+                    couponMoney = couponMoney + parseInt($(this).attr("couponMoney"));
+                    $("#money").text("¥" + couponMoney + "");
+                    $("#dictMoney").text("¥" + couponMoney + "");
+                    $("#nums").text(num);
+                    $("#volume").text(couponMoney);
+                }, function () {
+                    num--;
+                    $(this).find("em").remove();
+                    $(this).find("div#select").removeClass("checkcoupon");
+                    couponMoney = couponMoney - parseInt($(this).attr("couponMoney"));
+                    $("#money").text("¥" + couponMoney + "");
+                    $("#dictMoney").text("¥" + couponMoney + "");
+                    $("#nums").text(num);
+                    $("#volume").text(couponMoney);
+                });
+                //先触发click，不然第一次失效
+                $(this).trigger("click");
             });
-            //先触发click，不然第一次失效
-            $(this).trigger("click");
         });
-    });
+
         function selectCoupon() {
             var url = GetRequest();
             $.ajax(
@@ -1073,7 +1121,7 @@
                     success: function (result) {
                         for (var i = 0; i < result.goods.length; i++) {
                             var g = result.goods[i];
-                            var div = " <div class='info-bd clearfix' style='margin-left: 264px'>";
+                            var div = " <div class='info-bd clearfix' style='margin-left: 0px'>";
                             div += "<div class='backStyle'>";
                             div += " <span class='hcon'>商品信息</span> </div>";
                             div += " <div class='dilivery clearfix'> <div class='cart-shop-good      clearfix      cart-shop-good-common ' data-good='true' data-sid='1122490798' data-pid='9133744812' bigdata-pid='9133744812'>";
@@ -1132,7 +1180,7 @@
 
         }
 
-</script>
+    </script>
 </body>
 
 </html>
