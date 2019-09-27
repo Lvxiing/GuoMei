@@ -1,7 +1,7 @@
 $(function () {
 
     findNoComment();
-    findHaveComment(1,pageSize,);
+    findHaveComment(1,pageSize);
     //上下页
     $(".prev").click(function () {
         var pageNo=$(this).attr("pageNo");
@@ -155,6 +155,7 @@ function evaluates(id) {
         $.getJSON("../../evaluate/updateEvaluate",{"evaluate_content":evaluate_content,"evaluate_star":len,"evaluate_id":val[0],"order_no":val[2],"goods_id":val[1]},function (json) {
             if(json.abc=="true"){   //评论成功
                 findNoComment();
+                findHaveComment(1,pageSize);
             }else{
                 alert("评价失败");
             }
