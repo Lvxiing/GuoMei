@@ -2,11 +2,13 @@ package com.cssl.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.cssl.entity.*;
 import com.cssl.mapper.Order_detailMapper;
 import com.cssl.service.*;
 import com.github.pagehelper.Page;
 import com.netflix.discovery.converters.Auto;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,12 +52,15 @@ public class OrdersController {
     @Autowired
     private CartService cartService;
 
+    @Autowired
+    private Coupon_receiveService coupon_receiveService;
+
     //-----------------------------前台模块----------------------------
 
     //用户支付成功,更新数据库的支付时间
     @RequestMapping("orderSuccess")
     @ResponseBody
-    public String orderSuccess(@RequestParam  String orderNo) {
+    public String orderSuccess(@RequestParam String orderNo) {
         //支付成功时间
         Orders order = ordersService.getOne(new QueryWrapper<Orders>().eq("order_no", orderNo));
         order.setPayDate(new Date());
@@ -111,6 +116,16 @@ public class OrdersController {
         map.put("list", list);
         Map<String, Object> b = ordersService.addOrder(map);
         Map<String, Object> param = new HashMap<>();
+
+        if (map.get("couId") != null && !"".equals(map.get("couId"))) {
+            String[] couId = map.get("couId").toString().split(",");
+            Integer uid = Integer.valueOf(map.get("uid").toString());
+            for (int i = 0; i < couId.length; i++) {
+                CouponReceive couponReceive = new CouponReceive();
+                couponReceive.setStatus(1);
+                coupon_receiveService.update(couponReceive,new UpdateWrapper<CouponReceive>().eq("user_id",uid).eq("coupon_id",couId[i]));
+            }
+        }
         if (b != null) {
             // 生成支付单号
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -192,7 +207,7 @@ public class OrdersController {
     //根据订单号查询商品
     @RequestMapping("findGoodsByOno")
     @ResponseBody
-    public Map<String,Object> findGoodsByOno(@RequestParam Map<String,Object> map){
+    public Map<String, Object> findGoodsByOno(@RequestParam Map<String, Object> map) {
         return ordersService.findGoodsByOno(map);
     }
 
