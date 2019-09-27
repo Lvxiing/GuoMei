@@ -32,7 +32,7 @@
                   INNER JOIN users u ON u.`user_id`=o.`user_id`
                   INNER JOIN address a ON a.`address_id`=o.`address_id`
                   INNER JOIN goods g ON g.`goods_id`=d.`goods_id`
-         WHERE d.`detail_status`=1
+         WHERE d.`detail_status`=1 or d.`detail_status`=3
      </select>
 
 
