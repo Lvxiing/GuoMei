@@ -57,6 +57,21 @@ public class OrdersController {
 
     //-----------------------------前台模块----------------------------
 
+    //退款成功后
+    @RequestMapping("returnSuccess")
+    @ResponseBody
+    public String returnSuccess(@RequestParam Integer cid){
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setId(cid);
+        orderDetail.setDstatus(4);
+        boolean b = orderDetailService.updateById(orderDetail);
+        if (b) {
+
+            return "success";
+        }
+        return "error";
+    }
+
     //用户申请退款
     @RequestMapping("returnMoney")
     @ResponseBody
