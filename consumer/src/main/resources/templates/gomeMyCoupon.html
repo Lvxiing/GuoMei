@@ -496,7 +496,7 @@
                     div+="<p class='voucherTime'>"+times.substring(0,times.length-3)+" - "+times2.substring(0,times.length-3)+"</p></div>";
                     //判断是否是用完状态
                     if(status==0){
-                        div+="<div class='voucherList-rule' style='height: 58px;'><a class='voucherList-btn' target='_blank' href='juan_product.html'>使用</a></div>";
+                        div+="<div class='voucherList-rule' style='height: 58px;'><a class='voucherList-btn' target='_blank' href='juan_product.html?cid="+list[i].coupon_id+"'>使用</a></div>";
                     }
                     div+="</div>";
                     $(".voucherListBox").append(div);

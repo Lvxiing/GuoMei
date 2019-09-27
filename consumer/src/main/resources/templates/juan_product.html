@@ -7,14 +7,8 @@
     <link rel="shortcut icon" href="//app.gomein.net.cn/favicon.ico" type="image/x-icon">
     <link rel="stylesheet"
           href="//css.gomein.net.cn/??gmlib/reset/1.1.0/reset.css,gmpro/1.0.0/public/1.0.0/css/category.min.css,gmpro/1.0.0/public/1.0.0/css/top-poster.min.css,gmpro/1.0.0/public/1.0.0/css/top.min.css,gmpro/1.0.0/public/1.0.0/css/pate.min.css,gmpro/1.0.0/cart/1.0.0/css/pate-cart.min.css,gmpro/1.0.0/public/1.0.0/css/foot.min.css,gmpro/1.0.0/public/1.0.0/css/aside.min.css?v=201908291745,/gmlib/unit/gcity/1.0.0/gcity.min.css,/gmpro/1.0.0/coupon/1.0.0/css/coupon.min.css,/gmpro/1.0.0/overseasbuy/1.0.0/css/overseas-basic.min.css">
-
-    <script async="" src="https://js.gomein.net.cn/sitemonitor/tjs/sensorsdata/sensorsdata.min.js"
-            charset="UTF-8"></script>
-    <script type="text/javascript">var dynSite = '//g.gome.com.cn', staSite = '//www.gome.com.cn',
-        gomeplusDomain = '.gome.com.cn', contextPath = '/ec/homeus', cookieDomain = '.gome.com.cn',
-        imgServer = '//app.gomein.net.cn/images', stageJsServer = '//js.gomein.net.cn',
-        stageImageServer = '//img.gomein.net.cn', stageCssServer = '//css.gomein.net.cn',
-        gomeplusCdn = '//js.meixincdn.com/m/pc/', versionData = '1908300535';</script>
+    <script src="js/jquery-1.8.3.js"></script>
+    <script src="js/discountGoods.js"></script>
 </head>
 
 <body data-page="quan">
@@ -77,63 +71,31 @@
 <!--gome_top-->
 <div id="gome-head" class="wbox" data-need-slogan-judge="true">
     <div id="logo"><a data-code="public03001" href="index.html">国美</a></div>
-    <div id="logo-gif"><a data-code="publicdefault_gif-1" rel="nofollow" target="_blank"
+    <div id="logo-gif">
+        <a data-code="publicdefault_gif-1" rel="nofollow" target="_blank"
                           href="//prom.gome.com.cn/html/prodhtml/topics/201908/20/3965924978.html"> <img width="100"
                                                                                                          height="50"
                                                                                                          src="//gfs11.gomein.net.cn/T1agYXB7hT1RCvBVdK.gif"></a>
     </div>
     <div id="topSearch" class="topsearch">
         <div id="topSearchHover" class="searchbox" data-visitor="hover">
-            <form id="searchForm" method="get" action="//search.gome.com.cn/search" onsubmit="return doSearch();">
+            <form id="searchForm" method="get" action="//search.gome.com.cn/search">
                 <div id="search-type-dropdown">
                     <div class="search-type">
-                        <span class="search-type-selected" data-selected="goods">商品</span>
-                        <i></i>
+                        <span class="search-type-selected" data-selected="">商品</span>
                     </div>
-                    <ul class="search-type-list">
-                        <li class="search-type-item" data-selector="goods">商品</li>
-                        <li class="search-type-item" data-selector="shop">店铺</li>
-                        <li class="search-type-item" data-selector="topic">话题</li>
-                        <li class="search-type-item" data-selector="group">圈子</li>
-                    </ul>
                 </div>
-                <label id="keyLabel" default=",1" style="top: -50px;"></label>
                 <input type="text" id="searchInput" name="question" value="" autocomplete="off"
-                       onpropertychange="if(this.value.length>200){this.value=this.value.slice(0,199)}" alt="">
-                <button type="button" class="search-btn" onclick="doSearch();">搜索</button>
+                       onpropertychange="if(this.value.length>200){this.value=this.value.slice(0,199)}">
+                <button type="button" class="search-btn">搜索</button>
             </form>
-            <a href="//js.gomein.net.cn/search/voice/search.html" target="_blank">
-                <div class="voice-search"></div>
-            </a></div>
-        <div class="hotkeyword">
-            <a data-code="1000043098-0" rel="nofollow" target="_blank"
-               href="//prom.gome.com.cn/html/prodhtml/topics/201908/13/1466023386.html">家装8.8起</a>
-            <a data-code="1000043098-1" rel="nofollow" target="_blank"
-               href="//prom.gome.com.cn/html/prodhtml/topics/201908/19/1087984437.html">家电59元</a>
-            <a data-code="1000043098-2" rel="nofollow" target="_blank"
-               href="//prom.gome.com.cn/html/prodhtml/topics/201908/20/9961641383.html">手机领券</a>
-            <a data-code="1000043098-3" rel="nofollow" target="_blank"
-               href="//prom.gome.com.cn/html/prodhtml/topics/201908/20/3965924978.html">彩电内购会</a>
-            <a data-code="1000043098-4" rel="nofollow" target="_blank"
-               href="//prom.gome.com.cn/html/prodhtml/topics/201908/12/9078644711.html">低至5折</a>
-            <a data-code="1000043098-5" rel="nofollow" target="_blank"
-               href="//prom.gome.com.cn/html/prodhtml/topics/201908/19/3722974812.html">冰箱1199</a>
-            <a data-code="1000043098-6" rel="nofollow" target="_blank"
-               href="//prom.gome.com.cn/html/prodhtml/topics/201908/20/5082706360.html">厨房卫浴</a>
-            <a data-code="1000043098-7" rel="nofollow" target="_blank"
-               href="//prom.gome.com.cn/html/prodhtml/topics/201709/11/7769504897.html">三星Note10</a>
-            <a data-code="public03003" href="//www.gome.com.cn/top10/" target="_blank">商品排行榜</a>
-            <a data-code="public03005" href="//www.gome.com.cn/keywords/" target="_blank">热门推荐</a>
         </div>
-        <div id="searchTips" class="searchtips" style="display: none;">
-
-            <ul id="searchTipsList" class="searchabout clearfix">
-                <li class="related-search related-shop-search"><a href="javascript:void(0);"> <i></i><span>找“</span><em
-                        class="related-keyword"></em><span>”相关店铺</span></a></li>
-            </ul>
-            <div class="closeSearch" id="closeSearch"><span>关闭</span></div>
-            <div class="closeSearch delHeaderHistorySearch" style="display: none;" id="delHeaderHistorySearch"><span>全部删除</span>
+        <div id="searchTips" class="searchtips">
+            <div id="his_title" class="hisTitle">
+                <p><span>最近搜索</span><a id="hisClear" href="javascript:void(0)">全部清空</a></p>
             </div>
+            <ul id="searchTipsList" class="searchabout clearfix">
+            </ul>
         </div>
         <script type="text/javascript">
             var environment = 'commerce', targetType = 'Production', contentLabels = 'Catalog', language = 'chinese';
@@ -144,108 +106,15 @@
 <div class="category-box">
     <div class="category wbox">
         <div class="sidecategory">
-            <h2><span></span><a data-code="1000036957" href="//list.gome.com.cn" target="_blank">全部商品分类</a></h2>
-            <div id="navBox" class="lisnav">
+            <h2><span></span><a data-code="1000036957" href="javascript:;" target="_blank">全部商品分类</a></h2>
+            <div id="navBox" class='lisnav' style="background: #686868;display: none">
                 <div class="lisbg"></div>
                 <ul class="lisnav-ul" id="lisnav">
-                    <li class="first edit-mode nav-item" data-index="0" modeltype="4" modelid="1000037040" style="">
-                        <h3>
-                            <a data-code="1000037040-0" href="//tongxun.gome.com.cn/" target="_blank">手机</a>
-                            <a data-code="1000037040-1" href="//wt.gome.com.cn/recharge/index.html"
-                               target="_blank">充值</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="1" modeltype="4" modelid="1000037283">
-                        <h3>
-                            <a data-code="1000037283-0" href="//xiangji.gome.com.cn/" target="_blank">相机</a>
-                            <a data-code="1000037283-1" href="//digital.gome.com.cn/" target="_blank">智能数码</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="2" modeltype="4" modelid="1000037067">
-                        <h3>
-                            <a data-code="1000037067-0" href="//computer.gome.com.cn" target="_blank">电脑</a>
-                            <a data-code="1000037067-1" href="//peijian.gome.com.cn/" target="_blank">办公配件</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="3" modeltype="4" modelid="1000036959">
-                        <h3>
-                            <a data-code="1000036959-0" href="//electronic.gome.com.cn/" target="_blank">电视 影音</a>
-                            <a data-code="1000036959-1" href="//smart.gome.com.cn/" target="_blank">智能</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="4" modeltype="4" modelid="1000036986">
-                        <h3>
-                            <a data-code="1000036986-0" href="//kt.gome.com.cn/" target="_blank">空调</a>
-                            <a data-code="1000036986-1" href="//bx.gome.com.cn/" target="_blank">冰箱</a>
-                            <a data-code="1000036986-2" href="//xyj.gome.com.cn/" target="_blank">洗衣机</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="5" modeltype="4" modelid="1000037013">
-                        <h3>
-                            <a data-code="1000037013-0" href="//life.gome.com.cn/" target="_blank">厨房卫浴</a>
-                            <a data-code="1000037013-1" href="//xiaojiadian.gome.com.cn/" target="_blank">生活电器</a>
-                            <a data-code="1000037013-2" href="//jinghuaqi.gome.com.cn/" target="_blank">环境</a>
-                            <p class="line"></p>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="6" modeltype="4" modelid="1000037094">
-                        <h3>
-                            <a data-code="1000037094-0" href="//furnit.gome.com.cn/" target="_blank">家具</a>
-                            <a data-code="1000037094-1" href="//decoration.gome.com.cn/" target="_blank">建材</a>
-                            <a data-code="1000037094-2" href="//mall.gome.com.cn/80017001/" target="_blank">欧洲厨房</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="7" modeltype="4" modelid="1000037121">
-                        <h3>
-                            <a data-code="1000037121-0" href="//jiaju.gome.com.cn/" target="_blank">家居家纺</a>
-                            <a data-code="1000037121-1" href="//homes.gome.com.cn/" target="_blank">家居家装</a>
-                            <p class="line"></p>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="8" modeltype="4" modelid="1000037148">
-                        <h3>
-                            <a data-code="1000037148-0" href="//alcohol.gome.com.cn/" target="_blank">食品酒水</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="9" modeltype="4" modelid="1000037310">
-                        <h3>
-                            <a data-code="1000037310-0" href="//baby.gome.com.cn/" target="_blank">母婴玩具</a>
-                            <p class="line"></p>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="10" modeltype="4" modelid="1000037175">
-                        <h3>
-                            <a data-code="1000037175-0" href="//beauty.gome.com.cn/" target="_blank">美妆个护</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="11" modeltype="4" modelid="1000037202">
-                        <h3>
-                            <a data-code="1000037202-0" href="//www.gome.com.cn/" target="_blank">服饰鞋帽</a>
-                            <a data-code="1000037202-1" href="//www.gome.com.cn/" target="_blank">箱包奢品</a>
-                            <p class="line"></p>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="12" modeltype="4" modelid="1000037229">
-                        <h3>
-                            <a data-code="1000037229-0" href="//www.gome.com.cn/" target="_blank">运动户外</a>
-                            <a data-code="1000037229-1" href="//www.gome.com.cn/" target="_blank">钟表首饰</a>
-                        </h3>
-                    </li>
-                    <li class="edit-mode nav-item" data-index="13" modeltype="4" modelid="1000037256">
-                        <h3>
-                            <a data-code="1000037256-0" href="//car.gome.com.cn/" target="_blank">汽车整车</a>
-                            <a data-code="1000037256-1" href="//auto.gome.com.cn/" target="_blank">汽车用品</a>
-                        </h3>
-                    </li>
-                    <li class="lst edit-mode nav-item" data-index="14" modeltype="4" modelid="1000037337">
-                        <h3>
-                            <a data-code="1000037337-0" href="//mall.gome.com.cn/80011410/" target="_blank">国美管家</a>
-                        </h3>
-                    </li>
+
                 </ul>
                 <div class="subnav" id="subnav" flag="0">
-                    <div class="loading1-sync" id="loading1-sync">
-                        <p></p>
+                    <div class="loading1-sync" id="loading1-sync" style="top: 0px">
+
                     </div>
                 </div>
             </div>
@@ -255,37 +124,6 @@
         </ul>
         <!--nav-->
         <div class="hdrsideRoll">
-            <div class="adnavside" data-roll="hdrSideUp">
-                <ul class="hd-clickscroll js-tads-clsul" style="height: 228px; position: relative; top: -76px;">
-                    <li style="float: none; display: block;"><a data-code="publicdefault_category-1" rel="nofollow"
-                                                                target="_blank"
-                                                                href="//prom.gome.com.cn/html/prodhtml/topics/201908/13/kt8buy.html">
-                        <img width="170" height="40" src="//gfs13.gomein.net.cn/T1WnAXBCYT1RCvBVdK.png"> </a></li>
-                    <li style="float: none; display: block;"><a data-code="publicdefault_category-2" rel="nofollow"
-                                                                target="_blank" href="//mall.gome.com.cn/80017309/">
-                        <img width="170" height="40" src="//gfs10.gomein.net.cn/T1D7LXByWv1RCvBVdK.png"> </a></li>
-                    <li style="float: none; display: block;"><a data-code="publicdefault_category-3" rel="nofollow"
-                                                                target="_blank"
-                                                                href="//prom.gome.com.cn/html/prodhtml/topics/201908/20/3965924978.html">
-                        <img width="170" height="40" src="//gfs11.gomein.net.cn/T1ZeZXB5bT1RCvBVdK.png"> </a></li>
-                    <li><a data-code="publicdefault_category-1" rel="nofollow" target="_blank"
-                           href="//prom.gome.com.cn/html/prodhtml/topics/201908/13/kt8buy.html"> <img width="170"
-                                                                                                      height="40"
-                                                                                                      src="//gfs13.gomein.net.cn/T1WnAXBCYT1RCvBVdK.png">
-                    </a></li>
-                    <li><a data-code="publicdefault_category-2" rel="nofollow" target="_blank"
-                           href="//mall.gome.com.cn/80017309/"> <img width="170" height="40"
-                                                                     src="//gfs10.gomein.net.cn/T1D7LXByWv1RCvBVdK.png">
-                    </a></li>
-                    <li><a data-code="publicdefault_category-3" rel="nofollow" target="_blank"
-                           href="//prom.gome.com.cn/html/prodhtml/topics/201908/20/3965924978.html"> <img width="170"
-                                                                                                          height="40"
-                                                                                                          src="//gfs11.gomein.net.cn/T1ZeZXB5bT1RCvBVdK.png">
-                    </a></li>
-                </ul>
-            </div>
-            <div class="hdrsRollbtn"><a class="j-hdrbtn-up" href="javascript:;" data-btn="goUp"><i></i></a> <a
-                    class="j-hdrbtn-down" href="javascript:;" data-btn="goDown"><i></i></a></div>
         </div>
         <!--scroll-->
     </div>
@@ -305,30 +143,17 @@
             <a class="facetsCurrent-prev fc-btn" href="javascript:void(0)"></a>
             <a class="facetsCurrent-next fc-btn" href="javascript:void(0)"></a>
         </div>
-        <script>
-            var keyLabelVal = "";
-            keyLabelVal = keyLabelVal.replace(/\"/g, "'");
-            document.getElementById("keyLabel").setAttribute("default", keyLabelVal + ",1", 1);
-            document.getElementById("keyLabel").innerHTML = keyLabelVal;
-            document.getElementById("keyLabel").style.top = "-50px";
-            document.getElementById("searchInput").value = keyLabelVal;
-        </script>
     </div>
 </div>
 
 <div class="nSearchWarp" id="SearchLoad">
     <div class="nSearchWarp-main clearfix">
         <div class="product-right-box yingxiaoquan">
-            <div class="" id="blueTicket">
-                <div class="use_blue_ticket" id="blue_tickets"><p class="title">厨房卫浴满2588减200</p>
-                    <p class="price"><b class="tip">¥</b> <i class="priceNo">200</i><b class="pricelast">.00</b></p>
-                    <p class="useterm"><span class="limitspan">线上专享</span>满2588可用</p>
-                    <p class="time"><span>2019.08.23</span> - <span>2019.09.01</span></p></div>
-            </div>
-            <div id="personrecommend-warp">
-                <div class="personrecommend prd-right-normal" id="personrecommend"
-                     style="max-height: 462px; height: 0px;"></div>
-            </div>
+
+            <!--<div id="personrecommend-warp">-->
+                <!--<div class="personrecommend prd-right-normal" id="personrecommend"-->
+                     <!--style="max-height: 462px; height: 0px;"></div>-->
+            <!--</div>-->
         </div>
         <div class="product-left-list" id="product-left">
             <!--筛选-->
@@ -338,28 +163,23 @@
                     <ul class="filter-order-box" id="filter-order-box">
                         <li class="cur emcodeProp17" data-sort="0" track="筛选条件:综合"><a href="javascript:void(0)">综合</a>
                         </li>
-                        <li class=" emcodeProp17" data-sort="10" track="筛选条件:销量"><a href="javascript:void(0)">销量</a>
+                        <li class=" emcodeProp17" data-sort="1" track="筛选条件:销量"><a href="javascript:void(0)">销量</a>
                         </li>
-                        <li class=" emcodeProp17" data-sort="30" track="筛选条件:新品"><a href="javascript:void(0)">新品</a>
+                        <li class=" emcodeProp17" data-sort="2" track="筛选条件:新品"><a href="javascript:void(0)">新品</a>
                         </li>
-                        <li class=" emcodeProp17" data-sort="21" track="筛选条件:价格"><a href="javascript:void(0)">价格</a><i
+                        <li id="sort-price" class=" emcodeProp17" data-sort="3" track="筛选条件:价格"><a href="javascript:void(0)">价格</a><i
                                 class="icon-up-down"></i></li>
                     </ul>
                     <!-- 价格筛选 -->
-                    <ul class="filter-priceRange-box clearfix">
-                        <li class="priceRange-input"><input id="fc-lowPrice" maxlength="6" type="text" value="¥"></li>
+                    <ul class="filter-priceRange-box clearfix" id="filter">
+                        <li class="priceRange-input"><input id="fc-lowPrice" maxlength="6" type="text" placeholder="¥"></li>
                         <li class="priceRange-link">-</li>
-                        <li class="priceRange-input"><input id="fc-highPrice" type="text" maxlength="6" value="¥"></li>
+                        <li class="priceRange-input"><input id="fc-highPrice" type="text" maxlength="6" placeholder="¥"></li>
                         <li class="priceRange-btn"><a id="fc-btn-cancel" class="fc-btn-cancel"
                                                       href="javascript:void(0)">清除</a></li>
                         <li class="priceRange-btn"><a id="fc-btn-ok" class="fc-btn-ok" href="javascript:void(0)">确定</a>
                         </li>
                     </ul>
-                    <!-- 在结果中搜索 -->
-                    <div class="filter-resultSearch-box" style="display: block;">
-                        <input type="text" value="" class="filter-resultSearch-input">
-                        <a data-code="9000000600-0" href="javascript:void(0)" class="filter-resultSearch-btn">确定</a>
-                    </div>
                     <!-- 小翻页 -->
                     <div class="min-pager-box">
                         <a href="javascript:void(0)" class="min-pager-next" id="mp-next">&gt;</a>
@@ -373,144 +193,18 @@
             <div class="product-box">
                 <div class="product-waiting" id="product-waiting" style="display: none;"></div>
                 <ul class="product-lists clearfix" id="product-box">
-                    <li class="product-item" already="true">
-                        <input class="productInfo" type="hidden" gomeert=""
-                               markettag="0" prd-index="0" pid="9140054648"
-                               sid="1130550818" skuno="100462743"
-                               pname="松下（Panasonic）  即热式智能马桶盖  即热式基础款 温水冲洗 喷头自洁 DL-5210TCWS"
-                               price="" salecount="10">
-                        <ul class="arbitrage clearfix"></ul>
-                        <div class="item-tab-warp" sid="1130550818" pid="9140054648" pidandsid="9140054648-1130550818">
-                            <p class="item-pic">
-                                <a class="emcodeItem item-link" rel="nofollow"
-                                   href="product_details.html" track="产品列表图片"
-                                   target="_blank"
-                                   title="松下（Panasonic）  即热式智能马桶盖  即热式基础款 温水冲洗 喷头自洁 DL-5210TCWS"><img
-                                        src="//gfs17.gomein.net.cn/T1zJWQBvL_1RCvBVdK_210.jpg"
-                                        alt="松下（Panasonic）  即热式智能马桶盖  即热式基础款 温水冲洗 喷头自洁 DL-5210TCWS"></a></p>
-                            <p class="item-price"><span class="price">¥1889</span></p>
-                            <p class="item-name"><a rel="nofollow" class="emcodeItem item-link" track="产品列表名称"
-                                                    href="product_details.html" target="_blank"
-                                                    title="松下（Panasonic）  即热式智能马桶盖  即热式基础款 温水冲洗 喷头自洁 DL-5210TCWS">松下（Panasonic）
-                                即热式智能马桶盖 即热式基础款 温水冲洗 喷头自洁 DL-5210TCWS</a></p>
-                            <p class="item-promotional-language">【松下马桶盖大钜惠】【 下单送松下剃须刀 】 【店铺活动：全店实付满3000元送松下护眼灯
-                                全店实付满5000元送松下电饭煲 全店实付满7000元送松下手提除螨吸尘器】</p>
-                            <p class="item-comment-dispatching"><span class="dispatching">北京市有货</span> <a
-                                    href="//item.gome.com.cn/9140054648-1130550818.html#gm-other-info" target="_blank"
-                                    class="comment emcodeItem" track="产品列表评论数">1260</a></p>
-                            <p class="item-option clearfix">
-                                <span class="add-collection emcodeProp17" track="商品列表:收藏">收藏</span> <span track="添加购物车"
-                                                                                                          class="add-cart addTo-cart"
-                                                                                                          onclick="location.href='car.html'">加入购物车</span>
-                            </p>
-                            <p class="item-shop"><span class="nname">国美自营</span></p></div>
-                    </li>
+
                 </ul>
                 <div class="clearfix" id="product-pager">
-                    <div class="pager" id="j-page"><a class="prev disable" href="javascript:void(0);">&nbsp;上一页<s
-                            class="icon-prev"></s><i></i></a><span class="cur">1</span><a href="javascript:void(0);"
-                                                                                          onclick="javascript:doPageNumSearch(2);return false;">2</a><a
-                            href="javascript:void(0);" onclick="javascript:doPageNumSearch(3);return false;">3</a><span
-                            class="placeholder"></span><a href="javascript:void(0);"
-                                                          onclick="javascript:doPageNumSearch(8);return false;">8</a><a
-                            class="next" href="javascript:void(0);"
-                            onclick="javascript:doPageNumSearch(2);return false;">下一页<s
-                            class="icon-next"></s><i></i></a><label for="pagenum" class="txt-wrap">到<input type="text"
-                                                                                                           id="pNum"
-                                                                                                           class="txt"
-                                                                                                           bnum="8"
-                                                                                                           value="1">页</label><a
-                            href="javascript:void(0)" zdx="nBtn" class="btn">确定</a></div>
+                    <div class="pager">
+                        <a class="prev disable" href="javascript:void(0);">&nbsp;上一页<s class="icon-prev"></s><i></i></a>
+                        <a class="next " href="javascript:void(0);">下一页<s class="icon-next"></s><i></i></a>
+                        <label for="pagenum" class="txt-wrap">到<input type="text" id="pNum" class="txt" bnum="1" value="1">页</label>
+                        <a  href="javascript:void(0)" zdx="nBtn" id="sure" class="btn">确定</a></div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div id="gome-bar">
-    <div class="gome-aside" style="background: none;">
-        <ul>
-            <li id="gome-aside-cart" class="lang">
-                <b></b><a href="javascript:void(0)" class="lang"><i class="caricon caricon_num"></i><b
-                    class="car_num car_num_more" style="background: rgb(221, 0, 167);"><s>7</s><span
-                    class="point"></span></b><span class="text">购物车</span></a>
-            </li>
-
-            <li id="gome-aside-app">
-                <b></b><a data-code="1000043134" href="//prom.gome.com.cn/html/prodhtml/topics/201804/19/Download.html"
-                          target="_blank"><i></i></a>
-                <div></div>
-            </li>
-            <li id="gome-aside-survey">
-                <b></b><a rel="nofollow" data-code="1000043132" href="//survey.gome.com.cn/wj/dfe09aacc3.html"
-                          target="_blank"><i></i></a>
-                <div><p><a rel="nofollow" data-code="1000043132" href="//survey.gome.com.cn/wj/dfe09aacc3.html"
-                           target="_blank">有奖调研</a></p></div>
-            </li>
-            <li id="gome-aside-service">
-                <b></b><a class="live800-service" customer-entry="composite" customer-service-button-id="" orgi="111111"
-                          orgitype="1"><i></i></a>
-                <div><p><a class="live800-service" customer-entry="composite" customer-service-button-id=""
-                           orgi="111111" orgitype="1">在线客服</a></p></div>
-            </li>
-            <li id="gome-aside-backtop" style="visibility: hidden;">
-                <b></b><a href="javascript:void(0)"><i></i></a>
-                <div><p><a>返回顶部</a></p></div>
-            </li>
-        </ul>
-    </div>
-    <!-- gome-aside -->
-    <div id="gome-aside-app-code">
-        <a data-code="1000043134" href="//prom.gome.com.cn/html/prodhtml/topics/201804/19/Download.html"
-           target="_blank">
-            <img src="//app.gomein.net.cn/images/grey.gif" gome-src="//gfs11.gomein.net.cn/T1uBW_B5hv1RCvBVdK.png">
-            <strong>moren</strong></a>
-    </div>
-    <div id="gome-bar-box">
-        <div id="gome-bar-member" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="member-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading" style="top: 228.5px;">
-                    <img src="//app.gomein.net.cn/images/grey.gif"
-                         gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
-                </div>
-            </div>
-        </div>
-        <div id="gome-bar-cart" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span></h3>
-            <div id="cart-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading" style="top: 228.5px;">
-                    <img src="//app.gomein.net.cn/images/grey.gif"
-                         gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
-                </div>
-            </div>
-        </div>
-
-        <div id="gome-bar-favorites" class="gome-bar-box-wrap">
-            <h3><span class="gome-bar-close"></span><span class="gome-bar-title">我的收藏</span></h3>
-            <ul class="favorites-tab">
-                <li class="tab-item tab-item-goods selected">商品</li>
-                <li class="tab-item tab-item-shop">店铺</li>
-                <li class="tab-item tab-item-brand">品牌</li>
-            </ul>
-            <div id="favorites-body" class="gome-bar-box-body">
-                <div class="gome-bar-box-loading" style="top: 228.5px;">
-                    <img src="//app.gomein.net.cn/images/grey.gif"
-                         gome-src="//app.gomein.net.cn/gmlib/ui/loading/1.0.0/loading.gif">
-                </div>
-
-                <div id="favorites-main-scrool" class="favorites-main">
-                    <div class="main-item main-item-goods">
-                    </div>
-                    <div class="main-item main-item-shop">
-                    </div>
-                    <div class="main-item main-item-brand">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- gome-bar-coupon -->
-    </div>
-    <!-- gome-bar-box -->
 </div>
 <!--aside-->
 <div id="gome-help">
@@ -707,77 +401,92 @@
         <em class="turst-gome"></em>
     </div>
 </div>
-<!--foot-->
-<!--<script src="//js.gomein.net.cn/??gmlib/jq/1.7.1/jquery.js,gmlib/ui/json3/3.3.2/json3.js,gmlib/ui/arttemplate/2.0.4/template.min.js,gmlib/ui/arttemplate/2.0.4/template-simple.min.js,gmpro/1.0.0/public/1.0.0/js/category.min.js,gmlib/ui/gscroll/1.0.0/gscroll.min.js,gmlib/ui/dropdown/1.0.0/dropdown.min.js,gmpro/1.0.0/public/1.0.0/js/top-poster.min.js,sitemonitor/sa-sdk/sa.js,gmlib/cookie/1.0.0/cookie.js,gmpro/1.0.0/public/1.0.0/js/signtop.min.js,gmlib/unit/bigcode/1.0.0/bigcode.min.js,gmlib/unit/serviceEntrance/1.0.0/serviceEntrance.min.js,gmpro/1.0.0/public/1.0.0/js/autopoint.min.js,gmpro/1.0.0/public/1.0.0/js/search.min.js,gmpro/1.0.0/cart/1.0.0/js/head-cart/mCart.min.js,gmpro/1.0.0/cart/1.0.0/js/head-cart/cart.min.js,gmpro/1.0.0/public/1.0.0/js/foot.min.js,gmpro/1.0.0/public/1.0.0/js/aside.min.js?v=201908291745,gmlib/unit/g/1.0.0/g.min.js,gmlib/unit/pager/1.0.0/pager.min.js,gmlib/unit/cart/1.0.0/addCart.min.js,/gmlib/unit/gcontrast/1.0.0/gcontrast.min.js,/gmpro/1.0.0/news/1.0.0/js/s_code-gz.min.js,/gmlib/unit/gcity/1.0.0/gcity.min.js,gmlib/ui/gload/1.0.0/gload.min.js,gmpro/1.0.0/coupon/1.0.0/js/searchFacet.min.js,gmpro/1.0.0/coupon/1.0.0/js/searchBase.min.js,gmpro/1.0.0/coupon/1.0.0/js/searchProductEvent.min.js,gmpro/1.0.0/coupon/1.0.0/js/searchLazyLoad.min.js,gmpro/1.0.0/coupon/1.0.0/js/searchRelevant.min.js?0730"></script>-->
-<!--<script inbottom="">-->
-<!--$(function () {-->
-<!--window.compare_asyn = $("body").accordion({-->
-<!--obj: ".add-contrast",-->
-<!--objStyle: {-->
-<!--"background-position": "0 -61px"-->
-<!--},-->
-<!--domain: cookieDomain-->
-<!--})-->
-<!--})-->
-<!--</script>-->
+
 <link rel="stylesheet" href="css/juan_product.css">
-<!--对比-->
-<div class="gm-compareBox" id="gm-compareBox">
-    <div id="errorTips" class="errorTips">对比栏已满,您可以删除不需要的栏内商品再继续添加哦！</div>
-    <ul class="gm-compareBox-hd">
-        <li class="tabs-hide" id="gm-compareBox-hide">隐藏</li>
-        <li class="tabs cur">对比栏(<em id="compareNum">0</em>)</li>
-    </ul>
-    <div class="gm-compareBox-bd">
-        <div class="gm-compareBox-opt"><p><a href="javascript:void(0)" class="go-commpare disable" id="go-commpare"
-                                             target="">对比</a></p>
-            <p><a href="javascript:void(0)" class="clear-commpare" id="gm-compareBox-clear">清空对比栏</a></p></div>
-        <ul class="gm-compareBox-list" id="gm-compareBox-list">
-            <li class="item-compare">
-                <div class="default"><span>1</span>您还可以继续添加</div>
-            </li>
-            <li class="item-compare">
-                <div class="default"><span>2</span>您还可以继续添加</div>
-            </li>
-            <li class="item-compare">
-                <div class="default"><span>3</span>您还可以继续添加</div>
-            </li>
-            <li class="item-compare">
-                <div class="default"><span>4</span>您还可以继续添加</div>
-            </li>
-        </ul>
-    </div>
-</div>
-<script src="//js.gomein.net.cn/??gmlib/jq/1.7.1/jquery.js,sitemonitor/sa-sdk/sa.js,gmlib/cookie/1.0.0/cookie.js,gmpro/1.0.0/public/1.0.0/js/signtop.min.js,gmlib/unit/bigcode/1.0.0/bigcode.min.js,gmlib/unit/serviceEntrance/1.0.0/serviceEntrance.min.js,gmlib/ui/arttemplate/2.0.1/template.min.js,gmpro/1.0.0/public/member/js/searchautopoint.min.js,gmpro/1.0.0/cart/1.0.0/js/head-cart/cart.min.js,gmpro/1.0.0/cart/1.0.0/js/head-cart/mCart.min.js,gmpro/1.0.0/public/member/js/memberHead.min.js,gmpro/1.0.0/public/1.0.0/js/foot.min.js,gmpro/1.0.0/public/1.0.0/js/aside.min.js?v=201908281731,gmlib/unit/g/1.0.0/g.min.js,gmlib/unit/gomelib/1.0.0/gomelib.min.js,gmlib/unit/templatenav/1.0.0/templatenav.min.js,gmlib/ui/form/1.0.0/form.min.js,gmlib/ui/json3/3.3.2/json3.js,gmlib/ui/gload/1.0.0/gload.min.js,gmlib/ui/gclickshow/1.0.0/gclickshow.min.js,gmlib/ui/ghover/1.0.0/ghover.min.js,gmlib/ui/ginputfocus/1.0.0/ginputfocus.min.js,gmlib/ui/glaterimg/1.0.0/glaterimg.min.js,gmlib/ui/greplaceimg/1.0.0/greplaceimg.min.js,gmlib/ui/gshowhide/1.0.0/gshowhide.min.js,gmlib/ui/gbacktop/1.0.0/gbacktop.min.js,gmlib/ui/curnav/1.0.0/curnav.min.js,gmlib/ui/gslider/1.0.2/gslider.min.js,gmlib/ui/gpop/1.0.0/gpop.min.js,gmlib/unit/gcollect/1.0.0/gcollect.min.js,gmlib/unit/live800/1.0.0/live800.min.js,gmpro/2.0.0/memberClub/1.2.2/js/common/include/search.js,gmpro/2.0.0/memberClub/1.2.2/js/common/config.js,gmpro/2.0.0/memberClub/1.2.2/js/common/component.js,gmpro/2.0.0/memberClub/1.2.2/js/common/component/navTab.js,gmpro/2.0.0/memberClub/1.2.2/js/common/component/pager.js,gmpro/2.0.0/memberClub/1.2.2/js/common/component/combox.js,gmpro/2.0.0/memberClub/1.2.2/js/common/richTreasure/popBox.js,gmlib/unit/cart/1.0.0/addCart.min.js,gmpro/2.0.0/memberClub/1.2.2/js/memberClub/opSliderMemberClub.js,gmpro/2.0.0/memberClub/1.2.2/js/memberClub/gscroll.js,gmpro/2.0.0/memberClub/1.2.2/js/memberClub/memberClubTpl.js,gmpro/2.0.0/memberClub/1.2.2/js/memberClub/calendar.js,gmpro/2.0.0/memberClub/1.2.2/js/memberClub/memberClub.js"></script>
 
 <script type="text/javascript">
     $(function () {
-        $("a#a").attr("href", "car.html");
-        //更多显示字母
-        $("#more").click(function () {
-            if ($("#zm").is(':hidden')) {
-                $(this).html("<i></i>收起");
-                $(this).addClass("open");
-                $("#zm").show();
-
-            } else {
-                $(this).html("<i></i>更多");
-                $(this).removeClass("open")
-                $("#zm").hide();
+        findParentCategory();
+        search();
+        $("#lisnav li").live("hover",this,
+            function () {
+                $(this).addClass("bgw").siblings().removeClass("bgw");
+                $("#subnav").show();
+                var index = $(this).attr("cid");
+                $("#cid-" +index).show().siblings().hide();
+                // $("#loading1-sync>div").eq(index);
             }
+        );
+        //分类框失去焦点事件
+        $("#navBox,#subnav").hover(
+            function () {
+            },
+            function () {
+                $("#navBox").hide();
+                $("#subnav").hide();
+                $("#lisnav li").removeClass("bgw");
+            }
+        );
+        $(".sidecategory").hover(function () {
+            $("#navBox").show();
+        },function () {
 
-        });
-        //显示送至地址
-        $("#address").click(function () {
-            $(this).addClass("gctCur");
-            $("#details").show();
-        });
-        //关闭送至地址
-        $("#cityClose").click(function () {
-            $("#address").removeClass("gctCur");
-            $("#details").hide();
         });
     });
+    //显示商品一级
+    function findParentCategory() {
+        $.getJSON("../../category/findParentCategory?pid=0", function (json) {
+            for (var i = 0; i < json.length; i++) {
+                category(json[i].cid);
+                var li = "<li class='first edit-mode nav-item' data-index='" + i + "' cid='" + json[i].cid + "'> <h3>"
+                li += " <a href='javascript:;' target='_blank' >" + json[i].name + "</a>";
+                li += " </h3></li>";
+                $("#lisnav").append(li);
+            }
+
+        })
+    }
+
+    //根据分类编号查询子分类
+    function category(cid) {
+        $.getJSON("../../category/findCategoryAndChild",{"parentId":cid}, function (json) {
+            var div="<div class='fullcategory' style='display: none;' id='cid-"+cid+"'><div class='fullcategory-left'>";
+            div+=" <div class='fullcategory-title'>";
+            var divs="";
+            for(var i=0;i<json.length;i++){
+                div+="<a href='#' title='"+json[i].name+"'>"+json[i].name+"<i></i></a>";
+                divs+="<div class='fullcategory-content' style='width: 769px;'><ul class='fullcategory-list' style='width: 769px;'>  <div class='title' style='margin-top: -8px;_margin: -8px 0;'>"+json[i].name+"</div> <div class='list' style='width: 700px;'>";
+                var list=json[i].categoryChildren;
+                var divss="";
+                for(var j=0;j<list.length;j++){
+                    divss+="<a href='categoryList.html?cid="+list[j].cid+"&level="+list[j].clevel+"' target='_blank' class='hot'  title='"+list[j].name+"'>"+list[j].name+"</a>";
+                    var lists=json[i].categoryChildren[j].categoryChildren;
+                    for(var k=0;k<lists.length;k++){
+                        divss+="<a href='categoryList.html?cid="+lists[k].cid+"&level="+lists[k].clevel+"' target='_blank'  title='"+lists[k].name+"'>"+lists[k].name+"</a>";
+                    }
+                    divs+=divss;
+                }
+                divs+="</div></ul></div>";
+            }
+            div+="</div>";
+            div+="<div class='fullcategory-content-box' id='fullcategory-content-box'style='width: 769px;'>";
+            div+=divs;
+            div+="</div></div></div>";
+            $("#loading1-sync").append(div);
+        });
+    }
+
+    //搜索跳转
+    function search() {
+        $(".search-btn").click(function () {
+            var input=$("#searchInput").val();
+            if(input==""){
+                input="华为";
+            }
+            var content = encodeURI(encodeURI(input));
+            window.location.href='categoryLists.html?content='+content;
+        });
+    }
 </script>
 </body>
 </html>
