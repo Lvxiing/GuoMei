@@ -73,12 +73,13 @@ public class ScoreController {
             Score scores=new Score();
             scores.setUserId(uid);
             if(scoreType_name.equals("购物")){
-                Double money = new Double(map.get("money").toString());
-                BigDecimal big = new BigDecimal(Double.valueOf(scoreType.getValue().toString()));
-                double score=Math.ceil(money*big.setScale(1,BigDecimal.ROUND_HALF_UP).doubleValue());
-                scores.setScores(Integer.valueOf(String.valueOf(score)));
+                double money =  Double.valueOf(map.get("money").toString());
+                double score= scoreType.getValue().doubleValue();
+                double num = money *score;
+                scores.setScores((int)num);
             }else{
-                scores.setScores(Integer.valueOf(scoreType.getValue().toString()));
+                BigDecimal big = new BigDecimal(Double.valueOf(scoreType.getValue().toString()));
+                scores.setScores(Integer.valueOf(big.toString()));
             }
 
             return   scoreService.save(scores)?1:0;

@@ -34,6 +34,7 @@
             <if test="end!='null' and end!='' and  start!='null' and start!='' ">
                 and STR_TO_DATE(#{start}, '%Y-%m-%d %H') &gt;=start_time AND STR_TO_DATE(#{end}, '%Y-%m-%d %H') &lt;=end_time
             </if>
+            and coupon_status != -1
         </where>
     </select>
 
@@ -93,5 +94,11 @@
             </foreach>
 
         AND user_id = #{uid} AND r.status = 0
+    </select>
+
+    <select id="findCouponQuanInfo" resultType="map">
+        SELECT * FROM coupon  c
+        INNER JOIN category g ON c.category_id= g.category_id
+        WHERE coupon_id=#{cid}
     </select>
 </mapper>

@@ -187,20 +187,20 @@ var level;
 function value() {
     var re=GetRequest();
     $.ajax({
-        url:"../../coupon/couponFindAllQian",
+        url:"../../coupon/findCouponQuanInfo",
         type:"get",
         async:false,    //改为同步请求赋值于群居变量
         data:{"cid":re.cid},
         success:function (json) {
-             cid=json.list[0].category_id;
-             level=json.list[0].category_level;
-            var dateee = new Date(json.list[0].end_time).toJSON();
+             cid=json.category_id;
+             level=json.category_level;
+            var dateee = new Date(json.start_time).toJSON();
             var times= new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-            var dateee2 = new Date(json.list[0].end_time).toJSON();
+            var dateee2 = new Date(json.end_time).toJSON();
             var times2= new Date(+new Date(dateee2) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-             var div="<div  id='blueTicket'><div class='use_blue_ticket' id='blue_tickets'><p class='title'>"+json.list[0].coupon_name+"</p>";
-                 div+="<p class='price'><b class='tip'>¥</b> <i class='priceNo'>"+json.list[0].coupon_money+"</i><b class='pricelast'>.00</b></p>";
-                div+=" <p class='useterm'><span class='limitspan'>线上专享</span>满"+json.list[0].full_money+"可用</p>";
+             var div="<div  id='blueTicket'><div class='use_blue_ticket' id='blue_tickets'><p class='title'>"+json.coupon_name+"</p>";
+                 div+="<p class='price'><b class='tip'>¥</b> <i class='priceNo'>"+json.coupon_money+"</i><b class='pricelast'>.00</b></p>";
+                div+=" <p class='useterm'><span class='limitspan'>线上专享</span>满"+json.full_money+"可用</p>";
                 div+="<p class='time'><span>"+times.substring(0,10)+"</span> - <span>"+times2.substring(0,10)+"</span></p></div> </div>";
                 $(".yingxiaoquan").append(div);
 

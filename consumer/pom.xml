@@ -108,6 +108,18 @@
         </dependency>
 
 
+        <!--邮件发送工具-->
+        <!--Apache-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-email</artifactId>
+            <version>1.5</version>
+        </dependency>
 
         <!-- websocket依赖web -->
         <dependency>
@@ -121,8 +133,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
-
-
 
     </dependencies>
 

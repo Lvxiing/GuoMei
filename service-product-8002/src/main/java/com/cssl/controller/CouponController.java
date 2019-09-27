@@ -58,6 +58,12 @@ public class CouponController {
         return map;
     }
 
+    @RequestMapping("findCouponQuanInfo")
+    @ResponseBody
+    public Map<String,Object> findCouponQuanInfo(@RequestParam("cid") Integer cid){
+        return couponService.findCouponQuanInfo(cid);
+    }
+
 
     @ResponseBody
     @RequestMapping("couponFindAllQian")
@@ -124,9 +130,6 @@ public class CouponController {
         coupon.setEndTime(end);
         coupon.setCouponMoney(BigDecimal.valueOf(Double.valueOf(map.get("price").toString())));
         coupon.setType(Integer.valueOf(map.get("type").toString()));
-        if (map.get("fullPrice").toString() != null) {
-
-        }
         if (map.get("fullPrice") != null && !"".equals(map.get("fullPrice"))) {
             double price = Double.valueOf(map.get("fullPrice").toString());
             coupon.setFullMoney(BigDecimal.valueOf(price));

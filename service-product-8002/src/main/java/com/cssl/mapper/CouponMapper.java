@@ -29,4 +29,6 @@ public interface CouponMapper extends BaseMapper<Coupon> {
 
     //查询当前用户可使用的优惠券
     List<Map<String,Object>> findMyCoupon(Map<String,Object>map);
+
+    Map<String,Object> findCouponQuanInfo(Integer cid);
 }
