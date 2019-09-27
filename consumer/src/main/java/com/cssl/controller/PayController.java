@@ -76,7 +76,7 @@ public class PayController {
         //退款成功后的操作
         String cid = productFeignInterface.returnSuccess(Integer.valueOf(map.get("cid").toString()));
         if("success".equals(cid)){
-            return "redirect:/pay-success.html";
+            return "redirect:/pay-success.html?bs=yes";
         }
         return null;
 
