@@ -17,7 +17,6 @@ spring:
     cache: false
     prefix: classpath:/templates/
     suffix: .html
-
   #spring:
   application:
     name: consumer
@@ -36,6 +35,8 @@ spring:
         max-wait: -1
         max-idle: 5
         min-idle: -1
+  mail:
+    host: 127.0.0.1
 
 eureka:
   client:
