@@ -193,9 +193,9 @@
                 $("[name=userName]").text(result[i].userName);
                 $("[name=gradeName]").text(result[i].gradeName);
                 $("[name=headImg]").attr("src",result[i].headImg);
-                var balance=result[i].high-result[i].growupSum;
-                $("#balance").text(balance);
             }
+            var balance=result[0].high-result[0].growupSum;
+            $("#balance").text(balance);
             var level =document.getElementsByName("level");
             for(var j = 0;j<level.length;j++)
             {
