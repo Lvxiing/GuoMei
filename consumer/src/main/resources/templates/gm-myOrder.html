@@ -471,6 +471,16 @@
 
 <script type="text/javascript">
     $(function () {
+        //悬浮显示用户信息
+        $(".name_11926392274").live({
+            mouseenter:function f() {
+                var num=$(this).attr("num");
+                $("#info-"+num).show();
+            },mouseleave:function f1() {
+                var num=$(this).attr("num");
+                $("#info-"+num).hide();
+            }
+        });
         //悬浮字体变色
         $(".side-nav  div ul li").hover(
             function () {

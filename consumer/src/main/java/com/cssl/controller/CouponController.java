@@ -48,7 +48,7 @@ public class CouponController {
     @RequestMapping("userCouponCount")
     @ResponseBody
     public Map<String,Object> userCouponCount(HttpSession session){
-        Users users = (Users)session.getAttribute("users");
+        Users users = (Users)session.getAttribute("user");
         return productFeignInterface.userCouponCount(users.getId());
     }
 

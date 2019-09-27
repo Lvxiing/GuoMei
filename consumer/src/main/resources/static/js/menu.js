@@ -69,6 +69,9 @@ function category(cid) {
 function search() {
     $(".search-btn").click(function () {
         var input=$("#searchInput").val();
+        if(input==""){
+            input="华为";
+        }
         var content = encodeURI(encodeURI(input));
         window.location.href='categoryLists.html?content='+content;
     });

@@ -18,12 +18,11 @@
     <meta http-equiv="expires" content="0">
     <meta name="applicable-device" content="pc">
     <link rel="canonical" href="https://lingquan.gome.com.cn/">
-    <script src="js/jquery-1.8.3.js"></script>
-    <script src="js/menu.js"></script>
     <link rel="stylesheet" href="css/201908211806.css">
     <link href="css/Css.css" rel="stylesheet">
     <script src="layui/layui.js"></script>
     <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="js/jquery-1.8.3.js"></script>
     <style>
         .template-html img {
             background: url(static/image/juan/T18hDvBj_g1RCvBVdK.png) #efefef no-repeat center;
@@ -82,7 +81,7 @@
     <div class="category wbox">
         <div class="sidecategory">
             <h2><span></span><a data-code="1000036957" href="javascript:;" target="_blank">全部商品分类</a></h2>
-            <div id="navBox" class='lisnav'>
+            <div id="navBox" class='lisnav'style="background: #686868;display: none">
                 <div class="lisbg"></div>
                 <ul class="lisnav-ul" id="lisnav">
 
@@ -308,6 +307,33 @@
 
 <script type="text/javascript">
     $(function(){
+        findParentCategory();
+        search();
+        $("#lisnav li").live("hover",this,
+            function () {
+                $(this).addClass("bgw").siblings().removeClass("bgw");
+                $("#subnav").show();
+                var index = $(this).attr("cid");
+                $("#cid-" +index).show().siblings().hide();
+                // $("#loading1-sync>div").eq(index);
+            }
+        );
+        //分类框失去焦点事件
+        $("#navBox,#subnav").hover(
+            function () {
+            },
+            function () {
+                $("#navBox").hide();
+                $("#subnav").hide();
+                $("#lisnav li").removeClass("bgw");
+            }
+        );
+        $(".sidecategory").hover(function () {
+            $("#navBox").show();
+        },function () {
+            
+        });
+
          load("null","null");
         //点击显示不同的查条件
         $(".cM_Type a").click(function () {
@@ -374,13 +400,69 @@
                       li+="</div>";
                       //判断没有卷时不显示进度条
                      if(c.coupon_count>0){
-                        li+=" <div class='coupon_wbox_content_line' style='margin-left: 17px;margin-top: 6px'> <div class='line'> <b class='red_line' style='width: "+c.count/c.coupon_count*100+"%;'></b> </div> <div class='red_line_r'>剩余"+(c.coupon_count-c.count)/c.coupon_count*100+"%</div> </div> </li>";
+                        li+=" <div class='coupon_wbox_content_line' style='margin-left: 17px;margin-top: 6px'> <div class='line'> <b class='red_line' style='width: "+Math.floor(c.count/c.coupon_count*100)+"%;'></b> </div> <div class='red_line_r'>剩余"+Math.floor((c.coupon_count-c.count)/c.coupon_count*100)+"%</div> </div> </li>";
                      }else{
                          li+="<div class='broughtout'></div>";
                      }
                        $("ul#coupon").append(li);
                 }
             }
+        });
+    }
+
+
+    //显示商品一级
+    function findParentCategory() {
+        $.getJSON("../../category/findParentCategory?pid=0", function (json) {
+            for (var i = 0; i < json.length; i++) {
+                category(json[i].cid);
+                var li = "<li class='first edit-mode nav-item' data-index='" + i + "' cid='" + json[i].cid + "'> <h3>"
+                li += " <a href='javascript:;' target='_blank' >" + json[i].name + "</a>";
+                li += " </h3></li>";
+                $("#lisnav").append(li);
+            }
+
+        })
+    }
+
+    //根据分类编号查询子分类
+    function category(cid) {
+        $.getJSON("../../category/findCategoryAndChild",{"parentId":cid}, function (json) {
+            var div="<div class='fullcategory' style='display: none;' id='cid-"+cid+"'><div class='fullcategory-left'>";
+            div+=" <div class='fullcategory-title'>";
+            var divs="";
+            for(var i=0;i<json.length;i++){
+                div+="<a href='#' title='"+json[i].name+"'>"+json[i].name+"<i></i></a>";
+                divs+="<div class='fullcategory-content' style='width: 769px;'><ul class='fullcategory-list' style='width: 769px;'>  <div class='title' style='margin-top: -8px;_margin: -8px 0;'>"+json[i].name+"</div> <div class='list' style='width: 700px;'>";
+                var list=json[i].categoryChildren;
+                var divss="";
+                for(var j=0;j<list.length;j++){
+                    divss+="<a href='categoryList.html?cid="+list[j].cid+"&level="+list[j].clevel+"' target='_blank' class='hot'  title='"+list[j].name+"'>"+list[j].name+"</a>";
+                    var lists=json[i].categoryChildren[j].categoryChildren;
+                    for(var k=0;k<lists.length;k++){
+                        divss+="<a href='categoryList.html?cid="+lists[k].cid+"&level="+lists[k].clevel+"' target='_blank'  title='"+lists[k].name+"'>"+lists[k].name+"</a>";
+                    }
+                    divs+=divss;
+                }
+                divs+="</div></ul></div>";
+            }
+            div+="</div>";
+            div+="<div class='fullcategory-content-box' id='fullcategory-content-box'style='width: 769px;'>";
+            div+=divs;
+            div+="</div></div></div>";
+            $("#loading1-sync").append(div);
+        });
+    }
+
+    //搜索跳转
+    function search() {
+        $(".search-btn").click(function () {
+            var input=$("#searchInput").val();
+            if(input==""){
+                input="华为";
+            }
+            var content = encodeURI(encodeURI(input));
+            window.location.href='categoryLists.html?content='+content;
         });
     }
 </script>
