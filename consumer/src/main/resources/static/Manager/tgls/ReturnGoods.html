@@ -41,29 +41,29 @@
 
 <body>
 <div class="cBody">
-    <div class="console">
-        <form class="layui-form" action="">
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label">订单号</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="orderNo" id="orderNo" placeholder="请输入" autocomplete="off"
-                               class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">收货人</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="name" id="name" placeholder="请输入" autocomplete="off"
-                               class="layui-input">
-                    </div>
-                </div>
+    <!--<div class="console">-->
+        <!--<form class="layui-form" action="">-->
+            <!--<div class="layui-form-item">-->
+                <!--<div class="layui-inline">-->
+                    <!--<label class="layui-form-label">订单号</label>-->
+                    <!--<div class="layui-input-inline">-->
+                        <!--<input type="text" name="orderNo" id="orderNo" placeholder="请输入" autocomplete="off"-->
+                               <!--class="layui-input">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="layui-inline">-->
+                    <!--<label class="layui-form-label">收货人</label>-->
+                    <!--<div class="layui-input-inline">-->
+                        <!--<input type="text" name="name" id="name" placeholder="请输入" autocomplete="off"-->
+                               <!--class="layui-input">-->
+                    <!--</div>-->
+                <!--</div>-->
 
-                <button type="button" class="layui-btn" id="serch" onclick="query()" data-type="reload" style="margin-bottom: 6px">搜索</button>
+                <!--<button type="button" class="layui-btn" id="serch" onclick="query()" data-type="reload" style="margin-bottom: 6px">搜索</button>-->
 
-            </div>
-        </form>
-    </div>
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
 
     <table class="layui-table" id="table" lay-filter="table"></table>
 
@@ -98,6 +98,7 @@
                 }
                 ,cols: [[ //表头
                     {field: "uid", title: "user_id",hide:true},
+                    {field: "detail_id", title: "detail_id",hide:true},
                     {field: 'order_no', title: '订单编号'},
                     {field: 'address_name', title: '收货人'},
                     {field: 'goods_title', title: '商品名称'},
@@ -118,6 +119,27 @@
                         }},
                     ,{field: 'right', title: '操作', toolbar: '#barDemo'}
                 ]]
+            });
+            //监听行工具事件
+            table.on('tool(table)', function(obj){
+                var data = obj.data //获得当前行数据
+                    ,layEvent = obj.event; //获得 lay-event 对应的值
+                var mess = "确认同意退款吗?";
+                var msg = "退款成功";
+                layer.confirm(mess, function () {
+                    $.getJSON("/Orders/updateReturnStatus?detail_id="+data.detail_id, function (json) {
+                        if (json.abc == 'true') {
+                            layer.closeAll('dialog');//关闭当前confirm窗口
+                            layer.msg(msg, {time: 800}, function () {
+                                layer.close(layer.index); //关闭当前窗口
+                                location.reload();//刷新
+                            });
+                        }else{
+                            layer.msg("失败");
+                        }
+                    })
+                });
+
             });
         });
 

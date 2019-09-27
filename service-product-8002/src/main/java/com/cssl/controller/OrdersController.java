@@ -360,4 +360,15 @@ public class OrdersController {
         pages.setTotalCount((int) maps.getTotal());
         return pages;
     }
+
+    //申请退款修改状态
+    @RequestMapping("/updateReturnStatus")
+    @ResponseBody
+    public boolean updateReturnStatus(@RequestParam("detail_id")Integer detail_id){
+        OrderDetail orderDetail=new OrderDetail();
+        orderDetail.setDstatus(2);
+        orderDetail.setId(detail_id);
+        boolean b = orderDetailService.updateById(orderDetail);
+        return b;
+    }
 }
