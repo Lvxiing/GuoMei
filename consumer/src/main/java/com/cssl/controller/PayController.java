@@ -51,7 +51,22 @@ public class PayController {
         //成功处理后返回success
         response.getWriter().write("success");
     }
-
+    //申请退款修改状态
+    @RequestMapping("/updateReturnStatus")
+    @ResponseBody
+    public String updateReturnStatus(@RequestParam("detail_id")Integer detail_id,@RequestParam("order_no")String order_no,@RequestParam("detail_money")Integer detail_money, HttpServletResponse response,HttpSession session)throws IOException, AlipayApiException{
+        boolean b = productFeignInterface.updateReturnStatus(detail_id);
+        String json="{\"abc\":\"false\"}";
+        if(b){
+            json="{\"abc\":\"true\"}";
+            Map<String,Object>map=new HashMap<>();
+            map.put("no",order_no);
+            map.put("no",detail_id);
+            map.put("no",detail_money);
+            refund(map,response,session);
+        }
+        return json;
+    };
     @RequestMapping("refund")
     public String refund(@RequestParam Map<String,Object> map, HttpServletResponse response,HttpSession session) throws IOException, AlipayApiException {
         response.setContentType("text/html;charset=utf-8");
