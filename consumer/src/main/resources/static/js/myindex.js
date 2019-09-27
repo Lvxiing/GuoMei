@@ -25,7 +25,7 @@ function findOrdersByUserId() {
         if(list.length==0){
             noData();
         }else{
-            for(var i=0;i<list.length;i++){
+            for(var i=0;i<4;i++){
                 findOrdersDetail(list[i].order_no,list[i].order_id,);
             }
         }

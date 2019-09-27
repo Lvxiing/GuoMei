@@ -36,6 +36,10 @@ public interface OrdersService extends IService<Orders> {
     // //用户支付订单详情
     List<Map<String,Object>> userPayInfo(Integer oid);
 
+    //根据订单号查询商品
+    Map<String,Object> findGoodsByOno(Map<String,Object> map);
+
+
     //-----------------------后台-----------------------
     //根据订单编号查询用户id，商品id,订单id
     public List<Map<String,Object>>byGoodId(String order_no);

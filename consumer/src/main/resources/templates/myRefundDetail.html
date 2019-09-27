@@ -76,9 +76,6 @@
                 </div>
                 <!--min 购物车-->
                 <div class="shopcartbox">
-                    <a rel="nofollow" class="shopinglist ucCart" target="_blank" id="a">
-                        <em>购物车</em><span>1</span>件<i></i>
-                    </a>
                     <!--隐藏的迷你购物车列表-->
                     <div class="menuhide j-overflowy" id="miniShoppingcartLoadId">
                         <div class="mini-products"><h2 class="hdrcartitle">最近加入的商品：</h2>
@@ -344,6 +341,33 @@
     });
 </script>
 
+<script type="text/javascript">
+    $(function(){
+        var url = GetRequest();
+        var ono = url.ono;
+        ono = ono.substring(36, ono.length);
+        var gid = url.gid;
+        selectGoodsInfo(gid,ono);
+    })
+    //查询当前进行退货的商品信息
+    function selectGoodsInfo(gid,ono){
+        $.getJSON("Orders/findGoodsByOno",{"gid":gid,"no":ono},function(json){
+            alert(json);
+        })
+    }
 
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+</script>
 </body>
 </html>
