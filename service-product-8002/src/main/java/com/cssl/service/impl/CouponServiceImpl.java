@@ -54,4 +54,9 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
     public List<Map<String, Object>> findMyCoupon(Map<String, Object> map) {
         return couponMapper.findMyCoupon(map);
     }
+
+    @Override
+    public Map<String, Object> findCouponQuanInfo(Integer cid) {
+        return couponMapper.findCouponQuanInfo(cid);
+    }
 }
