@@ -179,4 +179,11 @@
         WHERE o.order_id = #{oid}
 
     </select>
+
+    <select id="findGoodsByOno" resultType="map" parameterType="map">
+        SELECT * FROM orders o
+        INNER JOIN order_detail d ON o.order_id = d.order_id
+        INNER JOIN goods g ON d.goods_id = g.`goods_id`
+        WHERE user_id =#{uid} AND d.goods_id=#{gid}  AND order_no=#{no}
+    </select>
 </mapper>

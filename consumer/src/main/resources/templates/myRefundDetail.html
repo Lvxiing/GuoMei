@@ -76,9 +76,6 @@
                 </div>
                 <!--min 购物车-->
                 <div class="shopcartbox">
-                    <a rel="nofollow" class="shopinglist ucCart" target="_blank" id="a">
-                        <em>购物车</em><span>1</span>件<i></i>
-                    </a>
                     <!--隐藏的迷你购物车列表-->
                     <div class="menuhide j-overflowy" id="miniShoppingcartLoadId">
                         <div class="mini-products"><h2 class="hdrcartitle">最近加入的商品：</h2>
@@ -180,7 +177,8 @@
                          style="padding-bottom:18px;width:450px;">
                         <div id="applyTypesRightContainer_6"
                              class="mod-applytype-item applyTypeItem applyrouter-applyTypesRightContainer">
-                            <a href="" title="我要退货退款"><img src="//img.alicdn.com/tps/TB1NHfKKFXXXXaUaXXXXXXXXXXX-102-102.png" alt="我要退货退款">
+                            <a href="" title="我要退货退款"><img
+                                    src="//img.alicdn.com/tps/TB1NHfKKFXXXXaUaXXXXXXXXXXX-102-102.png" alt="我要退货退款">
                                 <div class="mod-applytype-col">
                                     <h3 class="mod-applytype-tit" style="margin-top: 16px">我要退货退款</h3></div>
                             </a>
@@ -189,29 +187,13 @@
                     </div>
                 </div>
             </div>
-            <div style="width: 1000px" class="cont-l-botoom" >
+            <div style="width: 1000px" class="cont-l-botoom">
                 <div id="shipping-goods-list"><h3>退款商品</h3>
                     <div class="nProductHd clearfix"><span class="pCol-name vAlignC">商品</span> <span
-                            class="pCol-price vAlignC" style="width: 318px">单价(元)</span> <span class="pCol-nums vAlignC">数量</span></div>
+                            class="pCol-price vAlignC" style="width: 318px">单价(元)</span> <span
+                            class="pCol-nums vAlignC">数量</span></div>
                     <ul class="nProductLists">
-                        <li class="list clearfix gome-list">
-                            <dl class="nProduct-tj">
-                                <dd class="tjFirst clearfix">
-                                    <div class="pCol-img"><a title="乾越 双层磨砂杯 水杯 杯盖可装茶叶 夏季随手杯子 颜色随机(1个颜色随机)"
-                                                             href="//item.gome.com.cn/A0005358228-pop8006368395.html"
-                                                             target="_blank"> <img
-                                            src="//gfs17.gomein.net.cn/T1j2VTBgdT1RCvBVdK_80.jpg"
-                                            onerror="this.src='//img.gomein.net.cn/images/grey.gif';"> </a></div>
-                                    <div class="pCol-name"><p><a class="nBlue"
-                                                                 title="乾越 双层磨砂杯 水杯 杯盖可装茶叶 夏季随手杯子 颜色随机(1个颜色随机)"
-                                                                 href="//item.gome.com.cn/A0005358228-pop8006368395.html"
-                                                                 target="_blank">乾越 双层磨砂杯 水杯 杯盖可装茶叶 夏季随手杯子
-                                        颜色随机(1个颜色随机)</a></p></div>
-                                    <div class="pCol-price vAlignC moneyFont"><em class="moneyFont">¥</em>6.90</div>
-                                    <div class="pCol-nums vAlignC">1</div>
-                                </dd>
-                            </dl>
-                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -344,6 +326,35 @@
     });
 </script>
 
+<script type="text/javascript">
+    $(function () {
+        var url = GetRequest();
+        var ono = url.ono;
+        ono = ono.substring(36, ono.length);
+        var gid = url.gid;
+        selectGoodsInfo(gid, ono);
+    })
 
+    //查询当前进行退货的商品信息
+    function selectGoodsInfo(gid, ono) {
+        $.getJSON("Orders/findGoodsByOno", {"gid": gid, "no": ono}, function (json) {
+            var li = "<li class='list clearfix gome-list'> <dl class='nProduct-tj'> <dd class='tjFirst clearfix'> <div class='pCol-img'><a title='"+json.goods_title+"' href='product_details.html?gid="+json.goods_id+"' target='_blank'> <img src='"+json.goods_main_img+"' > </a></div> <div class='pCol-name'><p><a class='nBlue' title='"+json.goods_title+"' href='product_details.html?gid="+json.goods_id+"' target='_blank'>"+json.goods_title+"</a></p></div> <div class='pCol-price vAlignC moneyFont' style='margin-left: 105px;'><em class='moneyFont'>¥</em>"+json.goods_price+"</div> <div class='pCol-nums vAlignC'>"+json.detail_num+"</div> </dd> </dl> </li>";
+            $("ul.nProductLists").append(li);
+        });
+    }
+
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+</script>
 </body>
 </html>

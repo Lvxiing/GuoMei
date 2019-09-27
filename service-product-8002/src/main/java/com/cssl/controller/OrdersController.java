@@ -189,6 +189,13 @@ public class OrdersController {
         return ordersService.findAddressByOrder(oid);
     }
 
+    //根据订单号查询商品
+    @RequestMapping("findGoodsByOno")
+    @ResponseBody
+    public Map<String,Object> findGoodsByOno(@RequestParam Map<String,Object> map){
+        return ordersService.findGoodsByOno(map);
+    }
+
     //-----------------------------后台模块----------------------------
     //查询所有订单详情
     @RequestMapping("/orderList/{pageIndex}/{pageSize}/{orderNo}/{name}")

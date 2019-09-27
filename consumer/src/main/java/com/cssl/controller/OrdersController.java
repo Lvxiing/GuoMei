@@ -90,6 +90,16 @@ public class OrdersController {
         return productFeignInterface.userPayInfo(map);
     }
 
+    //根据订单号查询商品
+    @RequestMapping("findGoodsByOno")
+    @ResponseBody
+    public Map<String,Object> findGoodsByOno(HttpSession session,@RequestParam Map<String,Object> map){
+        Users users = (Users)session.getAttribute("user");
+        map.put("uid",users.getId());
+        System.out.println("productFeignInterface.findGoodsByOno(map) = " + productFeignInterface.findGoodsByOno(map));
+        return productFeignInterface.findGoodsByOno(map);
+    }
+
 
     //-------------------------后台------------------------
     //查询所有和模糊查询和分页

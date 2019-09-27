@@ -235,6 +235,9 @@ public interface ProductFeignInterface {
     @RequestMapping("orders/userPayInfo")
     Map<String, Object> userPayInfo(@RequestParam Map<String, Object> map);
 
+    @RequestMapping("orders/findGoodsByOno")
+    Map<String,Object> findGoodsByOno(@RequestParam Map<String,Object> map);
+
     //--------------------------后台模块----------------------------------
 
     //----------------------------优惠券后台模块------------------

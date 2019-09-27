@@ -129,6 +129,11 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         return ordersMapper.userPayInfo(oid);
     }
 
+    @Override
+    public Map<String, Object> findGoodsByOno(Map<String, Object> map) {
+        return ordersMapper.findGoodsByOno(map);
+    }
+
 
     @Override
     public List<Map<String, Object>> byGoodId(String order_no) {
