@@ -61,9 +61,13 @@ public class OrdersController {
     @RequestMapping("returnMoney")
     @ResponseBody
     public String returnMoney(@RequestParam Map<String, Object> map) {
+
         Orders orders = ordersService.getOne(new QueryWrapper<Orders>().eq("order_no", map.get("no")));
         OrderDetail orderDetail = new OrderDetail();
-        orderDetail.setDstatus(1);
+        orderDetail.setDstatus(1);//退货
+        if(Integer.valueOf(map.get("bs").toString())==2){
+            orderDetail.setDstatus(3);//退货退款
+        }
         boolean update = orderDetailService.update(orderDetail, new UpdateWrapper<OrderDetail>().eq("order_id", orders.getId()).eq("goods_id", map.get("gid")));
         if (update) {
             String json = "{\"code\":\"success\"}";
