@@ -61,10 +61,16 @@ public class OrdersController {
     @RequestMapping("orderSuccess")
     @ResponseBody
     public String orderSuccess(@RequestParam String orderNo) {
+
         //支付成功时间
         Orders order = ordersService.getOne(new QueryWrapper<Orders>().eq("order_no", orderNo));
         order.setPayDate(new Date());
-        order.setStatus(2);//已付款
+        if(order.getStatus() == 7){
+            order.setStatus(7);//门店自提
+        }else{
+            order.setStatus(2);//已付款
+        }
+
         boolean b = ordersService.updateById(order);
         return b ? "success" : "error";
     }
