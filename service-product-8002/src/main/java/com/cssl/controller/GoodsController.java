@@ -159,7 +159,6 @@ public class GoodsController {
     @ResponseBody
     public String addGoods(@RequestParam Map<String, Object> map) throws Exception {
         Integer vip = new Integer(map.get("vip").toString());
-        Integer ms = new Integer(map.get("ms").toString());
         Integer cid = new Integer(map.get("brand").toString());
         Integer stock = new Integer(map.get("stock").toString());
         Double price = new Double(map.get("price").toString());
@@ -181,7 +180,7 @@ public class GoodsController {
         goods.setDes(map.get("desc").toString());
         goods.setState(state);
         goods.setBid(brandid);
-        goods.setSeckill(ms);
+        goods.setSeckill(0);
         res = goodsService.addGoods(goods);
 
         Brand brand_id = brandService.getOne(new QueryWrapper<Brand>().eq("brand_id", brandid));
@@ -220,7 +219,6 @@ public class GoodsController {
         Double price = new Double(map.get("price").toString());
         Integer stock = new Integer(map.get("stock").toString());
         Integer state = new Integer(map.get("state").toString());
-        Integer ms = new Integer(map.get("ms").toString());
         Integer cid = new Integer(map.get("brand").toString());
         Goods goods = new Goods();
         Integer grade = null;
@@ -238,7 +236,7 @@ public class GoodsController {
         goods.setStock(stock);
         goods.setDes(map.get("desc").toString());
         goods.setState(state);
-        goods.setSeckill(ms);
+        goods.setSeckill(0);
         goods.setBid(bid);
 
         Brand brand_id = brandService.getOne(new QueryWrapper<Brand>().eq("brand_id", bid));
